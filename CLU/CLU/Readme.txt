@@ -1,8 +1,8 @@
 CLU (Codified Likeness Utility) the Rotation CC for Combat/Raid/Lazyraider bots Powered by Felmaster technology
 
-Latest Version: 3.0.11 (From SVN).
+Latest Version: 3.1.0 (From SVN).
 
-Current Issues Updated: 26/August/2012
+Current Issues Updated: 28/August/2012
 =================================
 * [Movement] No Pull Logic (Will cast ranged spells to pull)
 * [Movement] PvP Tweaking needed, Use at your own peri
@@ -19,22 +19,31 @@ Donations are not permitted.
 Support is provided, however I do have a RL job and a wife and children therefore support may be a little slow (Wife rage!).
 Constructive criticism is welcome.
 
-How do I use CLU
-================
-* Follow the "How to get the latest version" in this post
-* Copy the CLU folder into %Your Honorbuddy Folder%\CustomClasses
+Installation
+============
+
+Method 1: Zip File
+-------------------
+
+* You can download a stable version from the HB forum post Download the latest zip file
+* Copy the CLU folder into "%Your Honorbuddy Folder%\CustomClasses\"
 * Load Honorbuddy
 * Select "Combat" as your bot base (Lazyraider and RaidBot tested OK)
 * Select "Load Profile" and load the BlankProfile.xml (Provided at the end of this post.)
 * Start Honorbuddy.
 * Stay out of the fire and point to kill.
 
-How to get the latest version
-========================
-* See latest and greatest attached to the bottom of this post.
-* Unz** the files into your %HB FOLDER%\CustomClasses\
-* SVN link: http://wulfdev.googlecode.com/svn/trunk/
+Method 2: SVN
+------------------
+
+* You can access the latest CLU build from the following SVN Link http://clu-for-honorbuddy.googlecode.com/svn/trunk/CLU/
 * Google: How to use tortoisesvn. (Please do not PM HB moderators if you do not know how to use a SVN, PM me instead)
+* Copy the CLU folder into "%Your Honorbuddy Folder%\CustomClasses\"
+* Load Honorbuddy
+* Select "Combat" as your bot base (Lazyraider and RaidBot tested OK)
+* Select "Load Profile" and load the BlankProfile.xml (Provided at the end of this post.)
+* Start Honorbuddy.
+* Stay out of the fire and point to kill.
 
 
 Features
@@ -101,6 +110,19 @@ Three Rotation Modes - Single, PVE, PVP
 - Protection...........[T]
 - Fury....................[T]
 	
+Rotation Selector
+--------------------
+
+Clu has the special abiltie to load Custom Rotations. This means you can copy an existing rotation and modify it to your needs and CLU will load it for you to use.
+
+1) goto "%Your Honorbuddy Folder%\CustomClasses\Classes\" folder and select the class folder you want to custimize.
+2) copy and paste the rotation file you want to change.
+3) rename the file to a different name (i.e. Elemental.cs to Elemental_v2.cs)
+4) open the file you just renamed and look for the line that says "class Elemental : RotationBase" and change it to "class Elemental_v2 : RotationBase".
+5) in the same file look for the line that says "public override string Name { get { return "Elemental Shaman"; } }" and rename it to public override string Name { get { return "Elemental Shaman v2"; } }
+6) Make any necassary changes to the rotation you want.
+7) Congradulations you just made a custom rotation file of your own. When you next run CLU it will prompt you to select a rotation.
+
 Utility
 -------------
 
