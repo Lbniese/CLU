@@ -1,5 +1,7 @@
 CLU (Codified Likeness Utility) the Rotation CC for Combat/Raid/Lazyraider bots Powered by Felmaster technology
 
+check
+
 Latest Version: 3.1.0 (From SVN).
 
 Current Issues Updated: 28/August/2012
