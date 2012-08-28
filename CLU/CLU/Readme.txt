@@ -2,7 +2,7 @@ CLU (Codified Likeness Utility) the Rotation CC for Combat/Raid/Lazyraider bots 
 
 Latest Version: 3.1.0 (From SVN).
 
-Wulf is awesome -- Weischbier..I know!
+Wulf is awesome -- Weischbier . . .I know! -- Wulf
 
 Current Issues Updated: 28/August/2012
 =================================
@@ -59,7 +59,7 @@ Three Rotation Modes - Single, PVE, PVP
 
 * DeathKnight
 - Blood...................[T]
-- Frost...................[T]
+- Frost...................[U] -- Change from Weischbier
 - Unholy................[T]
 
 * Druid

@@ -117,6 +117,7 @@ namespace Clu.Classes.DeathKnight
                 return new Decorator(
                            ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                            new PrioritySelector(
+                               Buff.CastBuff("Conversion", ret => (Me.HasAura("Unholy Presence") && Me.HasAura("Anti-Magic Shell")/*Since conversion stops extra rune regen from Frost Presence but not from AMS we will go this way only for Unholy Dks*/), "Conversion (Restoring 3% HP every 1s for 10RP"),//Tricky One
                                Spell.CastSelfSpell("Raise Dead",                  ret => (Me.Pet == null || Me.Pet.Dead), "Raise Dead"),
                                Spell.CastSelfSpell("Icebound Fortitude",          ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.UnholyIceboundFortitudePercent && CLUSettings.Instance.DeathKnight.UseIceboundFortitude, "Icebound Fortitude "),
                                Item.UseBagItem("Healthstone",                     ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.HealthstonePercent, "Healthstone"),
