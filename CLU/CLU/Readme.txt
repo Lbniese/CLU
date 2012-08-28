@@ -4,6 +4,8 @@ check
 
 Latest Version: 3.1.0 (From SVN).
 
+Wulf is awesome -- Weischbier
+
 Current Issues Updated: 28/August/2012
 =================================
 * [Movement] No Pull Logic (Will cast ranged spells to pull)
