@@ -1,10 +1,8 @@
 CLU (Codified Likeness Utility) the Rotation CC for Combat/Raid/Lazyraider bots Powered by Felmaster technology
 
-check
-
 Latest Version: 3.1.0 (From SVN).
 
-Wulf is awesome -- Weischbier
+Wulf is awesome -- Weischbier..I know!
 
 Current Issues Updated: 28/August/2012
 =================================
