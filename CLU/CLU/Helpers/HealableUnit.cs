@@ -309,21 +309,6 @@ namespace Clu.Helpers
         {
         	get;
             private set;
-//            get {
-//                try {
-//                    var units = new List<WoWPartyMember>();
-//                    if (ObjectManager.Me.IsInRaid)
-//                        units = ObjectManager.Me.RaidMemberInfos;
-//                    else if (ObjectManager.Me.IsInParty)
-//                        units = ObjectManager.Me.PartyMemberInfos;
-//                    var first = units.FirstOrDefault(x => this.UnitObject.Guid == x.Guid);
-//                    return first != null ? first.GroupNumber : 0;
-//                } catch (Exception ex) {
-//                    CLU.TroubleShootDebugLog(Color.ForestGreen, "Error GroupNumber : {0}", ex);
-//                }
-//
-//                return 0;
-//            }
         }
 
         /// <summary>
