@@ -608,8 +608,9 @@ namespace Clu.Helpers
 
             // Miniboss not a big boss =)
             var miniBoss = (target.Level >= Me.Level + 2) && target.Elite;
+            
 
-            var targetIsWorthy = IsBoss(target) || miniBoss || IsTrainingDummy(target) || pvpTarget;
+            var targetIsWorthy = ((IsBoss(target) || miniBoss || IsTrainingDummy(target) || pvpTarget) && CLUSettings.Instance.BurstOn == Burst.onBoss) || (CLUSettings.Instance.BurstOn == Burst.onMob && Unit.EnemyUnits.Count() >= CLUSettings.Instance.BurstOnMobCount);
             if (targetIsWorthy) {
                 CLU.DebugLog(Color.ForestGreen, String.Format("[IsTargetWorthy] {0} is a boss? {1} or miniBoss? {2} or Training Dummy? {4}. {0} current Health = {3}",
                              CLU.SafeName(target),

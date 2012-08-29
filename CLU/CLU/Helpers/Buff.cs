@@ -61,6 +61,7 @@ namespace Clu.Helpers
             "Demoralizing Shout",             //Warrior
             "Demoralizing Roar",              //Druid Bear
             "Vindication",                    //Paladin
+            "Weakened Blows",				  //Paladin
             "Scarlet Fever",                  //Blood DeathKnight
             "Curse of Weakness",              //Warlock
             "Demoralizing Screech",           //Hunter (Carrion Bird)

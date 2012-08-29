@@ -24,48 +24,50 @@ namespace Clu.Settings
 
         #region Common
 
-        //[Setting]
-        //[DefaultValue(PaladinAura.Auto)]
-        //[Category("Common")]
-        //[DisplayName("Aura")]
-        //[Description("The aura to be used while not mounted. Set this to Auto to allow the CC to automatically pick the aura depending on spec.")]
-        //public PaladinAura Aura { get; set; }
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Common")]
+        [DisplayName("Healthstone Percent")]
+        [Description("Will use a Healthstone for self heal at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int HealthstonePercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Common")]
+        [DisplayName("Seal of Righteousness Add Count")]
+        [Description("Will use Seal of Righteousness when agro mob count is equal to or higher then this value.")]
+        public int SealofRighteousnessCount
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Common")]
+        [DisplayName("Hand of Freedom")]
+        [Description("If set to true CLU will use Hand of Freedom. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public bool UseHandofFreedom
+        {
+            get;
+            set;
+        }
 
 
-        //[Setting]
-        //[DefaultValue(PaladinBlessings.Auto)]
-        //[Category("Common")]
-        //[DisplayName("Blessings")]
-        //[Description("Which Blessing to cast")]
-        //public PaladinBlessings Blessings { get; set; }
-
-        //[Setting]
-        //[DefaultValue(90)]
-        //[Category("Common")]
-        //[DisplayName("Holy Light Health")]
-        //[Description("Holy Light will be used at this value")]
-        //public int HolyLightHealth { get; set; }
-
-        //[Setting]
-        //[DefaultValue(30)]
-        //[Category("Common")]
-        //[DisplayName("Lay on Hand Health")]
-        //[Description("Lay on Hands will be used at this value")]
-        //public int LayOnHandsHealth { get; set; }
-
-        //[Setting]
-        //[DefaultValue(50)]
-        //[Category("Common")]
-        //[DisplayName("Flash of Light Health")]
-        //[Description("Flash of Light will be used at this value")]
-        //public int FlashOfLightHealth { get; set; }
-
-        //[Setting]
-        //[DefaultValue(65)]
-        //[Category("Common")]
-        //[DisplayName("Word of Glory Health")]
-        //[Description("Word of Glory will be used at this value")]
-        //public int WordOfGloryHealth { get; set; }
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Common")]
+        [DisplayName("Flash Heal Resting Percent")]
+        [Description("Will use Flash Heal for self heal when resting at this healthpercent. (Enable Self Healing, and Enable Movement (General Tab) must be enabled as well.)")]
+        public int FlashHealRestingPercent
+        {
+            get;
+            set;
+        }
 
         #endregion
 
@@ -121,72 +123,249 @@ namespace Clu.Settings
 
         #region Protection
 
-        //[Setting]
-        //[DefaultValue(40)]
-        //[Category("Protection")]
-        //[DisplayName("Guardian of Ancient Kings Health")]
-        //[Description("Guardian of Ancient Kings will be used at this value")]
-        //public int GoAKHealth { get; set; }
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Protection")]
+        [DisplayName("Shield of the Righteous Health")]
+        [Description("Shield of the Righteous will be used at this value")]
+        public int ShoRPercent
+        {
+            get;
+            set;
+        }
 
-        //[Setting]
-        //[DefaultValue(40)]
-        //[Category("Protection")]
-        //[DisplayName("Ardent Defender Health")]
-        //[Description("Ardent Defender will be used at this value")]
-        //public int ArdentDefenderHealth { get; set; }
+        [Setting]
+        [DefaultValue(65)]
+        [Category("Protection")]
+        [DisplayName("Word of Glory Health")]
+        [Description("Word of Glory will be used at this value")]
+        public int WordofGloryPercent
+        {
+            get;
+            set;
+        }
 
-        //[Setting]
-        //[DefaultValue(80)]
-        //[Category("Protection")]
-        //[DisplayName("Divine Protection Health")]
-        //[Description("Divine Protection will be used at this value")]
-        //public int DivineProtectionHealthProt { get; set; }
 
-        //[Setting]
-        //[DefaultValue(false)]
-        //[Category("Protection")]
-        //[DisplayName("Avengers On Pull Only")]
-        //[Description("Only use Avenger's Shield to pull")]
-        //public bool AvengersPullOnly { get; set; }
+        [Setting]
+        [DefaultValue(50)]
+        [Category("Protection")]
+        [DisplayName("Holy Prism Health")]
+        [Description("Holy Prism will be used at this value")]
+        public int HolyPrismPercent
+        {
+            get;
+            set;
+        }
 
-        //[Setting]
-        //[DefaultValue(3)]
-        //[Category("Protection")]
-        //[DisplayName("Consecration Count")]
-        //[Description("Consecration will be used when you have more then that many mobs attacking you")]
-        //public int ProtConsecrationCount { get; set; }
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Protection")]
+        [DisplayName("Holy Prism Add Count")]
+        [Description("Will use Holy Prism when agro mob count is equal to or higher then this value.")]
+        public int HolyPrismCount
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Protection")]
+        [DisplayName("Lights Hammer Add Count")]
+        [Description("Will use Lights Hammer when agro mob count is equal to or higher then this value.")]
+        public int LightsHammerCount
+        {
+            get;
+            set;
+        }
+
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Protection")]
+        [DisplayName("Consecration Count")]
+        [Description("Consecration will be used when agro mob count is equal to or higher then this value.")]
+        public int ConsecrationCount
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(70)]
+        [Category("Protection")]
+        [DisplayName("Consecration Mana Percent")]
+        [Description("Consecration will be used at this value")]
+        public int ConsecrationManaPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(2)]
+        [Category("Protection")]
+        [DisplayName("Hammer of the Righteous Add Count")]
+        [Description("Will use Hammer of the Righteous when agro mob count is equal to or higher then this value.")]
+        public int ProtectionHoRCount
+        {
+            get;
+            set;
+        }
+
+
+        [Setting]
+        [DefaultValue(60)]
+        [Category("Protection")]
+        [DisplayName("Divine Protection Percent")]
+        [Description("Will use Divine Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int ProtectionDPPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(30)]
+        [Category("Protection")]
+        [DisplayName("Lay on Hands Percent")]
+        [Description("Will use Lay on Hands at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int ProtectionLoHPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(25)]
+        [Category("Protection")]
+        [DisplayName("Divine Shield Percent")]
+        [Description("Will use Divine Shield at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int ProtectionDSPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(30)]
+        [Category("Protection")]
+        [DisplayName("Holy Avenger Health")]
+        [Description("Holy Avenger will be used at this value for additional survivability with ShoR buff.")]
+        public int HolyAvengerHealthProt
+        {
+            get;
+            set;
+        }
+
+
+        [Setting]
+        [DefaultValue(50)]
+        [Category("Protection")]
+        [DisplayName("Guardian of Ancient Kings Health")]
+        [Description("Guardian of Ancient Kings will be used at this value")]
+        public int GuardianofAncientKingsHealthProt
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(30)]
+        [Category("Protection")]
+        [DisplayName("Ardent Defender Health")]
+        [Description("Ardent Defender will be used at this value")]
+        public int ArdentDefenderHealth
+        {
+            get;
+            set;
+        }
+
+
+
+
+        [Setting]
+        [DefaultValue(15)]
+        [Category("Protection")]
+        [DisplayName("Seal of Insight Mana")]
+        [Description("Seal of Insight for Mana Generation will be used at this Percent")]
+        public int SealofInsightMana
+        {
+            get;
+            set;
+        }
 
         #endregion
 
         #region Retribution
 
-        //[Setting]
-        //[DefaultValue(70)]
-        //[Category("Retribution")]
-        //[DisplayName("Divine Protection Health")]
-        //[Description("Divine Protection will be used at this value")]
-        //public int DivineProtectionHealthRet { get; set; }
+        [Setting]
+        [DefaultValue(4)]
+        [Category("Retribution")]
+        [DisplayName("Hammer of the Righteous Add Count")]
+        [Description("Will use Hammer of the Righteous when agro mob count is equal to or higher then this value.")]
+        public int RetributionHoRCount
+        {
+            get;
+            set;
+        }
 
-        //[Setting]
-        //[DefaultValue(3)]
-        //[Category("Retribution")]
-        //[DisplayName("Consecration Count")]
-        //[Description("Consecration will be used when you have more then that many mobs attacking you")]
-        //public int ConsecrationCount { get; set; }
+        [Setting]
+        [DefaultValue(4)]
+        [Category("Retribution")]
+        [DisplayName("Divine Storm Add Count")]
+        [Description("Will use Divine Storm when agro mob count is equal to or higher then this value.")]
+        public int DivineStormCount
+        {
+            get;
+            set;
+        }
 
-        //[Setting]
-        //[DefaultValue(30)]
-        //[Category("Retribution")]
-        //[DisplayName("Heal Health")]
-        //[Description("Healing will be done at this percentage")]
-        //public int RetributionHealHealth { get; set; }
 
-        //[Setting]
-        //[DefaultValue(true)]
-        //[Category("Retribution")]
-        //[DisplayName("Auto GotAK and Zealotry")]
-        //[Description("Auomatically use Guardian of the Ancient Kings and Zealotry.  When false both will be disabled.")]
-        //public bool RetGoatK { get; set; }
+        [Setting]
+        [DefaultValue(80)]
+        [Category("Retribution")]
+        [DisplayName("Divine Protection Percent")]
+        [Description("Will use Divine Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int RetributionDPPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(30)]
+        [Category("Retribution")]
+        [DisplayName("Lay on Hands Percent")]
+        [Description("Will use Lay on Hands at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int RetributionLoHPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(25)]
+        [Category("Retribution")]
+        [DisplayName("Divine Shield Percent")]
+        [Description("Will use Divine Shield at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int RetributionDSPercent
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(20)]
+        [Category("Retribution")]
+        [DisplayName("Hand of Protection Percent")]
+        [Description("Will use Hand of Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        public int RetributionHoPPercent
+        {
+            get;
+            set;
+        }
+
 
         #endregion
     }

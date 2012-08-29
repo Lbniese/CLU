@@ -35,20 +35,28 @@ namespace Clu.Classes.Paladin
         public override string Help
         {
             get {
-                return "----------------------------------------------------------------------\n" +
-                       "This Rotation will:\n" +
-                       "1. Heal using Divine Protection, Lay on Hands, Divine Shield, Hand of Protection\n" +
-                       "==> Word of glory & Guardian of Ancient Kings \n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "==> Avenging Wrath & Lifeblood\n" +
-                       "3. Seal of Truth & Seal of Truth swapping for low mana\n" +
-                       "4. Best Suited for end game raiding\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to cowdude\n" +
-                       "----------------------------------------------------------------------\n";
+                return
+                    @"
+----------------------------------------------------------------------
+Protection MoP:
+[*] DamageReductionDebuff checks for Weakened Blows 
+[*] Removed Inqisition
+[*] Added Holy Prism and Light's Hammer for AoE
+[*] Suggested talent choice is Sacred Shield
+[*] Added Holy Avenger for ShoR
+[*] Added Divine Purpose proc to ShoR or WoG
+[*] Execution Sentence on the boss for threat..I know you can use it to self heal..soon 
+This Rotation will:
+1. Heal using Divine Protection, Lay on Hands, Divine Shield and Hand of Protection
+	==> Word of glory & Guardian of Ancient Kings
+2. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Avenging Wrath & Lifeblood
+3. Seal of Truth & Seal of Truth swapping for low mana 
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------";
             }
         }
 
@@ -67,27 +75,36 @@ namespace Clu.Classes.Paladin
                                new PrioritySelector(
                                    Item.UseTrinkets(),
                                    Spell.UseRacials(),
-                                   Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
-                                   Buff.CastBuff("Avenging Wrath", ret => Buff.PlayerHasBuff("Inquisition"), "Wings with Inquisition"),
+                                   Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),
+                                   Buff.CastBuff("Avenging Wrath", ret => true, "Avenging Wrath"),
                                    Item.UseEngineerGloves())),
+                           // Seal Swapping for AoE
+                           Buff.CastBuff("Seal of Righteousness",         ret => Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Righteousness"),
+                           Buff.CastBuff("Seal of Truth",                 ret => Me.ManaPercent > CLUSettings.Instance.Paladin.SealofInsightMana && Unit.EnemyUnits.Count() < CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Truth"),
+                           //Main Rotation
+                           Spell.CastInterupt("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
                            Buff.CastBuff("Holy Shield",                   ret => true, "Holy Shield"),
+                           Buff.CastBuff("Sacred Shield",                 ret => true, "Sacred Shield"),
                            Spell.CastInterupt("Rebuke",                   ret => true, "Rebuke"),
-                           Spell.CastInterupt("Hammer of Justice",        ret => true, "Hammer of Justice"),
-                           Spell.CastSpell("Shield of the Righteous",     ret => Me.CurrentHolyPower == 3 && Buff.PlayerHasBuff("Sacred Duty"), "Shield of the Righteous Proc"),
-                           Spell.CastSpell("Shield of the Righteous",     ret => Me.CurrentHolyPower == 3 && Buff.PlayerHasBuff("Inquisition"), "Shield of the Righteous"),
-                           Spell.CastSelfSpell("Inquisition",             ret => Me.CurrentHolyPower == 3 && !Buff.PlayerHasBuff("Inquisition"), "Inquisition"),
-                           // AOE
-                           Spell.CastSelfSpell("Inquisition", ret => Me.CurrentHolyPower <= 3 && !Buff.PlayerHasBuff("Inquisition") && Unit.EnemyUnits.Count() >= 3, "Inquisition"),
-                           Spell.CastAreaSpell("Hammer of the Righteous", 8, false, 2, 0.0, 0.0, ret => true, "Hammer of the Righteous"),
-                           // end AoE
+                           //Healing TODO: Check for Shield of the Righteous damage reduction buff and ensure we maintain 100% uptime.
+                           Spell.CastSpell("Shield of the Righteous",     ret => (Me.CurrentHolyPower >= 3 && Buff.PlayerHasBuff("Sacred Duty")) || Buff.PlayerHasBuff("Divine Purpose"), "Shield of the Righteous Proc"),
+                           Spell.CastSpell("Shield of the Righteous",     ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ShoRPercent || (Me.CurrentHolyPower == 5), "Shield of the Righteous"),
+                           // TODO: Shield of the Righteous damage reduction buff is all and well but we need to prioritise if we are getting hit with a shit load of magic damage, in this instance we can forsake ShoR and simply poor our holy power into Word of Glory.
+                           Spell.HealMe("Word of Glory",                  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.WordofGloryPercent && (Me.CurrentHolyPower > 1 || Buff.PlayerHasBuff("Divine Purpose")), "Word of Glory"),
                            Spell.CastSpell("Crusader Strike",             ret => true, "Crusader Strike"),
+                           // AOE
+                           Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.ProtectionHoRCount, 0.0, 0.0, ret => true, "Hammer of the Righteous"),
+                           Spell.CastSpell("Holy Prism",                  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.HolyPrismCount, "Holy Prism"),
+                           Spell.CastSpell("Light's Hammer",              ret => Me.HealthPercent > CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.LightsHammerCount, "Light's Hammer"),
+                           // end AoE
                            Spell.CastSpell("Avenger's Shield",            ret => Buff.PlayerHasBuff("Grand Crusader"), "Avengers Shield Proc"),
                            Spell.CastSpell("Judgement",                   ret => true, "Judgement"),
                            Spell.CastSpell("Avenger's Shield",            ret => true, "Avengers Shield"),
                            Spell.CastSpell("Hammer of Wrath",             ret => true, "Hammer of Wrath"),
-                           Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > 70 && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange, "Consecration"),
+                           Spell.CastSpell("Execution Sentence",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
+                           Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > CLUSettings.Instance.Paladin.ConsecrationManaPercent && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.ConsecrationCount, "Consecration"),
                            Spell.CastSpell("Holy Wrath",                  ret => true, "Holy Wrath"),
-                           Buff.CastBuff("Divine Plea",                   ret => Me.CurrentMana < 17000 || Me.CurrentHolyPower != 3, "Divine Plea"));
+                           Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 20 || Me.CurrentHolyPower < 3, "Divine Plea"));
             }
         }
 
@@ -100,16 +117,16 @@ namespace Clu.Classes.Paladin
                                new Decorator(
                                    ret => !Buff.PlayerHasBuff("Forbearance") && !Buff.PlayerHasBuff("Ardent Defender") && !Buff.PlayerHasBuff("Guardian of Ancient Kings"),
                                    new PrioritySelector(
-                                       Buff.CastBuff("Lay on Hands",           ret => Me.HealthPercent < 30, "Lay on Hands"),
-                                       Buff.CastBuff("Divine Shield",          ret => Me.HealthPercent < 25, "Divine Shield")
+                                       Buff.CastBuff("Lay on Hands",           ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ProtectionLoHPercent, "Lay on Hands"),
+                                       Buff.CastBuff("Divine Shield",          ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ProtectionDSPercent, "Divine Shield")
                                    )),
-                               Spell.CastSpell("Word of Glory",            ret => Me.HealthPercent < 65 && Me.CurrentHolyPower > 1, "Word of Glory"),
-                               Buff.CastBuff("Guardian of Ancient Kings",  ret => Me.HealthPercent < 50 && !Buff.PlayerHasBuff("Ardent Defender"), "Guardian of Ancient Kings"),
-                               Buff.CastBuff("Ardent Defender",            ret => Me.HealthPercent < 30 && !Buff.PlayerHasBuff("Guardian of Ancient Kings"), "Ardent Defender"),
-                               Item.UseBagItem("Healthstone",              ret => Me.HealthPercent < 40, "Healthstone"),
-                               Buff.CastBuff("Divine Protection",          ret => Me.HealthPercent < 60, "Divine Protection"),
-                               Buff.CastBuff("Seal of Truth",              ret => Me.CurrentMana > 9000, "Seal of Truth"),
-                               Buff.CastBuff("Seal of Insight",            ret => Me.CurrentMana < 4000, "Seal of Insight for Mana Gen")));
+                               Buff.CastBuff("Holy Avenger",               ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HolyAvengerHealthProt && !Buff.PlayerHasBuff("Ardent Defender") && !Buff.PlayerHasBuff("Guardian of Ancient Kings"), "Holy Avenger"),
+                               Buff.CastBuff("Guardian of Ancient Kings",  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.GuardianofAncientKingsHealthProt && !Buff.PlayerHasBuff("Ardent Defender"), "Guardian of Ancient Kings"),
+                               Buff.CastBuff("Ardent Defender",            ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ArdentDefenderHealth && !Buff.PlayerHasBuff("Guardian of Ancient Kings"), "Ardent Defender"),
+                               Item.UseBagItem("Healthstone",              ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HealthstonePercent, "Healthstone"),
+                               Buff.CastBuff("Divine Protection",          ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ProtectionDPPercent, "Divine Protection"),
+                               Buff.CastBuff("Seal of Truth",              ret => Me.ManaPercent > CLUSettings.Instance.Paladin.SealofInsightMana && Unit.EnemyUnits.Count() < CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Truth"),
+                               Buff.CastBuff("Seal of Insight",            ret => Me.ManaPercent < CLUSettings.Instance.Paladin.SealofInsightMana && !Buff.PlayerHasBuff("Seal of Righteousness"), "Seal of Insight for Mana Gen")));
             }
         }
 
@@ -119,16 +136,19 @@ namespace Clu.Classes.Paladin
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
-                               Buff.CastBuff("Righteous Fury", ret => true, "Righteous Fury"),
-                               Buff.CastRaidBuff("Blessing of Kings", ret => !Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Kings"),
-                               Buff.CastRaidBuff("Blessing of Might", ret => Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Might")));
+                               Buff.CastBuff("Righteous Fury",          ret => true, "Righteous Fury"),
+                               Buff.CastRaidBuff("Blessing of Kings",   ret => !Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Kings"),
+                               Buff.CastRaidBuff("Blessing of Might",   ret => Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Might")));
             }
         }
 
         public override Composite Resting
         {
             get {
-                return Rest.CreateDefaultRestBehaviour();
+                return
+                    new PrioritySelector(
+                        Spell.HealMe("Flash Heal", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.FlashHealRestingPercent && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.EnableMovement, "flash heal on me"),
+                        Rest.CreateDefaultRestBehaviour());
             }
         }
 

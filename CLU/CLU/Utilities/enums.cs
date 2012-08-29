@@ -13,6 +13,11 @@
         CrowdControlled,
         CrowdControlledSilenced
     }
+    
+     public enum Burst {
+        onBoss,
+        onMob
+    }
 
     public enum HealingAquisitionMethod
     {

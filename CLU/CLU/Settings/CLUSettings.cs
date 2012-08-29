@@ -41,7 +41,7 @@ namespace Clu.Settings
         //
 
         #region Raid/Party Healing
-        
+
         [Setting]
         [DefaultValue(1)]
         [Category("Healing")]
@@ -137,7 +137,7 @@ namespace Clu.Settings
             set;
         }
 
-       
+
 
         //[Setting]
         //[DefaultValue(30)]
@@ -165,7 +165,27 @@ namespace Clu.Settings
             set;
         }
 
-       
+        [Setting]
+        [DefaultValue(Burst.onBoss)]
+        [Category("General")]
+        [DisplayName("Burst (Pop all Cooldowns)")]
+        [Description("This will allow for cooldowns to be popped either on a boss (default) or on a mob (for questing) (Enable Cooldowns (General Tab) must be enabled as well.)")]
+        public Burst BurstOn
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("General")]
+        [DisplayName("Burst onMob Add Count")]
+        [Description("Will use All Cooldowns when agro mob count is equal to or higher then this value. (Enable Cooldowns (General Tab) must be enabled as well.)")]
+        public int BurstOnMobCount
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
@@ -400,7 +420,7 @@ namespace Clu.Settings
             get;
             set;
         }
-        
+
         [Setting]
         [DefaultValue(false)]
         [Category("Movement")]
@@ -411,7 +431,7 @@ namespace Clu.Settings
             get;
             set;
         }
-        
+
         [Setting]
         [DefaultValue(true)]
         [Category("Movement")]
@@ -433,7 +453,7 @@ namespace Clu.Settings
             get;
             set;
         }
-        
+
         #endregion
 
         #region Category: Healing

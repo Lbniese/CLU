@@ -40,22 +40,27 @@ namespace Clu.Classes.Paladin
 
                 var twopceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
                 var fourpceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
-                return "\n" +
-                       "----------------------------------------------------------------------\n" +
-                       twopceinfo + "\n" +
-                       fourpceinfo + "\n" +
-                       "This Rotation will:\n" +
-                       "1. Heal using Divine Protection, Lay on Hands, Divine Shield and Hand of Protection\n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "==> Zealotry, Guardian of Ancient Kings and Avenging Wrath\n" +
-                       "3. Seal of Righteousness & Seal of Truth swapping for AoE\n" +
-                       "4. Best Suited for T13 end game raiding\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to cowdude\n" +
-                       "----------------------------------------------------------------------\n";
+                return
+                    @"
+----------------------------------------------------------------------
+Retribution MoP:
+[*] Zealotry replaced with Holy Avenger
+[*] Guardian of Ancient and Avenging Wrath are now stacked
+[*] Execution Sentence added
+[*] consecration removed
+[*] Holy Wrath removed
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+This Rotation will:
+1. Heal using Divine Protection, Lay on Hands, Divine Shield and Hand of Protection
+	==> Healthstone. Flash Heal if movement enabled.
+2. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Holy Avenger, Guardian of Ancient Kings and Avenging Wrath
+3. Seal of Righteousness & Seal of Truth swapping for AoE 
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
 
@@ -76,49 +81,46 @@ namespace Clu.Classes.Paladin
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                           // Buff.CastBuff("Divine Protection", ret => Units.IsMyHourofTwilightSoak(), "Divine Protection"),
+                           // Interupt
                            Spell.CastInterupt("Rebuke",           ret => true, "Rebuke"),
                            // Threat
                            Buff.CastBuff("Hand of Salvation",      ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90, "Hand of Salvation"),
                            // Seal Swapping for AoE
-                           Buff.CastBuff("Seal of Righteousness",  ret => Unit.EnemyUnits.Count() >= 4, "Seal of Righteousness"),
-                           Buff.CastBuff("Seal of Truth",          ret => Unit.EnemyUnits.Count() < 4, "Seal of Truth"),
+                           Buff.CastBuff("Seal of Righteousness",  ret => Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Righteousness"),
+                           Buff.CastBuff("Seal of Truth",          ret => Unit.EnemyUnits.Count() < CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Truth"),
                            new Decorator(
-                               ret => Buff.PlayerHasBuff("Zealotry"),
+                               ret => Buff.PlayerHasBuff("Holy Avenger"),
                                new PrioritySelector(
                                    // Cooldowns
-                                   Buff.CastBuff("Guardian of Ancient Kings",      ret => Me.CurrentTarget != null && Spell.SpellCooldown("Zealotry").TotalSeconds < 1 && Unit.IsTargetWorthy(Me.CurrentTarget), "Guardian of Ancient Kings"),
-                                   Buff.CastBuff("Avenging Wrath",                 ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Zealotry") && Unit.IsTargetWorthy(Me.CurrentTarget), "Avenging Wrath"),
-                                   // Zealotry Rotation
-                                   Spell.CastSelfSpell("Inquisition",             ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 4) && (Me.CurrentHolyPower == 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
-                                   Spell.CastAreaSpell("Divine Storm", 10, false, 4, 0.0, 0.0, ret => Me.CurrentHolyPower < 3, "Divine Storm"),
-                                   Spell.CastSpell("Crusader Strike", ret => Me.CurrentHolyPower < 3, "Crusader Strike"),
-                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower == 3), "Templar's Verdict"),
-                                   Spell.CastSpell("Exorcism",                    ret => Buff.PlayerHasActiveBuff("The Art of War"), "Exorcism with The Art of War"),
+                                   Buff.CastBuff("Guardian of Ancient Kings",      ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasBuff("Avenging Wrath") && Buff.PlayerHasBuff("Inquisition"), "Guardian of Ancient Kings"),
+                                   Buff.CastBuff("Avenging Wrath",                 ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Inquisition") && Unit.IsTargetWorthy(Me.CurrentTarget), "Avenging Wrath"),
+                                   Buff.CastBuff("Execution Sentence",             ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Inquisition") && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
+                                   // Holy Avenger Rotation
+                                   Spell.CastSelfSpell("Inquisition",             ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 2) && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
+                                   Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.RetributionHoRCount, 0.0, 0.0, ret => Me.CurrentHolyPower < 5, "Hammer of the Righteous"),
+                                   Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
+                                   Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
+                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"),
                                    Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20) && Me.CurrentTarget.MaxHealth > 1, "Hammer of Wrath"),
-                                   Spell.CastSpell("Holy Wrath",                  ret => true, "Holy Wrath"),
-                                   Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > 70 && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange, "Consecration"),
-                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower != 3, "Arcane Torrent"),
-                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower != 3, "Divine Plea"))),
+                                   Spell.CastSpell("Exorcism",                    ret => true, "Exorcism"),
+                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
+                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))),
                            new Decorator(
-                               ret => !Buff.PlayerHasBuff("Zealotry"),
+                               ret => !Buff.PlayerHasBuff("Holy Avenger"),
                                new PrioritySelector(
                                    // Cooldowns
-                                   Buff.CastBuff("Guardian of Ancient Kings",     ret => Me.CurrentTarget != null && Spell.SpellCooldown("Zealotry").TotalSeconds < 1 && Unit.IsTargetWorthy(Me.CurrentTarget), "Guardian of Ancient Kings"),
-                                   Buff.CastBuff("Zealotry",                      ret => Me.CurrentTarget != null && (Me.CurrentHolyPower == 3 || Buff.PlayerHasBuff("Divine Purpose")) && Unit.IsTargetWorthy(Me.CurrentTarget), "Zealotry"),
+                                   Buff.CastBuff("Holy Avenger",                      ret => Me.CurrentTarget != null && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")) && Unit.IsTargetWorthy(Me.CurrentTarget), "Holy Avenger"),
                                    // Main Rotation
-                                   Spell.CastSelfSpell("Inquisition",             ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 4) && (Me.CurrentHolyPower == 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
-                                   Spell.CastAreaSpell("Divine Storm", 10, false, 4, 0.0, 0.0, ret => Me.CurrentHolyPower < 3, "Divine Storm"),
-                                   Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 3, "Crusader Strike"),
-                                   // _Spell.CastSpell("Judgement",                   ret => Item.Has2pcTeirBonus(ItemSetId) && Buff.PlayerHasBuff("Zealotry") && Me.CurrentHolyPower < 3, "Judgement (Zealotry)"),
-                                   Spell.CastSpell("Judgement",                   ret => !Buff.PlayerHasBuff("Zealotry") && Me.CurrentHolyPower < 3, "Judgement"),
-                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower == 3), "Templar's Verdict"),
-                                   Spell.CastSpell("Exorcism",                    ret => Buff.PlayerHasActiveBuff("The Art of War"), "Exorcism with The Art of War "),
+                                   Spell.CastSelfSpell("Inquisition",             ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 2) && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
+                                   Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.RetributionHoRCount, 0.0, 0.0, ret => Me.CurrentHolyPower < 5, "Hammer of the Righteous"),
+                                   Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
+                                   Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
+                                   Spell.CastSpell("Judgement",                   ret => !Buff.PlayerHasBuff("Holy Avenger") && Me.CurrentHolyPower < 5, "Judgement"),
+                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"),
+                                   Spell.CastSpell("Exorcism",                    ret => true, "Exorcism"),
                                    Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20) && Me.CurrentTarget.MaxHealth > 1, "Hammer of Wrath"),
-                                   Spell.CastSpell("Holy Wrath",                  ret => true, "Holy Wrath"),
-                                   Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > 80 && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange, "Consecration"),
-                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower != 3, "Arcane Torrent"),
-                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower != 3, "Divine Plea"))));
+                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
+                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))));
             }
         }
 
@@ -128,16 +130,16 @@ namespace Clu.Classes.Paladin
                 return new Decorator(
                            ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                            new PrioritySelector(
-                               Buff.CastBuff("Hand of Freedom",            ret => Me.MovementInfo.ForwardSpeed < 8.05, "Hand of Freedom"),
+                               Buff.CastBuff("Hand of Freedom",            ret => Me.MovementInfo.ForwardSpeed < 8.05 && CLUSettings.Instance.Paladin.UseHandofFreedom, "Hand of Freedom"),
                                Buff.CastBuff("Cleanse",                    ret => Unit.UnitIsControlled(Me, false), "Cleanse"),
-                               Item.UseBagItem("Healthstone",              ret => Me.HealthPercent < 40, "Healthstone"),
-                               Buff.CastBuff("Divine Protection",          ret => Me.HealthPercent < 80, "Divine Protection"),
+                               Item.UseBagItem("Healthstone",              ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HealthstonePercent, "Healthstone"),
+                               Buff.CastBuff("Divine Protection",          ret => Me.HealthPercent < CLUSettings.Instance.Paladin.RetributionDPPercent, "Divine Protection"),
                                new Decorator(
                                    ret => !Buff.PlayerHasBuff("Forbearance"),
                                    new PrioritySelector(
-                                       Buff.CastBuff("Lay on Hands",       ret => Me.HealthPercent < 30, "Lay on Hands"),
-                                       Buff.CastBuff("Divine Shield",      ret => Me.HealthPercent < 25, "Divine Shield"),
-                                       Buff.CastBuff("Hand of Protection", ret => Me.HealthPercent < 20, "Hand of Protection")))));
+                                       Buff.CastBuff("Lay on Hands",       ret => Me.HealthPercent < CLUSettings.Instance.Paladin.RetributionLoHPercent, "Lay on Hands"),
+                                       Buff.CastBuff("Divine Shield",      ret => Me.HealthPercent < CLUSettings.Instance.Paladin.RetributionDSPercent, "Divine Shield"),
+                                       Buff.CastBuff("Hand of Protection", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.RetributionHoPPercent, "Hand of Protection")))));
             }
         }
 
@@ -158,7 +160,7 @@ namespace Clu.Classes.Paladin
             get {
                 return
                     new PrioritySelector(
-                        Spell.HealMe("Flash Heal", a => Me.HealthPercent < 40 && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.EnableMovement, "flash heal on me"),
+                        Spell.HealMe("Flash Heal", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.FlashHealRestingPercent && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.EnableMovement, "flash heal on me"),
                         Rest.CreateDefaultRestBehaviour());
             }
         }
