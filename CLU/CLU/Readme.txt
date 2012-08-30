@@ -88,7 +88,7 @@ Three Rotation Modes - Single, PVE, PVP
 - Retribution.............[u] -- Patch 5.0.4 only (Change from Wulf)
 
 * Priest
-- Shadow................[T] -- Patch 4.3.x only
+- Shadow................[T] -- Patch 5.0.4 Leveling only (Change from Wulf)
 - Discipline............[T] -- Patch 4.3.x only
 - Holy..................[T] -- Patch 4.3.x only
 
