@@ -122,6 +122,9 @@ namespace Clu.Classes.DeathKnight
                                Spell.CastSelfSpell("Icebound Fortitude",          ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.UnholyIceboundFortitudePercent && CLUSettings.Instance.DeathKnight.UseIceboundFortitude, "Icebound Fortitude "),
                                Item.UseBagItem("Healthstone",                     ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.HealthstonePercent, "Healthstone"),
                                Spell.CastSpell("Death Strike",                    ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.DeathStrikeEmergencyPercent, "Death Strike"),
+                               Spell.CastSpell("Death Siphon", ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.DeathSiphonPercent && CLUSettings.Instance.EnableMovement, "Death Siphon"), // Only if movement is enabled..i.e. we are questing, gathering, etc
+                               // Conversion lasts until canceled!!..I am reluctant to put this in atm as it seems underpowered
+                               // Buff.CastBuff("Conversion",                 ret => (Buff.PlayerHasBuff("Unholy Presence") && Buff.PlayerHasBuff("Anti-Magic Shell")/*Since conversion stops extra rune regen from Frost Presence but not from AMS we will go this way only for Unholy Dks*/), "Conversion (Restoring 3% HP every 1s for 10RP"),//Tricky One
                                Spell.CastSelfSpell("Death Pact",                  ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.UnholyPetSacrificePercent && Me.Minions.FirstOrDefault(q => q.CreatureType == WoWCreatureType.Undead || q.CreatureType == WoWCreatureType.Totem) != null && CLUSettings.Instance.DeathKnight.UnholyUsePetSacrifice    , "Death Pact")));
             }
         }
@@ -134,7 +137,7 @@ namespace Clu.Classes.DeathKnight
                         ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                         new PrioritySelector(
                             Spell.CastSelfSpell("Raise Dead",              ret => (Me.Pet == null || Me.Pet.Dead), "Raise Dead"),
-                            Buff.CastBuff("Horn of Winter",                 ret => !Buff.UnitHasStrAgiBuff(Me), "Horn of Winter")));
+                            Buff.CastBuff("Horn of Winter",                ret => !Buff.UnitHasStrAgiBuff(Me) && CLUSettings.Instance.DeathKnight.UseHornofWinter && Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, "Horn of Winter")));
             }
         }
 

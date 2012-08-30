@@ -19,6 +19,14 @@
         onMob
     }
 
+     public enum DeathKnightTierOneTalent
+     {
+         PlagueLeech,
+         UnholyBlight,
+         RoilingBlood,
+         None
+     }
+
     public enum HealingAquisitionMethod
     {
         Proximity,

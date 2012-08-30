@@ -60,7 +60,7 @@ Three Rotation Modes - Single, PVE, PVP
 * DeathKnight
 - Blood...................[T] -- Patch 4.3.x only
 - Frost...................[U] -- Patch 5.0.4 only (Change from Weischbier)
-- Unholy..................[T]
+- Unholy..................[T] -- Patch 4.3.x only
 
 * Druid
 - Balance.................[T] -- Patch 4.3.x only

@@ -35,7 +35,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Icebound Fortitude")]
-        [Description("Will use Icebound Fortitude. (Enable Self Healing must be enabled as well.)")]
+        [Description("Will use Icebound Fortitude. (Self Healing must be enabled as well.)")]
         public bool UseIceboundFortitude
         {
             get;
@@ -46,7 +46,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Anti-Magic Shell")]
-        [Description("Will use Anti-Magic Shell when the current target is Channeling/Casting a harmful spell. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Anti-Magic Shell when the current target is Channeling/Casting a harmful spell. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UseAntiMagicShell
         {
             get;
@@ -68,7 +68,7 @@ namespace Clu.Settings
         [DefaultValue(30)]
         [Category("Common")]
         [DisplayName("Death Strike Emergency Percent")]
-        [Description("Will use Death Strike for self heal with Frost and Unholy rotations at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Death Strike for self heal with Frost and Unholy rotations at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int DeathStrikeEmergencyPercent
         {
             get;
@@ -79,7 +79,7 @@ namespace Clu.Settings
         [DefaultValue(40)]
         [Category("Common")]
         [DisplayName("Healthstone Percent")]
-        [Description("Will use a Healthstone for self heal at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use a Healthstone for self heal at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int HealthstonePercent
         {
             get;
@@ -97,7 +97,41 @@ namespace Clu.Settings
             set;
         }
 
+        [Setting]
+        [DefaultValue(DeathKnightTierOneTalent.None)]
+        [Category("Common")]
+        [DisplayName("Tier One Talent Selection")]
+        [Description("Please Select your Tier One talent. Warning! - Shared setting across all specs")]
+        public DeathKnightTierOneTalent DeathKnightTierOneTalent
+        {
+            get;
+            set;
+        }
 
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Common")]
+        [DisplayName("Unholy Blight Count")]
+        [Description("Will use Unholy Blight to spread your diseases when agro mob count is equal to or higher then this value. Warning! - Shared setting across all specs")]
+        public int UnholyBlightCount
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Common")]
+        [DisplayName("Roiling Blood Count")]
+        [Description("Will use Blood Boil to spread your diseases when agro mob count is equal to or higher then this value. Warning! - Shared setting across all specs")]
+        public int RoilingBloodCount
+        {
+            get;
+            set;
+        }
+        
+
+        
         #endregion
 
         #region Blood
@@ -106,7 +140,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Blood")]
         [DisplayName("Icebound Fortitude Percent")]
-        [Description("Will use Icebound Fortitude at the set Health Percent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Icebound Fortitude at the set Health Percent. (Self Healing (General Tab) must be enabled as well.)")]
         public int BloodIceboundFortitudePercent
         {
             get;
@@ -150,7 +184,7 @@ namespace Clu.Settings
         [DefaultValue(80)]
         [Category("Blood")]
         [DisplayName("Dancing Rune Weapon Percent")]
-        [Description("Will use Dancing Rune Weapon at the set Health Percent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Dancing Rune Weapon at the set Health Percent. (Self Healing (General Tab) must be enabled as well.)")]
         public int DancingRuneWeaponPercent
         {
             get;
@@ -161,7 +195,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Lichborne")]
-        [Description("Will use Lichborne. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Lichborne. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UseLichborne
         {
             get;
@@ -172,7 +206,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Blood")]
         [DisplayName("Lichborne Percent")]
-        [Description("Will use Lichborne at this HealthPercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Lichborne at this HealthPercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int LichbornePercent
         {
             get;
@@ -183,7 +217,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Blood")]
         [DisplayName("DeathCoil with Lichborne Percent")]
-        [Description("Will use DeathCoil at this HealthPercent when Lichborne is active for self heal. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use DeathCoil at this HealthPercent when Lichborne is active for self heal. (Self Healing (General Tab) must be enabled as well.)")]
         public int DeathCoilHealPercent
         {
             get;
@@ -195,7 +229,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Blood")]
         [DisplayName("Pet Sacrifice (Death Pact)")]
-        [Description("If set to true CLU will use Death Pact. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use Death Pact. (Self Healing (General Tab) must be enabled as well.)")]
         public bool BloodUsePetSacrifice
         {
             get;
@@ -203,10 +237,10 @@ namespace Clu.Settings
         }
 
         [Setting]
-        [DefaultValue(60)]
+        [DefaultValue(50)]
         [Category("Blood")]
         [DisplayName("Pet Sacrifice (Death Pact) Percent")]
-        [Description("Will use Death Pact at the set Healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Death Pact at the set Healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int BloodPetSacrificePercent
         {
             get;
@@ -214,10 +248,23 @@ namespace Clu.Settings
         }
 
         [Setting]
+        [DefaultValue(50)]
+        [Category("Common")]
+        [DisplayName("Death Siphon Percent")]
+        [Description("Will use Death Siphon at the set Healthpercent. (Self Healing and *Movement* (General Tab) must be enabled as well.)")]
+        public int DeathSiphonPercent
+        {
+            get;
+            set;
+        }
+
+        
+
+        [Setting]
         [DefaultValue(true)]
         [Category("Blood")]
         [DisplayName("Vampiric Blood")]
-        [Description("If set to true CLU will use Vampiric Blood. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use Vampiric Blood. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UseVampiricBlood
         {
             get;
@@ -228,7 +275,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Blood")]
         [DisplayName("Vampiric Blood Percent")]
-        [Description("Will use Vampiric Blood at the set Healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Vampiric Blood at the set Healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int VampiricBloodPercent
         {
             get;
@@ -239,7 +286,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Blood")]
         [DisplayName("RuneTap & WoTN")]
-        [Description("If set to true CLU will use RuneTap when Will of the Necropolis procs. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use RuneTap when Will of the Necropolis procs. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UseRuneTapWoTN
         {
             get;
@@ -250,7 +297,7 @@ namespace Clu.Settings
         [DefaultValue(90)]
         [Category("Blood")]
         [DisplayName("RuneTap Percent")]
-        [Description("Will use RuneTap when Will of the Necropolis procs at the set Healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use RuneTap when Will of the Necropolis procs at the set Healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int RuneTapWoTNPercent
         {
             get;
@@ -312,16 +359,6 @@ namespace Clu.Settings
             set;
         }
 
-        [Setting]
-        [DefaultValue(true)]
-        [Category("Blood")]
-        [DisplayName("BloodTap with RuneTap")]
-        [Description("If set to true CLU will use BloodTap for RuneTap.")]
-        public bool UseBloodTapforRuneTap
-        {
-            get;
-            set;
-        }
 
         [Setting]
         [DefaultValue(3)]
@@ -377,7 +414,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Frost")]
         [DisplayName("Icebound Fortitude Percent")]
-        [Description("Will use Icebound Fortitude at the set Health Percent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Icebound Fortitude at the set Health Percent. (Self Healing (General Tab) must be enabled as well.)")]
         public int FrostIceboundFortitudePercent
         {
             get;
@@ -388,7 +425,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Frost")]
         [DisplayName("Pet Sacrifice (Death Pact)")]
-        [Description("If set to true CLU will use Death Pact. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use Death Pact. (Self Healing (General Tab) must be enabled as well.)")]
         public bool FrostUsePetSacrifice
         {
             get;
@@ -399,7 +436,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Frost")]
         [DisplayName("Pet Sacrifice (Death Pact) Percent")]
-        [Description("Will use Death Pact at the set Healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Death Pact at the set Healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int FrostPetSacrificePercent
         {
             get;
@@ -448,7 +485,7 @@ namespace Clu.Settings
         [DefaultValue(40)]
         [Category("Unholy")]
         [DisplayName("Icebound Fortitude Percent")]
-        [Description("Will use Icebound Fortitude at the set Health Percent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Icebound Fortitude at the set Health Percent. (Self Healing (General Tab) must be enabled as well.)")]
         public int UnholyIceboundFortitudePercent
         {
             get;
@@ -459,7 +496,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Unholy")]
         [DisplayName("Pet Sacrifice (Death Pact)")]
-        [Description("If set to true CLU will use Death Pact. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use Death Pact. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UnholyUsePetSacrifice
         {
             get;
@@ -470,7 +507,7 @@ namespace Clu.Settings
         [DefaultValue(25)]
         [Category("Unholy")]
         [DisplayName("Pet Sacrifice (Death Pact) Percent")]
-        [Description("Will use Death Pact at the set Healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Death Pact at the set Healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int UnholyPetSacrificePercent
         {
             get;

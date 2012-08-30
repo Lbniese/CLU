@@ -887,10 +887,7 @@ namespace Clu.Helpers
                 runename = "Frost_2";
 
             // Lets track some rune cooldowns!
-            var lua =
-                String.Format(
-                    "local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_start > 0 then return math.ceil((r_start + r_duration) - GetTime()) else return 0 end",
-                    rune);
+            var lua = String.Format("local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_start > 0 then return math.ceil((r_start + r_duration) - GetTime()) else return 0 end", rune);
             try {
                 var retValue = Double.Parse(Lua.GetReturnValues(lua)[0]);
                 return retValue;

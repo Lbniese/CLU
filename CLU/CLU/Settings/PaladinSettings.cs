@@ -28,7 +28,7 @@ namespace Clu.Settings
         [DefaultValue(40)]
         [Category("Common")]
         [DisplayName("Healthstone Percent")]
-        [Description("Will use a Healthstone for self heal at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use a Healthstone for self heal at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int HealthstonePercent
         {
             get;
@@ -50,7 +50,7 @@ namespace Clu.Settings
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Hand of Freedom")]
-        [Description("If set to true CLU will use Hand of Freedom. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("If set to true CLU will use Hand of Freedom. (Self Healing (General Tab) must be enabled as well.)")]
         public bool UseHandofFreedom
         {
             get;
@@ -62,7 +62,7 @@ namespace Clu.Settings
         [DefaultValue(40)]
         [Category("Common")]
         [DisplayName("Flash Heal Resting Percent")]
-        [Description("Will use Flash Heal for self heal when resting at this healthpercent. (Enable Self Healing, and Enable Movement (General Tab) must be enabled as well.)")]
+        [Description("Will use Flash Heal for self heal when resting at this healthpercent. (Self Healing, and Enable Movement (General Tab) must be enabled as well.)")]
         public int FlashHealRestingPercent
         {
             get;
@@ -218,7 +218,7 @@ namespace Clu.Settings
         [DefaultValue(60)]
         [Category("Protection")]
         [DisplayName("Divine Protection Percent")]
-        [Description("Will use Divine Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Divine Protection at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int ProtectionDPPercent
         {
             get;
@@ -229,7 +229,7 @@ namespace Clu.Settings
         [DefaultValue(30)]
         [Category("Protection")]
         [DisplayName("Lay on Hands Percent")]
-        [Description("Will use Lay on Hands at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Lay on Hands at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int ProtectionLoHPercent
         {
             get;
@@ -240,7 +240,7 @@ namespace Clu.Settings
         [DefaultValue(25)]
         [Category("Protection")]
         [DisplayName("Divine Shield Percent")]
-        [Description("Will use Divine Shield at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Divine Shield at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int ProtectionDSPercent
         {
             get;
@@ -326,7 +326,7 @@ namespace Clu.Settings
         [DefaultValue(80)]
         [Category("Retribution")]
         [DisplayName("Divine Protection Percent")]
-        [Description("Will use Divine Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Divine Protection at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int RetributionDPPercent
         {
             get;
@@ -337,7 +337,7 @@ namespace Clu.Settings
         [DefaultValue(30)]
         [Category("Retribution")]
         [DisplayName("Lay on Hands Percent")]
-        [Description("Will use Lay on Hands at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Lay on Hands at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int RetributionLoHPercent
         {
             get;
@@ -348,7 +348,7 @@ namespace Clu.Settings
         [DefaultValue(25)]
         [Category("Retribution")]
         [DisplayName("Divine Shield Percent")]
-        [Description("Will use Divine Shield at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Divine Shield at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int RetributionDSPercent
         {
             get;
@@ -359,7 +359,7 @@ namespace Clu.Settings
         [DefaultValue(20)]
         [Category("Retribution")]
         [DisplayName("Hand of Protection Percent")]
-        [Description("Will use Hand of Protection at this healthpercent. (Enable Self Healing (General Tab) must be enabled as well.)")]
+        [Description("Will use Hand of Protection at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
         public int RetributionHoPPercent
         {
             get;

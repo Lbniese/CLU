@@ -305,7 +305,7 @@ namespace Clu.Settings
         [Setting]
         [DefaultValue(Keyboardfunctions.Nothing)]
         [Category("Keybinds")]
-        [DisplayName("Toggle Enable Self Healing")]
+        [DisplayName("Toggle Self Healing")]
         [Description("Select the Keybind for [EnableSelfHealing] DO NOT SET THE SAME KEYBIND MORE THAN ONCE!!!")]
         public Keyboardfunctions KeybindHealEnableSelfHealing
         {
@@ -461,7 +461,7 @@ namespace Clu.Settings
         [Setting]
         [DefaultValue(true)]
         [Category("General")]
-        [DisplayName("Enable Self Healing")]
+        [DisplayName("Self Healing")]
         [Description("When this is set to true, CLU will automaticly handle Healing such as Vampiric Blood, Lay on Hands, Healthstones, etc")]
         public bool EnableSelfHealing
         {
