@@ -58,59 +58,59 @@ Three Rotation Modes - Single, PVE, PVP
 - Key: Tested[T], Untested[U], Partially checked[PC], NotImplemented[N/A]
 
 * DeathKnight
-- Blood...................[U] -- Patch 5.0.4 only (Change from Wulf)
-- Frost...................[U] -- Patch 5.0.4 only (Change from Weischbier)
-- Unholy..................[T] -- Patch 4.3.x only
+- [U] Blood				-- Patch 5.0.4 only (Change from Wulf)
+- [U] Frost				-- Patch 5.0.4 only (Change from Weischbier)
+- [T] Unholy			-- Patch 4.3.x only
 
 * Druid
-- Balance.................[T] -- Patch 4.3.x only
-- Feral (bear/Cat)........[T] -- Patch 4.3.x only
-- Restoration.............[T] -- Patch 4.3.x only
+- [T] Balance			-- Patch 4.3.x only
+- [T] Feral (bear/Cat)	-- Patch 4.3.x only
+- [T] Restoration		-- Patch 4.3.x only
 
 * Hunter
-- BeastMastery...........[T] -- Patch 4.3.x only
-- Marksmanship...........[T] -- Patch 4.3.x only
-- Survival...............[T] -- Patch 4.3.x only
+- [T] BeastMastery		-- Patch 4.3.x only
+- [T] Marksmanship		-- Patch 4.3.x only
+- [T] Survival			-- Patch 4.3.x only
 
 * Mage
-- Arcane.................[T] -- Patch 4.3.x only
-- Fire...................[T] -- Patch 4.3.x only
-- Frost..................[T] -- Patch 4.3.x only
+- [T] Arcane			-- Patch 4.3.x only
+- [T] Fire				-- Patch 4.3.x only
+- [T] Frost				-- Patch 4.3.x only
 
 * Monk
-- Brewmaster..........[N/A] -- Patch 5.0.4 only
-- Mistweaver..........[N/A] -- Patch 5.0.4 only
-- Windwalker..........[N/A] -- Patch 5.0.4 only
+- [N/A] Brewmaster		-- Patch 5.0.4 only
+- [N/A] Mistweaver		-- Patch 5.0.4 only
+- [N/A] Windwalker		-- Patch 5.0.4 only
 
 * Paladin
-- Holy....................[T]
-- Protection..............[U] -- Patch 5.0.4 only (Change from Wulf)
-- Retribution.............[u] -- Patch 5.0.4 only (Change from Wulf)
+- [T] Holy				-- Patch 4.3.x only
+- [U] Protection		-- Patch 5.0.4 only (Change from Wulf)
+- [U] Retribution		-- Patch 5.0.4 only (Change from Wulf)
 
 * Priest
-- Shadow................[T] -- Patch 5.0.4 Leveling only (Change from Wulf)
-- Discipline............[T] -- Patch 4.3.x only
-- Holy..................[T] -- Patch 4.3.x only
+- [U] Shadow			-- Patch 5.0.4 Leveling only (Change from Wulf)
+- [T] Discipline		-- Patch 4.3.x only
+- [T] Holy				-- Patch 4.3.x only
 
 * Rogue
-- Assassination..........[T] -- Patch 4.3.x only
-- Combat	.............[T] -- Patch 4.3.x only
-- Subtlety...............[T] -- Patch 4.3.x only
+- [T] Assassination.	-- Patch 4.3.x only
+- [T] Combat			-- Patch 4.3.x only
+- [T] Subtlety			-- Patch 4.3.x only
 
 * Shaman
-- Elemental............[T] -- Patch 4.3.x only	 	
-- Restoration..........[T] -- Patch 4.3.x only
-- Enhancement..........[T] -- Patch 4.3.x only
+- [T] Elemental			-- Patch 4.3.x only	 	
+- [T] Restoration		-- Patch 4.3.x only
+- [T] Enhancement		-- Patch 4.3.x only
 
 * Warlock
-- Affliction...........[T] -- Patch 4.3.x only
-- Demonology...........[T] -- Patch 4.3.x only
-- Destruction..........[T] -- Patch 4.3.x only
+- [T] Affliction		-- Patch 4.3.x only
+- [T] Demonology		-- Patch 4.3.x only
+- [T] Destruction		-- Patch 4.3.x only
 
 * Warrior
-- Arms.................[T] -- Patch 4.3.x only
-- Protection...........[T] -- Patch 4.3.x only
-- Fury.................[T] -- Patch 4.3.x only
+- [T] Arms				-- Patch 4.3.x only
+- [T] Protection		-- Patch 4.3.x only
+- [T] Fury				-- Patch 4.3.x only
 	
 Rotation Selector
 --------------------
