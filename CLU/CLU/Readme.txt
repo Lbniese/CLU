@@ -94,7 +94,7 @@ Three Rotation Modes - Single, PVE, PVP
 
 * Rogue
 - [T] Assassination.	-- Patch 4.3.x only
-- [T] Combat			-- Patch 4.3.x only
+- [T] Combat			-- Patch 5.0.4 only (Change from Weischbier)
 - [T] Subtlety			-- Patch 4.3.x only
 
 * Shaman
