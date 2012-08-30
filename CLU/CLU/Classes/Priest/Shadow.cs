@@ -1,4 +1,5 @@
-﻿using Clu.Helpers;
+﻿using System.Linq;
+using Clu.Helpers;
 using TreeSharp;
 using CommonBehaviors.Actions;
 using Clu.Lists;
@@ -10,21 +11,7 @@ namespace Clu.Classes.Priest
     class Shadow : RotationBase
     {
 
-        // private static HashSet<int> ItemSetIds { get { return ItemSetId; } }
-
-        // private static readonly HashSet<int> ItemSetId = new HashSet<int>
-        // {
-        //    1067,
-        //    // Tier set ID Regalia of Dying light (Normal)
-        //    -491,
-        //    // Tier set ID Regalia of Dying light (Heroic)
-        //    -472,
-        //    // Tier set ID Regalia of Dying light (Raid Finder)
-        // };
-
         private const int ItemSetId = 1067; // Tier set ID Regalia of Dying light (Normal)
-        // private const int ItemSetIdH = -491; // Tier set ID Regalia of Dying light (Heroic)
-        // private const int ItemSetIdRF = -472; // Tier set ID Regalia of Dying light (Raid Finder)
 
         public override string Name
         {
@@ -52,25 +39,27 @@ namespace Clu.Classes.Priest
         {
             get {
 
+
                 var twopceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
                 var fourpceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
-                return "\n" +
-                       "----------------------------------------------------------------------\n" +
-                       twopceinfo + "\n" +
-                       fourpceinfo + "\n" +
-                       "This CC will:\n" +
-                       "1. Fade on threat, Shadowform during combat, Dispersion, Power Word: Shield, Flash Heal\n" +
-                       "==>Buffs: Power Word: Fortitude, Shadow Protection, Inner Fire, Vampiric Embrace \n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "==> Shadowfiend & Dispersion & Archangel\n" +
-                       "3. AoE with Mind Sear\n" +
-                       "4. Best Suited for end game raiding\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to cowdude\n" +
-                       "----------------------------------------------------------------------\n";
+                return
+                    @"
+----------------------------------------------------------------------
+Shadow MoP:
+[*] Default Rotation is ""Leveling"" and is recommended until ""Default and MindSpike"" are updated.
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+This Rotation will:
+1. Fade on threat, Shadowform during combat, Dispersion, Power Word: Shield,
+	==> Healthstone, Flash Heal if movement enabled.
+2. Buffs: Power Word: Fortitude, Shadow Protection, Inner Fire, Vampiric Embrace
+3. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Shadowfiend & Dispersion & Archangel
+3. AoE with Mind Sear and Divine Star
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
 
@@ -95,6 +84,33 @@ namespace Clu.Classes.Priest
                            Buff.CastBuff("Fade", ret => (CLUSettings.Instance.UseCooldowns || CLUSettings.Instance.Priest.UseFade) && Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Fade (Threat)"),
 
                            Item.RunMacroText("/cast Shadowform", ret => !Buff.PlayerHasBuff("Shadowform"), "Shadowform"),
+
+                           // Grinding/Leveling/Farmig/Questing,etc Rotation (designed for High Kill Rate with the least amount of mana)
+                           new Decorator(
+                               ret => CLUSettings.Instance.Priest.SpriestRotationSelection == ShadowPriestRotation.Leveling,
+                               new PrioritySelector(
+                                   Spell.CastSelfSpell("Dispersion",        ret => (Me.HealthPercent < 10 || Me.ManaPercent < 10),"Dispersion"),
+                                   Spell.CastSelfSpell("Mindbender",        ret => CLUSettings.Instance.UseCooldowns && Unit.EnemyUnits.Count(u => u.IsTargetingMeOrPet) >= 2, "Mindbender"),
+                                   // Multi-Dotting will occour if there are between 1 or more and less than 6 enemys within 15yrds of your current target and you have more than 50% mana and we have Empowered Shadow. //Can be disabled within the GUI
+                                   Unit.FindMultiDotTarget(a => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) > 1 && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) < 5 && Me.ManaPercent > 50 && Me.CurrentTarget.HealthPercent <= 25, "Shadow Word: Death"),
+                                   Unit.FindMultiDotTarget(a => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) > 1 && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) < 5 && Me.ManaPercent > 50 && Me.CurrentTarget.HealthPercent > 25 && Buff.PlayerHasActiveBuff("Empowered Shadow") && Unit.TimeToDeath(Me.CurrentTarget) > 10, "Shadow Word: Pain"),
+                                   Unit.FindMultiDotTarget(a => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) > 4 && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 15) < 6 && Me.ManaPercent > 50 && Me.CurrentTarget.HealthPercent > 25 && Buff.PlayerHasActiveBuff("Empowered Shadow") && Unit.TimeToDeath(Me.CurrentTarget) > 10, "Vampiric Touch"),
+                                   // End Multi-Dotting
+                                   Spell.CastSpell("Shadow Word: Death",    ret => Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent <= 25, "Shadow Word: Death"),
+                                   Spell.CastSpell("Mind Spike",            ret => Buff.PlayerHasBuff("Surge of Darkness"), "Mind Spike"), // Free Mindspike
+                                   Spell.CastSpell("Mind Blast",            ret => !Me.IsMoving, "Mind Blast"),
+                                   Buff.CastDebuff("Vampiric Touch",        ret => Me.CurrentTarget != null && Unit.TimeToDeath(Me.CurrentTarget) > 10, "Vampiric Touch"),
+                                   Buff.CastDebuff("Shadow Word: Pain",     ret => Me.CurrentTarget != null && Unit.TimeToDeath(Me.CurrentTarget) > 15, "Shadow Word: Pain"),
+                                   Spell.CastSpell("Divine Star",           ret => Me.CurrentTarget != null && !Me.IsMoving && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 12) > 4 && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry), "Divine Star"), // New patch 5.0.4 - could be a mana drainer --wulf
+                                   Spell.CastSpell("Mind Sear",             ret => Me.CurrentTarget != null && !Me.IsMoving && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 12) > 4 && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Buff.PlayerHasActiveBuff("Empowered Shadow"), "Mind Sear"),
+                                   Buff.CastDebuff("Devouring Plague",      ret => Me.CurrentTarget != null && Unit.TimeToDeath(Me.CurrentTarget) > 20, "Devouring Plague"),
+                                   Spell.CastSelfSpell("Archangel",         ret => CLUSettings.Instance.UseCooldowns && Unit.EnemyUnits.Count(u => u.IsTargetingMeOrPet) >= 2, "Archangel"),
+                                   Spell.CastSpell("Shadowfiend",           ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Shadowfiend"),
+                                   Spell.CastSpell("Mind Spike",            ret => true, "Mind Spike"),
+                                   Spell.CastSpecialSpell("Mind Flay",      ret => Buff.TargetDebuffTimeLeft("Mind Flay").TotalSeconds <= Spell.ClippingDuration(), "Mind Flay")  
+                               )),  
+                           
+                           
                            // Default Rotation
                            new Decorator(
                                ret => CLUSettings.Instance.Priest.SpriestRotationSelection == ShadowPriestRotation.Default,

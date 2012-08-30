@@ -51,6 +51,7 @@
 
 
     public enum ShadowPriestRotation {
+        Leveling,
         Default,
         MindSpike
     }

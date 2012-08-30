@@ -111,7 +111,7 @@ namespace Clu.Settings
         #region Shadow
 
         [Setting]
-        [DefaultValue(ShadowPriestRotation.Default)]
+        [DefaultValue(ShadowPriestRotation.Leveling)]
         [Category("Shadow Spec")]
         [DisplayName("Rotation Selector")]
         [Description("Choose MindSpike rotation if you have at least 2x T13")]

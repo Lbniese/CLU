@@ -269,6 +269,9 @@ namespace Clu.Helpers
                     return true;
                 case "Darkmoon Card: Earthquake":
                     return Me.HealthPercent <= 90;
+                case "Rosary of Light": //Unusable in Combat!
+                    return false;
+
                     // Encounter Specific (Uncomment the lines below for HC Deathwing) thanks to gniegsch fo his input!
                     // case "Stay of Execution":
                     //    return Me.CurrentTarget != null && Me.CurrentTarget.ChanneledCastingSpellId == 109632 && Me.CurrentTarget.IsTargetingMeOrPet && Me.CurrentTarget.CurrentCastTimeLeft.TotalMilliseconds <= 1000;
