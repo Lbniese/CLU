@@ -58,7 +58,7 @@ Three Rotation Modes - Single, PVE, PVP
 - Key: Tested[T], Untested[U], Partially checked[PC], NotImplemented[N/A]
 
 * DeathKnight
-- Blood...................[T] -- Patch 4.3.x only
+- Blood...................[u] -- Patch 5.0.4 only (Change from Wulf)
 - Frost...................[U] -- Patch 5.0.4 only (Change from Weischbier)
 - Unholy..................[T] -- Patch 4.3.x only
 
@@ -151,6 +151,7 @@ Miscellaneous functionality
 - Intelligent use of cooldowns by confirming if your target is worthy.
 - Combat resurrection (Resto Druid only atm)
 - Engineering gloves
+- Boss, PvP Player, or Mobs (for questing)
 
 * Extra Action button Click
 - Whilst in DeathWing (Cataclysm) CLU will click the Extra Action Button during the encounter for you.
@@ -301,6 +302,7 @@ Credits
 =======
 * cowdude for his initial work with Felmaster and giving me inspiration to create this CC.
 * All the Singular Developers For there tiresome work and supporting code
+* Weischbier for his Support with the new 5.0.4 MoP Changes.
 * bobby53 For his Disclaimer (Couldn't have said it better)
 * Kickazz006 for his BlankProfile.xml
 * Shaddar & Mentally for thier initial detection code of HourofTwilight, FadingLight and Shrapnel
