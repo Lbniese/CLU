@@ -25,7 +25,7 @@ namespace Clu.Classes.Rogue
         public override string KeySpell
         {
             get {
-                return "Cold Blood";
+                return "Vendetta";
             }
         }
 
@@ -66,55 +66,104 @@ namespace Clu.Classes.Rogue
 
         public override Composite SingleRotation
         {
-            get {
+            get
+            {
                 return new PrioritySelector(
-                           // Pause Rotation
-                           new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
+                    // Pause Rotation
+                    new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
 
-                           // For DS Encounters.
-                           EncounterSpecific.ExtraActionButton(),
+                    // For DS Encounters.
+                    EncounterSpecific.ExtraActionButton(),
 
-                           // Don't do anything if we have cast vanish
-                           // new Decorator( ret => Buff.PlayerHasActiveBuff("Vanish"), new ActionAlwaysSucceed()),
+                    // Don't do anything if we have cast vanish
+                    // new Decorator( ret => Buff.PlayerHasActiveBuff("Vanish"), new ActionAlwaysSucceed()),
 
-                           // Stealth
-                           Spell.CastSelfSpell("Stealth", ret => !Buff.PlayerHasBuff("Stealth") && CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
+                    // Stealth
+                    Spell.CastSelfSpell("Stealth",
+                                        ret =>
+                                        !Buff.PlayerHasBuff("Stealth") && CLUSettings.Instance.Rogue.EnableAlwaysStealth,
+                                        "Stealth"),
 
-                           // Questing and PvP helpers
-                           new Decorator(
-                               ret => CLUSettings.Instance.EnableMovement && Buff.PlayerHasBuff("Stealth"),
-                               new PrioritySelector(
-                                   Spell.CastSelfSpell("Sprint",  ret => Me.IsMoving && Unit.DistanceToTargetBoundingBox() >= 15, "Sprint"),
-                                   Spell.CastSpell("Garrote",     ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget), "Garrote"),
-                                   Spell.CastSpell("Cheap Shot",  ret => Me.CurrentTarget != null && !SpellManager.HasSpell("Garrote") || !IsBehind(Me.CurrentTarget), "Cheap Shot"),
-                                   Spell.CastSpell("Ambush",      ret => !SpellManager.HasSpell("Cheap Shot") && IsBehind(Me.CurrentTarget), "Ambush"))),
+                    // Questing and PvP helpers
+                    new Decorator(
+                        ret => CLUSettings.Instance.EnableMovement && Buff.PlayerHasBuff("Stealth"),
+                        new PrioritySelector(
+                            Spell.CastSelfSpell("Sprint", ret => Me.IsMoving && Unit.DistanceToTargetBoundingBox() >= 15,
+                                                "Sprint"),
+                            Spell.CastSpell("Garrote", ret => Me.CurrentTarget != null, "Garrote"),
+                            Spell.CastSpell("Cheap Shot",
+                                            ret =>
+                                            Me.CurrentTarget != null && !SpellManager.HasSpell("Garrote") ||
+                                            !IsBehind(Me.CurrentTarget), "Cheap Shot"),
+                            Spell.CastSpell("Ambush",
+                                            ret => !SpellManager.HasSpell("Cheap Shot") && IsBehind(Me.CurrentTarget),
+                                            "Ambush"))),
 
-                           // Trinkets & Cooldowns
-                           new Decorator(
-                               ret => Me.CurrentTarget != null && (Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.TargetHasDebuff("Vendetta")),
-                               new PrioritySelector(
-                                   Item.UseTrinkets(),
-                                   Spell.UseRacials(),
-                                   Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
-                                   Item.UseEngineerGloves())),
-                           // threat
-                           Spell.CastSpell("Feint",                       ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()), "Feint"),
-                           Spell.CastInterupt("Kick",                     ret => true, "Kick"),
-                           Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade, "Tricks of the Trade"),
-                           Spell.CastSpell("Redirect",                    ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
-                           Spell.CastSpell("Garrote",                     ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget), "Garrote"),
-                           Spell.CastSelfSpell("Slice and Dice",          ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"),
-                           Spell.CastSpell("Rupture",                     ret => (!Buff.TargetHasDebuff("Rupture") || Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds < 2) && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds < 6, "Rupture"),
-                           Spell.CastSpell("Vendetta",                    ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Vendetta"),
-                           Spell.CastSpell("Rupture",                     ret => (!Buff.TargetHasDebuff("Rupture") || Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds < 2) && Buff.TargetDebuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Rupture"),
-                           Spell.CastSelfSpell("Cold Blood",              ret => (Me.ComboPoints >= 4 && !Buff.TargetHasDebuff("Envenom")) || (Me.ComboPoints >= 4 && Me.CurrentEnergy > 90), "Cold Blood"),
-                           Spell.CastSpell("Envenom",                     ret => Me.ComboPoints >= 4 && !Buff.TargetHasDebuff("Envenom"), "Envenom"),
-                           Spell.CastSpell("Envenom",                     ret => Me.ComboPoints >= 4 && Me.CurrentEnergy > 90, "Envenom"),
-                           Spell.CastSpell("Envenom",                     ret => Me.ComboPoints >= 2 && Buff.TargetDebuffTimeLeft("Slice and Dice").TotalSeconds < 3, "Envenom"),
-                           Spell.CastSpell("Backstab",                    ret => Me.CurrentTarget != null && (IsBehind(Me.CurrentTarget) || BossList.BackstabIds.Contains(Unit.CurrentTargetEntry)) && Me.ComboPoints < 5 && Me.CurrentTarget.HealthPercent < 35, "Backstab"),
-                           Spell.CastSpell("Mutilate",                    ret => Me.CurrentTarget != null && !IsBehind(Me.CurrentTarget) && Me.ComboPoints < 5 && Me.CurrentTarget.HealthPercent < 35, "Mutilate"),
-                           Spell.CastSpell("Mutilate",                    ret => Me.CurrentTarget != null && Me.ComboPoints < 4 && Me.CurrentTarget.HealthPercent >= 35, "Mutilate"),
-                           Spell.CastSpell("Vanish",                      ret => Me.CurrentTarget != null && Me.CurrentEnergy > 50 && !Buff.TargetHasDebuff("Garrote") && Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"));
+                    // Trinkets & Cooldowns
+                    new Decorator(
+                        ret =>
+                        Me.CurrentTarget != null &&
+                        (Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.TargetHasDebuff("Vendetta")),
+                        new PrioritySelector(
+                            Item.UseTrinkets(),
+                            Spell.UseRacials(),
+                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
+                            Item.UseEngineerGloves())),
+                    // threat
+                    Spell.CastSpell("Feint",
+                                    ret =>
+                                    Me.CurrentTarget != null &&
+                                    (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()),
+                                    "Feint"),
+                    Spell.CastInterupt("Kick", ret => true, "Kick"),
+                    Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget,
+                                    ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade, "Tricks of the Trade"),
+                    Spell.CastSpell("Redirect", ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
+                    Spell.CastSpell("Garrote", ret => Me.CurrentTarget != null, "Garrote"),
+                    Spell.CastSelfSpell("Slice and Dice", ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"),
+                    // Aoe
+                    new Decorator(ret => Unit.EnemyUnits.Count(a => a.DistanceSqr <= 15*15) > 3,
+                                  new PrioritySelector(
+                                      Spell.CastSpell("Crimson Tempest",
+                                                      ret =>
+                                                      Unit.EnemyUnits.Any(
+                                                          a => !a.HasMyAura("Crimson Tempest") && Me.ComboPoints > 3),
+                                                      "Crimson Tempest"), // BLEED AOE WOOOOOOOT!
+                                      Spell.CastSpell("Fan of Knifes",
+                                                      ret => Me.CurrentTarget != null && Me.ComboPoints < 5,
+                                                      "Fan of Knifes")
+                                      )
+                        ),
+                    Spell.CastSpell("Rupture",
+                                    ret =>
+                                    (!Buff.TargetHasDebuff("Rupture")) &&
+                                    Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Rupture"),
+                    Spell.CastSpell("Vendetta", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
+                                    "Vendetta"),// with Glyph "Glyph of Vendetta" 9s longer but decrased Damagebuff by 5%
+                    Spell.CastSpell("Envenom", ret => Me.ComboPoints >= 4 && !Buff.TargetHasDebuff("Envenom"), "Envenom"),
+                    Spell.CastSpell("Envenom", ret => Me.ComboPoints >= 4 && Me.CurrentEnergy > 90, "Envenom"),
+                    Spell.CastSpell("Envenom",
+                                    ret =>
+                                    Me.ComboPoints >= 2 && Buff.TargetDebuffTimeLeft("Slice and Dice").TotalSeconds < 2,
+                                    "Envenom"),
+                    Spell.CastSpell("Dispatch",
+                                    ret =>
+                                    Me.CurrentTarget != null &&
+                                    (BossList.BackstabIds.Contains(Unit.CurrentTargetEntry)) && Me.ComboPoints < 5 &&
+                                    Me.CurrentTarget.HealthPercent < 35, "Dispatch"),
+                    Spell.CastSpell("Dispatch",
+                                    ret =>
+                                    Me.CurrentTarget != null && Me.ComboPoints == 4 &&
+                                    Buff.PlayerHasActiveBuff("Blindside"), "Dispatch"),
+                    // No longer behind the freain' target FTW
+                    Spell.CastSpell("Mutilate",
+                                    ret =>
+                                    Me.CurrentTarget != null && Me.ComboPoints < 5 &&
+                                    Me.CurrentTarget.HealthPercent >= 35, "Mutilate"),
+                    Spell.CastSpell("Vanish",
+                                    ret =>
+                                    Me.CurrentTarget != null && Me.CurrentEnergy > 50 &&
+                                    !Buff.TargetHasDebuff("Garrote") && Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"));
             }
         }
 

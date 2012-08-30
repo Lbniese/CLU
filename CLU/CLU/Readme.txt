@@ -58,7 +58,7 @@ Three Rotation Modes - Single, PVE, PVP
 - Key: Tested[T], Untested[U], Partially checked[PC], NotImplemented[N/A]
 
 * DeathKnight
-- Blood...................[u] -- Patch 5.0.4 only (Change from Wulf)
+- Blood...................[U] -- Patch 5.0.4 only (Change from Wulf)
 - Frost...................[U] -- Patch 5.0.4 only (Change from Weischbier)
 - Unholy..................[T] -- Patch 4.3.x only
 
