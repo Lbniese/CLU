@@ -1,4 +1,12 @@
 ﻿
+/*
+todo:                                                               Done by:
+ * add pestilence with glyph                                                   :
+ * revisit unholy with rune power management                                   :
+ * revisit frost...not happy                                                   :
+ * add apply diseases composit, its all the same for any spec                  :
+ * add CanPlagueLeech to rotations                                             :
+*/
 namespace Clu.Classes.DeathKnight
 {
     using System;
