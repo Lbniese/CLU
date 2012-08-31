@@ -60,7 +60,7 @@ Three Rotation Modes - Single, PVE, PVP
 * DeathKnight
 - [U] Blood				-- Patch 5.0.4 only (Change from Wulf)
 - [U] Frost				-- Patch 5.0.4 only (Change from Weischbier)
-- [T] Unholy			-- Patch 4.3.x only
+- [T] Unholy			-- Patch 5.0.4 only (Change from Weischbier)
 
 * Druid
 - [T] Balance			-- Patch 4.3.x only
@@ -68,7 +68,7 @@ Three Rotation Modes - Single, PVE, PVP
 - [T] Restoration		-- Patch 4.3.x only
 
 * Hunter
-- [T] BeastMastery		-- Patch 4.3.x only
+- [T] BeastMastery		-- Patch 5.0.4 only (Change from Wulf)
 - [T] Marksmanship		-- Patch 4.3.x only
 - [T] Survival			-- Patch 4.3.x only
 
@@ -93,7 +93,7 @@ Three Rotation Modes - Single, PVE, PVP
 - [T] Holy				-- Patch 4.3.x only
 
 * Rogue
-- [T] Assassination.	-- Patch 4.3.x only
+- [T] Assassination.	-- Patch 5.0.4 only (Change from Weischbier)
 - [T] Combat			-- Patch 5.0.4 only (Change from Weischbier)
 - [T] Subtlety			-- Patch 4.3.x only
 

@@ -16,7 +16,7 @@ namespace Clu.Classes.Hunter
             }
         }
 
-        // public static readonly HealerBase Healer = HealerBase.Instance;
+        // removed call of the wild.
 
         public override string KeySpell
         {
@@ -38,13 +38,14 @@ namespace Clu.Classes.Hunter
             get {
                 return "\n" +
                        "----------------------------------------------------------------------\n" +
+                       "  Dire Beast,  Lynx Rush, and  Glaive Toss from your tier 4, 5, and 6 talents, respectively. This is because we deem them to be best talents for your DPS." +
                        "This Rotation will:\n" +
                        "1. Trap Launcher or Feign Death will halt the rotation\n" +
                        "2. AutomaticCooldowns has: \n" +
                        "==> UseTrinkets \n" +
                        "==> UseRacials \n" +
                        "==> UseEngineerGloves \n" +
-                       "==> Rapid Fire & Serpent Sting & Bestial Wrath & Fervor & Call of the Wild \n" +
+                       "==> Rapid Fire & Serpent Sting & Bestial Wrath & Fervor & [REMOVED] Call of the Wild \n" +
                        "3. AoE with Multishot and Explosive Trap\n" +
                        "4. Best Suited for T13 end game raiding\n" +
                        "Fox		-haste\n" +
@@ -106,18 +107,29 @@ namespace Clu.Classes.Hunter
                                    Spell.CastSpell("Raptor Strike",           ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.CurrentTarget.IsWithinMeleeRange, "Raptor Strike (Melee)"),
                                    Buff.CastDebuff("Wing Clip",               ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.CurrentTarget.IsWithinMeleeRange, "Wing Clip (Melee)"),
                                    // Main rotation
-                                   PetManager.CastPetSpell("Call of the Wild",      ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Call of the Wild"),
-                                   Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect") && !Buff.PlayerHasBuff("The Beast Within"), "Focus Fire"),
+                                   
+                                   Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect"), "Focus Fire"),
                                    Buff.CastDebuff("Serpent Sting",           ret => Me.CurrentTarget != null && Buff.TargetDebuffTimeLeft("Serpent Sting").TotalSeconds <= 0.5 && Unit.IsTargetWorthy(Me.CurrentTarget), "Serpent Sting"),
-                                   Buff.CastBuff("Bestial Wrath",             ret => Me.CurrentTarget != null && Me.FocusPercent > 60 && Unit.IsTargetWorthy(Me.CurrentTarget), "Bestial Wrath"),
+                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= 65 && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
+                                   Buff.CastBuff("Bestial Wrath",             ret => Me.CurrentTarget != null && Me.FocusPercent > 60 && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Bestial Wrath"),
                                    Spell.CastSpell("Multi-Shot",              ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) > 3, "Multi-Shot"),
+                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) > 3, "Cobra Shot"),
                                    Spell.HunterTrapBehavior("Explosive Trap", ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) > 0),
-                                   Spell.CastSpell("Cobra Shot",              ret => Me.IsMoving && Buff.PlayerHasBuff("Aspect of the Fox") && Unit.CountEnnemiesInRange(Me.Location, 30) > 4, "Cobra Shot (Moving AoE)"),
-                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) > 4, "Cobra Shot"),
+                                   Buff.CastBuff("A Murder of Crows",         ret => Unit.IsTargetWorthy(Me.CurrentTarget), "A Murder of Crows"), //reduced to 60sec cooldown if under 20%
+                                   Buff.CastBuff("Stampede",                  ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Stampede"),
+                                   //Spell.CastSpell("Glaive Toss",             ret => !Buff.TargetHasDebuff("Glaive Toss"), "Glaive Toss"), //instant..with no apparent cooldown...needs checking.
+                                   Spell.ChannelSpell("Barrage",              ret => Unit.CountEnnemiesInRange(Me.Location, 20) > 1, "Barrage"), //AoE? needs testing.
+                                   Spell.ChannelSpell("Powershot",            ret => Unit.CountEnnemiesInRange(Me.Location, 20) > 1, "Powershot"), //AoE? needs testing also has knockback!..needs a setting to disable as well.
+                                   //PetManager.CastPetSpell("Blink Strike",    ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
+                                   Spell.CastSelfSpell("Blink Strike",        ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
+                                   Spell.CastSelfSpell("Lynx Rush",           ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
                                    Buff.CastBuff("Rapid Fire",                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.PlayerHasBuff("The Beast Within") && !Buff.UnitHasHasteBuff(Me), "Rapid Fire"),
-                                   Spell.CastSelfSpell("Kill Command",        ret => Me.CurrentTarget != null && Me.GotAlivePet && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Kill Command"),
-                                   Spell.CastSelfSpell("Fervor",              ret => Me.CurrentTarget != null && Me.FocusPercent <= 37 && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
+                                   Spell.CastSelfSpell("Kill Command",        ret => Me.CurrentTarget != null && Me.GotAlivePet && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 25, "Kill Command"),
+                                   Spell.CastSelfSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10 && Me.FocusPercent <= 80, "Dire Beast"),
+                                   Spell.CastSpell("Arcane Shot",             ret => Buff.PlayerHasBuff("Thrill of the Hunt"), "Arcane Shot"),
+                                   Buff.CastBuff("Readiness",                 ret => Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
                                    Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= 59 || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
+                                   Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect") && Buff.PlayerHasBuff("Focus Fire") && !Buff.PlayerHasBuff("The Beast Within"), "Focus Fire"),
                                    Spell.CastSpell("Cobra Shot",              ret => true, "Cobra Shot"))));
             }
         }
