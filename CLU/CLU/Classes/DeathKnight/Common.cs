@@ -1,7 +1,7 @@
 ﻿
 /*
 todo:                                                               Done by:
- * add pestilence with glyph                                                   : by Weischbier 15:46h GMT 31.08.2012
+ * add pestilence with glyph                                                   : by Weischbier 15:46h GMT 31.08.2012 : Changed by Wulf 12:39h GMT 01.09.2012
  * revisit unholy with rune power management                                   : Pending
  * revisit frost...not happy                                                   : Pending
  * add apply diseases composit, its all the same for any spec                  : by Weischbier 15:34h GMT 31.08.2012
@@ -125,8 +125,7 @@ namespace Clu.Classes.DeathKnight
                                 new Switch<DeathKnightTierOneTalent>(ctx => CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent,
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.PlagueLeech,
                                         new PrioritySelector(
-                                        Spell.CastAreaSpell("Pestilence", 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => !TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"),
-                                        Spell.CastAreaSpell("Pestilence", 14.5/*Give it a tolerance, it's never perfect*/, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"))),
+                                        Spell.CastAreaSpell("Pestilence", TalentManager.HasGlyph("Pestilence") ? 14.5 : 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => !TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"))),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.UnholyBlight,
                                         Spell.CastAreaSpell("Unholy Blight", 10, false, CLUSettings.Instance.DeathKnight.UnholyBlightCount, 0.0, 0.0, ret => (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Unholy Blight")),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.RoilingBlood,

@@ -4,7 +4,7 @@ Latest Version: 3.1.0 (From SVN).
 
 Wulf is awesome -- Weischbier . . .I know! -- Wulf
 
-Current Issues Updated: 28/August/2012
+Current Issues Updated: 01/September/2012
 =================================
 * [Movement] No Pull Logic (Will cast ranged spells to pull)
 * [Movement] PvP Tweaking needed, Use at your own peri
