@@ -73,14 +73,13 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                           //Diseases -- The most important stuff for playing a Death Knight is keeping them up at all times
-                           Spell.CastSpell("Outbreak", 				ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 || Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
-                           Spell.CastSpell("Howling Blast", 		ret => Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Howling Blast (Frost Fever)"),
-                           Spell.CastSpell("Plague Strike", 		ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5, "Plague Strike"),
+                           
                            //Interrupts
                            Spell.CastInterupt("Mind Freeze", 		ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), //Why does nobody check for the range of melee kicks? // CurrentTarget Null check, we are accessing the objects property ;) --wulf
                            Spell.CastInterupt("Strangulate", 		ret => true, "Strangulate"),
                            Spell.CastInterupt("Asphyxiate", 		ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
+                           //Diseases
+                           Common.ApplyDiseases(ret => Me.CurrentTarget),
                            //Cooldowns
                            new Decorator(ret => Unit.IsTargetWorthy(Me.CurrentTarget) && Me.IsWithinMeleeRange,//Check for the damn range, we don't want to pop anything when the destination is shit away
                                          new PrioritySelector(
@@ -101,7 +100,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                            Spell.CastSpell("Obliterate", ret => Me.CurrentTarget,       ret => Common.IsWieldingTwoHandedWeapon() && Buff.PlayerHasBuff("Killing Machine"), "Frost Strike (2 Hand Killing Machine)"),
                            Spell.CastSpell("Frost Strike", ret => Me.CurrentTarget, 	ret => Me.RunicPowerPercent >= 90, "Frost Strike (Dumping Runic Power)"),
                            //Utility Talents like: Plague Leech; Blood Tap;
-                           Spell.CastSpell("Plague Leech",                              ret => Common.CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
+                           
                            Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, 		ret => Buff.PlayerCountBuff("Blood Tap") >= 11 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"), //Don't waste it on Unholy Runes
                            //Do Damage continue1
                            Spell.CastSpell("Howling Blast", 					ret => Buff.PlayerHasBuff("Freezing Fog"), "Howling Blast (Rime)"),

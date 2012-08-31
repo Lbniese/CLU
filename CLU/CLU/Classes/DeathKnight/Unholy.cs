@@ -83,9 +83,7 @@ namespace Clu.Classes.DeathKnight
                            Spell.CastSelfSpell("Blood Tap",                   ret => PetManager.PetCountBuff("Shadow Infusion") == 5 && (Me.BloodRuneCount + Me.UnholyRuneCount + Me.DeathRuneCount == 0), "Blood Tap for Dark Transformation"),
                            Spell.CastSelfSpell("Blood Tap",                   ret => Me.FrostRuneCount == 1 && (Me.UnholyRuneCount == 0 || Me.BloodRuneCount == 0), "Blood Tap"),
                            // Start Disease ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                           Spell.CastSpell("Outbreak",                        ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 || Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
-                           Spell.CastSpell("Icy Touch",                       ret => Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5 && Spell.SpellCooldown("Outbreak").TotalSeconds > 2, "Icy Touch for Frost Fever"),
-                           Spell.CastSpell("Plague Strike",                   ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 && Spell.SpellCooldown("Outbreak").TotalSeconds > 2, "Plague Strike for Blood Plague"),
+                           Common.ApplyDiseases(ret => Me.CurrentTarget),
                            // End Disease --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                            Spell.CastSpell("Dark Transformation",             ret => true, "Dark Transformation"),
                            // Start AoE ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

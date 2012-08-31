@@ -95,9 +95,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                            Spell.CastInterupt("Asphyxiate",               ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
                            Spell.CastSelfSpell("Bone Shield",             ret => Spell.SpellCooldown("Death Strike").TotalSeconds > 3 && CLUSettings.Instance.DeathKnight.UseBoneShieldonCooldown, "Bone Shield"),
                             // Apply/Refresh Diseases (Single Target) TODO: Decide if we want to refresh Weakened Blows with blood boil here. -- wulf
-                           Spell.CastSpell("Plague Leech",                ret => Common.CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
-                           Spell.CastSpell("Blood Boil",                  ret => (Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 || Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5) && Spell.SpellCooldown("Outbreak").TotalSeconds > 10, "Blood Boil"),
-                           Spell.CastSpell("Outbreak",                    ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 || Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
+                           Common.ApplyDiseases(ret => Me.CurrentTarget),
                            // Spread Diseases (Multiple Targets)
                            Common.SpreadDiseasesBehavior(ret => Me.CurrentTarget), // Used to spread your Diseases based upon your Tier one Talent.
                            Spell.CastAreaSpell("Death and Decay", 10, true, CLUSettings.Instance.DeathKnight.BloodDeathAndDecayCount, 0.0, 0.0, ret => !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) || (!BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Buff.PlayerHasBuff("Crimson Scourge")), "Death and Decay"),

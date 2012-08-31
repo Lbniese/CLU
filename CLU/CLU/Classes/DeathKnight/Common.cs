@@ -1,11 +1,11 @@
 ﻿
 /*
 todo:                                                               Done by:
- * add pestilence with glyph                                                   :
- * revisit unholy with rune power management                                   :
- * revisit frost...not happy                                                   :
- * add apply diseases composit, its all the same for any spec                  :
- * add CanPlagueLeech to rotations                                             :
+ * add pestilence with glyph                                                   : by Weischbier 15:46h GMT 31.08.2012
+ * revisit unholy with rune power management                                   : Pending
+ * revisit frost...not happy                                                   : Pending
+ * add apply diseases composit, its all the same for any spec                  : by Weischbier 15:34h GMT 31.08.2012
+ * add CanPlagueLeech to rotations                                             : by Weischbier 15:34h GMT 31.08.2012
 */
 namespace Clu.Classes.DeathKnight
 {
@@ -103,7 +103,8 @@ namespace Clu.Classes.DeathKnight
             }
             catch (Exception ex)
             {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "IsWieldingBigWeapon : {0}", ex);
+                //CLU.TroubleshootDebugLog(Color.ForestGreen, "IsWieldingBigWeapon : {0}", ex);//Yeah yeah...copy and paste :D haha
+                CLU.TroubleshootDebugLog(Color.ForestGreen, "CanPlagueLeech : {0}", ex);
             }
 
             return false;
@@ -123,13 +124,32 @@ namespace Clu.Classes.DeathKnight
                         new Sequence(
                                 new Switch<DeathKnightTierOneTalent>(ctx => CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent,
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.PlagueLeech,
-                                        Spell.CastAreaSpell("Pestilence", 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence")),
+                                        new PrioritySelector(
+                                        Spell.CastAreaSpell("Pestilence", 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => !TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"),
+                                        Spell.CastAreaSpell("Pestilence", 14.5/*Give it a tolerance, it's never perfect*/, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"))),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.UnholyBlight,
                                         Spell.CastAreaSpell("Unholy Blight", 10, false, CLUSettings.Instance.DeathKnight.UnholyBlightCount, 0.0, 0.0, ret => (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Unholy Blight")),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.RoilingBlood,
                                         Spell.CastAreaSpell("Blood Boil", 10, false, CLUSettings.Instance.DeathKnight.RoilingBloodCount, 0.0, 0.0, ret => (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Blood Boil for Roiling Blood")))
                         
                        ))));
+        }
+
+        /// <summary>
+        /// Applys your Diseases depending on what disease is falling off or utilizes Plague Leech when Outbreak comes off cooldown.
+        /// </summary>
+        /// <param name="onUnit">the unit to begin spreading Diseases on</param>
+        public static Composite ApplyDiseases(CLU.UnitSelection onUnit)
+        {
+            return
+                new Decorator(ret => onUnit != null && onUnit(ret) != null,
+                    new PrioritySelector(
+                    //Diseases -- The most important stuff for playing a Death Knight is keeping them up at all times
+                    Spell.CastSpell("Plague Leech" , ret => CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
+                    Spell.CastSpell("Outbreak"     , ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 ||Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
+                    Spell.CastSpell("Howling Blast", ret => Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5,"Howling Blast (Frost Fever)"),
+                    Spell.CastSpell("Plague Strike", ret => Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5, "Plague Strike"))
+                    );
         }
     }
 }
