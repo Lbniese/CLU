@@ -103,8 +103,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            new Decorator(
                                ret => !Buff.PlayerHasBuff("Feign Death"),
                                new PrioritySelector(
-                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
-                    // TODO: Add Binding shot logic..need to see it working well.
+                                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
+                                   // TODO: Add Binding shot logic..need to see it working well.
                                    Common.HandleMisdirection(),
                                    Buff.CastBuff("Hunter's Mark", ret => true, "Hunter's Mark"),
                                    Spell.CastSelfSpell("Feign Death", ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && CLUSettings.Instance.Hunter.UseFeignDeath, "Feign Death Threat"),
@@ -124,13 +124,14 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Dire Beast"),
                                    Buff.CastBuff("Stampede",                  ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Stampede"),
                                    Buff.CastBuff("Rapid Fire",                ret => Me.CurrentTarget != null && !Buff.UnitHasHasteBuff(Me) && Unit.IsTargetWorthy(Me.CurrentTarget), "Rapid Fire"),
-                                   Buff.CastBuff("Readiness",                  ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
+                                   Buff.CastBuff("Readiness",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
                                    Spell.CastSpell("Steady Shot",             ret => Buff.PlayerActiveBuffTimeLeft("Improved Steady Shot").TotalSeconds < 3, "Steady Shot (Improved Steady Shot) [" + Buff.PlayerActiveBuffTimeLeft("Improved Steady Shot").TotalSeconds + "]"),
                                    Item.RunMacroText("/cast Aimed Shot!",     ret => Buff.PlayerHasActiveBuff("Fire!"), "Aimed Shot (Fire!)"),
                                    Buff.CastBuff("A Murder of Crows",         ret => Unit.IsTargetWorthy(Me.CurrentTarget), "A Murder of Crows"), //reduced to 60sec cooldown if under 20%
                                    Spell.CastSpell("Arcane Shot",             ret => Buff.PlayerHasBuff("Thrill of the Hunt"), "Arcane Shot"),
                                    Spell.CastSpell("Aimed Shot",              ret => Me.CurrentTarget != null && Buff.UnitHasHasteBuff(Me) && Me.CurrentTarget.HealthPercent > 90, "Aimed Shot (RF, Lust or Hero or TW"),
                                    Spell.CastSpell("Arcane Shot",             ret => Me.CurrentTarget != null && (Me.FocusPercent >= CLUSettings.Instance.Hunter.MarksArcaneShotFocusPercent || Spell.SpellCooldown("Chimera Shot").TotalSeconds >= 5) && (Me.CurrentTarget.HealthPercent < 90 && !Buff.UnitHasHasteBuff(Me)), "Arcane Shot"),
+                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= CLUSettings.Instance.Hunter.MarksFevorFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
                                    Spell.CastSpell("Steady Shot",             ret => true, "Steady Shot"))));
             }
         }
