@@ -13,7 +13,16 @@
         CrowdControlled,
         CrowdControlledSilenced
     }
-    
+
+    public enum PetSlot
+    {
+        FirstSlot = 1,
+        SecondSlot,
+        ThirdSlot,
+        FourthSlot,
+        FifthSlot
+    }
+
      public enum Burst {
         onBoss,
         onMob

@@ -69,8 +69,8 @@ namespace Clu.Classes.Warlock
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                           PetManager.CastPetSummonSpell("Summon Imp",           ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Imp"),
-                           PetManager.CastPetSummonSpell("Summon Imp",           ret => !Me.GotAlivePet, "Felhunter"),
+                           PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Imp"),
+                           PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.GotAlivePet, "Summoning Pet Imp"),
                            // Threat
                            Buff.CastBuff("Soulshatter",                    ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),
                            // Multi-Dotting will occour if there are between 1 or more and less than 6 enemys within 15yrds of your current target and you have more than 50%. //Can be disabled within the GUI
@@ -123,7 +123,7 @@ namespace Clu.Classes.Warlock
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    Buff.CastBuff("Fel Armor", ret => true, "Fel Armor"),
-                                   PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.IsMoving && !Me.GotAlivePet, "Imp"),
+                                   PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.IsMoving && !Me.GotAlivePet, "Summoning Pet Imp"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link"),
                                    new Decorator(
                                        ret => !Me.IsMoving,

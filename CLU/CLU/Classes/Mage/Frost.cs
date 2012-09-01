@@ -113,7 +113,7 @@ namespace Clu.Classes.Mage
                 return new Decorator(
                            ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                            new PrioritySelector(
-                               PetManager.CastPetSummonSpell("Summon Water Elemental",  ret => !Me.GotAlivePet, "Water Elemental"),
+                               PetManager.CastPetSummonSpell("Summon Water Elemental", ret => !Me.GotAlivePet, "Calling Pet Water Elemental"),
                                Buff.CastBuff("Molten Armor",                      ret => true, "Molten Armor"),
                                Item.UseBagItem("Healthstone",                     ret => Me.HealthPercent < 30, "Healthstone"),
                                Buff.CastBuff("Ice Block",                         ret => Me.HealthPercent < 20 && !Buff.PlayerHasActiveBuff("Hypothermia"), "Ice Block"),
@@ -127,7 +127,7 @@ namespace Clu.Classes.Mage
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
-                               PetManager.CastPetSummonSpell("Summon Water Elemental", ret => !Me.GotAlivePet, "Water Elemental"),
+                               PetManager.CastPetSummonSpell("Summon Water Elemental", ret => !Me.GotAlivePet, "Calling Pet Water Elemental"),
                                Buff.CastBuff("Molten Armor",               ret => true, "Molten Armor"),
                                Buff.CastRaidBuff("Dalaran Brilliance",     ret => !Buff.PlayerHasBuff("Arcane Brilliance"), "Dalaran Brilliance"),
                                Buff.CastRaidBuff("Arcane Brilliance",      ret => !Buff.PlayerHasBuff("Dalaran Brilliance"), "Arcane Brilliance"), // as most people say, the main difference between Dalaran and Arcane Brilliance, is that Dalaran Brilliance has a totally different casting animation (looks way cooler) that allows you to stand out from most mages and has a 10 yard increase in range.

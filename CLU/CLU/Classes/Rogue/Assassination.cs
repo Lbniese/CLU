@@ -71,10 +71,7 @@ namespace Clu.Classes.Rogue
                     // new Decorator( ret => Buff.PlayerHasActiveBuff("Vanish"), new ActionAlwaysSucceed()),
 
                     // Stealth
-                    Spell.CastSelfSpell("Stealth",
-                                        ret =>
-                                        !Buff.PlayerHasBuff("Stealth") && CLUSettings.Instance.Rogue.EnableAlwaysStealth,
-                                        "Stealth"),
+                    Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
 
                     // Questing and PvP helpers
                     new Decorator(

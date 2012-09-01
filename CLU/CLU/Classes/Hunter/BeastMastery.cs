@@ -5,7 +5,7 @@ using Clu.Settings;
 
 namespace Clu.Classes.Hunter
 {
-    
+    using global::CLU.Classes.Hunter;
 
     class BeastMastery : RotationBase
     {
@@ -36,32 +36,42 @@ namespace Clu.Classes.Hunter
         public override string Help
         {
             get {
-                return "\n" +
-                       "----------------------------------------------------------------------\n" +
-                       "  Dire Beast,  Lynx Rush, and  Glaive Toss from your tier 4, 5, and 6 talents, respectively. This is because we deem them to be best talents for your DPS." +
-                       "This Rotation will:\n" +
-                       "1. Trap Launcher or Feign Death will halt the rotation\n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "==> Rapid Fire & Serpent Sting & Bestial Wrath & Fervor & [REMOVED] Call of the Wild \n" +
-                       "3. AoE with Multishot and Explosive Trap\n" +
-                       "4. Best Suited for T13 end game raiding\n" +
-                       "Fox		-haste\n" +
-                       "Cat		+str/agil\n" +
-                       "Core Hound	(+haste &-cast speed) exotic \n" +
-                       "Silithid		(+health) exotic\n" +
-                       "Wolf		(+crit)\n" +
-                       "Shale Spider	(+5% stats) exotic\n" +
-                       "Raptor		(-armor)\n" +
-                       "Carrion Bird	(-physical damage)\n" +
-                       "Sporebat	(-cast speed)\n" +
-                       "Ravager		(-Phys Armor)\n" +
-                       "Wind Serpent	(-Spell Armor)\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to cowdude\n" +
-                       "----------------------------------------------------------------------\n";
+                return
+                      @"
+----------------------------------------------------------------------
+BeastMastery:
+[*] Aspect of the Fox/Aspect of the Hawk Switching while moving.
+[*] Misdirection on best target (tank or pet or focus) when movement enabled.
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Setting)
+[*] Tranquilizing Shot on Enrage.
+[*] Level 90 talents supported. Glaive Toss, Barrage, Powershot
+[*] Always Camouflage option (see UI setting)
+This Rotation will:
+1. Heal using Exhilaration, Healthstone, Deterrence.
+2. Trap Launcher or Feign Death will halt the rotation
+3. AoE with Multishot, Barrage, Explosive Trap, Powershot
+4. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Rapid Fire, Dire Beast, Bestial Wrath, Fervor, A Murder of Crows
+    ==> Readiness, Blink Strike, Stampede, Lynx Rush
+5. Will use Heart of the Phoenix, Mend Pet, Call Pet, Revive Pet.
+Recommended Pets:
+===================
+Fox		        -haste
+Cat		        +str/agil
+Core Hound	    (+haste &-cast speed) exotic
+Silithid		(+health) exotic
+Wolf		    (+crit)
+Shale Spider	(+5% stats) exotic
+Raptor		    (-armor)
+Carrion Bird	(-physical damage)
+Sporebat	    (-cast speed)
+Ravager		    (-Phys Armor)
+Wind Serpent	(-Spell Armor)
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------";
             }
         }
 
@@ -75,6 +85,9 @@ namespace Clu.Classes.Hunter
                            // For DS Encounters.
                            EncounterSpecific.ExtraActionButton(),
 
+                           // Camouflage
+                           Buff.CastBuff("Camouflage", ret => CLUSettings.Instance.Hunter.EnableAlwaysCamouflage, "Camouflage"),
+
                            // Trinkets & Cooldowns
                            new Decorator(
                                ret => Me.CurrentTarget != null && (Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.PlayerHasBuff("Feign Death")),
@@ -83,52 +96,43 @@ namespace Clu.Classes.Hunter
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
+
                            // Main Rotation
                            new Decorator(
                                ret => !Buff.PlayerHasBuff("Feign Death"),
                                new PrioritySelector(
-                                   // HandleMovement? Lets Misdirect to Focus, Pet, or Tank
-                                   new Decorator(
-                                       ret => CLUSettings.Instance.EnableMovement,
-                                       new PrioritySelector(
-                                           Spell.CastSpell("Misdirection", u => Unit.BestMisdirectTarget, ret => Me.CurrentTarget != null && !Buff.PlayerHasBuff("Misdirection") && Me.CurrentTarget.ThreatInfo.RawPercent > 90, "Misdirection")
-                                       )),
-                                   Buff.CastDebuff("Hunter's Mark",           ret => Me.CurrentTarget != null && !Buff.TargetHasDebuff("Hunter's Mark", Me.CurrentTarget) && (Me.CurrentTarget.CurrentHealth > 310000 || Me.CurrentTarget.MaxHealth == 1), "Hunter's Mark"),
-                                   Spell.CastSelfSpell("Feign Death",         ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90, "Feign Death Threat"),
-                                   Spell.CastSpell("Concussive Shot",         ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTargetGuid == Me.Guid, "Concussive Shot"),
-                                   new Decorator(
-                                       ret => Me.IsMoving,
-                                       new Sequence(
-                                           // Waiting for a bit just incase we are only moving outa the fire!
-                                           // new ActionSleep(1500),
-                                           Buff.CastBuff("Aspect of the Fox", ret => Me.IsMoving, "[Aspect] of the Fox - Moving"))),
-                                   Buff.CastBuff("Aspect of the Hawk", ret => !Me.IsMoving, "[Aspect] of the Hawk"),
-                                   Spell.CastSpell("Kill Shot",               ret => true, "Kill Shot"),
-                                   Spell.CastSpell("Raptor Strike",           ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.CurrentTarget.IsWithinMeleeRange, "Raptor Strike (Melee)"),
-                                   Buff.CastDebuff("Wing Clip",               ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.CurrentTarget.IsWithinMeleeRange, "Wing Clip (Melee)"),
+                                   // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
+                                   // TODO: Add Binding shot logic..need to see it working well.
+                                   Common.HandleMisdirection(),
+                                   Buff.CastBuff("Hunter's Mark",             ret => true, "Hunter's Mark"),
+                                   Spell.CastSelfSpell("Feign Death",         ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && CLUSettings.Instance.Hunter.UseFeignDeath, "Feign Death Threat"),
+                                   Spell.CastSpell("Concussive Shot",         ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTargetGuid == Me.Guid && CLUSettings.Instance.Hunter.UseConcussiveShot, "Concussive Shot"),
+                                   Spell.CastSpell("Tranquilizing Shot",      ret => Buff.TargetHasBuff("Enrage") && CLUSettings.Instance.Hunter.UseTranquilizingShot, "Tranquilizing Shot"),
+                                   Common.HandleAspectSwitching(),
                                    // Main rotation
-                                   
+                                   Spell.CastSpell("Kill Shot",               ret => true, "Kill Shot"),
                                    Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect"), "Focus Fire"),
                                    Buff.CastDebuff("Serpent Sting",           ret => Me.CurrentTarget != null && Buff.TargetDebuffTimeLeft("Serpent Sting").TotalSeconds <= 0.5 && Unit.IsTargetWorthy(Me.CurrentTarget), "Serpent Sting"),
-                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= 65 && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
-                                   Buff.CastBuff("Bestial Wrath",             ret => Me.CurrentTarget != null && Me.FocusPercent > 60 && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Bestial Wrath"),
-                                   Spell.CastSpell("Multi-Shot",              ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) > 3, "Multi-Shot"),
-                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) > 3, "Cobra Shot"),
-                                   Spell.HunterTrapBehavior("Explosive Trap", ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) > 0),
+                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= CLUSettings.Instance.Hunter.FevorFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
+                                   Buff.CastBuff("Bestial Wrath",             ret => Me.CurrentTarget != null && Me.FocusPercent > CLUSettings.Instance.Hunter.BestialWrathFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Bestial Wrath"),
+                                   Spell.CastSpell("Multi-Shot",              ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) >= CLUSettings.Instance.Hunter.MultiShotCount, "Multi-Shot"),
+                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) >= CLUSettings.Instance.Hunter.MultiShotCount, "Cobra Shot"),
+                                   Spell.HunterTrapBehavior("Explosive Trap", ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) >= CLUSettings.Instance.Hunter.ExplosiveTrapCount),
                                    Buff.CastBuff("A Murder of Crows",         ret => Unit.IsTargetWorthy(Me.CurrentTarget), "A Murder of Crows"), //reduced to 60sec cooldown if under 20%
                                    Buff.CastBuff("Stampede",                  ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Stampede"),
-                                   //Spell.CastSpell("Glaive Toss",             ret => !Buff.TargetHasDebuff("Glaive Toss"), "Glaive Toss"), //instant..with no apparent cooldown...needs checking.
-                                   Spell.ChannelSpell("Barrage",              ret => Unit.CountEnnemiesInRange(Me.Location, 20) > 1, "Barrage"), //AoE? needs testing.
-                                   Spell.ChannelSpell("Powershot",            ret => Unit.CountEnnemiesInRange(Me.Location, 20) > 1, "Powershot"), //AoE? needs testing also has knockback!..needs a setting to disable as well.
-                                   //PetManager.CastPetSpell("Blink Strike",    ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
+                                   // Common level 90 ability's
+                                   Spell.CastSpell("Glaive Toss",             ret => !Buff.TargetHasDebuff("Glaive Toss") && Unit.CountEnnemiesInRange(Me.Location, 20) > CLUSettings.Instance.Hunter.GlaiveTossCount, "Glaive Toss"), //instant..with no apparent cooldown...needs checking.
+                                   Spell.ChannelSpell("Barrage",              ret => Unit.CountEnnemiesInRange(Me.Location, 20) > CLUSettings.Instance.Hunter.BarrageCount, "Barrage"), //AoE? needs testing.
+                                   Spell.ChannelSpell("Powershot",            ret => Unit.CountEnnemiesInRange(Me.Location, 20) > CLUSettings.Instance.Hunter.PowershotCount, "Powershot"), //AoE? needs testing also has knockback!
+                                   // End Common level 90 ability's
                                    Spell.CastSelfSpell("Blink Strike",        ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
                                    Spell.CastSelfSpell("Lynx Rush",           ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
                                    Buff.CastBuff("Rapid Fire",                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.PlayerHasBuff("The Beast Within") && !Buff.UnitHasHasteBuff(Me), "Rapid Fire"),
                                    Spell.CastSelfSpell("Kill Command",        ret => Me.CurrentTarget != null && Me.GotAlivePet && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 25, "Kill Command"),
                                    Spell.CastSelfSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10 && Me.FocusPercent <= 80, "Dire Beast"),
                                    Spell.CastSpell("Arcane Shot",             ret => Buff.PlayerHasBuff("Thrill of the Hunt"), "Arcane Shot"),
-                                   Buff.CastBuff("Readiness",                 ret => Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
-                                   Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= 59 || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
+                                   Buff.CastBuff("Readiness",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
+                                   Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= CLUSettings.Instance.Hunter.ArcaneShotFocusPercent || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
                                    Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect") && Buff.PlayerHasBuff("Focus Fire") && !Buff.PlayerHasBuff("The Beast Within"), "Focus Fire"),
                                    Spell.CastSpell("Cobra Shot",              ret => true, "Cobra Shot"))));
             }
@@ -138,16 +142,16 @@ namespace Clu.Classes.Hunter
         {
             get {
                 return new PrioritySelector(
+                           // Make sure we go our pet.
+                           Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat),
                            new Decorator(
                                ret => Me.HealthPercent < 100 && !Buff.PlayerHasBuff("Feign Death") && CLUSettings.Instance.EnableSelfHealing,
                                new PrioritySelector(
-                                   Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < 40, "Healthstone"),
-                                   Spell.CastSelfSpell("Deterrence",              ret => Me.HealthPercent < 40 && Me.HealthPercent > 1, "Deterrence"))),
-                           new Decorator(
-                               ret => !Buff.PlayerHasBuff("Feign Death"),
-                               new PrioritySelector(
-                                   PetManager.CastPetSpell("Mend Pet",                   ret => Me.GotAlivePet && (Me.Pet.HealthPercent < 70 || Me.Pet.HappinessPercent < 90) && !PetManager.PetHasBuff("Mend Pet"), "Mend Pet"),
-                                   PetManager.CastPetSpell("Heart of the Phoenix",       ret => !Me.GotAlivePet, "Heart of the Phoenix"))));
+                                   Spell.CastSelfSpell("Exhilaration",            ret => Me.HealthPercent < CLUSettings.Instance.Hunter.ExhilarationPercent, "Exhilaration"),
+                                   Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < CLUSettings.Instance.Hunter.HealthstonePercent, "Healthstone"),
+                                   Spell.CastSelfSpell("Deterrence",              ret => Me.HealthPercent < CLUSettings.Instance.Hunter.DeterrencePercent && Me.HealthPercent > 1, "Deterrence"))),
+                           // Heart of the Phoenix, Mend Pet, etc
+                           Common.HandlePetHelpers());
             }
         }
 
@@ -157,12 +161,7 @@ namespace Clu.Classes.Hunter
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink") && !Buff.PlayerHasBuff("Feign Death") && !Buff.PlayerHasBuff("Trap Launcher"),
                            new PrioritySelector(
-                               new Decorator(
-                                   ret => !Me.GotAlivePet || Pet == null,
-                                   new PrioritySelector(
-                                       PetManager.CastPetSummonSpell("Call Pet 1", ret => Pet == null, "Calling Pet"),
-                                       new WaitContinue(2, ret => Me.GotAlivePet || Me.Combat, new ActionAlwaysSucceed()),
-                                       Spell.CastSelfSpell("Revive Pet", ret => !Me.GotAlivePet, "Revive Pet")))));
+                              Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
             }
         }
 

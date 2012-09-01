@@ -95,7 +95,7 @@ namespace Clu.Classes.Warlock
                            new Decorator(ret => !Me.GotAlivePet,
                                          new PrioritySelector(
                                              Spell.CastSelfSpell("Soulburn", ret => !Buff.UnitHasHasteBuff(Me), "Soulburn for Pet"),
-                                             PetManager.CastPetSummonSpell("Summon Felhunter", ret => true, "Felhunter (lets get our pet back)")
+                                             PetManager.CastPetSummonSpell("Summon Felhunter", ret => true, "Summoning Pet Felhunter (lets get our pet back)")
                                          )
                                         ),
 
@@ -160,7 +160,7 @@ namespace Clu.Classes.Warlock
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    Buff.CastBuff("Fel Armor", ret => true, "Fel Armor"),
-                                   PetManager.CastPetSummonSpell("Summon Felguard", ret => !Me.IsMoving && !Me.GotAlivePet, "Felguard"),
+                                   PetManager.CastPetSummonSpell("Summon Felguard", ret => !Me.IsMoving && !Me.GotAlivePet, " Summoning Pet Felguard"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link"),
                                    new Decorator(
                                        ret => !Me.IsMoving,

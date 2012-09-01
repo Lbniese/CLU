@@ -154,5 +154,16 @@ namespace Clu.Helpers
                 StyxWoW.Me.CurrentTarget.Location.RayCast(
                     StyxWoW.Me.CurrentTarget.Rotation + WoWMathHelper.DegreesToRadians(150), Spell.MeleeRange - 2f);
         }
+
+        /// <summary>
+        /// Will stop the player if we are moving.
+        /// </summary>
+        /// <returns>Runstatus.Success if stopped</returns>
+        public static Composite EnsureMovementStoppedBehavior()
+        {
+            return new Decorator(
+                ret => CLUSettings.Instance.EnableMovement && StyxWoW.Me.IsMoving,
+                new Action(ret => Navigator.PlayerMover.MoveStop()));
+        }
     }
 }

@@ -105,7 +105,7 @@ namespace Clu.Helpers
             },
             new Decorator( ret => !Me.GotAlivePet && PetTimer.IsFinished,
                            new Sequence(
-                               new Action(a => CLU.Log(" [Pet Summon] {0}", label)),
+                               new Action(a => CLU.Log(" {0}", label)),
                                new Action(a => Spell.CastMySpell(name)),
                                Spell.CreateWaitForLagDuration(),
                                new Wait(5, a => Me.GotAlivePet || !Me.IsCasting,

@@ -71,7 +71,7 @@ namespace Clu.Classes.Warlock
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                           PetManager.CastPetSummonSpell("Summon Felhunter",         ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Felhunter"),
+                           PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Felhunter"),
                            // Threat
                            Buff.CastBuff("Soulshatter",                        ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),
                            // Cooldown
@@ -132,7 +132,7 @@ namespace Clu.Classes.Warlock
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    Buff.CastBuff("Fel Armor", ret => true, "Fel Armor"),
-                                   PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.IsMoving && !Me.GotAlivePet, "Felhunter"),
+                                   PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.IsMoving && !Me.GotAlivePet, "Summoning Pet Felhunter"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link"),
                                    new Decorator(
                                        ret => !Me.IsMoving,
