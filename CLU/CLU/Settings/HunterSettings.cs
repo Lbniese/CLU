@@ -177,6 +177,32 @@ namespace Clu.Settings
         #endregion
 
         #region Marksmanship
+
+        [Setting]
+        [DefaultValue(4)]
+        [Category("Marksmanship")]
+        [DisplayName("Multi Shot Count")]
+        [Description("Will use Multi Shot when agro mob count is equal to or higher then this value.")]
+        public int MarksMultiShotCount
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(66)]
+        [Category("Survival")]
+        [DisplayName("Arcane Shot FocusPercent")]
+        [Description("Will use Arcane Shot at the set FocusPercent")]
+        public int MarksArcaneShotFocusPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(50)]
+        [Category("Survival")]
+        [DisplayName("Fevor FocusPercent")]
+        [Description("Will use Fevor at the set FocusPercent")]
+        public int MarksFevorFocusPercent { get; set; }
+
         #endregion
 
         #region BeastMastery

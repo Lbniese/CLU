@@ -40,7 +40,7 @@ namespace Clu.Classes.Hunter
                       @"
 ----------------------------------------------------------------------
 BeastMastery:
-[*] Aspect of the Fox/Aspect of the Hawk Switching while moving.
+[*] Aspect of the Fox/Aspect of the Hawk/Iron Hawk Switching while moving.
 [*] Misdirection on best target (tank or pet or focus) when movement enabled.
 [*] AutomaticCooldowns now works with Boss's or Mob's (See: General Setting)
 [*] Tranquilizing Shot on Enrage.

@@ -38,7 +38,7 @@ namespace Clu.Classes.Hunter
                     @"
 ----------------------------------------------------------------------
 Survival:
-[*] Aspect of the Fox/Aspect of the Hawk Switching while moving.
+[*] Aspect of the Fox/Aspect of the Hawk/Iron Hawk Switching while moving.
 [*] Misdirection on best target (tank or pet or focus) when movement enabled.
 [*] AutomaticCooldowns now works with Boss's or Mob's (See: General Setting)
 [*] Tranquilizing Shot on Enrage.
@@ -52,7 +52,7 @@ This Rotation will:
     ==> UseTrinkets 
     ==> UseRacials 
     ==> UseEngineerGloves
-    ==> Rapid Fire, Dire Beast, Bestial Wrath, Fervor, A Murder of Crows
+    ==> Rapid Fire, Dire Beast, Fervor, A Murder of Crows
     ==> Readiness, Blink Strike, Stampede, Lynx Rush
 5. Will use Heart of the Phoenix, Mend Pet, Call Pet, Revive Pet.
 Recommended Pets:
@@ -140,9 +140,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            new Decorator(
                                ret => Me.HealthPercent < 100 && !Buff.PlayerHasBuff("Feign Death") && CLUSettings.Instance.EnableSelfHealing,
                                new PrioritySelector(
-                                   Spell.CastSelfSpell("Exhilaration", ret => Me.HealthPercent < CLUSettings.Instance.Hunter.ExhilarationPercent, "Exhilaration"),
-                                   Item.UseBagItem("Healthstone", ret => Me.HealthPercent < CLUSettings.Instance.Hunter.HealthstonePercent, "Healthstone"),
-                                   Spell.CastSelfSpell("Deterrence", ret => Me.HealthPercent < CLUSettings.Instance.Hunter.DeterrencePercent && Me.HealthPercent > 1, "Deterrence"))),
+                                   Spell.CastSelfSpell("Exhilaration",      ret => Me.HealthPercent < CLUSettings.Instance.Hunter.ExhilarationPercent, "Exhilaration"),
+                                   Item.UseBagItem("Healthstone",           ret => Me.HealthPercent < CLUSettings.Instance.Hunter.HealthstonePercent, "Healthstone"),
+                                   Spell.CastSelfSpell("Deterrence",        ret => Me.HealthPercent < CLUSettings.Instance.Hunter.DeterrencePercent && Me.HealthPercent > 1, "Deterrence"))),
                     // Heart of the Phoenix, Mend Pet, etc
                            Common.HandlePetHelpers());
             }

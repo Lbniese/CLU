@@ -68,9 +68,9 @@ Three Rotation Modes - Single, PVE, PVP
 - [T] Restoration		-- Patch 4.3.x only
 
 * Hunter
-- [T] BeastMastery		-- Patch 5.0.4 only (Change from Wulf)
-- [T] Marksmanship		-- Patch 4.3.x only
-- [T] Survival			-- Patch 4.3.x only
+- [U] BeastMastery		-- Patch 5.0.4 only (Change from Wulf)
+- [U] Marksmanship		-- Patch 5.0.4 only (Change from Wulf)
+- [U] Survival			-- Patch 5.0.4 only (Change from Wulf)
 
 * Mage
 - [T] Arcane			-- Patch 4.3.x only
