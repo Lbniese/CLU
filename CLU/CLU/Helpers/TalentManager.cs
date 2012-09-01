@@ -71,6 +71,7 @@ namespace Clu.Helpers
         FuryWarrior = ((int)WoWClass.Warrior << 8) + 1,
         ProtectionWarrior = ((int)WoWClass.Warrior << 8) + 2,
 
+        // TODO: Check talents.
        // BrewmasterMonk = ((int)WoWClass.Mage << 8) + 0,
        // MistweaverMonk = ((int)WoWClass.Mage << 8) + 1,
        // WindwalkerMonk = ((int)WoWClass.Mage << 8) + 2,

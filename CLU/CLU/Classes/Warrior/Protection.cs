@@ -86,7 +86,7 @@ namespace Clu.Classes.Warrior
                             Spell.CastSpell("Revenge",             ret => true, "Revenge"),
                             Spell.CastSpell("Shield Slam",         ret => Buff.PlayerHasActiveBuff("Sword and Board"), "Shield Slam (Sword and Board)"),
                             Spell.CastSelfSpell("Shield Block",    ret => true, "Shield Block"),
-                            Buff.CastDebuff("Demoralizing Shout",   ret => Me.CurrentTarget != null && !Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget), "Demoralizing Shout"),
+                            Buff.CastDebuff("Demoralizing Shout",   ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Demoralizing Shout"),
                             Spell.CastSpell("Shield Slam",         ret => true, "Shield Slam")
                             )),
                     // START Main Rotation
@@ -96,12 +96,12 @@ namespace Clu.Classes.Warrior
                     Spell.CastSelfSpell("Berserker Rage",      ret => !Buff.PlayerHasBuff("Inner Rage"), "Berserker Rage"), 
                     Spell.CastSelfSpell("Shield Block",        ret => true, "Shield Block"),
                     Spell.CastSpell("Shield Slam",             ret => true, "Shield Slam"),
-                    Spell.CastSpell("Devastate",               ret => Me.CurrentTarget != null && Spell.SpellCooldown("Shield Slam").TotalSeconds > 1.5 && Me.RagePercent < 60 && Buff.TargetHasDebuff("Rend") && Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget) && Buff.UnitHasAttackSpeedDebuff(Me.CurrentTarget), "Devastate waiting for Shield Slam"),
+                    Spell.CastSpell("Devastate", ret => Me.CurrentTarget != null && Spell.SpellCooldown("Shield Slam").TotalSeconds > 1.5 && Me.RagePercent < 60 && Buff.TargetHasDebuff("Rend") && Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Devastate waiting for Shield Slam"), //removed UnitHasAttackSpeedDebuff no longer ingame.
                     Spell.CastSpell("Revenge",                 ret => true, "Revenge"),
-                    Spell.CastSpell("Devastate",               ret => Me.CurrentTarget != null && !Buff.UnitHasArmorReductionDebuff(Me.CurrentTarget) && Buff.TargetCountDebuff("Sunder Armor") < 3, "Devastate (Sunder Armor < 3)"),
-                    Buff.CastDebuff("Demoralizing Shout",       ret => Me.CurrentTarget != null && !Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget), "Demoralizing Shout"),
+                    Spell.CastSpell("Devastate",               ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedArmor(Me.CurrentTarget) && Buff.TargetCountDebuff("Sunder Armor") < 3, "Devastate (Sunder Armor < 3)"),
+                    Buff.CastDebuff("Demoralizing Shout",       ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Demoralizing Shout"),
                     Buff.CastDebuff("Rend",                     ret => true, "Rend"),
-                    Buff.CastDebuff("Thunder Clap",             ret => Me.CurrentTarget != null && !Buff.UnitHasAttackSpeedDebuff(Me.CurrentTarget), "Concussion Blow"),  
+                      //removed thunderclap with UnitHasAttackSpeedDebuff no longer in the game TODO: Change this rotation to suit --wulf
                     Spell.CastSpell("Devastate",               ret => true, "Devastate"),
                     Spell.CastConicSpell("Shockwave", 11f, 33f, ret => true, "Shockwave"),
                     Spell.CastSpell("Commanding Shout",        ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Commanding, "Commanding Shout for Rage"),

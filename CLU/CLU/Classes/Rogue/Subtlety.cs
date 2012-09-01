@@ -86,7 +86,7 @@ namespace Clu.Classes.Rogue
         private static bool UseHemorrhage
         {
             get {
-                return Me.CurrentTarget != null && TalentManager.HasGlyph("Hemorrhage") ? CanHemorrhage || CanHemorrhageDoT : !Buff.UnitHasBleedDamageDebuff(Me.CurrentTarget);
+                return Me.CurrentTarget != null && TalentManager.HasGlyph("Hemorrhage") ? CanHemorrhage : CanHemorrhageDoT; //removed UnitHasBleedDamageDebuff no longer in game TODO: See how this affects the rotation. --wulf
             }
         }
 

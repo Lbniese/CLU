@@ -29,141 +29,112 @@ namespace Clu.Helpers
             }
         }
 
-        private static readonly HashSet<string> hasteBuffs = new HashSet<string> {
-            "Bloodlust",                      //Shaman
-            "Heroism",                        //Shaman
-            "Time Warp",                      //Mage
-            "Ancient Hysteria",               //Hunter (Core Hound)
-            "Unholy Frenzy",                  //Unholy DeathKnight
-            "Rapid Fire",                     //Hunter (MM)
+        private static readonly HashSet<int> BurstHaste = new HashSet<int> {
+            2825,                //Shaman (2825) Bloodlust
+            32182,               //Shaman (32182) Heroism
+            80353,               //Mage (80353) Time Warp
+            90355,               //Hunter (Core Hound) (90355) Ancient Hysteria
+            49016,               //Unholy DeathKnight (49016) Unholy Frenzy
+            3045,                //Hunter (3045) Rapid Fire
         };
 
-        private static readonly HashSet<string> bleedDamageDebuffs = new HashSet<string> {
-            "Rend",                           //Warrior
-            "Blood Frenzy",                   //Warrior (Arms)
-            "Gore",                           //Hunter (Boar)
-            "Stampede",                       //Hunter (Rhino)
-            "Tendon Rip",                     //Hunter (Hyena)
-            "Hemorrhage",                     //Rogue (Subtlety)
-            "Mangle",                         //Druid Kitty
+        // ====================  Buffs ==================== 
+        private static readonly HashSet<int> Stats = new HashSet<int> {
+                117667,     //Legacy of The Emperor
+                1126,       //Mark of The Wild
+                20217,      //Blessing Of Kings
+                //90363,      //Embrace of the Shale Spider	
         };
 
-        private static readonly HashSet<string> bleedDamageDebuffsMinusHemorrhage = new HashSet<string> {
-            "Rend",                           //Warrior
-            "Blood Frenzy",                   //Warrior (Arms)
-            "Gore",                           //Hunter (Boar)
-            "Stampede",                       //Hunter (Rhino)
-            "Tendon Rip",                     //Hunter (Hyena)
-            "Mangle",                         //Druid Kitty
+        private static readonly HashSet<int> Stamina = new HashSet<int> {
+                469,        //Commanding Shout
+                6307,       //Imp. Blood Pact
+                21562,      //Power Word: Fortitude
+                //90364,      //Qiraji Fortitude
         };
 
-        private static readonly HashSet<string> damageReductionDebuffs = new HashSet<string> {
-            "Demoralizing Shout",             //Warrior
-            "Demoralizing Roar",              //Druid Bear
-            "Vindication",                    //Paladin
-            "Weakened Blows",				  //Paladin
-            "Scarlet Fever",                  //Blood DeathKnight
-            "Curse of Weakness",              //Warlock
-            "Demoralizing Screech",           //Hunter (Carrion Bird)
+        private static readonly HashSet<int> AttackPower = new HashSet<int> {
+                19506,      //Trueshot Aura
+                6673,       //Battle Shout
+                57330,      //Horn of Winter
         };
 
-        private static readonly HashSet<string> attackSpeedDebuffs = new HashSet<string> {
-            "Judgements of the Just",         //Paladin
-            "Thunder Clap",                   //Warrior
-            "Infected Wounds",                //Druid Feral
-            "Earth Shock",                    //Shaman Totem
-            "Frost Fever",                    //Deathknight
+        private static readonly HashSet<int> SpellPower = new HashSet<int> {
+                77747,      //Burning Wrath
+                109773,     //Dark Intent
+                61316,      //Dalaran Brilliance
+                1459,       //Arcane Brilliance
+                //126309,     //Still Water
         };
 
-        private static readonly HashSet<string> armorReductionDebuffs = new HashSet<string> {
-            "Expose Armor",                   //Warrior
-            "Sunder Armor",                   //Warrior (Protection)
-            "Tear Armor",                     //Hunter (Raptor)
-            "Corrosive Spit",                 //Hunter (Serpent)
-            "Faerie Fire",                    //Druid Feral
+        private static readonly HashSet<int> AttackSpeed = new HashSet<int> {
+                30809,      //Unleashed Rage
+                113742,     //Swiftblade's Cunning
+                55610,      //Improved Icy Talons
+                //128432,     //Cackling Howl
+                //50498,      //Tear Armor
+
         };
 
-        private static readonly HashSet<string> strAgiStaIntBuffs = new HashSet<string> {
-            "Mark of the Wild",               //Druid
-            "Embrace of the Shale Spider",    //Hunter (Shale Spider)
-            "Blessing of Kings",              //Paladin
+        private static readonly HashSet<int> SpellHaste = new HashSet<int> {
+                24907,      //Moonkin Aura
+                51470,      //Elemental Oath
+                49868,      //Mind Quickening
         };
 
-        private static readonly HashSet<string> staminaBuffs = new HashSet<string> {
-            "Qiraji Fortitude",               //Hunter (Silithid)
-            "Power Word: Fortitude",          //Priest
-            "Blood Pact",                     //Warlock ( Summon Imp)
-            "Commanding Shout",               //Warrior
+        private static readonly HashSet<int> CriticalStrike = new HashSet<int> {
+                1459,      //Arcane Brilliance
+                61316,     //Dalaran Brilliance
+                24932,     //Leader of The Pact
+                116781,    //Legacy of the White Tiger
+                //97229,     //Bellowing Roar
+                //24604,    //Furious Howl
+                //90309,    //Terrifying Roar
+                //126373,   //Fearless Roar
+                //126309,   //Still Water
+
+        };
+       
+        private static readonly HashSet<int> Mastery = new HashSet<int> {
+                116956,    //Grace of Air
+                19740,     //Blessing of Might
+                //93435,    //Roar of Courage 
+                //128997,  //Spirit Beast Blessing 
         };
 
-        private static readonly HashSet<string> manaBuffs = new HashSet<string> {
-            "Arcane Brilliance",              //Mage
-            "Dalaran Brilliance",             //Mage
-            "Fel Intelligence",               //Warlock ( Summon Felhunter)
+        // ==================== Debuffs ==================== 
+        private static readonly HashSet<int> MagicVulnerability = new HashSet<int> {
+                //58410,      //Master Poisoner
+                1490,       //Curse of the Elements TODO: Probably the better of the lot as it affects all targets within 15yrds..Soulburn: Curse ??
+                //34889,      //Fire Breath (pet) the only 8% debuff..TODO: Do we want to overwrite the pets 8% with the 5% ?? --wulf
+                //24844,      //Lightning Breath	
         };
 
-        private static readonly HashSet<string> strAgiBuffs = new HashSet<string> {
-            "Horn of Winter",                 //DeathKnight
-            "Roar of Courage",                //Hunter (Cat/Spirit Beast)
-            "Fel Intelligence",               //Warlock ( Summon Felhunter)
-            "Strength of Earth Totem",        //Shaman
-            "Battle Shout",                   //Warrior
+        private static readonly HashSet<int> WeakenedBlows = new HashSet<int> {
+                115798, // Weakened Blows
+
         };
 
-        private static readonly HashSet<string> mp5Buffs = new HashSet<string> {
-            "Blessing of Might",              //Paladin
-            "Mana Spring Totem",              //Shaman
-            "Fel Intelligence",               //Warlock ( Summon Felhunter)
+        private static readonly HashSet<int> WeakenedArmor = new HashSet<int> {
+                113746, // Weakened Armor
         };
 
-        private static readonly HashSet<string> attackPowerBuffs = new HashSet<string> {
-            "Abomination's Might",            //DeathKnight
-            "Trueshot Aura",                  //Hunter (Marksmanship)
-            "Blessing of Might",              //Paladin
-            "Unleashed Rage",                 //Shaman (Enhancement)
+        private static readonly HashSet<int> PhysicalVulnerability = new HashSet<int> {
+                81326, // Physical Vulnerability
         };
 
-        private static readonly HashSet<string> sixPercentSpellPowerBuffs = new HashSet<string> {
-            "Arcane Brilliance",              //Mage
-            "Dalaran Brilliance",             //Mage
-            "Flametongue Totem",              //Shaman
+        private static readonly HashSet<int> SlowCasting = new HashSet<int> {
+                5760,  // Mind-numbing Poison
+	            73975, //Necrotic Strike TODO: Needs to be checked
+                31589, //Slow TODO: Needs to be checked
+                109466, //Curse of Enfeeblement TODO: Needs to be checked
         };
 
-        private static readonly HashSet<string> tenPercentSpellPowerBuffs = new HashSet<string> {
-            "Totemic Wrath",                  //Shaman (Elemental)
-            "Demonic Pact",                   //Warlock (Demonology)
+        private static readonly HashSet<int> MortalWounds = new HashSet<int> {
+                115804,  // Mortal Wounds
         };
 
-        private static readonly HashSet<string> fivePercentSpellHasteBuffs = new HashSet<string> {
-            "Moonkin Aura",                   //Druid (Balance)
-            "Mind Quickening",                //Priest (Shadow)
-            "Wrath of Air Totem",             //Shaman
-        };
-
-        private static readonly HashSet<string> tenPercentHasteBuffs = new HashSet<string> {
-            "Hunting Party",                   //Hunter (Survival)
-            "Improved Icy Talons",             //Death Knight (Frost)
-            "Windfury Totem",                  //Shaman
-        };
-
-        private static readonly HashSet<string> fivePercentCritBuffs = new HashSet<string> {
-            "Leader of the Pack",             //Druid (Feral)
-            "Terrifying Roar",                //Hunter (Devilsaur)
-            "Furious Howl",                   //Hunter (Wolf)
-            "Honor Among Thieves",            //Rogue (Subtlety)
-            "Elemental Oath",                 //Shaman (Elemental)
-            "Rampage",                        //Warrior (Fury)
-        };
-
-        private static readonly HashSet<string> magicVulnerabilityDeBuffs = new HashSet<string> {
-            // "Master Poisoner",                //Rogue (Assassination)
-            "Curse of the Elements",             //ALL warlocks (Supperior as it also lowers resistances by 183 were the other classes have no other affect)
-            // "Ebon Plaguebringer",             //Death Knight (unholy)
-            // "Earth and Moon",                 //Druid (Balance)
-            // "Fire Breath",                    //Hunter (dragonhawk)
-            // "Lightning Breath",               //Hunter (wind serpent)
-        };
-
+        // Dispel shit.
         private static readonly HashSet<string> ignoreDispel = new HashSet<string> {
             "Blackout",
             "Toxic Torment",
@@ -195,6 +166,7 @@ namespace Clu.Helpers
             "Static Disruption", 		// Magic
             "Accelerated Corruption" 	// Magic
         };
+
 
         /// <summary>
         /// Use this to print all auras
@@ -495,6 +467,7 @@ namespace Clu.Helpers
         {
             return new Decorator(
             delegate(object a) {
+
                 if (!CLUSettings.Instance.EnableRaidPartyBuffing)
                     return false;
 
@@ -506,7 +479,45 @@ namespace Clu.Helpers
                 else if (Me.IsInParty)
                     players.AddRange(Me.PartyMembers);
 
-                return players.Any(x => x.Distance2DSqr < 40 * 40 && x.Auras.Values.All(ret => ret.Spell.Name != name) && !x.Dead && !x.IsGhost && x.IsAlive);
+                var ProvidablePlayerBuffs = new HashSet<HashSet<int>>();
+                switch (StyxWoW.Me.Class) {
+                case WoWClass.Warrior:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina, AttackPower};
+                break;
+                case WoWClass.Paladin:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+                break;
+                case WoWClass.Hunter:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, CriticalStrike};
+                break;
+                case WoWClass.Rogue:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed};
+                break;
+                case WoWClass.Priest:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellHaste};
+                break;
+                case WoWClass.DeathKnight:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, AttackSpeed};
+                break;
+                case WoWClass.Shaman:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed, SpellPower, SpellHaste,  Mastery };
+                break;
+                case WoWClass.Mage:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { SpellPower, CriticalStrike};
+                break;
+                case WoWClass.Warlock:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellPower};
+                break;
+                case WoWClass.Druid:
+                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, CriticalStrike, SpellHaste };
+                
+                //case WoWClass.Monk:
+                //    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+                break;
+                default:
+                break;
+            }
+                return players.Any(x => x.Distance2DSqr < 40 * 40 && x.Auras.Values.All(ret => !ProvidablePlayerBuffs.Contains(new HashSet<int> { ret.Spell.Id })) && !x.Dead && !x.IsGhost && x.IsAlive);
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Raid Buff] {0} ", label)),
@@ -704,7 +715,7 @@ namespace Clu.Helpers
         /// <returns>The unit has haste buff.</returns>
         public static bool UnitHasHasteBuff(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => hasteBuffs.Contains(x.Value.Name));
+            return unit != null && unit.ActiveAuras.Any(x => BurstHaste.Contains(x.Value.SpellId));
         }
 
         /// <summary>Returns true if the Unit has Stamina Buffs</summary>
@@ -712,7 +723,7 @@ namespace Clu.Helpers
         /// <returns>The unit has bleed damage debuff.</returns>
         public static bool UnitHasMagicVulnerabilityDeBuffs(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => magicVulnerabilityDeBuffs.Contains(x.Value.Name) && Me.Class == WoWClass.Warlock);
+            return unit != null && unit.ActiveAuras.Any(x => MagicVulnerability.Contains(x.Value.SpellId) && Me.Class == WoWClass.Warlock);
         }
 
         /// <summary>Returns true if the Unit has Stamina Buffs</summary>
@@ -720,39 +731,23 @@ namespace Clu.Helpers
         /// <returns>The unit has bleed damage debuff.</returns>
         public static bool UnitHasStaminaBuffs(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => staminaBuffs.Contains(x.Value.Name));
-        }
-
-        /// <summary>Returns true if the Unit has the 30% additional damage from Bleed effects</summary>
-        /// <param name="unit">The unit to check the for.</param>
-        /// <returns>The unit has bleed damage debuff.</returns>
-        public static bool UnitHasBleedDamageDebuff(WoWUnit unit)
-        {
-            return unit != null && unit.ActiveAuras.Any(x => bleedDamageDebuffs.Contains(x.Value.Name));
-        }
-
-        /// <summary>Returns true if the Unit has the 30% additional damage from Bleed effects Minus the check for Hemorrhage</summary>
-        /// <param name="unit">The unit to check the for.</param>
-        /// <returns>The unit has bleed damage debuff.</returns>
-        public static bool UnitHasBleedDamageDebufMinusHemorrhage(WoWUnit unit)
-        {
-            return unit != null && unit.ActiveAuras.Any(x => bleedDamageDebuffsMinusHemorrhage.Contains(x.Value.Name));
+            return unit != null && unit.ActiveAuras.Any(x => Stamina.Contains(x.Value.SpellId));
         }
 
         /// <summary>Returns true if the Unit has the 10% damage reduction debuff</summary>
         /// <param name="unit">The unit to check the for.</param>
         /// <returns>The unit has damage reduction debuff.</returns>
-        public static bool UnitHasDamageReductionDebuff(WoWUnit unit)
+        public static bool UnitHasWeakenedBlows(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => damageReductionDebuffs.Contains(x.Value.Name));
+            return unit != null && unit.ActiveAuras.Any(x => WeakenedBlows.Contains(x.Value.SpellId));
         }
 
         /// <summary>Returns true if the Unit has the Armor Reduction debuff</summary>
         /// <param name="unit">The unit to check the for.</param>
         /// <returns>The unit has armor reduction debuff.</returns>
-        public static bool UnitHasArmorReductionDebuff(WoWUnit unit)
+        public static bool UnitHasWeakenedArmor(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => armorReductionDebuffs.Contains(x.Value.Name));
+            return unit != null && unit.ActiveAuras.Any(x => WeakenedArmor.Contains(x.Value.SpellId));
         }
 
         /// <summary>Returns true if the Unit has the Strength and Agility Buff</summary>
@@ -760,36 +755,8 @@ namespace Clu.Helpers
         /// <returns>The unit has str agi buff.</returns>
         public static bool UnitHasStrAgiBuff(WoWUnit unit)
         {
-            return unit != null && unit.ActiveAuras.Any(x => strAgiBuffs.Contains(x.Value.Name));
+            return unit != null && unit.ActiveAuras.Any(x => AttackPower.Contains(x.Value.SpellId));
         }
 
-        /// <summary>Returns true if the Unit has the Attack Speed debuff</summary>
-        /// <param name="unit">The unit to check the for.</param>
-        /// <returns>The unit has attack speed debuff.</returns>
-        public static bool UnitHasAttackSpeedDebuff(WoWUnit unit)
-        {
-            return unit != null && unit.ActiveAuras.Any(x => attackSpeedDebuffs.Contains(x.Value.Name));
-        }
-
-        // checks if a list is null or empty.
-
-        public static bool IsEmpty<T>(this IEnumerable<T> list)
-        {
-            if (list == null) {
-                throw new ArgumentNullException("list");
-            }
-
-            var genericCollection = list as ICollection<T>;
-            if (genericCollection != null) {
-                return genericCollection.Count == 0;
-            }
-
-            var nonGenericCollection = list as ICollection;
-            if (nonGenericCollection != null) {
-                return nonGenericCollection.Count == 0;
-            }
-
-            return !list.Any();
-        }
     }
 }

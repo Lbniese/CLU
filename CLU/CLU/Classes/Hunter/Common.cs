@@ -11,7 +11,7 @@ namespace CLU.Classes.Hunter
     /// <summary>
     /// Common Hunter Functions.
     /// </summary>
-    public class Common
+    public static class Common
     {
         /// <summary>
         /// erm..me

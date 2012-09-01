@@ -82,7 +82,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Buff.CastBuff("Seal of Righteousness",         ret => Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Righteousness"),
                            Buff.CastBuff("Seal of Truth",                 ret => Me.ManaPercent > CLUSettings.Instance.Paladin.SealofInsightMana && Unit.EnemyUnits.Count() < CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Truth"),
                            //Main Rotation
-                           Spell.CastInterupt("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
+                           Spell.CastInterupt("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
                            Buff.CastBuff("Holy Shield",                   ret => true, "Holy Shield"),
                            Buff.CastBuff("Sacred Shield",                 ret => true, "Sacred Shield"),
                            Spell.CastInterupt("Rebuke",                   ret => true, "Rebuke"),

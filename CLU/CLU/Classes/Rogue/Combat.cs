@@ -106,12 +106,12 @@ namespace Clu.Classes.Rogue
                            Spell.CastSelfSpell("Blade Flurry",            ret => Unit.EnemyUnits.Count() >= 2 && CLUSettings.Instance.UseAoEAbilities, "Blade Flurry"),
                            Spell.CastAreaSpell("Fan of Knives", 8, false, 6, 0.0, 0.0, ret => Me.CurrentEnergy > 85, "Fan of Knives"),
                            Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade, "Tricks of the Trade"),
-                           Spell.CastSpell("Expose Armor",                ret => Me.CurrentTarget != null && Me.ComboPoints == 5 && Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.UnitHasArmorReductionDebuff(Me.CurrentTarget), "Expose Armor"),
+                           Spell.CastSpell("Expose Armor",                ret => Me.CurrentTarget != null && Me.ComboPoints == 5 && Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.UnitHasWeakenedArmor(Me.CurrentTarget), "Expose Armor"),
                            Spell.CastSelfSpell("Slice and Dice",          ret => Buff.PlayerBuffTimeLeft("Slice and Dice") < 2, "Slice and Dice"),
                            Spell.CastSelfSpell("Killing Spree",           ret => Me.CurrentEnergy < 35 && Buff.PlayerBuffTimeLeft("Slice and Dice") > 4 && !Buff.PlayerHasBuff("Adrenaline Rush") && CLUSettings.Instance.UseCooldowns, "Killing Spree"),
                            Spell.CastSelfSpell("Adrenaline Rush",         ret => Me.CurrentTarget != null && Me.CurrentEnergy < 35 && Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"),
                            Spell.CastSpell("Eviscerate",                  ret => Me.ComboPoints == 5 && (Buff.PlayerHasBuff("Moderate Insight") || Buff.PlayerHasBuff("Deep Insight")), "Eviscerate & Moderate Insight or Deep Insight"),
-                           Spell.CastSpell("Rupture",                     ret => Me.CurrentTarget != null && Me.ComboPoints == 5 && !Buff.TargetHasDebuff("Rupture") && Buff.UnitHasBleedDamageDebuff(Me.CurrentTarget), "Rupture"),
+                           Spell.CastSpell("Rupture",                     ret => Me.CurrentTarget != null && Me.ComboPoints == 5 && !Buff.TargetHasDebuff("Rupture"), "Rupture"), //removed bleed check no longer ingame --  wulf
                            Spell.CastSpell("Eviscerate",                  ret => Me.ComboPoints == 5, "Eviscerate"),
                            Spell.CastSpell("Revealing Strike",            ret => Me.ComboPoints == 4 && !Buff.TargetHasDebuff("Revealing Strike"), "Revealing Strike"),
                            Spell.CastSpell("Sinister Strike",             ret => Me.ComboPoints < 5, "Sinister Strike")

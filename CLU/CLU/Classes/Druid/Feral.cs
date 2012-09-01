@@ -103,7 +103,7 @@ namespace Clu.Classes.Druid
                                    // 3.1 AoE Swipe
                                    Spell.CastAreaSpell("Swipe (Bear)", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
                                    // 1. Keep Demoralizing Roar up
-                                   Buff.CastDebuff("Demoralizing Roar",       ret => Me.CurrentTarget != null && !Buff.UnitHasDamageReductionDebuff(Me.CurrentTarget), "Demoralizing Roar"),
+                                   Buff.CastDebuff("Demoralizing Roar",       ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Demoralizing Roar"),
                                    // 3. Thrash
                                    Spell.CastSpell("Thrash",                  ret => true, "Thrash"),
                                    // 3.2 Maul & Clearcasting AoE
@@ -114,7 +114,7 @@ namespace Clu.Classes.Druid
                                    Spell.CastSpell("Pulverize",               ret => Buff.PlayerHasBuff("Clearcasting") && !Buff.PlayerHasBuff("Pulverize") && (Buff.TargetCountDebuff("Lacerate") >= 1), "Pulverize (Clear Casting)"),
                                    Spell.CastSpell("Pulverize",               ret => !Buff.PlayerHasBuff("Pulverize") && (Buff.TargetCountDebuff("Lacerate") > 2), "Pulverize"),
                                    // 6. Faerie Fire
-                                   Spell.CastSpell("Faerie Fire (Feral)",     ret => Me.CurrentTarget != null && Buff.TargetCountDebuff("Faerie Fire") < 3 && !Buff.UnitHasArmorReductionDebuff(Me.CurrentTarget), "Faerie Fire (Feral)"),
+                                   Spell.CastSpell("Faerie Fire (Feral)",     ret => Me.CurrentTarget != null && Buff.TargetCountDebuff("Faerie Fire") < 3 && !Buff.UnitHasWeakenedArmor(Me.CurrentTarget), "Faerie Fire (Feral)"),
                                    // 7. Keep up a 3 stack of Lacerate
                                    Buff.CastDebuff("Lacerate",                ret => Buff.TargetCountDebuff("Lacerate") < 3, "Lacerate (< 3)"),
                                    // 8. Spend excess rage on Maul
@@ -142,7 +142,7 @@ namespace Clu.Classes.Druid
                                    // 2. AoE Swipe
                                    Spell.CastAreaSpell("Swipe (Cat)", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
                                    // 2. Mangle
-                                   Spell.CastSpell("Mangle (Cat)",                ret => Me.CurrentTarget != null && !Buff.UnitHasBleedDamageDebuff(Me.CurrentTarget), "Mangle"),
+                                   //Spell.CastSpell("Mangle (Cat)",                ret => Me.CurrentTarget != null && !Buff.UnitHasBleedDamageDebuff(Me.CurrentTarget), "Mangle"), // no longer tracking bleed debuffs
                                    Item.RunMacroText("/cast Ravage",              ret => Buff.PlayerHasBuff("Stampede") && Buff.TargetDebuffTimeLeft("Stampede").TotalSeconds <= 1, "Ravage"),
                                    Spell.CastSpell("Ferocious Bite",              ret => Me.CurrentTarget != null && Me.ComboPoints >= 1 && Buff.TargetHasDebuff("Rip") && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds <= 2.1 && ((Me.CurrentTarget.HealthPercent <= (Item.Has2PcTeirBonus(ItemSetId) ? 60 : 25)) || Me.CurrentTarget.MaxHealth == 1), "Ferocious Bite Rip"),
                                    Spell.CastSpell("Ferocious Bite",              ret => Me.CurrentTarget != null && Me.ComboPoints == 5 && Buff.TargetHasDebuff("Rip") && ((Me.CurrentTarget.HealthPercent <= (Item.Has2PcTeirBonus(ItemSetId) ? 60 : 25)) || Me.CurrentTarget.MaxHealth == 1), "Ferocious Bite Rip"),
@@ -169,7 +169,7 @@ namespace Clu.Classes.Druid
                                    Spell.CastSpell("Mangle (Cat)",                ret => (!IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)) && Spell.SpellCooldown("Tiger's Fury").TotalSeconds <= 3, "Mangle (TF) [NotBehind]"),
                                    Spell.CastSpell("Shred",                       ret => (IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)) && Me.CurrentEnergy > 80, "Shred (Capping)"),
                                    Spell.CastSpell("Mangle (Cat)",                ret => (!IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)) && Me.CurrentEnergy > 80, "Mangle (Capping) [NotBehind]"),
-                                   Buff.CastDebuff("Faerie Fire (Feral)",         ret => Me.CurrentTarget != null && Buff.TargetCountDebuff("Faerie Fire") < 3 && !Buff.UnitHasArmorReductionDebuff(Me.CurrentTarget   ), "Faerie Fire (Feral)"))));
+                                   Buff.CastDebuff("Faerie Fire (Feral)",         ret => Me.CurrentTarget != null && Buff.TargetCountDebuff("Faerie Fire") < 3 && !Buff.UnitHasWeakenedArmor(Me.CurrentTarget   ), "Faerie Fire (Feral)"))));
             }
         }
 

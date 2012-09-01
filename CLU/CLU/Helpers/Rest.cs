@@ -87,6 +87,7 @@ namespace Clu.Helpers
                         // Make sure we're a class with mana, if not, just ignore drinking all together! Other than that... same for food.
                         new Decorator(
                             ret =>
+                                                                                                   // TODO: Does this Druid check need to be still in here?
                             !StyxWoW.Me.IsSwimming && (StyxWoW.Me.PowerType == WoWPowerType.Mana || StyxWoW.Me.Class == WoWClass.Druid) &&
                             StyxWoW.Me.ManaPercent <= CLUSettings.Instance.MinMana &&
                             !StyxWoW.Me.HasAura("Drink") && Consumable.GetBestDrink(false) != null,

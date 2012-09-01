@@ -926,7 +926,9 @@ namespace Clu.Helpers
                                          WoWClass.Shaman,
                                          WoWClass.Druid,
                                          WoWClass.Paladin,
-                                         WoWClass.Priest);
+                                         WoWClass.Priest
+                                         //TODO: WoWClass.Monk
+                                         );
                     return bestPlayer;
                 }
 
