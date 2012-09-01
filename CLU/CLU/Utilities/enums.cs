@@ -43,12 +43,21 @@
     }
 
 
-    public enum PaladinAura {
-        Auto,
-        Devotion,
-        Retribution,
-        Resistance,
-        Concentration,
+    public enum PaladinBlessing {
+        Kings,
+        Might
+    }
+
+    public enum MonkLegacy
+    {
+        Tiger,
+        Emperor
+    }
+
+    public enum WarriorShout
+    {
+        Battle,
+        Commanding
     }
 
     public enum DruidForm {
@@ -68,12 +77,6 @@
     public enum SubtletyRogueRotation {
         Default,
         ImprovedTestVersion
-    }
-
-    public enum WarriorShout {
-        None,
-        Battle,
-        Commanding
     }
 
     public enum ChakraStance {

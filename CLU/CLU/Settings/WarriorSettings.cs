@@ -26,8 +26,8 @@ namespace Clu.Settings
         [DefaultValue(WarriorShout.Battle)]
         [Category("Common")]
         [DisplayName("Warrior Shout Selector")]
-        [Description("Choose a Warrior Shout (Default is Battle)")]
-        public WarriorShout WarriorShoutSelection
+        [Description("Choose a Warrior Shout. This is on applicable to solo play (ie: not in party or raid.)")]
+        public WarriorShout ShoutSelection
         {
             get;
             set;

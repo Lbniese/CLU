@@ -104,8 +104,8 @@ namespace Clu.Classes.Warrior
                       //removed thunderclap with UnitHasAttackSpeedDebuff no longer in the game TODO: Change this rotation to suit --wulf
                     Spell.CastSpell("Devastate",               ret => true, "Devastate"),
                     Spell.CastConicSpell("Shockwave", 11f, 33f, ret => true, "Shockwave"),
-                    Spell.CastSpell("Commanding Shout",        ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Commanding, "Commanding Shout for Rage"),
-                    Spell.CastSpell("Battle Shout",            ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Battle, "Battle Shout for Rage"));
+                    Spell.CastSpell("Commanding Shout",        ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.ShoutSelection == WarriorShout.Commanding, "Commanding Shout for Rage"),
+                    Spell.CastSpell("Battle Shout",            ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.ShoutSelection == WarriorShout.Battle, "Battle Shout for Rage"));
             }
         }
 
@@ -134,8 +134,8 @@ namespace Clu.Classes.Warrior
                         new Decorator(
                             ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                             new PrioritySelector(
-                                Buff.CastRaidBuff("Commanding Shout",   ret => CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Commanding, "Commanding Shout"),
-                                Buff.CastRaidBuff("Battle Shout",       ret => CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Battle, "Battle Shout"))));
+                                Buff.CastRaidBuff("Commanding Shout",   ret => true, "Commanding Shout"),
+                                Buff.CastRaidBuff("Battle Shout",       ret => true, "Battle Shout"))));
             }
         }
 

@@ -25,6 +25,17 @@ namespace Clu.Settings
         #region Common
 
         [Setting]
+        [DefaultValue(PaladinBlessing.Kings)]
+        [Category("Common")]
+        [DisplayName("Paladin Blessing Selector")]
+        [Description("Choose a Paladin Blessing. This is on applicable to solo play (ie: not in party or raid.)")]
+        public PaladinBlessing BlessingSelection
+        {
+            get;
+            set;
+        }
+
+        [Setting]
         [DefaultValue(40)]
         [Category("Common")]
         [DisplayName("Healthstone Percent")]

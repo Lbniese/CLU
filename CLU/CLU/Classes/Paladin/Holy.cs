@@ -212,8 +212,8 @@ namespace Clu.Classes.Paladin
 						                Buff.CastTargetBuff("Beacon of Light", a => true, "Beacon of Light")
 						               ),
 						Buff.CastBuff("Seal of Insight", ret => true, "Seal of Insight"),
-						Buff.CastRaidBuff("Blessing of Kings", ret => !Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Kings"),
-						Buff.CastRaidBuff("Blessing of Might", ret => Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Might")));
+						Buff.CastRaidBuff("Blessing of Kings", ret => true, "[Blessing] of Kings"),
+						Buff.CastRaidBuff("Blessing of Might", ret => true, "[Blessing] of Might")));
 			}
 		}
 

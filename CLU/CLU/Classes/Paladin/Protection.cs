@@ -137,8 +137,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                                Buff.CastBuff("Righteous Fury",          ret => true, "Righteous Fury"),
-                               Buff.CastRaidBuff("Blessing of Kings",   ret => !Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Kings"),
-                               Buff.CastRaidBuff("Blessing of Might",   ret => Buff.PlayerHasBuff("Mark of the Wild"), "[Blessing] of Might")));
+                               Buff.CastRaidBuff("Blessing of Kings",   ret => true, "[Blessing] of Kings"),
+                               Buff.CastRaidBuff("Blessing of Might",   ret => true, "[Blessing] of Might")));
             }
         }
 

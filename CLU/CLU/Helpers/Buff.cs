@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Styx;
 using Styx.Combat.CombatRoutine;
 using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-
 using TreeSharp;
-using System.Collections;
 using System.Drawing;
-
 using Clu.Settings;
-
 using Action = TreeSharp.Action;
 
 namespace Clu.Helpers
@@ -474,6 +469,15 @@ namespace Clu.Helpers
                 if (!cond(a))
                     return false;
 
+                // If we are solo then return true if the name of the buff matchs the users UI setting.
+                if (!Me.IsInParty && !Me.IsInRaid && !Me.Dead && !Me.IsGhost && Me.IsAlive)
+                {
+                    if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+                    if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+                    if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+                }
+
+                // Continue on if we are in a raid group and check all raid members for the buffs we can provide and cast them if ok.
                 var players = new List<WoWPlayer> { Me };
                 if (Me.IsInRaid) players.AddRange(Me.RaidMembers);
                 else if (Me.IsInParty)
@@ -483,6 +487,7 @@ namespace Clu.Helpers
                 switch (StyxWoW.Me.Class) {
                 case WoWClass.Warrior:
                     ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina, AttackPower};
+                       
                 break;
                 case WoWClass.Paladin:
                     ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
