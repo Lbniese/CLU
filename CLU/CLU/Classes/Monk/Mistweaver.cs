@@ -107,8 +107,8 @@ namespace Clu.Classes.Monk
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
-                              Buff.CastRaidBuff("Legacy of the Emperor", 		ret => !Buff.PlayerHasBuff("Mark of the Wild") && !Buff.PlayerHasBuff("Blessing of Kings"), "Legacy of the Emperor"),
-                              Buff.CastRaidBuff("Legacy of the White Tiger", 	ret => !Buff.PlayerHasBuff("Legacy of the Emperor") && !Buff.PlayerHasBuff("Mark of the Wild") && !Buff.PlayerHasBuff("Blessing of Kings"), "Legacy of the White Tiger")));
+                             Buff.CastRaidBuff("Legacy of the Emperor", ret => true, "Legacy of the Emperor"),
+                             Buff.CastRaidBuff("Legacy of the White Tiger", ret => true, "Legacy of the White Tiger")));
             }
         }
 

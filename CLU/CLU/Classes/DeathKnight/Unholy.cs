@@ -135,7 +135,7 @@ namespace Clu.Classes.DeathKnight
                         ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                         new PrioritySelector(
                             Spell.CastSelfSpell("Raise Dead",              ret => (Me.Pet == null || Me.Pet.Dead), "Raise Dead"),
-                            Buff.CastBuff("Horn of Winter",                ret => !Buff.UnitHasStrAgiBuff(Me) && CLUSettings.Instance.DeathKnight.UseHornofWinter && Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, "Horn of Winter")));
+                            Buff.CastRaidBuff("Horn of Winter",            ret => CLUSettings.Instance.DeathKnight.UseHornofWinter && Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, "Horn of Winter")));
             }
         }
 

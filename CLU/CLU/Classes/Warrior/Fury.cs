@@ -112,8 +112,8 @@ namespace Clu.Classes.Warrior
                 return new Decorator(
                         ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                         new PrioritySelector(
-                            Buff.CastBuff("Commanding Shout", ret => !Buff.UnitHasStaminaBuffs(Me) && CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Commanding, "Commanding Shout"),
-                            Buff.CastBuff("Battle Shout", ret => !Buff.UnitHasStrAgiBuff(Me) && CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Battle, "Battle Shout")));
+                            Buff.CastRaidBuff("Commanding Shout", ret => CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Commanding, "Commanding Shout"),
+                            Buff.CastRaidBuff("Battle Shout",       ret => CLUSettings.Instance.Warrior.WarriorShoutSelection == WarriorShout.Battle, "Battle Shout")));
             }
         }
 

@@ -201,7 +201,7 @@ namespace Clu.Classes.Druid
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
-                               Buff.CastRaidBuff("Mark of the Wild", ret => !Buff.PlayerHasBuff("Blessing of Kings"), "Mark of the Wild")));
+                               Buff.CastRaidBuff("Mark of the Wild", ret => true, "Mark of the Wild")));
             }
         }
 

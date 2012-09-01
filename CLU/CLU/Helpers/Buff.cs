@@ -726,14 +726,6 @@ namespace Clu.Helpers
             return unit != null && unit.ActiveAuras.Any(x => MagicVulnerability.Contains(x.Value.SpellId) && Me.Class == WoWClass.Warlock);
         }
 
-        /// <summary>Returns true if the Unit has Stamina Buffs</summary>
-        /// <param name="unit">The unit to check the for.</param>
-        /// <returns>The unit has bleed damage debuff.</returns>
-        public static bool UnitHasStaminaBuffs(WoWUnit unit)
-        {
-            return unit != null && unit.ActiveAuras.Any(x => Stamina.Contains(x.Value.SpellId));
-        }
-
         /// <summary>Returns true if the Unit has the 10% damage reduction debuff</summary>
         /// <param name="unit">The unit to check the for.</param>
         /// <returns>The unit has damage reduction debuff.</returns>

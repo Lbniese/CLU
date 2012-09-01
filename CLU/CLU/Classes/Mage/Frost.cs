@@ -129,8 +129,8 @@ namespace Clu.Classes.Mage
                            new PrioritySelector(
                                PetManager.CastPetSummonSpell("Summon Water Elemental", ret => !Me.GotAlivePet, "Calling Pet Water Elemental"),
                                Buff.CastBuff("Molten Armor",               ret => true, "Molten Armor"),
-                               Buff.CastRaidBuff("Dalaran Brilliance",     ret => !Buff.PlayerHasBuff("Arcane Brilliance"), "Dalaran Brilliance"),
-                               Buff.CastRaidBuff("Arcane Brilliance",      ret => !Buff.PlayerHasBuff("Dalaran Brilliance"), "Arcane Brilliance"), // as most people say, the main difference between Dalaran and Arcane Brilliance, is that Dalaran Brilliance has a totally different casting animation (looks way cooler) that allows you to stand out from most mages and has a 10 yard increase in range.
+                               Buff.CastRaidBuff("Dalaran Brilliance",     ret => true, "Dalaran Brilliance"),
+                               Buff.CastRaidBuff("Arcane Brilliance",      ret => true, "Arcane Brilliance"), 
                                Item.RunMacroText("/cast Conjure Mana Gem", ret => !Me.IsMoving && !Item.HaveManaGem(), "Conjure Mana Gem")));
             }
         }
