@@ -1230,6 +1230,7 @@ namespace Clu.Helpers
         public static long TimeToDeath(WoWUnit target)
         {
             if (target == null) return 0;
+            if (IsTrainingDummy(target)) return 9999; // added for DoT's and Black arrow and shit so users wont post.."But its not using XXX abilitie" when there fucking around on the training dummy.
             if (target.CurrentHealth == 0 || target.Dead || !target.IsValid || !target.IsAlive) {
                 return 0;
             }

@@ -49,7 +49,7 @@ BeastMastery:
 This Rotation will:
 1. Heal using Exhilaration, Healthstone, Deterrence.
 2. Trap Launcher or Feign Death will halt the rotation
-3. AoE with Multishot, Barrage, Explosive Trap, Powershot
+3. AoE with Multishot, Barrage, Explosive Trap, Powershot, Glaive Toss
 4. AutomaticCooldowns has:
     ==> UseTrinkets 
     ==> UseRacials 
@@ -112,11 +112,11 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    // Main rotation
                                    Spell.CastSpell("Kill Shot",               ret => true, "Kill Shot"),
                                    Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect"), "Focus Fire"),
-                                   Buff.CastDebuff("Serpent Sting",           ret => Me.CurrentTarget != null && Buff.TargetDebuffTimeLeft("Serpent Sting").TotalSeconds <= 0.5 && Unit.IsTargetWorthy(Me.CurrentTarget), "Serpent Sting"),
-                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= CLUSettings.Instance.Hunter.FevorFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
+                                   Buff.CastDebuff("Serpent Sting",           ret => Me.CurrentTarget != null && Buff.TargetDebuffTimeLeft("Serpent Sting").TotalSeconds <= 0.5 && Unit.TimeToDeath(Me.CurrentTarget) > 10, "Serpent Sting"),
+                                   Buff.CastBuff("Fervor",                    ret => Me.CurrentTarget != null && Me.FocusPercent <= CLUSettings.Instance.Hunter.BmFevorFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget), "Fervor"),
                                    Buff.CastBuff("Bestial Wrath",             ret => Me.CurrentTarget != null && Me.FocusPercent > CLUSettings.Instance.Hunter.BestialWrathFocusPercent && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Bestial Wrath"),
-                                   Spell.CastSpell("Multi-Shot",              ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) >= CLUSettings.Instance.Hunter.MultiShotCount, "Multi-Shot"),
-                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) >= CLUSettings.Instance.Hunter.MultiShotCount, "Cobra Shot"),
+                                   Spell.CastSpell("Multi-Shot",              ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) >= CLUSettings.Instance.Hunter.BmMultiShotCount, "Multi-Shot"),
+                                   Spell.CastSpell("Cobra Shot",              ret => Unit.CountEnnemiesInRange(Me.Location, 30) >= CLUSettings.Instance.Hunter.BmMultiShotCount, "Cobra Shot"),
                                    Spell.HunterTrapBehavior("Explosive Trap", ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) >= CLUSettings.Instance.Hunter.ExplosiveTrapCount),
                                    Buff.CastBuff("A Murder of Crows",         ret => Unit.IsTargetWorthy(Me.CurrentTarget), "A Murder of Crows"), //reduced to 60sec cooldown if under 20%
                                    Buff.CastBuff("Stampede",                  ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Stampede"),
@@ -132,7 +132,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10 && Me.FocusPercent <= 80, "Dire Beast"),
                                    Spell.CastSpell("Arcane Shot",             ret => Buff.PlayerHasBuff("Thrill of the Hunt"), "Arcane Shot"),
                                    Buff.CastBuff("Readiness",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
-                                   Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= CLUSettings.Instance.Hunter.ArcaneShotFocusPercent || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
+                                   Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= CLUSettings.Instance.Hunter.BmArcaneShotFocusPercent || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
                                    Buff.CastBuff("Focus Fire",                ret => PetManager.PetCountBuff("Frenzy Effect") == 5 && PetManager.PetHasBuff("Frenzy Effect") && Buff.PlayerHasBuff("Focus Fire") && !Buff.PlayerHasBuff("The Beast Within"), "Focus Fire"),
                                    Spell.CastSpell("Cobra Shot",              ret => true, "Cobra Shot"))));
             }

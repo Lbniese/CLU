@@ -101,16 +101,6 @@ namespace Clu.Settings
         [Description("If set to true CLU Will Switch to Apect of the fox while moving then back to aspect of the hawk (or Iron Hawk)")]
         public bool HandleAspectSwitching { get; set; }
 
-        [Setting]
-        [DefaultValue(4)]
-        [Category("Common")]
-        [DisplayName("Multi Shot Count")]
-        [Description("Will use Multi Shot when agro mob count is equal to or higher then this value. Warning! - Shared setting across all specs")]
-        public int MultiShotCount
-        {
-            get;
-            set;
-        }
 
         [Setting]
         [DefaultValue(0)]
@@ -196,7 +186,7 @@ namespace Clu.Settings
         [Category("BeastMastery")]
         [DisplayName("Fevor FocusPercent")]
         [Description("Will use Fevor at the set FocusPercent")]
-        public int FevorFocusPercent { get; set; }
+        public int BmFevorFocusPercent { get; set; }
 
         [Setting]
         [DefaultValue(60)]
@@ -207,15 +197,52 @@ namespace Clu.Settings
 
         [Setting]
         [DefaultValue(59)]
-        [Category("CoBeastMasterymmon")]
+        [Category("BeastMastery")]
         [DisplayName("Arcane Shot FocusPercent")]
         [Description("Will use Arcane Shot at the set FocusPercent")]
-        public int ArcaneShotFocusPercent { get; set; }
+        public int BmArcaneShotFocusPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(4)]
+        [Category("BeastMastery")]
+        [DisplayName("Multi Shot Count")]
+        [Description("Will use Multi Shot when agro mob count is equal to or higher then this value.")]
+        public int BmMultiShotCount
+        {
+            get;
+            set;
+        }
 
 
         #endregion
 
         #region Survival
+
+        [Setting]
+        [DefaultValue(67)]
+        [Category("Survival")]
+        [DisplayName("Arcane Shot FocusPercent")]
+        [Description("Will use Arcane Shot at the set FocusPercent")]
+        public int SurArcaneShotFocusPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(50)]
+        [Category("Survival")]
+        [DisplayName("Fevor FocusPercent")]
+        [Description("Will use Fevor at the set FocusPercent")]
+        public int SurFevorFocusPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(2)]
+        [Category("Survival")]
+        [DisplayName("Multi Shot Count")]
+        [Description("Will use Multi Shot when agro mob count is equal to or higher then this value.")]
+        public int SurvMultiShotCount
+        {
+            get;
+            set;
+        }
+
         #endregion
     }
 }
