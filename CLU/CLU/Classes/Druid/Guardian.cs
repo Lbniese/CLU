@@ -6,6 +6,8 @@ using TreeSharp;
 
 namespace Clu.Classes.Druid
 {
+    using System.Linq;
+
     class Guardian : RotationBase
     {
         private const int ItemSetId = 1058; // Tier set ID
@@ -34,27 +36,25 @@ namespace Clu.Classes.Druid
         public override string Help
         {
             get {
-
                 var twopceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
                 var fourpceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
-                return "\n" +
-                       "----------------------------------------------------------------------\n" +
-                       twopceinfo + "\n" +
-                       fourpceinfo + "\n" +
-                       "This Rotation will:\n" +
-                       "1. Heal using Frenzied Regeneration, Survival Instincts, Barkskin\n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "==> Enrage & Berserk & Berserking & Lifeblood\n" +
-                       "3. Checks for T13 2pc Kitty Bonus\n" +
-                       "4. Ignores Shred for Ultraxion\n" +
-                       "5. Hot swap rotation from bear to cat if you change form\n" +
-                       "6. This Rotation will not get you a beer\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to Singular, mrwowbuddy and cowdude\n" +
-                       "----------------------------------------------------------------------\n";
+                return
+                    @"
+----------------------------------------------------------------------
+Guardian MoP:
+[*] 
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+This Rotation will:
+1. Heal using Frenzied Regeneration, Survival Instincts, Barkskin
+	==> Healthstone. Flash Heal if movement enabled.
+2. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Enrage, Berserk, Berserking, Lifeblood
+3. Hot swap rotation from bear to cat if you change form
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
 
@@ -135,7 +135,7 @@ namespace Clu.Classes.Druid
             get
             {
                 return new PrioritySelector(
-                    // Cooldowns
+                           // Cooldowns
                            new Decorator(
                                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
                                   new PrioritySelector(
@@ -145,18 +145,15 @@ namespace Clu.Classes.Druid
                                            Spell.CastSelfSpell("Berserk", ret => Buff.PlayerHasBuff("Pulverize") && Buff.TargetCountDebuff("Lacerate") >= 1, "Berserk"),
                                            Item.UseEngineerGloves(),
                                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),
-                    // Interupts
+                           // Interupts
                            Spell.CastInterupt("Skull Bash",         ret => true, "Skull Bash"),
-                           Buff.CastDebuff("Lacerate",              ret => (Buff.TargetDebuffTimeLeft("Lacerate").TotalSeconds < 2) && Buff.PlayerHasBuff("Berserk"), "Lacerate (Beserk)"),
-                           Spell.CastSpell("Mangle (Bear)",         ret => true, "Mangle"),
-                           Spell.CastAreaSpell("Swipe (Bear)", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
-                           Buff.CastDebuff("Demoralizing Roar",     ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Demoralizing Roar"),
-                           Spell.CastSpell("Thrash",                ret => true, "Thrash"),
-                           Spell.CastAreaSpell("Maul", 5, false, 3, 0.0, 0.0, ret => Buff.PlayerHasBuff("Clearcasting"), "Maul"),
-                           Buff.CastDebuff("Lacerate",              ret => Me.CurrentTarget != null && (Buff.TargetDebuffTimeLeft("Lacerate").TotalSeconds < 2) && !Spell.CanCast("Pulverize", Me.CurrentTarget), "Lacerate"),
-                           Spell.CastSpell("Faerie Fire (Feral)",   ret => Me.CurrentTarget != null && Buff.TargetCountDebuff("Faerie Fire") < 3 && !Buff.UnitHasWeakenedArmor(Me.CurrentTarget), "Faerie Fire (Feral)"),
-                           Buff.CastDebuff("Lacerate",              ret => Buff.TargetCountDebuff("Lacerate") < 3, "Lacerate (< 3)"),
-                           Spell.CastSpell("Maul",                  ret => Me.RagePercent > 70, "Maul"),
+                           Spell.CastSpell("Mangle",                ret => true, "Mangle"),
+                           Spell.CastSpell("Thrash",                ret => Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
+                           Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
+                           Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
+                           Spell.CastSpell("Faerie Swarm",          ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
+                           Buff.CastDebuff("Lacerate",              ret => true, "Lacerate"),
+                           Spell.CastSpell("Maul",                  ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),                           
                            Spell.CastSpell("Lacerate",              ret => true, "Lacerate"));
             }
         }
