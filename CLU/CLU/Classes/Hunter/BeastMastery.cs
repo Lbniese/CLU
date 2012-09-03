@@ -37,7 +37,7 @@ namespace Clu.Classes.Hunter
         {
             get {
                 return
-                      @"
+                    @"
 ----------------------------------------------------------------------
 BeastMastery:
 [*] Aspect of the Fox/Aspect of the Hawk/Iron Hawk Switching while moving.
@@ -161,7 +161,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink") && !Buff.PlayerHasBuff("Feign Death") && !Buff.PlayerHasBuff("Trap Launcher"),
                            new PrioritySelector(
-                              Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
+                               Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
             }
         }
 

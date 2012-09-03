@@ -11,7 +11,7 @@ using Styx.Logic.Combat;
 
 namespace Clu.Classes.Rogue
 {
-    
+
     class Subtlety : RotationBase
     {
 
@@ -103,7 +103,7 @@ namespace Clu.Classes.Rogue
                            // Don't do anything if we have cast vanish
                            // new Decorator( ret => Buff.PlayerHasActiveBuff("Vanish"), new ActionAlwaysSucceed()),
 
-                          // Stealth
+                           // Stealth
                            Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
 
                            // Questing and PvP helpers
@@ -130,9 +130,9 @@ namespace Clu.Classes.Rogue
                            new Decorator(
                                ret => CLUSettings.Instance.Rogue.SubtletyRogueRotationSelection == SubtletyRogueRotation.ImprovedTestVersion,
                                new PrioritySelector(
-                                   Spell.CastSpell("Feint", 					  ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()), "Feint"),
-                                   Spell.CastInterupt("Kick", 					  ret => true, "Kick"),
-                                   Spell.CastSpell("Redirect", 					  ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
+                                   Spell.CastSpell("Feint",                       ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()), "Feint"),
+                                   Spell.CastInterupt("Kick",                     ret => true, "Kick"),
+                                   Spell.CastSpell("Redirect",                    ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
                                    Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => Me.CurrentEnergy >= 60 && Me.ComboPoints < 5 && (!Buff.PlayerHasActiveBuff("Vanish") && !Spell.SpellOnCooldown("Premeditation") && !Spell.SpellOnCooldown("Shadow Dance") || !Buff.PlayerHasActiveBuff("Stealth") && !Spell.SpellOnCooldown("Premeditation") && !Spell.SpellOnCooldown("Shadow Dance")), "Tricks of the Trade"),
                                    //Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => Buff.PlayerHasActiveBuff("Shadow Dance"), "Tricks of the Trade"),
                                    Spell.CastSpell("Shadow Dance",                ret => Me.CurrentEnergy >= 60 && Me.ComboPoints < 5 && (!Buff.PlayerHasActiveBuff("Vanish") && !Spell.SpellOnCooldown("Premeditation") || !Buff.PlayerHasActiveBuff("Stealth") && !Spell.SpellOnCooldown("Premeditation")), "Shadow Dance"),

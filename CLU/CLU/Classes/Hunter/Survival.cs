@@ -99,8 +99,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            new Decorator(
                                ret => !Buff.PlayerHasBuff("Feign Death"),
                                new PrioritySelector(
-                                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
-                                    // TODO: Add Binding shot logic..need to see it working well.
+                                   // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
+                                   // TODO: Add Binding shot logic..need to see it working well.
                                    Common.HandleMisdirection(),
                                    Buff.CastBuff("Hunter's Mark", ret => true, "Hunter's Mark"),
                                    Spell.CastSelfSpell("Feign Death", ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && CLUSettings.Instance.Hunter.UseFeignDeath, "Feign Death Threat"),
@@ -132,10 +132,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
 
         public override Composite Medic
         {
-            get
-            {
+            get {
                 return new PrioritySelector(
-                    // Make sure we go our pet.
+                           // Make sure we go our pet.
                            Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat),
                            new Decorator(
                                ret => Me.HealthPercent < 100 && !Buff.PlayerHasBuff("Feign Death") && CLUSettings.Instance.EnableSelfHealing,
@@ -143,19 +142,18 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Exhilaration",      ret => Me.HealthPercent < CLUSettings.Instance.Hunter.ExhilarationPercent, "Exhilaration"),
                                    Item.UseBagItem("Healthstone",           ret => Me.HealthPercent < CLUSettings.Instance.Hunter.HealthstonePercent, "Healthstone"),
                                    Spell.CastSelfSpell("Deterrence",        ret => Me.HealthPercent < CLUSettings.Instance.Hunter.DeterrencePercent && Me.HealthPercent > 1, "Deterrence"))),
-                    // Heart of the Phoenix, Mend Pet, etc
+                           // Heart of the Phoenix, Mend Pet, etc
                            Common.HandlePetHelpers());
             }
         }
 
         public override Composite PreCombat
         {
-            get
-            {
+            get {
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink") && !Buff.PlayerHasBuff("Feign Death") && !Buff.PlayerHasBuff("Trap Launcher"),
                            new PrioritySelector(
-                              Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
+                               Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
             }
         }
 

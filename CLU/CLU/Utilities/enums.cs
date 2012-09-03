@@ -14,8 +14,7 @@
         CrowdControlledSilenced
     }
 
-    public enum PetSlot
-    {
+    public enum PetSlot {
         FirstSlot = 1,
         SecondSlot,
         ThirdSlot,
@@ -23,21 +22,19 @@
         FifthSlot
     }
 
-     public enum Burst {
+    public enum Burst {
         onBoss,
         onMob
     }
 
-     public enum DeathKnightTierOneTalent
-     {
-         PlagueLeech,
-         UnholyBlight,
-         RoilingBlood,
-         None
-     }
+    public enum DeathKnightTierOneTalent {
+        PlagueLeech,
+        UnholyBlight,
+        RoilingBlood,
+        None
+    }
 
-    public enum HealingAquisitionMethod
-    {
+    public enum HealingAquisitionMethod {
         Proximity,
         RaidParty
     }
@@ -48,14 +45,12 @@
         Might
     }
 
-    public enum MonkLegacy
-    {
+    public enum MonkLegacy {
         Tiger,
         Emperor
     }
 
-    public enum WarriorShout
-    {
+    public enum WarriorShout {
         Battle,
         Commanding
     }

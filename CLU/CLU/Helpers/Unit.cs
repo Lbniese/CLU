@@ -44,45 +44,45 @@ namespace Clu.Helpers
 
         private static readonly string[] HealerSpells = new[] {
             // -- Priests
-            "Penance", 					// [47540] = "PRIEST", -- Penance
-            "Holy Word: Chastise", 		// [88625] = "PRIEST", -- Holy Word: Chastise
-            "Holy Word: Serenity", 		// [88684] = "PRIEST", -- Holy Word: Serenity
-            "Holy Word: Sanctuary", 	// [88685] = "PRIEST", -- Holy Word: Sanctuary
-            "Inner Focus", 				// [89485] = "PRIEST", -- Inner Focus
-            "Power Infusion", 			// [10060] = "PRIEST", -- Power Infusion
-            "Pain Suppression", 		// [33206] = "PRIEST", -- Pain Suppression
-            "Power Word: Barrier", 		// [62618] = "PRIEST", -- Power Word: Barrier
-            "Lightwell", 				// [724]   = "PRIEST",   -- Lightwell
-            "Chakra", 					// [14751] = "PRIEST", -- Chakra
-            "Circle of Healing", 		// [34861] = "PRIEST", -- Circle of Healing
-            "Guardian Spirit", 			// [47788] = "PRIEST", -- Guardian Spirit
+            "Penance",                  // [47540] = "PRIEST", -- Penance
+            "Holy Word: Chastise",      // [88625] = "PRIEST", -- Holy Word: Chastise
+            "Holy Word: Serenity",      // [88684] = "PRIEST", -- Holy Word: Serenity
+            "Holy Word: Sanctuary",     // [88685] = "PRIEST", -- Holy Word: Sanctuary
+            "Inner Focus",              // [89485] = "PRIEST", -- Inner Focus
+            "Power Infusion",           // [10060] = "PRIEST", -- Power Infusion
+            "Pain Suppression",         // [33206] = "PRIEST", -- Pain Suppression
+            "Power Word: Barrier",      // [62618] = "PRIEST", -- Power Word: Barrier
+            "Lightwell",                // [724]   = "PRIEST",   -- Lightwell
+            "Chakra",                   // [14751] = "PRIEST", -- Chakra
+            "Circle of Healing",        // [34861] = "PRIEST", -- Circle of Healing
+            "Guardian Spirit",          // [47788] = "PRIEST", -- Guardian Spirit
             // -- Druids
-            "Swiftmend", 				// [18562] = "DRUID", -- Swiftmend
-            "Nourish", 					// [50464] = "DRUID", -- Nourish
-            "Nature's Swiftness",		// [17116] = "DRUID", -- Nature's Swiftness
-            "Wild Growth", 				// [48438] = "DRUID", -- Wild Growth
-            "Tree of Life", 			// [33891] = "DRUID", -- Tree of Life
-            "Regrowth", 				// [8936] = "DRUID", -- Regrowth
-            "Healing Touch", 			// [5185] = "DRUID", -- Healing Touch
+            "Swiftmend",                // [18562] = "DRUID", -- Swiftmend
+            "Nourish",                  // [50464] = "DRUID", -- Nourish
+            "Nature's Swiftness",       // [17116] = "DRUID", -- Nature's Swiftness
+            "Wild Growth",              // [48438] = "DRUID", -- Wild Growth
+            "Tree of Life",             // [33891] = "DRUID", -- Tree of Life
+            "Regrowth",                 // [8936] = "DRUID", -- Regrowth
+            "Healing Touch",            // [5185] = "DRUID", -- Healing Touch
             // -- Shamans
-            "Earth Shield", 			// [974]   = "SHAMAN", -- Earth Shield
-            "Healing Wave", 			// [331]   = "SHAMAN", -- Healing Wave
-            "Healing Surge", 			// [8004]   = "SHAMAN", -- Healing Surge
-            "Greater Healing Wave", 	// [77472]   = "SHAMAN", -- Greater Healing Wave
-            "Lesser Healing Wave", 		// [68115]   = "SHAMAN", -- Lesser Healing Wave
-            "Nature's Swiftness", 		// [17116] = "SHAMAN", -- Nature's Swiftness
-            "Mana Tide Totem", 			// [16190] = "SHAMAN", -- Mana Tide Totem
-            "Riptide", 					// [61295] = "SHAMAN", -- Riptide
-            "Chain Heal", 				// [1064]   = "SHAMAN", -- Chain Heal
+            "Earth Shield",             // [974]   = "SHAMAN", -- Earth Shield
+            "Healing Wave",             // [331]   = "SHAMAN", -- Healing Wave
+            "Healing Surge",            // [8004]   = "SHAMAN", -- Healing Surge
+            "Greater Healing Wave",     // [77472]   = "SHAMAN", -- Greater Healing Wave
+            "Lesser Healing Wave",      // [68115]   = "SHAMAN", -- Lesser Healing Wave
+            "Nature's Swiftness",       // [17116] = "SHAMAN", -- Nature's Swiftness
+            "Mana Tide Totem",          // [16190] = "SHAMAN", -- Mana Tide Totem
+            "Riptide",                  // [61295] = "SHAMAN", -- Riptide
+            "Chain Heal",               // [1064]   = "SHAMAN", -- Chain Heal
             // -- Paladins
-            "Holy Shock", 				// [20473] = "PALADIN", -- Holy Shock
-            "Divine Favor", 			// [31842] = "PALADIN", -- Divine Favor
-            "Beacon of Light", 			// [53563] = "PALADIN", -- Beacon of Light
-            "Aura Mastery", 			// [31821] = "PALADIN", -- Aura Mastery
-            "Light of Dawn", 			// [85222] = "PALADIN", -- Light of Dawn
-            "Flash Heal", 				// [2061] = "PALADIN", -- Flash Heal
-            "Flash of Light",			// [19750] = "PALADIN", -- Light of Dawn
-            "Holy Light" 				// [635] = "PALADIN", -- Holy Light
+            "Holy Shock",               // [20473] = "PALADIN", -- Holy Shock
+            "Divine Favor",             // [31842] = "PALADIN", -- Divine Favor
+            "Beacon of Light",          // [53563] = "PALADIN", -- Beacon of Light
+            "Aura Mastery",             // [31821] = "PALADIN", -- Aura Mastery
+            "Light of Dawn",            // [85222] = "PALADIN", -- Light of Dawn
+            "Flash Heal",               // [2061] = "PALADIN", -- Flash Heal
+            "Flash of Light",           // [19750] = "PALADIN", -- Light of Dawn
+            "Holy Light"                // [635] = "PALADIN", -- Holy Light
         };
 
         private static readonly HashSet<uint> IgnoreMobs = new HashSet<uint> {
@@ -608,7 +608,7 @@ namespace Clu.Helpers
 
             // Miniboss not a big boss =)
             var miniBoss = (target.Level >= Me.Level + 2) && target.Elite;
-            
+
 
             var targetIsWorthy = ((IsBoss(target) || miniBoss || IsTrainingDummy(target) || pvpTarget) && CLUSettings.Instance.BurstOn == Burst.onBoss) || (CLUSettings.Instance.BurstOn == Burst.onMob && Unit.EnemyUnits.Count() >= CLUSettings.Instance.BurstOnMobCount);
             if (targetIsWorthy) {
@@ -928,7 +928,7 @@ namespace Clu.Helpers
                                          WoWClass.Paladin,
                                          WoWClass.Priest
                                          //TODO: WoWClass.Monk
-                                         );
+                                     );
                     return bestPlayer;
                 }
 
@@ -1222,17 +1222,17 @@ namespace Clu.Helpers
 
         private static int conv_Date2Timestam(DateTime _time)
         {
-            var date1 = new DateTime(1970, 1, 1); // Refernzdatum (festgelegt)
-            DateTime date2 = _time; // jetztiges Datum / Uhrzeit
-            var ts = new TimeSpan(date2.Ticks - date1.Ticks); // das Delta ermitteln
-            // Das Delta als gesammtzahl der sekunden ist der Timestamp
+            var date1 = new DateTime(1970, 1, 1); // Reference (Set)
+            DateTime date2 = _time; // date / time
+            var ts = new TimeSpan(date2.Ticks - date1.Ticks); // Calculate the delta
+            // The Delta as a whole number of seconds, the timestamp
             return (Convert.ToInt32(ts.TotalSeconds));
         }
 
         public static long TimeToDeath(WoWUnit target)
         {
             if (target == null) return 0;
-            if (IsTrainingDummy(target)) return 9999; // added for DoT's and Black arrow and shit so users wont post.."But its not using XXX abilitie" when there fucking around on the training dummy.
+            if (IsTrainingDummy(target)) return 9999; // added for DoT's and Black arrow and shit so users wont post.."But its not using XXX abilitie" when their fucking around on the training dummy.
             if (target.CurrentHealth == 0 || target.Dead || !target.IsValid || !target.IsAlive) {
                 return 0;
             }

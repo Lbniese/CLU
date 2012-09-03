@@ -107,10 +107,10 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Archangel",         ret => CLUSettings.Instance.UseCooldowns && Unit.EnemyUnits.Count(u => u.IsTargetingMeOrPet) >= 2, "Archangel"),
                                    Spell.CastSpell("Shadowfiend",           ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Shadowfiend"),
                                    Spell.CastSpell("Mind Spike",            ret => true, "Mind Spike"),
-                                   Spell.CastSpecialSpell("Mind Flay",      ret => Buff.TargetDebuffTimeLeft("Mind Flay").TotalSeconds <= Spell.ClippingDuration(), "Mind Flay")  
-                               )),  
-                           
-                           
+                                   Spell.CastSpecialSpell("Mind Flay",      ret => Buff.TargetDebuffTimeLeft("Mind Flay").TotalSeconds <= Spell.ClippingDuration(), "Mind Flay")
+                               )),
+
+
                            // Default Rotation
                            new Decorator(
                                ret => CLUSettings.Instance.Priest.SpriestRotationSelection == ShadowPriestRotation.Default,
@@ -185,10 +185,10 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    // Item.RunMacroText("/cast Shadowform", ret => !Buff.PlayerHasBuff("Shadowform"), "Shadowform"),
-                                   Buff.CastRaidBuff("Power Word: Fortitude", 	ret => CLUSettings.Instance.Priest.UsePowerWordFortitude, "Power Word: Fortitude"),
-                                   Buff.CastRaidBuff("Shadow Protection", 		ret => CLUSettings.Instance.Priest.UseShadowProtection, "Shadow Protection"),
-                                   Buff.CastBuff("Inner Fire", 					ret => CLUSettings.Instance.Priest.UseInnerFire, "Inner Fire"),
-                                   Buff.CastBuff("Vampiric Embrace", 			ret => true, "Vampiric Embrace"))));
+                                   Buff.CastRaidBuff("Power Word: Fortitude",   ret => CLUSettings.Instance.Priest.UsePowerWordFortitude, "Power Word: Fortitude"),
+                                   Buff.CastRaidBuff("Shadow Protection",       ret => CLUSettings.Instance.Priest.UseShadowProtection, "Shadow Protection"),
+                                   Buff.CastBuff("Inner Fire",                  ret => CLUSettings.Instance.Priest.UseInnerFire, "Inner Fire"),
+                                   Buff.CastBuff("Vampiric Embrace",            ret => true, "Vampiric Embrace"))));
             }
         }
 

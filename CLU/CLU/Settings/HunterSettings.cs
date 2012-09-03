@@ -29,31 +29,47 @@ namespace Clu.Settings
         [Category("Pet")]
         [DisplayName("Pet Slot")]
         [Description("CLU will attempt to call the pet in the specified pet slot.")]
-        public PetSlot PetSlotSelection { get; set; }
+        public PetSlot PetSlotSelection
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(70)]
         [Category("Pet")]
         [DisplayName("Mend Pet Percent")]
         [Description("CLU will use Mend Pet at this Pet Health Percent.")]
-        public double MendPetPercent { get; set; }
+        public double MendPetPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(false)]
         [Category("Pet")]
         [DisplayName("Revive Pet in Combat")]
         [Description("If set to true CLU Will Revive Pet in combat")]
-        public bool ReviveInCombat { get; set; }
+        public bool ReviveInCombat
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
         [Category("Pet")]
         [DisplayName("Use Heart of the Phoenix")]
         [Description("If set to true CLU attempt to bring your pet back to lige usinf Heart of the Phoenix")]
-        public bool UseHeartofthePhoenix { get; set; }
+        public bool UseHeartofthePhoenix
+        {
+            get;
+            set;
+        }
 
-        
-        
+
+
 
         #endregion
 
@@ -64,42 +80,66 @@ namespace Clu.Settings
         [Category("Common")]
         [DisplayName("Always Camouflage")]
         [Description("If set to true CLU Will maintain Camouflage always")]
-        public bool EnableAlwaysCamouflage { get; set; }
+        public bool EnableAlwaysCamouflage
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(false)]
         [Category("Common")]
         [DisplayName("Misdirection")]
         [Description("If set to true CLU Will use Misdirection with thefollowing target priority: Focus, Pet, RafLeader, Tank")]
-        public bool UseMisdirection { get; set; }
+        public bool UseMisdirection
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Feign Death")]
         [Description("If set to true CLU Will use Feign Death on agro")]
-        public bool UseFeignDeath { get; set; }
+        public bool UseFeignDeath
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Concussive Shot")]
         [Description("If set to true CLU Will use Concussive Shot")]
-        public bool UseConcussiveShot { get; set; }
+        public bool UseConcussiveShot
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Tranquilizing Shot")]
         [Description("If set to true CLU Will use Tranquilizing Shot when your target is enraged")]
-        public bool UseTranquilizingShot { get; set; }
+        public bool UseTranquilizingShot
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(true)]
         [Category("Common")]
         [DisplayName("Handle Aspect Switching")]
         [Description("If set to true CLU Will Switch to Apect of the fox while moving then back to aspect of the hawk (or Iron Hawk)")]
-        public bool HandleAspectSwitching { get; set; }
+        public bool HandleAspectSwitching
+        {
+            get;
+            set;
+        }
 
 
         [Setting]
@@ -151,21 +191,33 @@ namespace Clu.Settings
         [Category("Common")]
         [DisplayName("Exhilaration Percent")]
         [Description("Will use Exhilaration at the set Health Percent")]
-        public int ExhilarationPercent { get; set; }
+        public int ExhilarationPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(40)]
         [Category("Common")]
         [DisplayName("Healthstone Percent")]
         [Description("Will use Healthstone at the set Health Percent")]
-        public int HealthstonePercent { get; set; }
+        public int HealthstonePercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(50)]
         [Category("Common")]
         [DisplayName("Deterrence Percent")]
         [Description("Will use Deterrence at the set Health Percent")]
-        public int DeterrencePercent { get; set; }
+        public int DeterrencePercent
+        {
+            get;
+            set;
+        }
 
         //[Setting]
         //[DefaultValue(false)]
@@ -194,14 +246,22 @@ namespace Clu.Settings
         [Category("Survival")]
         [DisplayName("Arcane Shot FocusPercent")]
         [Description("Will use Arcane Shot at the set FocusPercent")]
-        public int MarksArcaneShotFocusPercent { get; set; }
+        public int MarksArcaneShotFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(50)]
         [Category("Survival")]
         [DisplayName("Fevor FocusPercent")]
         [Description("Will use Fevor at the set FocusPercent")]
-        public int MarksFevorFocusPercent { get; set; }
+        public int MarksFevorFocusPercent
+        {
+            get;
+            set;
+        }
 
         #endregion
 
@@ -212,21 +272,33 @@ namespace Clu.Settings
         [Category("BeastMastery")]
         [DisplayName("Fevor FocusPercent")]
         [Description("Will use Fevor at the set FocusPercent")]
-        public int BmFevorFocusPercent { get; set; }
+        public int BmFevorFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(60)]
         [Category("BeastMastery")]
         [DisplayName("Bestial Wrath FocusPercent")]
         [Description("Will use Bestial Wrath at the set FocusPercent")]
-        public int BestialWrathFocusPercent { get; set; }
+        public int BestialWrathFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(59)]
         [Category("BeastMastery")]
         [DisplayName("Arcane Shot FocusPercent")]
         [Description("Will use Arcane Shot at the set FocusPercent")]
-        public int BmArcaneShotFocusPercent { get; set; }
+        public int BmArcaneShotFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(4)]
@@ -249,14 +321,22 @@ namespace Clu.Settings
         [Category("Survival")]
         [DisplayName("Arcane Shot FocusPercent")]
         [Description("Will use Arcane Shot at the set FocusPercent")]
-        public int SurArcaneShotFocusPercent { get; set; }
+        public int SurArcaneShotFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(50)]
         [Category("Survival")]
         [DisplayName("Fevor FocusPercent")]
         [Description("Will use Fevor at the set FocusPercent")]
-        public int SurFevorFocusPercent { get; set; }
+        public int SurFevorFocusPercent
+        {
+            get;
+            set;
+        }
 
         [Setting]
         [DefaultValue(2)]

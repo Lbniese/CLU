@@ -73,7 +73,7 @@ namespace Clu.Classes.Rogue
                            new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
 
                            // For DS Encounters.
-                          EncounterSpecific.ExtraActionButton(), // EncounterSpecific.ExtraActionButton(), new Decorator(x => Me.IsInInstance, EncounterSpecific.ExtraActionButton())
+                           EncounterSpecific.ExtraActionButton(), // EncounterSpecific.ExtraActionButton(), new Decorator(x => Me.IsInInstance, EncounterSpecific.ExtraActionButton())
 
                            // Don't do anything if we have cast vanish
                            // new Decorator( ret => Buff.PlayerHasActiveBuff("Vanish"), new ActionAlwaysSucceed()),

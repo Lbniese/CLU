@@ -33,100 +33,100 @@ namespace Clu.Helpers
             3045,                //Hunter (3045) Rapid Fire
         };
 
-        // ====================  Buffs ==================== 
+        // ====================  Buffs ====================
         private static readonly HashSet<int> Stats = new HashSet<int> {
-                117667,     //Legacy of The Emperor
-                1126,       //Mark of The Wild
-                20217,      //Blessing Of Kings
-                //90363,      //Embrace of the Shale Spider	
+            117667,     //Legacy of The Emperor
+            1126,       //Mark of The Wild
+            20217,      //Blessing Of Kings
+            //90363,      //Embrace of the Shale Spider
         };
 
         private static readonly HashSet<int> Stamina = new HashSet<int> {
-                469,        //Commanding Shout
-                6307,       //Imp. Blood Pact
-                21562,      //Power Word: Fortitude
-                //90364,      //Qiraji Fortitude
+            469,        //Commanding Shout
+            6307,       //Imp. Blood Pact
+            21562,      //Power Word: Fortitude
+            //90364,      //Qiraji Fortitude
         };
 
         private static readonly HashSet<int> AttackPower = new HashSet<int> {
-                19506,      //Trueshot Aura
-                6673,       //Battle Shout
-                57330,      //Horn of Winter
+            19506,      //Trueshot Aura
+            6673,       //Battle Shout
+            57330,      //Horn of Winter
         };
 
         private static readonly HashSet<int> SpellPower = new HashSet<int> {
-                77747,      //Burning Wrath
-                109773,     //Dark Intent
-                61316,      //Dalaran Brilliance
-                1459,       //Arcane Brilliance
-                //126309,     //Still Water
+            77747,      //Burning Wrath
+            109773,     //Dark Intent
+            61316,      //Dalaran Brilliance
+            1459,       //Arcane Brilliance
+            //126309,     //Still Water
         };
 
         private static readonly HashSet<int> AttackSpeed = new HashSet<int> {
-                30809,      //Unleashed Rage
-                113742,     //Swiftblade's Cunning
-                55610,      //Improved Icy Talons
-                //128432,     //Cackling Howl
-                //50498,      //Tear Armor
+            30809,      //Unleashed Rage
+            113742,     //Swiftblade's Cunning
+            55610,      //Improved Icy Talons
+            //128432,     //Cackling Howl
+            //50498,      //Tear Armor
 
         };
 
         private static readonly HashSet<int> SpellHaste = new HashSet<int> {
-                24907,      //Moonkin Aura
-                51470,      //Elemental Oath
-                49868,      //Mind Quickening
+            24907,      //Moonkin Aura
+            51470,      //Elemental Oath
+            49868,      //Mind Quickening
         };
 
         private static readonly HashSet<int> CriticalStrike = new HashSet<int> {
-                1459,      //Arcane Brilliance
-                61316,     //Dalaran Brilliance
-                24932,     //Leader of The Pact
-                116781,    //Legacy of the White Tiger
-                //97229,     //Bellowing Roar
-                //24604,    //Furious Howl
-                //90309,    //Terrifying Roar
-                //126373,   //Fearless Roar
-                //126309,   //Still Water
+            1459,      //Arcane Brilliance
+            61316,     //Dalaran Brilliance
+            24932,     //Leader of The Pact
+            116781,    //Legacy of the White Tiger
+            //97229,     //Bellowing Roar
+            //24604,    //Furious Howl
+            //90309,    //Terrifying Roar
+            //126373,   //Fearless Roar
+            //126309,   //Still Water
 
         };
-       
+
         private static readonly HashSet<int> Mastery = new HashSet<int> {
-                116956,    //Grace of Air
-                19740,     //Blessing of Might
-                //93435,    //Roar of Courage 
-                //128997,  //Spirit Beast Blessing 
+            116956,    //Grace of Air
+            19740,     //Blessing of Might
+            //93435,    //Roar of Courage
+            //128997,  //Spirit Beast Blessing
         };
 
-        // ==================== Debuffs ==================== 
+        // ==================== Debuffs ====================
         private static readonly HashSet<int> MagicVulnerability = new HashSet<int> {
-                //58410,      //Master Poisoner
-                1490,       //Curse of the Elements TODO: Probably the better of the lot as it affects all targets within 15yrds..Soulburn: Curse ??
-                //34889,      //Fire Breath (pet) the only 8% debuff..TODO: Do we want to overwrite the pets 8% with the 5% ?? --wulf
-                //24844,      //Lightning Breath	
+            //58410,      //Master Poisoner
+            1490,       //Curse of the Elements TODO: Probably the better of the lot as it affects all targets within 15yrds..Soulburn: Curse ??
+            //34889,      //Fire Breath (pet) the only 8% debuff..TODO: Do we want to overwrite the pets 8% with the 5% ?? --wulf
+            //24844,      //Lightning Breath
         };
 
         private static readonly HashSet<int> WeakenedBlows = new HashSet<int> {
-                115798, // Weakened Blows
+            115798, // Weakened Blows
 
         };
 
         private static readonly HashSet<int> WeakenedArmor = new HashSet<int> {
-                113746, // Weakened Armor
+            113746, // Weakened Armor
         };
 
         private static readonly HashSet<int> PhysicalVulnerability = new HashSet<int> {
-                81326, // Physical Vulnerability
+            81326, // Physical Vulnerability
         };
 
         private static readonly HashSet<int> SlowCasting = new HashSet<int> {
-                5760,  // Mind-numbing Poison
-	            73975, //Necrotic Strike TODO: Needs to be checked
-                31589, //Slow TODO: Needs to be checked
-                109466, //Curse of Enfeeblement TODO: Needs to be checked
+            5760,  // Mind-numbing Poison
+            73975, //Necrotic Strike TODO: Needs to be checked
+            31589, //Slow TODO: Needs to be checked
+            109466, //Curse of Enfeeblement TODO: Needs to be checked
         };
 
         private static readonly HashSet<int> MortalWounds = new HashSet<int> {
-                115804,  // Mortal Wounds
+            115804,  // Mortal Wounds
         };
 
         // Dispel shit.
@@ -139,27 +139,27 @@ namespace Clu.Helpers
         };
 
         private static readonly HashSet<string> urgentDispel = new HashSet<string> {
-            "Disrupting Shadows", 		// magic
-            "Boulder Smash", 			// ??
-            "Chains of Ice", 			// Magic
-            "Freezing Trap", 			// Magic
-            "Tentacle Smash", 			// Magic
-            "Shackles of Ice", 			// Magic
-            "Righteous Shear", 			// Magic
-            "Twilight Shear", 			// Magic
-            "Molten Blast", 			// Magic
-            "Temporal Vortex", 			// Magic
-            "Earth and Moon", 			// Magic
-            "Arcane Bomb", 				// Magic
-            "Shriek of the Highborne", 	// Magic
-            "Frost Corruption", 		// Magic
-            "Static Cling", 			// Magic
-            "Flame Shock", 				// Magic
-            "Static Discharge", 		// Magic
-            "Consuming Darkness", 		// ???
-            "Lash of Anguish", 			// Magic
-            "Static Disruption", 		// Magic
-            "Accelerated Corruption" 	// Magic
+            "Disrupting Shadows",       // magic
+            "Boulder Smash",            // ??
+            "Chains of Ice",            // Magic
+            "Freezing Trap",            // Magic
+            "Tentacle Smash",           // Magic
+            "Shackles of Ice",          // Magic
+            "Righteous Shear",          // Magic
+            "Twilight Shear",           // Magic
+            "Molten Blast",             // Magic
+            "Temporal Vortex",          // Magic
+            "Earth and Moon",           // Magic
+            "Arcane Bomb",              // Magic
+            "Shriek of the Highborne",  // Magic
+            "Frost Corruption",         // Magic
+            "Static Cling",             // Magic
+            "Flame Shock",              // Magic
+            "Static Discharge",         // Magic
+            "Consuming Darkness",       // ???
+            "Lash of Anguish",          // Magic
+            "Static Disruption",        // Magic
+            "Accelerated Corruption"    // Magic
         };
 
 
@@ -217,7 +217,7 @@ namespace Clu.Helpers
         /// <returns>true if the target has an aura to dispel</returns>
         public static bool HasAuraToDispel  (this WoWUnit unit, bool isUrgent)
         {
-           switch (Me.Class) {
+            switch (Me.Class) {
             case WoWClass.Rogue:
                 return false;
             case WoWClass.DeathKnight:
@@ -227,8 +227,8 @@ namespace Clu.Helpers
             case WoWClass.Mage:
                 return HasAuraToDispel(unit, false, false, false, true, isUrgent);
             case WoWClass.Warlock:
-                var felhunterWarlock = PetManager.CanCastPetSpell("Devour Magic");     // Warlock has his felhunter out?
-                var impWarlock = PetManager.CanCastPetSpell("Singe Magic");            // Warlock has his imp out?
+                var felhunterWarlock = PetManager.CanCastPetSpell("Devour Magic");     			// Warlock has his felhunter out?
+                var impWarlock = PetManager.CanCastPetSpell("Singe Magic");            			// Warlock has his imp out?
                 return HasAuraToDispel(unit, false, felhunterWarlock || impWarlock, false, false, isUrgent);
             case WoWClass.Shaman:
                 var restoShaman = TalentManager.HasTalent(3, 12);                               // Are we a Restoration Shaman with Improved Cleanse Spirit?
@@ -257,23 +257,20 @@ namespace Clu.Helpers
         /// <returns>true if the target has an aura to dispel</returns>
         private static bool HasAuraToDispel(this WoWUnit unit, bool disease, bool magic, bool poison, bool curse, bool urgent)
         {
-            foreach (WoWAura aura in unit.Debuffs.Values)
-            {
-                if (!ignoreDispel.Contains(aura.Name) && (urgent && urgentDispel.Contains(aura.Name)))
-                {
+            foreach (WoWAura aura in unit.Debuffs.Values) {
+                if (!ignoreDispel.Contains(aura.Name) && (urgent && urgentDispel.Contains(aura.Name))) {
                     WoWDispelType type = aura.Spell.DispelType;
-                    switch (type)
-                    {
-                        case WoWDispelType.Curse:
-                            return curse;
-                        case WoWDispelType.Disease:
-                            return disease;
-                        case WoWDispelType.Magic:
-                            return magic;
-                        case WoWDispelType.Poison:
-                            return poison;
-                        default:
-                            return false;
+                    switch (type) {
+                    case WoWDispelType.Curse:
+                        return curse;
+                    case WoWDispelType.Disease:
+                        return disease;
+                    case WoWDispelType.Magic:
+                        return magic;
+                    case WoWDispelType.Poison:
+                        return poison;
+                    default:
+                        return false;
                     }
                 }
             }
@@ -311,8 +308,7 @@ namespace Clu.Helpers
         public static TimeSpan GetAuraTimeLeft(WoWUnit unit, string auraName, bool fromMyAura)
         {
             if (unit != null) {
-                WoWAura wantedAura = unit.GetAllAuras().FirstOrDefault(
-                                         a => a.Name == auraName && a.Duration > 0 && (!fromMyAura || a.CreatorGuid == Me.Guid));
+                WoWAura wantedAura = unit.GetAllAuras().FirstOrDefault(a => a.Name == auraName && a.Duration > 0 && (!fromMyAura || a.CreatorGuid == Me.Guid));
                 return wantedAura != null ? wantedAura.TimeLeft : TimeSpan.Zero;
             }
 
@@ -349,25 +345,25 @@ namespace Clu.Helpers
         public static Composite CastDebuff(string name, CanRunDecoratorDelegate cond, string label)
         {
             return new Decorator(
-            delegate(object a) {
-                if (!cond(a)) {
-                    return false;
-                }
+        		delegate(object a) {
+        			if (!cond(a)) {
+        				return false;
+        			}
 
-                if (TargetDebuffTimeLeft(name).TotalSeconds > DotDelta(name)) {
-                    return false;
-                }
+        			if (TargetDebuffTimeLeft(name).TotalSeconds > DotDelta(name)) {
+        				return false;
+        			}
 
-                var lockstatus = true;
-                try {
-                    lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[name]).TotalSeconds > 0;
-                } catch { }
+        			var lockstatus = true;
+        			try {
+        				lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[name]).TotalSeconds > 0;
+        			} catch { }
 
-                if (!Spell.CanCast(name, Me.CurrentTarget)) {
-                    return false;
-                }
+        			if (!Spell.CanCast(name, Me.CurrentTarget)) {
+        				return false;
+        			}
 
-                return lockstatus;
+        			return lockstatus;
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting Debuff] {0} : (RefreshTime={1}) had {2} second(s) left", label, DotDelta(name), TargetDebuffTimeLeft(name).TotalSeconds)),
@@ -385,25 +381,25 @@ namespace Clu.Helpers
         public static Composite CastTargetBuff(string name, CanRunDecoratorDelegate cond, string label)
         {
             return new Decorator(
-            delegate(object a) {
-                if (!cond(a)) {
-                    return false;
-                }
+        		delegate(object a) {
+        			if (!cond(a)) {
+        				return false;
+        			}
 
-                if (TargetBuffTimeLeft(name).TotalSeconds > DotDelta(name)) {
-                    return false;
-                }
+        			if (TargetBuffTimeLeft(name).TotalSeconds > DotDelta(name)) {
+        				return false;
+        			}
 
-                var lockstatus = true;
-                try {
-                    lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[name]).TotalSeconds > 0;
-                } catch { }
+        			var lockstatus = true;
+        			try {
+        				lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[name]).TotalSeconds > 0;
+        			} catch { }
 
-                if (!Spell.CanCast(name, Me.CurrentTarget)) {
-                    return false;
-                }
+        			if (!Spell.CanCast(name, Me.CurrentTarget)) {
+        				return false;
+        			}
 
-                return lockstatus;
+        			return lockstatus;
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting TargetBuff] {0} : (RefreshTime={1}) had {2} second(s) left", label, DotDelta(name), TargetDebuffTimeLeft(name).TotalSeconds)),
@@ -422,23 +418,23 @@ namespace Clu.Helpers
         public static Composite CastOffensiveBuff(string spell, string buff, double maxTimeLeft, string label)
         {
             return new Decorator(
-            delegate {
+        		delegate {
 
-                var lockstatus = true;
-                try {
-                    lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[spell]).TotalSeconds > 0;
-                } catch { }
+        			var lockstatus = true;
+        			try {
+        				lockstatus = DateTime.Now.Subtract(CombatLogEvents.Locks[spell]).TotalSeconds > 0;
+        			} catch { }
 
 
-                if (PlayerBuffTimeLeft(buff) > maxTimeLeft) {
-                    return false;
-                }
+        			if (PlayerBuffTimeLeft(buff) > maxTimeLeft) {
+        				return false;
+        			}
 
-                if (!Spell.CanCast(spell, Me.CurrentTarget)) {
-                    return false;
-                }
+        			if (!Spell.CanCast(spell, Me.CurrentTarget)) {
+        				return false;
+        			}
 
-                return lockstatus;
+        			return lockstatus;
             },
             new Sequence(
                 new Action(
@@ -461,68 +457,67 @@ namespace Clu.Helpers
         public static Composite CastRaidBuff(string name, CanRunDecoratorDelegate cond, string label)
         {
             return new Decorator(
-            delegate(object a) {
+        		delegate(object a) {
 
-                if (!CLUSettings.Instance.EnableRaidPartyBuffing)
-                    return false;
+        			if (!CLUSettings.Instance.EnableRaidPartyBuffing)
+        				return false;
 
-                if (!cond(a))
-                    return false;
+        			if (!cond(a))
+        				return false;
 
-                // If we are solo then return true if the name of the buff matchs the users UI setting.
-                if (!Me.IsInParty && !Me.IsInRaid && !Me.Dead && !Me.IsGhost && Me.IsAlive)
-                {
-                    if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
-                    if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
-                    if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
-                }
+        			// If we are solo then return true if the name of the requested buff matchs the users UI setting and the player does not have the buff..
+        			if (!Me.IsInParty && !Me.IsInRaid && !Me.Dead && !Me.IsGhost && Me.IsAlive) {
+        				if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+        				if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+        				if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+        			}
 
-                // Continue on if we are in a raid group and check all raid members for the buffs we can provide and cast them if ok.
-                var players = new List<WoWPlayer> { Me };
-                if (Me.IsInRaid) players.AddRange(Me.RaidMembers);
-                else if (Me.IsInParty)
-                    players.AddRange(Me.PartyMembers);
+        			// Continue on if we are in a raid group and check all raid members for the buffs we can provide and cast them if ok.
+        			var players = new List<WoWPlayer> { Me };
+        			if (Me.IsInRaid) players.AddRange(Me.RaidMembers);
+        			else if (Me.IsInParty)
+        				players.AddRange(Me.PartyMembers);
 
-                var ProvidablePlayerBuffs = new HashSet<HashSet<int>>();
-                switch (StyxWoW.Me.Class) {
-                case WoWClass.Warrior:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina, AttackPower};
-                       
-                break;
-                case WoWClass.Paladin:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
-                break;
-                case WoWClass.Hunter:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, CriticalStrike};
-                break;
-                case WoWClass.Rogue:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed};
-                break;
-                case WoWClass.Priest:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellHaste};
-                break;
-                case WoWClass.DeathKnight:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, AttackSpeed};
-                break;
-                case WoWClass.Shaman:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed, SpellPower, SpellHaste,  Mastery };
-                break;
-                case WoWClass.Mage:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { SpellPower, CriticalStrike};
-                break;
-                case WoWClass.Warlock:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellPower};
-                break;
-                case WoWClass.Druid:
-                    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, CriticalStrike, SpellHaste };
-                
-                //case WoWClass.Monk:
-                //    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
-                break;
-                default:
-                break;
-            }
-                return players.Any(x => x.Distance2DSqr < 40 * 40 && x.Auras.Values.All(ret => !ProvidablePlayerBuffs.Contains(new HashSet<int> { ret.Spell.Id })) && !x.Dead && !x.IsGhost && x.IsAlive);
+        			var ProvidablePlayerBuffs = new HashSet<HashSet<int>>();
+        			switch (StyxWoW.Me.Class) {
+        				case WoWClass.Warrior:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina, AttackPower};
+
+        					break;
+        				case WoWClass.Paladin:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+        					break;
+        				case WoWClass.Hunter:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, CriticalStrike};
+        					break;
+        				case WoWClass.Rogue:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed};
+        					break;
+        				case WoWClass.Priest:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellHaste};
+        					break;
+        				case WoWClass.DeathKnight:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, AttackSpeed};
+        					break;
+        				case WoWClass.Shaman:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed, SpellPower, SpellHaste,  Mastery };
+        					break;
+        				case WoWClass.Mage:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { SpellPower, CriticalStrike};
+        					break;
+        				case WoWClass.Warlock:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellPower};
+        					break;
+        				case WoWClass.Druid:
+        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, CriticalStrike, SpellHaste };
+
+        					//case WoWClass.Monk:
+        					//    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+        					break;
+        				default:
+        					break;
+        			}
+        			return players.Any(x => x.Distance2DSqr < 40 * 40 && x.Auras.Values.All(ret => !ProvidablePlayerBuffs.Contains(new HashSet<int> { ret.Spell.Id })) && !x.Dead && !x.IsGhost && x.IsAlive);
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Raid Buff] {0} ", label)),
@@ -539,17 +534,17 @@ namespace Clu.Helpers
         public static Composite CastBuff(string name, CanRunDecoratorDelegate cond, string label)
         {
             return new Decorator(
-            delegate(object a) {
-                if (PlayerHasBuff(name))
-                    return false;
+        		delegate(object a) {
+        			if (PlayerHasBuff(name))
+        				return false;
 
-                if (!cond(a))
-                    return false;
+        			if (!cond(a))
+        				return false;
 
-                if (!SpellManager.CanBuff(name, Me))
-                    return false;
+        			if (!SpellManager.CanBuff(name, Me))
+        				return false;
 
-                return true;
+        			return true;
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Buff] {0} ", label)),
@@ -565,17 +560,17 @@ namespace Clu.Helpers
         public static Composite CastBuffonUnit(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label)
         {
             return new Decorator(
-            delegate(object a) {
-                if (TargetHasBuff(name))
-                    return false;
+        		delegate(object a) {
+        			if (TargetHasBuff(name))
+        				return false;
 
-                if (!cond(a))
-                    return false;
+        			if (!cond(a))
+        				return false;
 
-                if (!SpellManager.CanBuff(name, Me))
-                    return false;
+        			if (!SpellManager.CanBuff(name, Me))
+        				return false;
 
-                return onUnit(a) != null;
+        			return onUnit(a) != null;
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
@@ -598,16 +593,12 @@ namespace Clu.Helpers
         /// <returns>The player buff time left.</returns>
         public static double PlayerBuffTimeLeft(string name)
         {
-            using (new FrameLock())
-            {
-                try
-                {
+            using (new FrameLock()) {
+                try {
                     var lua = String.Format("local x=select(7, UnitBuff('player', \"{0}\", nil, 'PLAYER')); if x==nil then return 0 else return x-GetTime() end", Spell.RealLuaEscape(name));
                     var t = Double.Parse(Lua.GetReturnValues(lua)[0]);
                     return t;
-                }
-                catch
-                {
+                } catch {
                     CLU.TroubleshootDebugLog(Color.Red, "Lua failed in PlayerBuffTimeLeft");
                     return 999999;
                 }

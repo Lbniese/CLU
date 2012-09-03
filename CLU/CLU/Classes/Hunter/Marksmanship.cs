@@ -38,8 +38,7 @@ namespace Clu.Classes.Hunter
         {
             get {
                 return
-
-                     @"
+                    @"
 ----------------------------------------------------------------------
 MarksmanShit:
 [*] Aspect of the Fox/Aspect of the Hawk/Iron Hawk Switching while moving.
@@ -81,7 +80,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
         {
             get {
                 return new PrioritySelector(
-                    // Pause Rotation
+                           // Pause Rotation
                            new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
 
                            // For DS Encounters.
@@ -98,12 +97,12 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                            
+
                            // Main Rotation
                            new Decorator(
                                ret => !Buff.PlayerHasBuff("Feign Death"),
                                new PrioritySelector(
-                                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
+                                   // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
                                    // TODO: Add Binding shot logic..need to see it working well.
                                    Common.HandleMisdirection(),
                                    Buff.CastBuff("Hunter's Mark", ret => true, "Hunter's Mark"),
@@ -112,7 +111,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSpell("Tranquilizing Shot", ret => Buff.TargetHasBuff("Enrage") && CLUSettings.Instance.Hunter.UseTranquilizingShot, "Tranquilizing Shot"),
                                    Common.HandleAspectSwitching(),
                                    Spell.CastSpell("Kill Shot", ret => true, "Kill Shot"),
-                                    // AoE
+                                   // AoE
                                    Spell.HunterTrapBehavior("Explosive Trap",   ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) >= CLUSettings.Instance.Hunter.ExplosiveTrapCount),
                                    Spell.CastSelfSpell("Blink Strike",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
                                    Spell.CastSelfSpell("Lynx Rush",             ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
@@ -138,10 +137,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
 
         public override Composite Medic
         {
-            get
-            {
+            get {
                 return new PrioritySelector(
-                    // Make sure we go our pet.
+                           // Make sure we go our pet.
                            Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat),
                            new Decorator(
                                ret => Me.HealthPercent < 100 && !Buff.PlayerHasBuff("Feign Death") && CLUSettings.Instance.EnableSelfHealing,
@@ -149,19 +147,18 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Exhilaration",      ret => Me.HealthPercent < CLUSettings.Instance.Hunter.ExhilarationPercent, "Exhilaration"),
                                    Item.UseBagItem("Healthstone",           ret => Me.HealthPercent < CLUSettings.Instance.Hunter.HealthstonePercent, "Healthstone"),
                                    Spell.CastSelfSpell("Deterrence",        ret => Me.HealthPercent < CLUSettings.Instance.Hunter.DeterrencePercent && Me.HealthPercent > 1, "Deterrence"))),
-                    // Heart of the Phoenix, Mend Pet, etc
+                           // Heart of the Phoenix, Mend Pet, etc
                            Common.HandlePetHelpers());
             }
         }
 
         public override Composite PreCombat
         {
-            get
-            {
+            get {
                 return new Decorator(
                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink") && !Buff.PlayerHasBuff("Feign Death") && !Buff.PlayerHasBuff("Trap Launcher"),
                            new PrioritySelector(
-                              Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
+                               Common.HunterCallPetBehavior(CLUSettings.Instance.Hunter.ReviveInCombat)));
             }
         }
 
