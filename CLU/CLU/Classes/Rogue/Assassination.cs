@@ -23,7 +23,7 @@ namespace Clu.Classes.Rogue
         public override string KeySpell
         {
             get {
-                return "Vendetta";
+                return "Mutilate";
             }
         }
 

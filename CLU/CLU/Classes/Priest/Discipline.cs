@@ -21,7 +21,7 @@ namespace Clu.Classes.Priest
         public override string KeySpell
         {
             get {
-                return "Inner Focus";
+                return "Penance";
             }
         }
 

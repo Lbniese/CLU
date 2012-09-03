@@ -21,7 +21,7 @@ namespace Clu.Classes.Hunter
         public override string KeySpell
         {
             get {
-                return "Intimidation";
+                return "Kill Command";
             }
         }
 

@@ -19,7 +19,7 @@ namespace Clu.Classes.Hunter
         public override string KeySpell
         {
             get {
-                return "Black Arrow";
+                return "Explosive Shot";
             }
         }
 

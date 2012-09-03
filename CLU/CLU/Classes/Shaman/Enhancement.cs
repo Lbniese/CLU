@@ -23,7 +23,7 @@ namespace Clu.Classes.Shaman
         public override string KeySpell
         {
             get {
-                return "Stormstrike";
+                return "Lava Lash";
             }
         }
 

@@ -22,12 +22,10 @@ namespace Clu.Classes.Rogue
             }
         }
 
-        // public static readonly HealerBase Healer = HealerBase.Instance;
-
         public override string KeySpell
         {
             get {
-                return "Preparation";
+                return "Hemorrhage";
             }
         }
 

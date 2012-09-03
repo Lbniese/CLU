@@ -22,7 +22,7 @@ namespace Clu.Classes.Druid
         public override string KeySpell
         {
             get {
-                return "Starsurge";
+                return "Starfire";
             }
         }
 

@@ -20,7 +20,7 @@ namespace Clu.Classes.Mage
         public override string KeySpell
         {
             get {
-                return "Arcane Barrage";
+                return "Arcane Blast";
             }
         }
 

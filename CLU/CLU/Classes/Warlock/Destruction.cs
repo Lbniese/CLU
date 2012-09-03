@@ -18,7 +18,7 @@ namespace Clu.Classes.Warlock
         public override string KeySpell
         {
             get {
-                return "Shadowburn";
+                return "Conflagrate";
             }
         }
 

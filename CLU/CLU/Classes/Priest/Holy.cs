@@ -20,7 +20,7 @@ namespace Clu.Classes.Priest
         public override string KeySpell
         {
             get {
-                return "Circle of Healing";
+                return "Holy Word: Chastise";
             }
         }
 

@@ -20,7 +20,7 @@ namespace Clu.Classes.Monk
         public override string KeySpell
         {
             get {
-                return "Stance of the Sturdy Ox";
+                return "Dizzying Haze";
             }
         }
 

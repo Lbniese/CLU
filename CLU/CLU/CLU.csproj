@@ -53,6 +53,8 @@
     <Compile Include="Classes\DeathKnight\Frost.cs" />
     <Compile Include="Classes\DeathKnight\Unholy.cs" />
     <Compile Include="Classes\Druid\Balance.cs" />
+    <Compile Include="Classes\Druid\Common.cs" />
+    <Compile Include="Classes\Druid\Guardian.cs" />
     <Compile Include="Classes\Druid\Feral.cs" />
     <Compile Include="Classes\Druid\Restoration.cs" />
     <Compile Include="Classes\HealerRotationBase.cs" />

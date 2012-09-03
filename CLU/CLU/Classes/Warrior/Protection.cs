@@ -15,7 +15,7 @@ namespace Clu.Classes.Warrior
 
         public override string KeySpell
         {
-            get { return "Last Stand"; }
+            get { return "Shield Slam"; }
         }
 
         public override float CombatMaxDistance
