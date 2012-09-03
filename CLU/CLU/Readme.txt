@@ -64,7 +64,8 @@ Three Rotation Modes - Single, PVE, PVP
 
 * Druid
 - [T] Balance			-- Patch 4.3.x only
-- [T] Feral (bear/Cat)	-- Patch 4.3.x only
+- [U] Feral				-- Patch 5.0.4 only (Change from Wulf)
+- [U] Guardian			-- Patch 5.0.4 only (Change from Wulf)
 - [T] Restoration		-- Patch 4.3.x only
 
 * Hunter
