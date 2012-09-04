@@ -730,27 +730,7 @@
             return (float)(FacingTowardsUnitRadians(me, target) * 180.0 / Math.PI);
         }
 
-        private static GroupType Group
-        {
-            get {
-                if (Me.IsInParty)
-                    return GroupType.Party;
-                if (Me.IsInRaid)
-                    return GroupType.Raid;
-                return GroupType.Single;
-            }
-        }
-
-        private static GroupLogic Logic
-        {
-            get {
-                if (Battlegrounds.IsInsideBattleground) {
-                    return GroupLogic.Battleground;
-                }
-
-                return StyxWoW.Me.CurrentMap.IsArena ? GroupLogic.Arena : GroupLogic.PVE;
-            }
-        }
+        
 
         // returns list of most focused mobs by players
         public struct FocusedUnit {
@@ -768,7 +748,7 @@
                               // check for controlled units, like sheep etc
                               !UnitIsControlled(x, true));
 
-            if (Group == GroupType.Single) {
+            if (CLU.Group == GroupType.Single) {
                 hostile = hostile.Where(x => x.IsHostile &&  x.DistanceSqr <= 70 * 70);
                 var ret = hostile.Select(h => new FocusedUnit { Unit = h }).ToList();
                 mostFocusedUnits = ret.OrderBy(x => x.Unit.DistanceSqr).ToList();
@@ -812,25 +792,25 @@
                 }
 
                 // Healers first
-                if (EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && Logic == GroupLogic.Battleground) {
+                if (EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && CLU.LocationContext == GroupLogic.Battleground) {
                     CLU.TroubleshootDebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Healer*", CLU.SafeName(EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
                     return EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault();
                 }
 
                 // Enemys Attacking Us
-                if (EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10) != null && Logic == GroupLogic.Battleground) {
+                if (EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10) != null && CLU.LocationContext == GroupLogic.Battleground) {
                     CLU.TroubleshootDebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Enemy Attacking Us*", CLU.SafeName(EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10)));
                     return EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10);
                 }
 
                 // Flag Carrier units
-                if (EnemyFlagCarrier != null && Logic == GroupLogic.Battleground) {
+                if (EnemyFlagCarrier != null && CLU.LocationContext == GroupLogic.Battleground) {
                     CLU.TroubleshootDebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Flag Carrier*", EnemyFlagCarrier);
                     return EnemyFlagCarrier;
                 }
 
                 // Low Health units
-                if (EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && Logic == GroupLogic.Battleground) {
+                if (EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && CLU.LocationContext == GroupLogic.Battleground) {
                     CLU.TroubleshootDebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Low Health*", CLU.SafeName(EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
                     return EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault();
                 }
@@ -849,7 +829,7 @@
                 // Make sure we only check target combat, if we're NOT in a BG. (Inside BGs, all targets are valid!!)
                 var firstUnit = Targeting.Instance.FirstUnit;
                 if (firstUnit != null && firstUnit.IsAlive && !firstUnit.IsMe &&
-                        (Logic != GroupLogic.Battleground ? firstUnit.Combat : firstUnit != null) && !Blacklist.Contains(firstUnit)) {
+                        (CLU.LocationContext != GroupLogic.Battleground ? firstUnit.Combat : firstUnit != null) && !Blacklist.Contains(firstUnit)) {
                     CLU.TroubleshootDebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Target list*", CLU.SafeName(firstUnit));
                     return firstUnit;
                 }

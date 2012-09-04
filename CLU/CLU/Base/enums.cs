@@ -111,7 +111,8 @@
     public enum GroupLogic {
         PVE,
         Battleground,
-        Arena
+        Arena,
+        Solo
     }
 
     [Flags]
@@ -128,17 +129,17 @@
     }
 
     public enum Keyboardfunctions {
-        Nothing, // - default
-        IsAltKeyDown, // - Returns whether an Alt key on the keyboard is held down.
-        IsControlKeyDown, // - Returns whether a Control key on the keyboard is held down
-        IsLeftAltKeyDown, // - Returns whether the left Alt key is currently held down
-        IsLeftControlKeyDown, // - Returns whether the left Control key is held down
-        IsLeftShiftKeyDown, // - Returns whether the left Shift key on the keyboard is held down
-        IsModifierKeyDown, // - Returns whether a modifier key is held down
-        IsRightAltKeyDown, // - Returns whether the right Alt key is currently held down
-        IsRightControlKeyDown, // - Returns whether the right Control key on the keyboard is held down
-        IsRightShiftKeyDown, // - Returns whether the right shift key on the keyboard is held down
-        IsShiftKeyDown, // - Returns whether a Shift key on the keyboard is held down
+        Nothing,                // - default
+        IsAltKeyDown,           // - Returns whether an Alt key on the keyboard is held down.
+        IsControlKeyDown,       // - Returns whether a Control key on the keyboard is held down
+        IsLeftAltKeyDown,       // - Returns whether the left Alt key is currently held down
+        IsLeftControlKeyDown,   // - Returns whether the left Control key is held down
+        IsLeftShiftKeyDown,     // - Returns whether the left Shift key on the keyboard is held down
+        IsModifierKeyDown,      // - Returns whether a modifier key is held down
+        IsRightAltKeyDown,      // - Returns whether the right Alt key is currently held down
+        IsRightControlKeyDown,  // - Returns whether the right Control key on the keyboard is held down
+        IsRightShiftKeyDown,    // - Returns whether the right shift key on the keyboard is held down
+        IsShiftKeyDown,         // - Returns whether a Shift key on the keyboard is held down
     }
 
     public enum FeralSymbiosis

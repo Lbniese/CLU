@@ -253,17 +253,26 @@ namespace CLU
             }
         }
 
-        /// <summary>
-        /// Determine which group we are in if any.
-        /// </summary>
-        private static string Group
+        internal static GroupType Group
         {
-            get {
+            get
+            {
                 if (Me.IsInParty)
-                    return "PARTY";
+                    return GroupType.Party;
                 if (Me.IsInRaid)
-                    return "RAID";
-                return "SOLO";
+                    return GroupType.Raid;
+                return GroupType.Single;
+            }
+        }
+
+        internal static GroupLogic LocationContext
+        {
+            get
+            {
+                if (Battlegrounds.IsInsideBattleground) return GroupLogic.Battleground;
+                if (StyxWoW.Me.CurrentMap.IsArena) return GroupLogic.Arena;
+
+                return StyxWoW.Me.IsInInstance ? GroupLogic.PVE : GroupLogic.Solo;
             }
         }
 
@@ -275,15 +284,20 @@ namespace CLU
             get {
                 Composite rotation = null;
                 switch (Group) {
-                case "PARTY":
-                case "RAID":
-                    rotation = Battlegrounds.IsInsideBattleground
-                               ? this.ActiveRotation.PVPRotation
-                               : this.ActiveRotation.PVERotation;
+                case GroupType.Party:
+                case GroupType.Raid:
+                     switch (LocationContext)
+                     {
+                        case GroupLogic.Battleground:
+                        case GroupLogic.Arena:
+                             rotation = this.ActiveRotation.PVPRotation;
+                             break;
+                        case GroupLogic.PVE:
+                             rotation = this.ActiveRotation.PVERotation;
+                             break;
+                        }
                     break;
-
                 default:
-                    // Simulation Craft rotation is a composite that can hold experimental rotations (put in on request by Stormchasing)
                     rotation = this.ActiveRotation.SingleRotation;
                     break;
                 }
