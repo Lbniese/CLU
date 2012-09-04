@@ -7,15 +7,13 @@
 #endregion
 
 using System.ComponentModel;
-
 using Styx.Helpers;
-
+using CLU.Base;
 using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
-namespace Clu.Settings
-{
-    using global::CLU.Base;
 
+namespace CLU.Settings
+{
     internal class PriestSettings : Styx.Helpers.Settings
     {
         public PriestSettings()

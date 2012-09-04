@@ -1,15 +1,13 @@
 ﻿using System.Linq;
-using Clu.Helpers;
+using CLU.Helpers;
 using TreeSharp;
 using CommonBehaviors.Actions;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Lists;
+using CLU.Settings;
+using CLU.Base;
 
-
-namespace Clu.Classes.Priest
+namespace CLU.Classes.Priest
 {
-    using global::CLU.Base;
-
     class Shadow : RotationBase
     {
 

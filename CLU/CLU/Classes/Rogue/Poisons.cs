@@ -5,23 +5,15 @@ namespace CLU.Classes.Rogue
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using Clu;
-
     using CommonBehaviors.Actions;
-
     using Styx;
     using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
     using System.Drawing;
-
-    using Clu.Settings;
-
-    using CLU.Base;
+    using global::CLU.Base;
+    using global::CLU.Settings;
 
     public static class Poisons
     {

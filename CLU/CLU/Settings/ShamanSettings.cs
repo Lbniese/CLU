@@ -7,13 +7,11 @@
 #endregion
 
 using System.ComponentModel;
-
 using Styx.Helpers;
-
 using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 using Styx.WoWInternals.WoWObjects;
 
-namespace Clu.Settings
+namespace CLU.Settings
 {
     internal class ShamanSettings : Styx.Helpers.Settings
     {

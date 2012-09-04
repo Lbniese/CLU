@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Styx.WoWInternals.WoWObjects;
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
     public class UnitOracle
     {

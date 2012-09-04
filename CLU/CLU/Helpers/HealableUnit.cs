@@ -5,15 +5,14 @@ using Styx.WoWInternals.WoWObjects;
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Clu.Settings;
+using CLU.Settings;
 using Styx;
 using Styx.Logic.Pathing;
+using Styx.Logic;
+using CLU.Base;
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
-    using Styx.Logic;
-
-    using global::CLU.Base;
 
     public class HealableUnit
     {

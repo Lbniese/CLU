@@ -1,4 +1,4 @@
-﻿using Clu.Helpers;
+﻿using CLU.Helpers;
 using TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
@@ -6,13 +6,12 @@ using Styx;
 using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Shaman
+namespace CLU.Classes.Shaman
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Shaman;
-    using global::CLU.Managers;
 
     class Restoration : HealerRotationBase
 	{

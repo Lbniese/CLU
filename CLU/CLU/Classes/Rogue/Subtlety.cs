@@ -2,18 +2,16 @@
 using System.Linq;
 using CommonBehaviors.Actions;
 using Styx;
-using Clu.Helpers;
-using Clu.Lists;
+using CLU.Helpers;
+using CLU.Lists;
 using Styx.WoWInternals.WoWObjects;
-using Clu.Settings;
+using CLU.Settings;
 using Styx.Logic.Combat;
+using CLU.Base;
+using CLU.Managers;
 
-
-namespace Clu.Classes.Rogue
+namespace CLU.Classes.Rogue
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Rogue;
-    using global::CLU.Managers;
 
     class Subtlety : RotationBase
     {

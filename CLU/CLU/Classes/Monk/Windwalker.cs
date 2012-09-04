@@ -1,14 +1,14 @@
 ﻿using TreeSharp;
 using CommonBehaviors.Actions;
-using Clu.Helpers;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Settings;
 using System.Collections.Generic;
 using Styx.Logic.Combat;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Monk
+namespace CLU.Classes.Monk
 {
-    using global::CLU.Base;
-    using global::CLU.Managers;
 
     class Windwalker : RotationBase
     {
@@ -92,7 +92,7 @@ namespace Clu.Classes.Monk
                            Spell.CastSpell("Blackout Kick",           ret => Chi >= 1, "Blackout Kick"),
                            // Spells.CastSpell("TigerPalm",             ret => Buff.PlayerCountBuff("Tiger Power") == 3, "TigerPalm"), //posible dps loss
                            // Spells.CastSpell("TigerPalm",             ret => Buff.PlayerCountBuff("Tiger Power") <= 3, "TigerPalm"), //posible dps loss
-                           Spell.CastSpell(JabSpellList.Find(s => SpellManager.CanCast(s)), ret => true, "JabSpell"));
+                           Spell.CastSpell(JabSpellList.Find(SpellManager.CanCast), ret => true, "JabSpell"));
             }
         }
 

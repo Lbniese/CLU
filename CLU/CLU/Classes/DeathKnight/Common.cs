@@ -7,20 +7,18 @@ todo:                                                               Done by:
  * add apply diseases composit, its all the same for any spec                  : by Weischbier 15:34h GMT 31.08.2012
  * add CanPlagueLeech to rotations                                             : by Weischbier 15:34h GMT 31.08.2012
 */
-namespace Clu.Classes.DeathKnight
+namespace CLU.Classes.DeathKnight
 {
     using System;
     using System.Drawing;
     using System.Linq;
-    using Clu;
-    using Clu.Helpers;
-    using Clu.Settings;
+
     using Styx;
     using Styx.WoWInternals.WoWObjects;
     using TreeSharp;
-
     using global::CLU.Base;
     using global::CLU.Managers;
+    using global::CLU.Settings;
 
     /// <summary>
     /// Common Deathnight Functions.

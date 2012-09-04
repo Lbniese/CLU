@@ -3,10 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Clu;
-    using Clu.Helpers;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic;
@@ -15,14 +11,11 @@
     using Styx.Logic.POI;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using System.Drawing;
-
     using TreeSharp;
-
-    using Clu.Lists;
-    using Clu.Settings;
-
+    using global::CLU.Helpers;
+    using global::CLU.Lists;
+    using global::CLU.Settings;
     using Action = TreeSharp.Action;
 
     internal static class Unit

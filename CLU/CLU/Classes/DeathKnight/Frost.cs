@@ -1,15 +1,14 @@
 using System.Linq;
-using Clu.Helpers;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Lists;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx;
 using TreeSharp;
+using CLU.Base;
 
-namespace Clu.Classes.DeathKnight
+namespace CLU.Classes.DeathKnight
 {
-    using global::CLU.Base;
-
     class Frost : RotationBase
     {
         public override string Name

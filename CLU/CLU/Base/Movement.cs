@@ -1,25 +1,16 @@
 ﻿namespace CLU.Base
 {
     using System;
-
-    using Clu;
-
     using Styx;
     using Styx.Helpers;
     using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using CommonBehaviors.Actions;
-
     using TreeSharp;
-
     using System.Drawing;
-
     using Styx.Logic;
-
-    using Clu.Settings;
-
+    using global::CLU.Settings;
     using Action = TreeSharp.Action;
 
     public static class Movement

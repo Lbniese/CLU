@@ -8,12 +8,11 @@
 #endregion
 
 using System.ComponentModel;
-
 using Styx.Helpers;
-
 using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
-namespace Clu.Settings
+
+namespace CLU.Settings
 {
 
     internal class DruidSettings : Styx.Helpers.Settings

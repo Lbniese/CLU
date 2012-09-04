@@ -11,25 +11,16 @@ namespace CLU.Classes.Shaman
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using CLU.Managers;
-
-    using Clu;
-    using Clu.Helpers;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic.Combat;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
-    using Clu.Settings;
-
     using CommonBehaviors.Actions;
-
-    using CLU.Base;
+    using global::CLU.Base;
+    using global::CLU.Managers;
+    using global::CLU.Settings;
 
     internal static class Totems
     {

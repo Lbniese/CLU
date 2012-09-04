@@ -1,8 +1,8 @@
 ﻿using Styx;
 using System.Collections.Generic;
-using Clu.Settings;
+using CLU.Settings;
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
     internal class BotChecker
     {

@@ -2,7 +2,6 @@
 {
     using System.IO;
     using System.Media;
-
     using Styx.Helpers;
 
     public static class SoundManager

@@ -5,14 +5,13 @@
 // $LastChangedBy: Laria$
 #endregion
 using System.ComponentModel;
-
 using Styx.Helpers;
-
+using CLU.Base;
 using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
-namespace Clu.Settings
+
+namespace CLU.Settings
 {
-    using global::CLU.Base;
 
     internal class MonkSettings : Styx.Helpers.Settings
     {

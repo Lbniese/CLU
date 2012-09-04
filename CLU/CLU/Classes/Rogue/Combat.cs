@@ -2,14 +2,13 @@
 using System.Linq;
 using CommonBehaviors.Actions;
 using Styx.Logic.Combat;
-using Clu.Helpers;
+using CLU.Helpers;
 using Styx.WoWInternals.WoWObjects;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
 
-namespace Clu.Classes.Rogue
+namespace CLU.Classes.Rogue
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Rogue;
 
     class Combat : RotationBase
     {

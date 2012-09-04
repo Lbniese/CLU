@@ -1,14 +1,13 @@
 using System.Linq;
 using TreeSharp;
 using CommonBehaviors.Actions;
-using Clu.Helpers;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Lists;
+using CLU.Settings;
+using CLU.Base;
 
-
-namespace Clu.Classes.Paladin
+namespace CLU.Classes.Paladin
 {
-    using global::CLU.Base;
 
     class Protection : RotationBase
     {

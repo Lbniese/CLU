@@ -1,16 +1,15 @@
-﻿using Clu.Helpers;
+﻿using CLU.Helpers;
 using TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
-using Clu.Lists;
+using CLU.Lists;
 using Styx;
 using Styx.WoWInternals.WoWObjects;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
 
-namespace Clu.Classes.Shaman
+namespace CLU.Classes.Shaman
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Shaman;
 
     class Enhancement : RotationBase
     {

@@ -10,8 +10,8 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Clu.Helpers;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Settings;
 
 using Styx;
 using Styx.Combat.CombatRoutine;
@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using Styx.Helpers;
 
-namespace Clu.GUI
+namespace CLU.GUI
 {
     using global::CLU.Base;
     using global::CLU.CombatLog;

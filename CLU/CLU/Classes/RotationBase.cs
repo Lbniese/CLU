@@ -1,9 +1,8 @@
-﻿using Clu.Helpers;
-using Styx;
+﻿using Styx;
 using Styx.WoWInternals.WoWObjects;
 using TreeSharp;
 
-namespace Clu.Classes
+namespace CLU.Classes
 {
 	public abstract class RotationBase
 	{

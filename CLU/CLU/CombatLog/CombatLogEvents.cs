@@ -2,24 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-
-    using Clu;
-    using Clu.Helpers;
-
     using Styx;
     using Styx.Logic.Combat;
     using Styx.WoWInternals;
-
     using System.Drawing;
-
-    using Clu.Settings;
-
     using Styx.Logic;
     using Styx.Logic.POI;
     using Styx.WoWInternals.WoWObjects;
-
-    using CLU.Base;
-    using CLU.Managers;
+    using global::CLU.Base;
+    using global::CLU.Helpers;
+    using global::CLU.Managers;
+    using global::CLU.Settings;
 
     public class CombatLogEvents
     {

@@ -1,14 +1,14 @@
 using System.Linq;
-using Clu.Helpers;
+using CLU.Helpers;
 using TreeSharp;
 using System.Drawing;
 using CommonBehaviors.Actions;
-using Clu.Settings;
+using CLU.Settings;
 using Action = TreeSharp.Action;
+using CLU.Base;
 
-namespace Clu.Classes.Mage
+namespace CLU.Classes.Mage
 {
-    using global::CLU.Base;
 
     class Arcane : RotationBase
     {

@@ -1,13 +1,12 @@
 ﻿using TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
-using Clu.Helpers;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Settings;
+using CLU.Base;
 
-namespace Clu.Classes.Warrior
+namespace CLU.Classes.Warrior
 {
-    using global::CLU.Base;
-
     class Fury : RotationBase
     {
 

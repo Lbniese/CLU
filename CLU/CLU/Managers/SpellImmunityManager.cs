@@ -3,7 +3,6 @@
 namespace CLU.Managers
 {
     using System.Collections.Generic;
-
     using Styx.Logic.Combat;
     using Styx.WoWInternals.WoWObjects;
 

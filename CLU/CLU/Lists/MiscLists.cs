@@ -1,4 +1,4 @@
-﻿namespace Clu.Lists
+﻿namespace CLU.Lists
 {
     using System.Collections.Generic;
 

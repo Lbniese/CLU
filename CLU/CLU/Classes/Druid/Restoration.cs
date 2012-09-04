@@ -1,16 +1,16 @@
 ﻿using System;
-using Clu.Helpers;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx;
 using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using TreeSharp;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Druid
+namespace CLU.Classes.Druid
 {
-    using global::CLU.Base;
-    using global::CLU.Managers;
 
     class Restoration : HealerRotationBase
     {

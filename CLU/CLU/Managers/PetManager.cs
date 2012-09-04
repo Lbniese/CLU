@@ -3,28 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Clu;
-
     using CommonBehaviors.Actions;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic.Combat;
     using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using System.Drawing;
-
     using Styx.Helpers;
-
-    using Clu.Settings;
-
     using TreeSharp;
-
-    using CLU.Base;
-
+    using global::CLU.Base;
+    using global::CLU.Settings;
     using Action = TreeSharp.Action;
 
     internal class PetManager

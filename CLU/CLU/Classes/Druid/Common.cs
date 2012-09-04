@@ -1,13 +1,11 @@
-﻿using Clu.Helpers;
-using Clu.Settings;
+﻿using CLU.Settings;
 using Styx;
 using Styx.WoWInternals.WoWObjects;
 using TreeSharp;
+using CLU.Base;
 
-namespace Clu.Classes.Druid
+namespace CLU.Classes.Druid
 {
-    using global::CLU.Base;
-
     /// <summary>
     /// Common Druid Functions.
     /// </summary>

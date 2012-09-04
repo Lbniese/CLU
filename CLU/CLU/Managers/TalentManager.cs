@@ -12,14 +12,10 @@ namespace CLU.Managers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Clu;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic.Combat;
     using Styx.WoWInternals;
-
     using System.Drawing;
 
     public enum TalentSpec {

@@ -1,14 +1,14 @@
-using Clu.Helpers;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Lists;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using TreeSharp;
+using System.Linq;
+using CLU.Base;
 
-namespace Clu.Classes.Druid
+
+namespace CLU.Classes.Druid
 {
-    using System.Linq;
-
-    using global::CLU.Base;
 
     class Feral : RotationBase
     {

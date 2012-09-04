@@ -1,12 +1,11 @@
-﻿using Clu.Helpers;
-using Clu.Settings;
+﻿using CLU.Helpers;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using TreeSharp;
+using CLU.Base;
 
-namespace Clu.Classes.Hunter
+namespace CLU.Classes.Hunter
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Hunter;
 
     class Marksmanship : RotationBase
     {

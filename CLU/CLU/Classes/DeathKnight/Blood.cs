@@ -1,16 +1,16 @@
 using System.Linq;
-using Clu.Helpers;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Lists;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx;
 using TreeSharp;
+using CLU.Classes.DeathKnight;
+using CLU.Base;
 
-namespace Clu.Classes.Deathknight
+
+namespace CLU.Classes.Deathknight
 {
-    using Clu.Classes.DeathKnight;
-
-    using global::CLU.Base;
 
     class Blood : RotationBase
     {

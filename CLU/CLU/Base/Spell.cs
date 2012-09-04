@@ -4,12 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
-    using Clu;
-    using Clu.Helpers;
-
     using CommonBehaviors.Actions;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic;
@@ -17,15 +12,11 @@
     using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
     using System.Diagnostics;
     using System.Drawing;
-
-    using Clu.Lists;
-    using Clu.Settings;
-
+    using global::CLU.Lists;
+    using global::CLU.Settings;
     using Action = TreeSharp.Action;
 
     internal static class Spell

@@ -3,14 +3,12 @@ using System.Windows.Forms;
 
 using Styx.WoWInternals;
 
-namespace Clu.GUI
+namespace CLU.GUI
 {
     using System.Drawing;
     using System.Globalization;
 
     using global::CLU.Base;
-
-    using global::Clu.Helpers;
 
     using Styx;
 

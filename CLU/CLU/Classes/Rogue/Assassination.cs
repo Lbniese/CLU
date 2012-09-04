@@ -1,16 +1,15 @@
 ﻿using TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
-using Clu.Helpers;
-using Clu.Lists;
+using CLU.Helpers;
+using CLU.Lists;
 using Styx.WoWInternals.WoWObjects;
 using Styx.Logic.Combat;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
 
-namespace Clu.Classes.Rogue
+namespace CLU.Classes.Rogue
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Rogue;
 
     //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor!
     class Assassination : RotationBase

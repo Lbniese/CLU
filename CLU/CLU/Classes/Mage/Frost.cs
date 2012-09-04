@@ -1,15 +1,15 @@
-﻿using Clu.Helpers;
+﻿using CLU.Helpers;
 using TreeSharp;
 using System.Drawing;
 using CommonBehaviors.Actions;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Lists;
+using CLU.Settings;
 using Action = TreeSharp.Action;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Mage
+namespace CLU.Classes.Mage
 {
-    using global::CLU.Base;
-    using global::CLU.Managers;
 
     class Frost : RotationBase
     {

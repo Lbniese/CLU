@@ -1,22 +1,14 @@
 ﻿namespace CLU.Base
 {
     using System.Linq;
-
-    using Clu;
-    using Clu.Helpers;
-    using Clu.Lists;
-
     using Styx;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
     using System.Drawing;
-
     using Styx.Combat.CombatRoutine;
-
     using System.Text;
+    using global::CLU.Lists;
 
     internal static class Item
     {

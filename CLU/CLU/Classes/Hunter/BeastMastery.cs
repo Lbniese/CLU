@@ -1,14 +1,13 @@
-using Clu.Helpers;
+using CLU.Helpers;
 using CommonBehaviors.Actions;
 using TreeSharp;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Hunter
+
+namespace CLU.Classes.Hunter
 {
-    using global::CLU.Base;
-    using global::CLU.Classes.Hunter;
-    using global::CLU.Managers;
-
     class BeastMastery : RotationBase
     {
         public override string Name

@@ -1,15 +1,15 @@
-﻿using Clu.Helpers;
+﻿using CLU.Helpers;
 using TreeSharp;
 using CommonBehaviors.Actions;
 using Styx;
 using Styx.Logic.Combat;
 using Styx.WoWInternals;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Priest
+namespace CLU.Classes.Priest
 {
-    using global::CLU.Base;
-    using global::CLU.Managers;
 
     class Holy : HealerRotationBase
     {

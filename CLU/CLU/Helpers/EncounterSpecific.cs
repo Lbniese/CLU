@@ -1,17 +1,15 @@
 ﻿using System.Linq;
-
 using Styx;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 using System.Drawing;
 using CommonBehaviors.Actions;
 using TreeSharp;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
 
-
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
-    using global::CLU.Base;
 
     public class EncounterSpecific
     {

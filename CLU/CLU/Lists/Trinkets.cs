@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-
 using System.Linq;
-
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 
-namespace Clu.Lists
+namespace CLU.Lists
 {
     public static class Trinkets
     {

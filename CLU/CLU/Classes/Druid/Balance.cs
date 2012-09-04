@@ -1,15 +1,15 @@
 ﻿using System.Linq;
-using Clu.Helpers;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Lists;
+using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 using TreeSharp;
+using CLU.Base;
 
-namespace Clu.Classes.Druid
+namespace CLU.Classes.Druid
 {
-    using global::CLU.Base;
 
     class Balance : RotationBase
     {

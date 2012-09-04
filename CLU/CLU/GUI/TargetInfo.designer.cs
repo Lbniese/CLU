@@ -1,4 +1,4 @@
-﻿namespace Clu.GUI
+﻿namespace CLU.GUI
 {
     partial class TargetInfo
     {

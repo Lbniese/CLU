@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
     public class CircularBuffer<T> : IEnumerable<T>
     {

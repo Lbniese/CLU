@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace Clu.Lists
+namespace CLU.Lists
 {
     public static class BossList
     {

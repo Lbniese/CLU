@@ -6,7 +6,7 @@
 
 #endregion
 
-namespace Clu.Settings
+namespace CLU.Settings
 {
     internal class MageSettings : Styx.Helpers.Settings
     {

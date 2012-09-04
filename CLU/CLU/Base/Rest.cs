@@ -4,11 +4,7 @@
 namespace CLU.Base
 {
     using System.Linq;
-
-    using Clu;
-
     using CommonBehaviors.Actions;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic.Combat;
@@ -16,12 +12,9 @@ namespace CLU.Base
     using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
-    using Clu.Settings;
-
     using Styx.Logic.POI;
+    using global::CLU.Settings;
 
     internal static class Rest
     {

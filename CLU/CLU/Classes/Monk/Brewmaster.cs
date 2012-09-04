@@ -1,13 +1,13 @@
 ﻿using TreeSharp;
 using CommonBehaviors.Actions;
-using Clu.Helpers;
-using Clu.Settings;
+using CLU.Helpers;
+using CLU.Settings;
 using System.Collections.Generic;
 using Styx.Logic.Combat;
+using CLU.Base;
 
-namespace Clu.Classes.Monk
+namespace CLU.Classes.Monk
 {
-    using global::CLU.Base;
 
     class Brewmaster : RotationBase
     {
@@ -86,7 +86,7 @@ namespace Clu.Classes.Monk
                            Spell.CastSpell("Blackout Kick",              ret => Chi >= 1, "Blackout Kick"),
                            Spell.CastSpell("TigerPalm",                  ret => Buff.PlayerCountBuff("Tiger Power") == 3, "TigerPalm"),
                            Spell.CastSpell("TigerPalm",                  ret => Buff.PlayerCountBuff("Tiger Power") <= 3, "TigerPalm"),
-                           Spell.CastSpell(JabSpellList.Find(s => SpellManager.CanCast(s)), ret => true, "JabSpell"));
+                           Spell.CastSpell(JabSpellList.Find(SpellManager.CanCast), ret => true, "JabSpell"));
             }
         }
 

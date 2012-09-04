@@ -1,15 +1,13 @@
-﻿using Clu.Helpers;
-using CommonBehaviors.Actions;
+﻿using CommonBehaviors.Actions;
 using Styx;
 using Styx.WoWInternals.WoWObjects;
 using TreeSharp;
+using CLU.Base;
+using CLU.Managers;
+using CLU.Settings;
 
 namespace CLU.Classes.Hunter
 {
-    using CLU.Base;
-    using CLU.Managers;
-
-    using Clu.Settings;
 
     /// <summary>
     /// Common Hunter Functions.

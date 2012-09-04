@@ -7,14 +7,12 @@ using Styx.WoWInternals.WoWObjects;
 using TreeSharp;
 using System.Diagnostics;
 using System.Drawing;
-
+using CLU.Base;
 using Action = TreeSharp.Action;
 
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
-    using global::CLU.Base;
-
     public class TargetBase
     {
         private static LocalPlayer Me

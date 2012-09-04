@@ -4,22 +4,15 @@ namespace CLU.Base
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-
-    using CLU.CombatLog;
-    using CLU.Managers;
-
-    using Clu;
-    using Clu.Helpers;
-    using Clu.Settings;
-
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.Logic.Combat;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-
     using TreeSharp;
-
+    using global::CLU.CombatLog;
+    using global::CLU.Managers;
+    using global::CLU.Settings;
     using Action = TreeSharp.Action;
 
     internal static class Buff

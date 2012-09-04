@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Timers;
-
-using Clu.Classes;
-using Clu.GUI;
-using Clu.Helpers;
-using Clu.Settings;
-
+using CLU.Classes;
+using CLU.GUI;
+using CLU.Helpers;
+using CLU.Settings;
 using Styx;
 using Styx.Combat.CombatRoutine;
 using Styx.Helpers;
@@ -17,8 +15,13 @@ using Styx.Logic.BehaviorTree;
 using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-
 using TreeSharp;
+using System.Windows.Forms;
+using CLU.Base;
+using CLU.CombatLog;
+using CLU.Managers;
+using CLU.Sound;
+using Timer = System.Timers.Timer;
 
 // Credits
 //-------------
@@ -39,17 +42,8 @@ using TreeSharp;
 // * kbrebel04  for his improvements to Subtlety Rogue
 
 [assembly: CLSCompliant(true)]
-namespace Clu
+namespace CLU
 {
-    using System.Windows.Forms;
-
-    using global::CLU.Base;
-    using global::CLU.CombatLog;
-    using global::CLU.Managers;
-    using global::CLU.Sound;
-
-    using Timer = System.Timers.Timer;
-
     public class CLU : CombatRoutine
     {
 

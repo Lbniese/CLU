@@ -3,17 +3,14 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using TreeSharp;
+using CLU.Base;
+using CLU.Classes;
 
 
-namespace Clu.GUI
+namespace CLU.GUI
 {
-    using System.Collections.Generic;
-
-    using TreeSharp;
-
-    using global::CLU.Base;
-
-    using global::Clu.Classes;
 
     public static class GUIHelpers
     {

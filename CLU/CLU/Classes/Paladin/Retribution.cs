@@ -1,12 +1,12 @@
 using System.Linq;
-using Clu.Helpers;
+using CLU.Helpers;
 using TreeSharp;
 using CommonBehaviors.Actions;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
 
-namespace Clu.Classes.Paladin
+namespace CLU.Classes.Paladin
 {
-    using global::CLU.Base;
 
     class Retribution : RotationBase
     {

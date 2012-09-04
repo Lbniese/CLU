@@ -2,15 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-
-    using Clu;
-
     using Styx.Logic.Combat;
     using Styx.WoWInternals;
-
     using System.Drawing;
     using System.Globalization;
-
     using Styx;
     using Styx.Helpers;
     using Styx.WoWInternals.WoWObjects;

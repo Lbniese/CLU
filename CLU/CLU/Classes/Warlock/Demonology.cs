@@ -1,13 +1,13 @@
-using Clu.Helpers;
+using CLU.Helpers;
 using CommonBehaviors.Actions;
 using TreeSharp;
-using Clu.Lists;
-using Clu.Settings;
+using CLU.Lists;
+using CLU.Settings;
+using CLU.Base;
+using CLU.Managers;
 
-namespace Clu.Classes.Warlock
+namespace CLU.Classes.Warlock
 {
-    using global::CLU.Base;
-    using global::CLU.Managers;
 
     class Demonology : RotationBase
     {

@@ -1,7 +1,7 @@
 ﻿
-using Clu.Helpers;
+using CLU.Helpers;
 
-namespace Clu.GUI
+namespace CLU.GUI
 {
 
     partial class ConfigurationForm

@@ -1,11 +1,11 @@
 ﻿using Styx.WoWInternals;
 using System.Drawing;
-using Clu.Settings;
+using CLU.Settings;
+using CLU.Base;
+using CLU.Sound;
 
-namespace Clu.Helpers
+namespace CLU.Helpers
 {
-    using global::CLU.Base;
-    using global::CLU.Sound;
 
     public static class Keybinds
     {
