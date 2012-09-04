@@ -44,6 +44,17 @@ namespace CLU.Classes.Druid
                                    Spell.CastSelfSpell("Bear Form", ret => Me.HealthPercent <= 20 && !Buff.PlayerHasBuff("Bear Form"), "Bear Form"),
                                    Spell.CastSelfSpell("Cat Form", ret => Me.HealthPercent > 20 && !Buff.PlayerHasBuff("Cat Form"), "Cat Form")));
             }
-        } 
+        }
+
+        /// <summary>
+        /// Returns true if we have Incarnation up or we are stealthed.
+        /// </summary>
+        public static bool CanRavage 
+        { 
+            get
+            {
+                return Buff.PlayerHasBuff("Incarnation: King of the Jungle") || Buff.PlayerHasBuff("Prowl");
+            }
+        }
     }
 }

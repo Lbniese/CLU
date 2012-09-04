@@ -140,4 +140,34 @@
         IsRightShiftKeyDown, // - Returns whether the right shift key on the keyboard is held down
         IsShiftKeyDown, // - Returns whether a Shift key on the keyboard is held down
     }
+
+    public enum FeralSymbiosis
+    {
+        None = 0,
+        DeathCoil = 1,                       // DK -> Feral Druid
+        PlayDead = 2,                        // Hunter -> Feral Duid
+        FrostNova = 3,                       // Mage -> Feral Druid
+        Clash = 4,                           // Monk -> Feral Druid
+        DivineShield = 5,                    // Paladin -> Feral Druid
+        Dispersion = 6,                      // Priest -> Feral Druid
+        Redirect = 7,                        // Rogue -> Feral Druid
+        FeralSpirit = 8,                     // Shaman -> Feral Druid
+        SoulSwap = 9,                        // Warlock -> Feral Druid
+        ShatteringBlow = 10,                 // Warrior -> Feral Druid
+    }
+
+    public enum GuardianSymbiosis
+    {
+        None = 0,
+        BoneShield = 1,                          // DK -> Guardian Druid
+        IceTrap = 2,                             // Hunter -> Guardian Duid
+        MageWard = 3,                            // Mage -> Guardian Druid
+        ElusiveBrew = 4,                         // Monk -> Guardian Druid
+        Consecration = 5,                        // Paladin -> Guardian Druid
+        FearWard = 6,                            // Priest -> Guardian Druid
+        Feint = 7,                               // Rogue -> Guardian Druid
+        LightningShield = 8,                     // Shaman -> Guardian Druid
+        LifeTap = 9,                             // Warlock -> Guardian Druid
+        SpellReflection = 10,                    // Warrior -> Feral Druid
+    }
 }
