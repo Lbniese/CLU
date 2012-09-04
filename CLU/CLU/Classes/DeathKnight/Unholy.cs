@@ -8,6 +8,8 @@ using TreeSharp;
 
 namespace Clu.Classes.DeathKnight
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
 
     class Unholy : RotationBase
     {

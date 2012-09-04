@@ -6,6 +6,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Warlock
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Demonology : RotationBase
     {
         public override string Name

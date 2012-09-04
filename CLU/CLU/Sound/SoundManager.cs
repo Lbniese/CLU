@@ -1,11 +1,11 @@
-﻿using System.IO;
-using System.Media;
-
-using Styx.Helpers;
-
-namespace Clu.Helpers
+﻿namespace CLU.Sound
 {
-    public static class Sound
+    using System.IO;
+    using System.Media;
+
+    using Styx.Helpers;
+
+    public static class SoundManager
     {
         /* A quick class to handle sound for Keybinds */
 

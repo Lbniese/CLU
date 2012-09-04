@@ -1,12 +1,12 @@
 ﻿// Credit to Singular Devs for this class.
 
-using System.Collections.Generic;
-
-using Styx.Logic.Combat;
-using Styx.WoWInternals.WoWObjects;
-
-namespace Clu.Helpers
+namespace CLU.Managers
 {
+    using System.Collections.Generic;
+
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals.WoWObjects;
+
     static class SpellImmunityManager
     {
         // This dictionary uses Unit.Entry as key and WoWSpellSchool as value.

@@ -8,6 +8,8 @@ namespace Clu.Classes.Druid
 {
     using System.Linq;
 
+    using global::CLU.Base;
+
     class Guardian : RotationBase
     {
         private const int ItemSetId = 1058; // Tier set ID

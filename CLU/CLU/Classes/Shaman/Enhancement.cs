@@ -9,6 +9,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Shaman
 {
+    using global::CLU.Base;
+    using global::CLU.Classes.Shaman;
+
     class Enhancement : RotationBase
     {
         private const int ItemSetId = 1071;

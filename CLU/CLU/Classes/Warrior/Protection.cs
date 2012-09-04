@@ -5,6 +5,8 @@ using Clu.Settings;
 
 namespace Clu.Classes.Warrior
 {
+    using global::CLU.Base;
+
     class Protection : RotationBase
     {        
 

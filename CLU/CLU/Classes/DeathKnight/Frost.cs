@@ -8,6 +8,7 @@ using TreeSharp;
 
 namespace Clu.Classes.DeathKnight
 {
+    using global::CLU.Base;
 
     class Frost : RotationBase
     {

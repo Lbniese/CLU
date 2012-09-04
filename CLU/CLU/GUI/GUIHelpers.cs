@@ -11,6 +11,8 @@ namespace Clu.GUI
 
     using TreeSharp;
 
+    using global::CLU.Base;
+
     using global::Clu.Classes;
 
     public static class GUIHelpers

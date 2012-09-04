@@ -7,24 +7,29 @@
 
 #endregion
 
-using System.Collections.Generic;
-using System.Linq;
-
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Combat;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-
-using TreeSharp;
-using Clu.Settings;
-
-
-namespace Clu.Helpers
+namespace CLU.Classes.Shaman
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using CLU.Managers;
+
+    using Clu;
+    using Clu.Helpers;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using TreeSharp;
+
+    using Clu.Settings;
+
     using CommonBehaviors.Actions;
 
-    using Action = TreeSharp.Action;
+    using CLU.Base;
 
     internal static class Totems
     {

@@ -19,6 +19,9 @@ namespace Clu.Classes.DeathKnight
     using Styx.WoWInternals.WoWObjects;
     using TreeSharp;
 
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     /// <summary>
     /// Common Deathnight Functions.
     /// </summary>

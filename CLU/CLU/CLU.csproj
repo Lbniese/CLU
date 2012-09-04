@@ -102,27 +102,27 @@
       <DependentUpon>TargetInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BotChecker.cs" />
-    <Compile Include="Helpers\Buff.cs" />
+    <Compile Include="Base\Buff.cs" />
     <Compile Include="Helpers\CircularBuffer.cs" />
-    <Compile Include="Helpers\CombatLog.cs" />
-    <Compile Include="Helpers\CombatLogEvents.cs" />
+    <Compile Include="CombatLog\EventArgs.cs" />
+    <Compile Include="CombatLog\CombatLogEvents.cs" />
     <Compile Include="Helpers\EncounterSpecific.cs" />
     <Compile Include="Helpers\HealableUnit.cs" />
-    <Compile Include="Helpers\Item.cs" />
+    <Compile Include="Base\Item.cs" />
     <Compile Include="Helpers\Keybinds.cs" />
-    <Compile Include="Helpers\Movement.cs" />
-    <Compile Include="Helpers\PetManager.cs" />
-    <Compile Include="Helpers\Poisons.cs" />
-    <Compile Include="Helpers\Rest.cs" />
-    <Compile Include="Helpers\Sound.cs" />
-    <Compile Include="Helpers\Spell.cs" />
-    <Compile Include="Helpers\SpellImmunityManager.cs" />
-    <Compile Include="Helpers\TalentManager.cs" />
+    <Compile Include="Base\Movement.cs" />
+    <Compile Include="Managers\PetManager.cs" />
+    <Compile Include="Classes\Rogue\Poisons.cs" />
+    <Compile Include="Base\Rest.cs" />
+    <Compile Include="Sound\SoundManager.cs" />
+    <Compile Include="Base\Spell.cs" />
+    <Compile Include="Managers\SpellImmunityManager.cs" />
+    <Compile Include="Managers\TalentManager.cs" />
     <Compile Include="Helpers\TargetBase.cs" />
-    <Compile Include="Helpers\Totems.cs" />
-    <Compile Include="Helpers\Unit.cs" />
+    <Compile Include="Classes\Shaman\Totems.cs" />
+    <Compile Include="Base\Unit.cs" />
     <Compile Include="Helpers\UnitOracle.cs" />
-    <Compile Include="Helpers\WoWStats.cs" />
+    <Compile Include="CombatLog\WoWStats.cs" />
     <Compile Include="Lists\Bosslist.cs" />
     <Compile Include="Lists\MiscLists.cs" />
     <Compile Include="Lists\Trinkets.cs" />
@@ -139,7 +139,7 @@
     <Compile Include="Settings\ShamanSettings.cs" />
     <Compile Include="Settings\WarlockSettings.cs" />
     <Compile Include="Settings\WarriorSettings.cs" />
-    <Compile Include="Utilities\enums.cs" />
+    <Compile Include="Base\enums.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

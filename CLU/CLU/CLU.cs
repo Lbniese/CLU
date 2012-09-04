@@ -43,6 +43,11 @@ namespace Clu
 {
     using System.Windows.Forms;
 
+    using global::CLU.Base;
+    using global::CLU.CombatLog;
+    using global::CLU.Managers;
+    using global::CLU.Sound;
+
     using Timer = System.Timers.Timer;
 
     public class CLU : CombatRoutine
@@ -222,7 +227,7 @@ namespace Clu
             BotChecker.Initialize();
 
             TroubleshootDebugLog(Color.ForestGreen, "Initializing Sound Player");
-            Sound.Initialize();
+            SoundManager.Initialize();
 
             TroubleshootDebugLog(Color.ForestGreen, "Initializing Keybinds");
             this.clupulsetimer.Interval = 1000; // 1second

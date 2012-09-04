@@ -5,6 +5,7 @@ using TreeSharp;
 
 namespace Clu.Classes.Hunter
 {
+    using global::CLU.Base;
     using global::CLU.Classes.Hunter;
 
     class Marksmanship : RotationBase

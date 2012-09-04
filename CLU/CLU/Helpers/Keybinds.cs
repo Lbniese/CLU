@@ -4,6 +4,9 @@ using Clu.Settings;
 
 namespace Clu.Helpers
 {
+    using global::CLU.Base;
+    using global::CLU.Sound;
+
     public static class Keybinds
     {
         /* putting all the Keybind logic here */
@@ -21,8 +24,8 @@ namespace Clu.Helpers
                     CLU.Log(" UseCooldowns= {0}", CLUSettings.Instance.UseCooldowns);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\cooldownsdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\cooldownsdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -31,8 +34,8 @@ namespace Clu.Helpers
                     CLU.Log(" UseCooldowns= {0}", CLUSettings.Instance.UseCooldowns);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\cooldownsenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\cooldownsenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -49,8 +52,8 @@ namespace Clu.Helpers
                     CLU.Log(" ClickExtraActionButton= {0}", CLUSettings.Instance.ClickExtraActionButton);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\dsextraactionbuttondisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\dsextraactionbuttondisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -59,8 +62,8 @@ namespace Clu.Helpers
                     CLU.Log(" ClickExtraActionButton= {0}", CLUSettings.Instance.ClickExtraActionButton);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\dsextraactionbuttonenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\dsextraactionbuttonenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -77,8 +80,8 @@ namespace Clu.Helpers
                     CLU.Log(" UseAoEAbilities= {0}", CLUSettings.Instance.UseAoEAbilities);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\aoeabilitiesdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\aoeabilitiesdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -87,8 +90,8 @@ namespace Clu.Helpers
                     CLU.Log(" UseAoEAbilities= {0}", CLUSettings.Instance.UseAoEAbilities);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\aoeabilitiesenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\aoeabilitiesenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -105,8 +108,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableRaidPartyBuffing= {0}", CLUSettings.Instance.EnableRaidPartyBuffing);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\raidandpartybuffingdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\raidandpartybuffingdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -115,8 +118,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableRaidPartyBuffing= {0}", CLUSettings.Instance.EnableRaidPartyBuffing);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\raidandpartybuffingenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\raidandpartybuffingenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -133,8 +136,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableInterupts= {0}", CLUSettings.Instance.EnableInterupts);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\interuptsdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\interuptsdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -143,8 +146,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableInterupts= {0}", CLUSettings.Instance.EnableInterupts);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\interuptsenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\interuptsenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -161,8 +164,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableSelfHealing= {0}", CLUSettings.Instance.EnableSelfHealing);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\selfhealingdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\selfhealingdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -171,8 +174,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableSelfHealing= {0}", CLUSettings.Instance.EnableSelfHealing);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\selfhealingenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\selfhealingenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -189,8 +192,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableMultiDotting= {0}", CLUSettings.Instance.EnableMultiDotting);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\multidottingdisabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\multidottingdisabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -199,8 +202,8 @@ namespace Clu.Helpers
                     CLU.Log(" EnableMultiDotting= {0}", CLUSettings.Instance.EnableMultiDotting);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\multidottingenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\multidottingenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -217,8 +220,8 @@ namespace Clu.Helpers
                     CLU.Log(" PauseRotation= {0}", CLUSettings.Instance.PauseRotation);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\rotationenabled.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\rotationenabled.wav");
+                            SoundManager.SoundPlay();
                         } catch {}
 
                     }
@@ -228,8 +231,8 @@ namespace Clu.Helpers
                     CLU.Log(" PauseRotation= {0}", CLUSettings.Instance.PauseRotation);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\rotationpaused.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\rotationpaused.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
                     break;
@@ -246,8 +249,8 @@ namespace Clu.Helpers
                     CLU.Log(" ChakraStanceSelection= {0}", CLUSettings.Instance.Priest.ChakraStanceSelection);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\chakraserenity.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\chakraserenity.wav");
+                            SoundManager.SoundPlay();
                         } catch {}
                     }
                     break;
@@ -256,8 +259,8 @@ namespace Clu.Helpers
                     CLU.Log(" ChakraStanceSelection= {0}", CLUSettings.Instance.Priest.ChakraStanceSelection);
                     if (CLUSettings.Instance.EnableKeybindSounds) {
                         try {
-                            Sound.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\chakrasanctuary.wav");
-                            Sound.SoundPlay();
+                            SoundManager.LoadSoundFilePath(@"\CustomClasses\CLU\Sound\chakrasanctuary.wav");
+                            SoundManager.SoundPlay();
                         } catch { }
                     }
 

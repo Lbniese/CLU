@@ -7,6 +7,9 @@ using Styx.Logic.Combat;
 
 namespace Clu.Classes.Monk
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Windwalker : RotationBase
     {
         public override string Name

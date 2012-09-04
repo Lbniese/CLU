@@ -10,7 +10,11 @@ using Clu.Settings;
 
 namespace Clu.Classes.Shaman
 {
-	class Restoration : HealerRotationBase
+    using global::CLU.Base;
+    using global::CLU.Classes.Shaman;
+    using global::CLU.Managers;
+
+    class Restoration : HealerRotationBase
 	{
 		public override string Name
 		{

@@ -6,6 +6,9 @@ using TreeSharp;
 
 namespace CLU.Classes.Hunter
 {
+    using CLU.Base;
+    using CLU.Managers;
+
     using Clu.Settings;
 
     /// <summary>

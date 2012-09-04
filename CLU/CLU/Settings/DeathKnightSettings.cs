@@ -14,6 +14,8 @@ using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
 namespace Clu.Settings
 {
+    using global::CLU.Base;
+
     internal class DeathKnightSettings : Styx.Helpers.Settings
     {
         public DeathKnightSettings()

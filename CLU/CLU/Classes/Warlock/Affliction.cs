@@ -7,6 +7,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Warlock
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Affliction : RotationBase
     {
         public override string Name

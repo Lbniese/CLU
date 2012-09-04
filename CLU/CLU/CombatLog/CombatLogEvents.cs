@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Styx;
-using Styx.Logic.Combat;
-using Styx.WoWInternals;
-using System.Drawing;
-
-using Clu.Settings;
-
-using Styx.Logic;
-using Styx.Logic.POI;
-using Styx.WoWInternals.WoWObjects;
-
-namespace Clu.Helpers
+﻿namespace CLU.CombatLog
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Clu;
+    using Clu.Helpers;
+
+    using Styx;
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals;
+
+    using System.Drawing;
+
+    using Clu.Settings;
+
+    using Styx.Logic;
+    using Styx.Logic.POI;
+    using Styx.WoWInternals.WoWObjects;
+
+    using CLU.Base;
+    using CLU.Managers;
+
     public class CombatLogEvents
     {
 
@@ -38,21 +45,21 @@ namespace Clu.Helpers
             // Lua.Events.AttachEvent("ACTIVE_TALENT_GROUP_CHANGED", UpdateActiveRotation)
 
             // means spell was cast (did not hit target yet)
-            Lua.Events.AttachEvent("UNIT_SPELLCAST_SUCCEEDED", OnSpellFired_ACK);
+            Lua.Events.AttachEvent("UNIT_SPELLCAST_SUCCEEDED", this.OnSpellFired_ACK);
 
             // user got stunned, silenced, kicked...
-            Lua.Events.AttachEvent("UNIT_SPELLCAST_INTERRUPTED", OnSpellFired_NACK);
+            Lua.Events.AttachEvent("UNIT_SPELLCAST_INTERRUPTED", this.OnSpellFired_NACK);
 
             // misc fails, due to stopcast, spell spam, etc.
-            Lua.Events.AttachEvent("UNIT_SPELLCAST_FAILED", OnSpellFired_FAIL);
-            Lua.Events.AttachEvent("UNIT_SPELLCAST_FAILED_QUIET", OnSpellFired_FAIL);
-            Lua.Events.AttachEvent("UNIT_SPELLCAST_STOP", OnSpellFired_FAIL);
+            Lua.Events.AttachEvent("UNIT_SPELLCAST_FAILED", this.OnSpellFired_FAIL);
+            Lua.Events.AttachEvent("UNIT_SPELLCAST_FAILED_QUIET", this.OnSpellFired_FAIL);
+            Lua.Events.AttachEvent("UNIT_SPELLCAST_STOP", this.OnSpellFired_FAIL);
 
             // Handle Spell Missed events
-            Lua.Events.AttachEvent("SPELL_MISSED", HandleSpellMissed);
-            Lua.Events.AttachEvent("RANGE_MISSED", HandleSpellMissed);
-            Lua.Events.AttachEvent("SWING_MISSED", HandleSpellMissed);
-            Lua.Events.AttachEvent("PARTY_MEMBERS_CHANGED", HandlePartyMembersChanged);
+            Lua.Events.AttachEvent("SPELL_MISSED", this.HandleSpellMissed);
+            Lua.Events.AttachEvent("RANGE_MISSED", this.HandleSpellMissed);
+            Lua.Events.AttachEvent("SWING_MISSED", this.HandleSpellMissed);
+            Lua.Events.AttachEvent("PARTY_MEMBERS_CHANGED", this.HandlePartyMembersChanged);
         }
 
         public void CombatLogEventsOnStopped(object o)
@@ -60,19 +67,19 @@ namespace Clu.Helpers
             // Lua.Events.DetachEvent("CHARACTER_POINTS_CHANGED", UpdateActiveRotation);
             // Lua.Events.DetachEvent("ACTIVE_TALENT_GROUP_CHANGED", UpdateActiveRotation)
 
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_SUCCEEDED", OnSpellFired_ACK);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_SUCCEEDED", this.OnSpellFired_ACK);
 
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_INTERRUPTED", OnSpellFired_NACK);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_INTERRUPTED", this.OnSpellFired_NACK);
 
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_FAILED", OnSpellFired_FAIL);
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_FAILED_QUIET", OnSpellFired_FAIL);
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_STOP", OnSpellFired_FAIL);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_FAILED", this.OnSpellFired_FAIL);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_FAILED_QUIET", this.OnSpellFired_FAIL);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_STOP", this.OnSpellFired_FAIL);
 
             // Handle Spell Missed events
-            Lua.Events.DetachEvent("SPELL_MISSED", HandleSpellMissed);
-            Lua.Events.DetachEvent("RANGE_MISSED", HandleSpellMissed);
-            Lua.Events.DetachEvent("SWING_MISSED", HandleSpellMissed);
-            Lua.Events.DetachEvent("PARTY_MEMBERS_CHANGED", HandlePartyMembersChanged);
+            Lua.Events.DetachEvent("SPELL_MISSED", this.HandleSpellMissed);
+            Lua.Events.DetachEvent("RANGE_MISSED", this.HandleSpellMissed);
+            Lua.Events.DetachEvent("SWING_MISSED", this.HandleSpellMissed);
+            Lua.Events.DetachEvent("PARTY_MEMBERS_CHANGED", this.HandlePartyMembersChanged);
         }
 
         private void UpdateActiveRotation(object sender, LuaEventArgs args)
@@ -121,17 +128,17 @@ namespace Clu.Helpers
 
         private void OnSpellFired_ACK(object sender, LuaEventArgs raw)
         {
-            OnSpellFired(true, true, raw);
+            this.OnSpellFired(true, true, raw);
         }
 
         private void OnSpellFired_NACK(object sender, LuaEventArgs raw)
         {
-            OnSpellFired(false, true, raw);
+            this.OnSpellFired(false, true, raw);
         }
 
         private void OnSpellFired_FAIL(object sender, LuaEventArgs raw)
         {
-            OnSpellFired(false, false, raw);
+            this.OnSpellFired(false, false, raw);
         }
 
         private void OnSpellFired (bool success, bool spellCast, LuaEventArgs raw)

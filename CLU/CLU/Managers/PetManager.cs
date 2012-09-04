@@ -1,23 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using CommonBehaviors.Actions;
-
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Combat;
-using Styx.Logic.Pathing;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-using System.Drawing;
-using Styx.Helpers;
-using Clu.Settings;
-using Action = TreeSharp.Action;
-using TreeSharp;
-
-namespace Clu.Helpers
+﻿namespace CLU.Managers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Clu;
+
+    using CommonBehaviors.Actions;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic.Combat;
+    using Styx.Logic.Pathing;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using System.Drawing;
+
+    using Styx.Helpers;
+
+    using Clu.Settings;
+
+    using TreeSharp;
+
+    using CLU.Base;
+
+    using Action = TreeSharp.Action;
+
     internal class PetManager
     {
         /* putting all the Pets Spell/Buff/Debuff logic here */

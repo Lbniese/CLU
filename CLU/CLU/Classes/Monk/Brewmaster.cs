@@ -7,6 +7,7 @@ using Styx.Logic.Combat;
 
 namespace Clu.Classes.Monk
 {
+    using global::CLU.Base;
 
     class Brewmaster : RotationBase
     {

@@ -1,23 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using CommonBehaviors.Actions;
-
-using Styx;
-using Styx.Logic.Pathing;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-
-using TreeSharp;
-using System.Drawing;
-using Clu.Settings;
-
-// Full Credit to singular for this class (why re-invent the wheel?)
+﻿// Full Credit to singular for this class (why re-invent the wheel?)
 // Settings within GUI comming soon
 
-namespace Clu.Helpers
+namespace CLU.Classes.Rogue
 {
+    using System.Collections.Generic;
+    using System.Linq;
 
+    using Clu;
+
+    using CommonBehaviors.Actions;
+
+    using Styx;
+    using Styx.Logic.Pathing;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using TreeSharp;
+
+    using System.Drawing;
+
+    using Clu.Settings;
+
+    using CLU.Base;
 
     public static class Poisons
     {

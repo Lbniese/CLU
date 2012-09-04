@@ -13,6 +13,8 @@ using Action = TreeSharp.Action;
 
 namespace Clu.Helpers
 {
+    using global::CLU.Base;
+
     public class TargetBase
     {
         private static LocalPlayer Me

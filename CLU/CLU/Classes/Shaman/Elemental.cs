@@ -9,6 +9,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Shaman
 {
+    using global::CLU.Base;
+    using global::CLU.Classes.Shaman;
+
     class Elemental : RotationBase
     {
         public override string Name

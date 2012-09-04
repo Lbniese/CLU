@@ -6,6 +6,7 @@ using TreeSharp;
 
 namespace Clu.Classes.Druid
 {
+    using global::CLU.Base;
 
     /// <summary>
     /// Common Druid Functions.

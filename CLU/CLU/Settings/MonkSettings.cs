@@ -12,6 +12,7 @@ using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
 namespace Clu.Settings
 {
+    using global::CLU.Base;
 
     internal class MonkSettings : Styx.Helpers.Settings
     {

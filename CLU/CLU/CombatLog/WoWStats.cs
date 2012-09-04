@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Styx.Logic.Combat;
-using Styx.WoWInternals;
-
-namespace Clu.Helpers
+﻿namespace CLU.CombatLog
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Clu;
+
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals;
+
     using System.Drawing;
     using System.Globalization;
 
@@ -71,7 +73,7 @@ namespace Clu.Helpers
         /// <param name="o">object</param>
         public void WoWStatsOnStopped(object o)
         {
-            Lua.Events.DetachEvent("UNIT_SPELLCAST_SUCCEEDED", UNIT_SPELLCAST_SUCCEEDED);
+            Lua.Events.DetachEvent("UNIT_SPELLCAST_SUCCEEDED", this.UNIT_SPELLCAST_SUCCEEDED);
         }
 
         /// <summary>
@@ -112,28 +114,28 @@ namespace Clu.Helpers
 
             // initialize or increment the count for this item
             try {
-                spellList[spell]++;
+                this.spellList[spell]++;
             } catch {
-                spellList[spell] = spellList.ContainsKey(spell) ? spellList[spell]++ : 1;
+                this.spellList[spell] = this.spellList.ContainsKey(spell) ? this.spellList[spell]++ : 1;
             }
 
-            spellCasts++;
+            this.spellCasts++;
 
             // Add the spell to our spell list with a timestamp
-            if (!spellInterval.ContainsKey(spell))
-                spellInterval[spell] = new List<DateTime>();
+            if (!this.spellInterval.ContainsKey(spell))
+                this.spellInterval[spell] = new List<DateTime>();
 
-            if (!spellInterval[spell].Contains(DateTime.Now)) {
+            if (!this.spellInterval[spell].Contains(DateTime.Now)) {
                 CLU.DebugLog(Color.ForestGreen, "Adding " + DateTime.Now + " for " + spell);
-                spellInterval[spell].Add(DateTime.Now);
+                this.spellInterval[spell].Add(DateTime.Now);
             }
 
             // initialize or increment the count for this item
             try {
-                healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth);
+                this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth);
                 CLU.DebugLog(Color.Aqua, "[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             } catch {
-                healingStats[DateTime.Now] = healingStats.ContainsKey(DateTime.Now) ? healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) : "blank";
+                this.healingStats[DateTime.Now] = this.healingStats.ContainsKey(DateTime.Now) ? this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) : "blank";
                 CLU.DebugLog(Color.Aqua, "[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             }
         }
@@ -142,23 +144,23 @@ namespace Clu.Helpers
         {
             // var spells = spellList.OrderByDescending(x => x.Value);
             // var seconds = DateTime.Now.Subtract(start).TotalSeconds;
-            var minutes = DateTime.Now.Subtract(start).TotalMinutes;
+            var minutes = DateTime.Now.Subtract(this.start).TotalMinutes;
 
             var apm = (int)(this.spellCasts / minutes);
 
             CLU.Log("CLU stats report:");
             CLU.Log("Runtime: {0} minutes", Math.Round(minutes * 10.0) / 10.0);
-            CLU.Log("Spells cast: {0}", spellCasts > 1000 ? ((Math.Round(spellCasts / 100.0) * 10) + "k") : spellCasts.ToString(CultureInfo.InvariantCulture));
+            CLU.Log("Spells cast: {0}", this.spellCasts > 1000 ? ((Math.Round(this.spellCasts / 100.0) * 10) + "k") : this.spellCasts.ToString(CultureInfo.InvariantCulture));
             CLU.Log("Average APM: {0}", apm);
             CLU.Log("------------------------------------------");
-            foreach (KeyValuePair<string, int> spell in spellList) {
+            foreach (KeyValuePair<string, int> spell in this.spellList) {
                 CLU.Log(spell.Key + " was cast " + spell.Value + " time(s).");
             }
 
             CLU.Log("------------------------------------------");
 
-            foreach (KeyValuePair<string, List<DateTime>> spell in spellInterval) {
-                var lastInterval = start;
+            foreach (KeyValuePair<string, List<DateTime>> spell in this.spellInterval) {
+                var lastInterval = this.start;
                 var output = "0 ";
 
                 for (int x = 0; x < spell.Value.Count - 1; ++x) {
@@ -179,7 +181,7 @@ namespace Clu.Helpers
             CLU.Log("------------------------------------------");
             CLU.Log("These are the spells from UNIT_SPELLCAST_SUCCEEDED");
             CLU.Log("------------------------------------------");
-            foreach (KeyValuePair<DateTime, string> entry in healingStats) {
+            foreach (KeyValuePair<DateTime, string> entry in this.healingStats) {
                 CLU.Log("[" + entry.Key + "] " + entry.Value);
             }
             CLU.Log("------------------------------------------");

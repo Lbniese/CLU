@@ -13,6 +13,8 @@ namespace Clu.Helpers
 {
     using Styx.Logic;
 
+    using global::CLU.Base;
+
     public class HealableUnit
     {
     	private bool beaconUnit;

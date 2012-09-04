@@ -8,6 +8,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Priest
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Holy : HealerRotationBase
     {
         public override string Name

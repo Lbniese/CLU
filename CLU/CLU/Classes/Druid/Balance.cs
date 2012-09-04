@@ -9,6 +9,7 @@ using TreeSharp;
 
 namespace Clu.Classes.Druid
 {
+    using global::CLU.Base;
 
     class Balance : RotationBase
     {

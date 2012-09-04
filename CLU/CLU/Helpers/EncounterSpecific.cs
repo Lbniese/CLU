@@ -11,6 +11,8 @@ using Clu.Settings;
 
 namespace Clu.Helpers
 {
+    using global::CLU.Base;
+
     public class EncounterSpecific
     {
         /* putting all the EncounterSpecific logic here */

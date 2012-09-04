@@ -9,6 +9,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Rogue
 {
+    using global::CLU.Base;
+    using global::CLU.Classes.Rogue;
+
     //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor!
     class Assassination : RotationBase
     {

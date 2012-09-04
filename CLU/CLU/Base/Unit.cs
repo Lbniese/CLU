@@ -1,22 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic;
-using Styx.Logic.Combat;
-using Styx.Logic.Pathing;
-using Styx.Logic.POI;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-using System.Drawing;
-using TreeSharp;
-using Clu.Lists;
-using Clu.Settings;
-using Action = TreeSharp.Action;
-
-namespace Clu.Helpers
+﻿namespace CLU.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Clu;
+    using Clu.Helpers;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic;
+    using Styx.Logic.Combat;
+    using Styx.Logic.Pathing;
+    using Styx.Logic.POI;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using System.Drawing;
+
+    using TreeSharp;
+
+    using Clu.Lists;
+    using Clu.Settings;
+
+    using Action = TreeSharp.Action;
+
     internal static class Unit
     {
         /* putting all the Unit logic here */

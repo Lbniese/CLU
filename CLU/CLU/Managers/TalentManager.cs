@@ -7,18 +7,21 @@
 // $LastChangedRevision: 583 $
 // $Revision: 583 $
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Combat;
-using Styx.WoWInternals;
-using System.Drawing;
-
-namespace Clu.Helpers
+namespace CLU.Managers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Clu;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals;
+
+    using System.Drawing;
+
     public enum TalentSpec {
         // Just a 'spec' for low levels
         Lowbie = 0,

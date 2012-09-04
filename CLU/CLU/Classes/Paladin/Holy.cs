@@ -8,7 +8,10 @@ using Clu.Settings;
 
 namespace Clu.Classes.Paladin
 {
-	class Holy : HealerRotationBase
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
+    class Holy : HealerRotationBase
 	{
 		public override string Name
 		{

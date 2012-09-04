@@ -25,6 +25,8 @@ using Styx.Helpers;
 
 namespace Clu.GUI
 {
+    using global::CLU.Base;
+    using global::CLU.CombatLog;
 
     public partial class ConfigurationForm : Form
     {

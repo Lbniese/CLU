@@ -10,6 +10,8 @@ namespace Clu.Classes.Deathknight
 {
     using Clu.Classes.DeathKnight;
 
+    using global::CLU.Base;
+
     class Blood : RotationBase
     {
         // public static readonly HealerBase Healer = HealerBase.Instance;

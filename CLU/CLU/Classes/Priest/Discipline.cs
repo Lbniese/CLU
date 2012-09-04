@@ -9,6 +9,10 @@ using Styx.WoWInternals;
 
 namespace Clu.Classes.Priest
 {
+    using global::CLU.Base;
+    using global::CLU.CombatLog;
+    using global::CLU.Managers;
+
     class Discipline : HealerRotationBase
     {
         public override string Name

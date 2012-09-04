@@ -8,6 +8,7 @@ using Clu.Settings;
 
 namespace Clu.Classes.Paladin
 {
+    using global::CLU.Base;
 
     class Protection : RotationBase
     {

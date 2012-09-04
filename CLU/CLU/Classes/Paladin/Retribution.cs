@@ -6,6 +6,8 @@ using Clu.Settings;
 
 namespace Clu.Classes.Paladin
 {
+    using global::CLU.Base;
+
     class Retribution : RotationBase
     {
         private const int ItemSetId = 1064; // Tier set ID

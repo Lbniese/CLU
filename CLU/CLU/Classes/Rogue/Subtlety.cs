@@ -11,6 +11,9 @@ using Styx.Logic.Combat;
 
 namespace Clu.Classes.Rogue
 {
+    using global::CLU.Base;
+    using global::CLU.Classes.Rogue;
+    using global::CLU.Managers;
 
     class Subtlety : RotationBase
     {

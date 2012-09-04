@@ -6,6 +6,9 @@ using Styx.WoWInternals.WoWObjects;
 
 namespace Clu.Classes
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     public abstract class HealerRotationBase : RotationBase
     {
         protected static readonly TargetBase Healer = TargetBase.Instance;

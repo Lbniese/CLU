@@ -8,6 +8,8 @@ using Clu.Settings;
 
 namespace Clu.Classes.Priest
 {
+    using global::CLU.Base;
+
     class Shadow : RotationBase
     {
 

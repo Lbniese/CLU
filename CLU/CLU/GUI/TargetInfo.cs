@@ -8,6 +8,8 @@ namespace Clu.GUI
     using System.Drawing;
     using System.Globalization;
 
+    using global::CLU.Base;
+
     using global::Clu.Helpers;
 
     using Styx;

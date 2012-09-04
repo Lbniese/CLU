@@ -1,16 +1,21 @@
-﻿using System.Linq;
-using Clu.Lists;
-using Styx;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
-using System.Drawing;
-using Styx.Combat.CombatRoutine;
-using Action = TreeSharp.Action;
-
-
-namespace Clu.Helpers
+﻿namespace CLU.Base
 {
+    using System.Linq;
+
+    using Clu;
+    using Clu.Helpers;
+    using Clu.Lists;
+
+    using Styx;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using TreeSharp;
+
+    using System.Drawing;
+
+    using Styx.Combat.CombatRoutine;
+
     using System.Text;
 
     internal static class Item

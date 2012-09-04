@@ -8,6 +8,8 @@ using Action = TreeSharp.Action;
 
 namespace Clu.Classes.Mage
 {
+    using global::CLU.Base;
+
     class Fire : RotationBase
     {
         public override string Name

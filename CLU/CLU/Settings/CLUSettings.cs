@@ -15,6 +15,8 @@ using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
 namespace Clu.Settings
 {
+    using global::CLU.Base;
+
     internal class CLUSettings : Styx.Helpers.Settings
     {
         private static CLUSettings _instance;

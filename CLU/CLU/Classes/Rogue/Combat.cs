@@ -8,6 +8,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Rogue
 {
+    using global::CLU.Base;
+    using global::CLU.Classes.Rogue;
+
     class Combat : RotationBase
     {
 

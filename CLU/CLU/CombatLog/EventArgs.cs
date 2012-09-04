@@ -7,16 +7,16 @@
 // $LastChangedRevision: 480 $
 // $Revision: 480 $
 
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-
-using Styx.Logic.Combat;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-
-namespace Clu.Helpers
+namespace CLU.CombatLog
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+
+    using Styx.Logic.Combat;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
     internal class CombatLogEventArgs : LuaEventArgs
     {
         public CombatLogEventArgs(string eventName, uint fireTimeStamp, object[] args)
@@ -27,14 +27,14 @@ namespace Clu.Helpers
         public double Timestamp
         {
             get {
-                return (double)Args[0];
+                return (double)this.Args[0];
             }
         }
 
         public string Event
         {
             get {
-                return Args[1].ToString();
+                return this.Args[1].ToString();
             }
         }
 
@@ -43,14 +43,14 @@ namespace Clu.Helpers
         public string HideCaster
         {
             get {
-                return Args[2].ToString();
+                return this.Args[2].ToString();
             }
         }
 
         public ulong SourceGuid
         {
             get {
-                return ulong.Parse(Args[3].ToString().Replace("0x", string.Empty), NumberStyles.HexNumber);
+                return ulong.Parse(this.Args[3].ToString().Replace("0x", string.Empty), NumberStyles.HexNumber);
             }
         }
 
@@ -66,21 +66,21 @@ namespace Clu.Helpers
         public string SourceName
         {
             get {
-                return Args[4].ToString();
+                return this.Args[4].ToString();
             }
         }
 
         public int SourceFlags
         {
             get {
-                return (int)(double)Args[5];
+                return (int)(double)this.Args[5];
             }
         }
 
         public ulong DestGuid
         {
             get {
-                return ulong.Parse(Args[7].ToString().Replace("0x", string.Empty), NumberStyles.HexNumber);
+                return ulong.Parse(this.Args[7].ToString().Replace("0x", string.Empty), NumberStyles.HexNumber);
             }
         }
 
@@ -96,21 +96,21 @@ namespace Clu.Helpers
         public string DestName
         {
             get {
-                return Args[8].ToString();
+                return this.Args[8].ToString();
             }
         }
 
         public int DestFlags
         {
             get {
-                return (int)(double)Args[9];
+                return (int)(double)this.Args[9];
             }
         }
 
         public int SpellId
         {
             get {
-                return (int)(double)Args[11];
+                return (int)(double)this.Args[11];
             }
         }
 
@@ -124,14 +124,14 @@ namespace Clu.Helpers
         public string SpellName
         {
             get {
-                return Args[12].ToString();
+                return this.Args[12].ToString();
             }
         }
 
         public WoWSpellSchool SpellSchool
         {
             get {
-                return (WoWSpellSchool)(int)(double)Args[13];
+                return (WoWSpellSchool)(int)(double)this.Args[13];
             }
         }
 
@@ -139,7 +139,7 @@ namespace Clu.Helpers
         {
             get {
                 var args = new List<object>();
-                for (int i = 11; i < Args.Length; i++) {
+                for (int i = 11; i < this.Args.Length; i++) {
                     if (this.Args[i] != null) {
                         args.Add(args[i]);
                     }

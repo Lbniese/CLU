@@ -1,24 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommonBehaviors.Actions;
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic;
-using Styx.Logic.Combat;
-using Styx.Logic.Pathing;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
-using Action = TreeSharp.Action;
-using System.Diagnostics;
-using System.Drawing;
-using Clu.Lists;
-using Clu.Settings;
-
-namespace Clu.Helpers
+﻿namespace CLU.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using Clu;
+    using Clu.Helpers;
+
+    using CommonBehaviors.Actions;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic;
+    using Styx.Logic.Combat;
+    using Styx.Logic.Pathing;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using TreeSharp;
+
+    using System.Diagnostics;
+    using System.Drawing;
+
+    using Clu.Lists;
+    using Clu.Settings;
+
+    using Action = TreeSharp.Action;
+
     internal static class Spell
     {
         /* putting all the spell logic here */

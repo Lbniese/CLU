@@ -9,6 +9,9 @@ using TreeSharp;
 
 namespace Clu.Classes.Druid
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Restoration : HealerRotationBase
     {
         public override string Name

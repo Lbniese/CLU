@@ -8,6 +8,9 @@ using Action = TreeSharp.Action;
 
 namespace Clu.Classes.Mage
 {
+    using global::CLU.Base;
+    using global::CLU.Managers;
+
     class Frost : RotationBase
     {
         public override string Name

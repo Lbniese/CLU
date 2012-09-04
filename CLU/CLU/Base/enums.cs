@@ -1,8 +1,6 @@
-﻿namespace Clu
+﻿namespace CLU.Base
 {
     using System;
-
-    // stop pollution of the namespace in random classes
 
     public enum TrinketUsage {
         Never,

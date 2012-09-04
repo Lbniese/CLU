@@ -1,23 +1,26 @@
-﻿using System.Linq;
-
-using CommonBehaviors.Actions;
-
-using Styx;
-using Styx.Combat.CombatRoutine;
-using Styx.Logic.Combat;
-using Styx.Logic.Inventory;
-using Styx.Logic.Pathing;
-using Styx.WoWInternals;
-using Styx.WoWInternals.WoWObjects;
-
-using TreeSharp;
-using Clu.Settings;
-
-// This class was directly taken from Singular and full credit goes to the developers...lets not re-invent the wheel.
+﻿// This class was directly taken from Singular and full credit goes to the developers...lets not re-invent the wheel.
 
 
-namespace Clu.Helpers
+namespace CLU.Base
 {
+    using System.Linq;
+
+    using Clu;
+
+    using CommonBehaviors.Actions;
+
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.Logic.Combat;
+    using Styx.Logic.Inventory;
+    using Styx.Logic.Pathing;
+    using Styx.WoWInternals;
+    using Styx.WoWInternals.WoWObjects;
+
+    using TreeSharp;
+
+    using Clu.Settings;
+
     using Styx.Logic.POI;
 
     internal static class Rest

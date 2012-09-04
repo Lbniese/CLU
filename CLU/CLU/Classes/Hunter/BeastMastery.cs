@@ -5,7 +5,9 @@ using Clu.Settings;
 
 namespace Clu.Classes.Hunter
 {
+    using global::CLU.Base;
     using global::CLU.Classes.Hunter;
+    using global::CLU.Managers;
 
     class BeastMastery : RotationBase
     {
