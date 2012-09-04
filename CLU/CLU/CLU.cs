@@ -272,7 +272,7 @@ namespace CLU
                 if (Battlegrounds.IsInsideBattleground) return GroupLogic.Battleground;
                 if (StyxWoW.Me.CurrentMap.IsArena) return GroupLogic.Arena;
 
-                return StyxWoW.Me.IsInInstance ? GroupLogic.PVE : GroupLogic.Solo;
+                return StyxWoW.Me.IsInInstance ? GroupLogic.PVE : GroupLogic.Solo; //TODO: PVE Detection may need to be checked..
             }
         }
 
@@ -286,15 +286,14 @@ namespace CLU
                 switch (Group) {
                 case GroupType.Party:
                 case GroupType.Raid:
-                     switch (LocationContext)
-                     {
-                        case GroupLogic.Battleground:
-                        case GroupLogic.Arena:
-                             rotation = this.ActiveRotation.PVPRotation;
-                             break;
-                        case GroupLogic.PVE:
-                             rotation = this.ActiveRotation.PVERotation;
-                             break;
+                     switch (LocationContext) {
+                     case GroupLogic.Battleground:
+                     case GroupLogic.Arena:
+                          rotation = this.ActiveRotation.PVPRotation;
+                          break;
+                     case GroupLogic.PVE:
+                          rotation = this.ActiveRotation.PVERotation;
+                          break;
                         }
                     break;
                 default:
