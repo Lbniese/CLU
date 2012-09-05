@@ -175,11 +175,14 @@ namespace CLU.Base
         {
             if (Me.CurrentTarget == null) return;
             CLU.TroubleshootDebugLog(Color.ForestGreen, "===============Me.CurrentTarget.Auras===================");
-            foreach (KeyValuePair<string, WoWAura> sp in Me.CurrentTarget.Auras) {
-                if (Me.Auras.ContainsKey(sp.Key)) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, sp.Key + " " + Me.Auras[sp.Key].Flags.ToString());
+            foreach (KeyValuePair<string, WoWAura> au in Me.CurrentTarget.Auras)
+            {
+                WoWAura aura;
+                if (Me.Auras.TryGetValue(au.Key, out aura))
+                {
+                    CLU.TroubleshootDebugLog(Color.ForestGreen, " " + aura);
                 } else {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, sp.Key);
+                    CLU.TroubleshootDebugLog(Color.ForestGreen, au.Key);
                 }
             }
             CLU.TroubleshootDebugLog(Color.ForestGreen, "=======================================================");

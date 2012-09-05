@@ -253,15 +253,14 @@ namespace CLU
             }
         }
 
-        internal static GroupType Group
+        internal static GroupType GroupType
         {
             get
             {
-                if (Me.IsInParty)
+                if (Me.IsInParty) 
                     return GroupType.Party;
-                if (Me.IsInRaid)
-                    return GroupType.Raid;
-                return GroupType.Single;
+
+                return Me.IsInRaid ? GroupType.Raid : GroupType.Solo;
             }
         }
 
@@ -269,10 +268,12 @@ namespace CLU
         {
             get
             {
-                if (Battlegrounds.IsInsideBattleground) return GroupLogic.Battleground;
-                if (StyxWoW.Me.CurrentMap.IsArena) return GroupLogic.Arena;
+                var map = StyxWoW.Me.CurrentMap;
 
-                return StyxWoW.Me.IsInInstance ? GroupLogic.PVE : GroupLogic.Solo; //TODO: PVE Detection may need to be checked..
+                if (map.IsBattleground || map.IsArena) 
+                    return GroupLogic.Battleground;
+
+                return map.IsDungeon ? GroupLogic.PVE : GroupLogic.Solo;
             }
         }
 
@@ -282,28 +283,29 @@ namespace CLU
         private Composite Rotation
         {
             get {
-                Composite rotation = null;
-                switch (Group) {
-                case GroupType.Party:
-                case GroupType.Raid:
-                     switch (LocationContext) {
-                     case GroupLogic.Battleground:
-                     case GroupLogic.Arena:
-                          rotation = this.ActiveRotation.PVPRotation;
-                          break;
-                     case GroupLogic.PVE:
-                          rotation = this.ActiveRotation.PVERotation;
-                          break;
-                        }
-                    break;
-                default:
-                    rotation = this.ActiveRotation.SingleRotation;
-                    break;
+                    Composite currentrotation = null;
+                    switch (GroupType) 
+                    {
+                        case GroupType.Party:
+                        case GroupType.Raid:
+                            switch (LocationContext) 
+                            {
+                                case GroupLogic.PVE:
+                                    currentrotation = this.ActiveRotation.PVERotation;
+                                    break;
+                                case GroupLogic.Battleground:
+                                    currentrotation = this.ActiveRotation.PVPRotation;
+                                    break;
+                            }
+                            break;
+                    default:
+                        currentrotation = this.ActiveRotation.SingleRotation;
+                        break;
                 }
 
                 return new Sequence(
                            new DecoratorContinue(x => CLUSettings.Instance.EnableMovement, Movement.MovingFacingBehavior()),
-                           new DecoratorContinue(x => Me.CurrentTarget != null, rotation));
+                           new DecoratorContinue(x => Me.CurrentTarget != null, currentrotation));
 
             }
         }

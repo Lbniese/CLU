@@ -136,7 +136,6 @@ namespace CLU.Helpers
                            			return RunStatus.Failure;
                            		}
 								
-                                 
 
                            		// Filter the Healable Units
                                 var raid = UnitsFilter(filter).Where(x => x != null && (ObjectManager.ObjectList.Any(y => y.Guid == x.ToUnit().Guid) && refineFilter(x)) && x.ToUnit().Distance2DSqr < 40 * 40 && !x.ToUnit().ToPlayer().IsGhost && !x.ToUnit().HasAura("Deep Corruption")).ToList();

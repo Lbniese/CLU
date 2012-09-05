@@ -748,7 +748,7 @@
                               // check for controlled units, like sheep etc
                               !UnitIsControlled(x, true));
 
-            if (CLU.Group == GroupType.Single) {
+            if (CLU.GroupType == GroupType.Solo) {
                 hostile = hostile.Where(x => x.IsHostile &&  x.DistanceSqr <= 70 * 70);
                 var ret = hostile.Select(h => new FocusedUnit { Unit = h }).ToList();
                 mostFocusedUnits = ret.OrderBy(x => x.Unit.DistanceSqr).ToList();

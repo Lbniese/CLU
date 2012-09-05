@@ -107,11 +107,11 @@
                 break;
             }
 
-            // initialize or increment the count for this item
-            try {
-                this.spellList[spell]++;
-            } catch {
-                this.spellList[spell] = this.spellList.ContainsKey(spell) ? this.spellList[spell]++ : 1;
+            // increments or decrements 
+            int value;
+            if (spellList.TryGetValue(spell, out value))
+            {
+               spellList[spell] = value + 1;
             }
 
             this.spellCasts++;

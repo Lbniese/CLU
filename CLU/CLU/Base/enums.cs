@@ -103,7 +103,7 @@
     }
 
     public enum GroupType {
-        Single,
+        Solo,
         Party,
         Raid
     }
@@ -111,7 +111,6 @@
     public enum GroupLogic {
         PVE,
         Battleground,
-        Arena,
         Solo
     }
 

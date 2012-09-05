@@ -1094,9 +1094,12 @@
         public static void DumpSpells()
         {
             CLU.TroubleshootDebugLog(Color.ForestGreen, "==================SpellManager.RawSpells===============");
-            foreach (var sp in SpellManager.RawSpells) {
-                if (SpellManager.Spells.ContainsKey(sp.Name)) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, sp.Id + " " + SpellManager.Spells[sp.Name]);
+            foreach (var sp in SpellManager.RawSpells)
+            {
+                WoWSpell spell;
+                if (SpellManager.Spells.TryGetValue(sp.Name, out spell))
+                {
+                    CLU.TroubleshootDebugLog(Color.ForestGreen, "Spell ID:" + sp.Id + " MaxRange:" + sp.MaxRange + " " + spell);
                 } else {
                     CLU.TroubleshootDebugLog(Color.ForestGreen, sp.Name);
                 }
