@@ -15,7 +15,7 @@ namespace CLU.Classes.DeathKnight
 
     using Styx;
     using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using global::CLU.Base;
     using global::CLU.Managers;
     using global::CLU.Settings;

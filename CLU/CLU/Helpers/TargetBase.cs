@@ -4,11 +4,11 @@ using System.Linq;
 using Styx;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 using System.Diagnostics;
 using System.Drawing;
 using CLU.Base;
-using Action = TreeSharp.Action;
+using Action = Styx.TreeSharp.Action;
 
 
 namespace CLU.Helpers
@@ -45,7 +45,7 @@ namespace CLU.Helpers
 
         private static bool IsPlayingWoW()
         {
-            return ObjectManager.IsInGame && Me != null && Me.IsValid;
+            return Me != null && Me.IsValid; //TODO: ObjectManager.IsInGame && ....WHERE HAS THIS MOVED TO? --wulf
         }
 
         private static void Log(string s, params object[] a)

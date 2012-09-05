@@ -1,15 +1,18 @@
-﻿using TreeSharp;
+﻿using Styx.TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
 using CLU.Helpers;
 using CLU.Lists;
 using Styx.WoWInternals.WoWObjects;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using CLU.Settings;
 using CLU.Base;
 
 namespace CLU.Classes.Rogue
 {
+    using Styx.CommonBot;
+
+    using Rest = global::CLU.Base.Rest;
 
     //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor!
     class Assassination : RotationBase

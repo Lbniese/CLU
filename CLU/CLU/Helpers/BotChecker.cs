@@ -4,6 +4,8 @@ using CLU.Settings;
 
 namespace CLU.Helpers
 {
+    using Styx.CommonBot;
+
     internal class BotChecker
     {
         /* putting all the BotBase logic here */

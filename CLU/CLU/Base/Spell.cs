@@ -7,17 +7,18 @@
     using CommonBehaviors.Actions;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    using Styx.Logic;
-    using Styx.Logic.Combat;
-    using Styx.Logic.Pathing;
+    //using Styx.Logic;
+    //using Styx.Logic.Combat;
+    //using Styx.Logic.Pathing;
+    using Styx.CommonBot;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using System.Diagnostics;
     using System.Drawing;
     using global::CLU.Lists;
     using global::CLU.Settings;
-    using Action = TreeSharp.Action;
+    using Action = Styx.TreeSharp.Action;
 
     internal static class Spell
     {
@@ -211,11 +212,11 @@
                     if (SpellManager.Spells.TryGetValue(name, out spell))
                     {
                         // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
-                        if (spell.InternalInfo.SpellRangeId == 1)
+                        if (spell.IsSelfOnlySpell)
                             return true;
 
                         // RangeId 2 is melee range. Huzzah :)
-                        if (spell.InternalInfo.SpellRangeId == 2)
+                        if (spell.IsMeleeSpell)
                             minReqs = Unit.DistanceToTargetBoundingBox(target) < MeleeRange;
                         else
                             minReqs = Unit.DistanceToTargetBoundingBox(target) < spell.MaxRange;
@@ -683,7 +684,7 @@
             new Sequence(
                 new Action(a => CLU.Log(" [AoE] {0} ", label)),
                 new Action(a => CastMySpell(name)),
-                new DecoratorContinue(x => requiresTerrainClick, new Action(a => LegacySpellManager.ClickRemoteLocation(bestLocation)))));
+                new DecoratorContinue(x => requiresTerrainClick, new Action(a => SpellManager.ClickRemoteLocation(bestLocation)))));
         }
 
         /// <summary>Casts a spell at the units location</summary>
@@ -712,7 +713,7 @@
                 //    ret => StyxWoW.Me.CurrentPendingCursorSpell != null &&
                 //           StyxWoW.Me.CurrentPendingCursorSpell.Name == name,
                 //    new ActionAlwaysSucceed()),
-                new Action(a => LegacySpellManager.ClickRemoteLocation(onUnit(a).Location))));
+                new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))));
         }
 
         /// <summary>Casts Sanctuary at the units location</summary>
@@ -733,7 +734,7 @@
             new Sequence(
                 new Action(a => CLU.Log(" [Casting at Location] {0} ", label)),
                 Item.RunMacroText("/cast Holy Word: Sanctuary", cond, label),
-                new Action(a => LegacySpellManager.ClickRemoteLocation(onUnit(a).Location))));
+                new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))));
         }
 
         /// <summary>
@@ -763,18 +764,18 @@
                     new Sequence(
                         new Switch<string>(ctx => trapName,
                                            new SwitchArgument<string>("Immolation Trap",
-                                                   new Action(ret => LegacySpellManager.CastSpellById(82945))),
+                                                   new Action(ret => SpellManager.CastSpellById(82945))),
                                            new SwitchArgument<string>("Freezing Trap",
-                                                   new Action(ret => LegacySpellManager.CastSpellById(60192))),
+                                                   new Action(ret => SpellManager.CastSpellById(60192))),
                                            new SwitchArgument<string>("Explosive Trap",
-                                                   new Action(ret => LegacySpellManager.CastSpellById(82939))),
+                                                   new Action(ret => SpellManager.CastSpellById(82939))),
                                            new SwitchArgument<string>("Ice Trap",
-                                                   new Action(ret => LegacySpellManager.CastSpellById(82941))),
+                                                   new Action(ret => SpellManager.CastSpellById(82941))),
                                            new SwitchArgument<string>("Snake Trap",
-                                                   new Action(ret => LegacySpellManager.CastSpellById(82948)))
+                                                   new Action(ret => SpellManager.CastSpellById(82948)))
                                           ),
                         // new ActionSleep(200),
-                        new Action(a => LegacySpellManager.ClickRemoteLocation(onUnit(a).Location)))))));
+                        new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location)))))));
         }
 
         /// <summary>Channels an area spell such as Rain of Fire</summary>
@@ -824,7 +825,7 @@
                     new Action(a => CastMySpell(name)),
                     new DecoratorContinue(
                         x => requiresTerrainClick,
-                        new Action(a => LegacySpellManager.ClickRemoteLocation(bestLocation))))));
+                        new Action(a => SpellManager.ClickRemoteLocation(bestLocation))))));
         }
 
         /// <summary>Casts a spell provided we are inrange and facing the target </summary>
@@ -901,7 +902,7 @@
         /// <returns>The target has Dispelable buff.</returns>
         public static bool TargetHasDispelableBuffLua()
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 // should count how many buffs the target has but meh
                 for (int i = 1; i <= 40; i++) {
                     try {
@@ -929,7 +930,7 @@
         /// <returns>The target has stealable buff.</returns>
         public static bool TargetHasStealableBuff()
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 // should count how many buffs the target has but meh
                 for (int i = 1; i <= 40; i++) {
                     try {

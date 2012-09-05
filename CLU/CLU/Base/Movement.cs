@@ -2,16 +2,18 @@
 {
     using System;
     using Styx;
+    using Styx.CommonBot;
     using Styx.Helpers;
-    using Styx.Logic.Pathing;
+    //using Styx.Logic.Pathing;
+    using Styx.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
     using CommonBehaviors.Actions;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using System.Drawing;
-    using Styx.Logic;
+    //using Styx.Logic;
     using global::CLU.Settings;
-    using Action = TreeSharp.Action;
+    using Action = Styx.TreeSharp.Action;
 
     public static class Movement
     {

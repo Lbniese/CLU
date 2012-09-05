@@ -13,10 +13,11 @@ namespace CLU.Classes.Shaman
     using System.Linq;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    using Styx.Logic.Combat;
+    //using Styx.Logic.Combat;
+    using Styx.CommonBot;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using CommonBehaviors.Actions;
     using global::CLU.Base;
     using global::CLU.Managers;

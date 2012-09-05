@@ -4,7 +4,7 @@
     using Styx;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using System.Drawing;
     using Styx.Combat.CombatRoutine;
     using System.Text;

@@ -4,7 +4,7 @@ using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 using System.Drawing;
 using CommonBehaviors.Actions;
-using TreeSharp;
+using Styx.TreeSharp;
 using CLU.Settings;
 using CLU.Base;
 

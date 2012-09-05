@@ -1,13 +1,16 @@
-﻿using TreeSharp;
+﻿using Styx.TreeSharp;
 using CommonBehaviors.Actions;
 using CLU.Helpers;
-using Styx.Logic.Combat;
+// using Styx.Logic.Combat;
 using CLU.Settings;
 using CLU.Base;
 
 
 namespace CLU.Classes.Warrior
 {
+    using Styx.CommonBot;
+
+    using Rest = global::CLU.Base.Rest;
 
     class Arms : RotationBase
     {

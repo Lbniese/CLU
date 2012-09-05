@@ -1,6 +1,6 @@
 using CLU.Helpers;
 using CommonBehaviors.Actions;
-using TreeSharp;
+using Styx.TreeSharp;
 using CLU.Lists;
 using CLU.Settings;
 using CLU.Base;
@@ -132,7 +132,7 @@ namespace CLU.Classes.Warlock
                                    new Decorator(
                                        ret => !Me.IsMoving,
                                        new Sequence( // Waiting for a bit
-                                           new ActionSleep(2000),
+                    //new ActionSleep(2000), //TODO: replace with new WaitContinue(2, ret => StyxWoW.Me.IsFunnel, new ActionAlwaysSucceed()),
                                            Spell.ChannelSelfSpell("Soul Harvest", ret => Me.CurrentSoulShards < 2 && !Me.IsMoving, "[Shards] Soul Harvest - < 2 shards"))))));
             }
         }

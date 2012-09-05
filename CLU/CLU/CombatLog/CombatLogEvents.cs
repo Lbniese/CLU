@@ -3,11 +3,13 @@
     using System;
     using System.Collections.Generic;
     using Styx;
-    using Styx.Logic.Combat;
+    using Styx.CommonBot;
+    //using Styx.Logic.Combat;
+    using Styx.CommonBot.POI;
     using Styx.WoWInternals;
     using System.Drawing;
-    using Styx.Logic;
-    using Styx.Logic.POI;
+    //using Styx.Logic;
+    //using Styx.Logic.POI;
     using Styx.WoWInternals.WoWObjects;
     using global::CLU.Base;
     using global::CLU.Helpers;

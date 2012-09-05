@@ -1,13 +1,16 @@
-﻿using TreeSharp;
+﻿using Styx.TreeSharp;
 using CommonBehaviors.Actions;
 using CLU.Helpers;
 using CLU.Settings;
 using System.Collections.Generic;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using CLU.Base;
 
 namespace CLU.Classes.Monk
 {
+    using Styx.CommonBot;
+
+    using Rest = global::CLU.Base.Rest;
 
     class Mistweaver : RotationBase
     {

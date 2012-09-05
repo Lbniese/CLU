@@ -1,7 +1,7 @@
-﻿using TreeSharp;
+﻿using Styx.TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using CLU.Helpers;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Settings;
@@ -9,6 +9,9 @@ using CLU.Base;
 
 namespace CLU.Classes.Rogue
 {
+    using Styx.CommonBot;
+
+    using Rest = global::CLU.Base.Rest;
 
     class Combat : RotationBase
     {

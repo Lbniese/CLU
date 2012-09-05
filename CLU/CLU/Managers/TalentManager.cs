@@ -14,7 +14,7 @@ namespace CLU.Managers
     using System.Linq;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    using Styx.Logic.Combat;
+    //using Styx.Logic.Combat;
     using Styx.WoWInternals;
     using System.Drawing;
 
@@ -150,7 +150,7 @@ namespace CLU.Managers
             int treeOne = 0, treeTwo = 0, treeThree = 0;
 
             // Keep the frame stuck so we can do a bunch of injecting at once.
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 Talents.Clear();
                 for (int tab = 1; tab <= 3; tab++) {
                     var numTalents = Lua.GetReturnVal<int>("return GetNumTalents(" + tab + ")", 0);

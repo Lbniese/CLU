@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using CLU.Helpers;
 using Styx;
-using Styx.Logic;
+//using Styx.Logic;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Base;
 using CLU.Managers;
 
 namespace CLU.Classes
 {
+    using Styx.WoWInternals;
 
     public abstract class HealerRotationBase : RotationBase
     {

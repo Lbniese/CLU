@@ -1,9 +1,9 @@
 ﻿using CLU.Helpers;
-using TreeSharp;
+using Styx.TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
 using Styx;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Settings;

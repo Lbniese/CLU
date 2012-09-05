@@ -1,19 +1,25 @@
 namespace CLU.Base
 {
+
     using System;
+    using Styx;
+    using Styx.Combat.CombatRoutine;
+    using Styx.CommonBot;
+    using Styx.MemoryManagement;
+    using Styx.TreeSharp;
+    using Styx.WoWInternals.WoWObjects;
+
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using Styx;
-    using Styx.Combat.CombatRoutine;
-    using Styx.Logic.Combat;
+
+    //using Styx.Logic.Combat;
+
     using Styx.WoWInternals;
-    using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
     using global::CLU.CombatLog;
     using global::CLU.Managers;
     using global::CLU.Settings;
-    using Action = TreeSharp.Action;
+    using Action = Styx.TreeSharp.Action;
 
     internal static class Buff
     {
@@ -598,7 +604,7 @@ namespace CLU.Base
         /// <returns>The player buff time left.</returns>
         public static double PlayerBuffTimeLeft(string name)
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 try {
                     var lua = String.Format("local x=select(7, UnitBuff('player', \"{0}\", nil, 'PLAYER')); if x==nil then return 0 else return x-GetTime() end", Spell.RealLuaEscape(name));
                     var t = Double.Parse(Lua.GetReturnValues(lua)[0]);

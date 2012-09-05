@@ -1,6 +1,6 @@
 ﻿using Styx;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 
 namespace CLU.Classes
 {

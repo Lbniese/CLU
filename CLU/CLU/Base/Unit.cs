@@ -5,18 +5,20 @@
     using System.Linq;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    using Styx.Logic;
-    using Styx.Logic.Combat;
-    using Styx.Logic.Pathing;
-    using Styx.Logic.POI;
+    //using Styx.Logic;
+    //using Styx.Logic.Combat;
+    //using Styx.Logic.Pathing;
+    //using Styx.Logic.POI;
+    using Styx.CommonBot;
+    using Styx.CommonBot.POI;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
     using System.Drawing;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using global::CLU.Helpers;
     using global::CLU.Lists;
     using global::CLU.Settings;
-    using Action = TreeSharp.Action;
+    using Action = Styx.TreeSharp.Action;
 
     internal static class Unit
     {
@@ -464,7 +466,7 @@
         /// <returns>true if the wowplayer is a tank</returns>
         public static bool IsTank(WoWPlayer player)
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 try {
                     var retValue = player != null && Lua.GetReturnValues("return UnitGroupRolesAssigned('" + Spell.RealLuaEscape(player.Name) + "')").First() == "TANK";
                     return retValue;
@@ -482,7 +484,7 @@
         /// <returns>true if the wowplayer is Maintank</returns>
         public static bool IsMaintank(WoWUnit unit)
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 try {
                     var retValue = unit != null && Lua.GetReturnValues("return GetPartyAssignment('MAINTANK','" + Spell.RealLuaEscape(unit.Name) + "')").First() == "1";
                     return retValue;
@@ -500,7 +502,7 @@
         /// <returns>true if the wowplayer is Offtank</returns>
         public static bool IsOfftank(WoWUnit unit)
         {
-            using (new FrameLock()) {
+            using (StyxWoW.Memory.AcquireFrame()) {
                 try {
                     var retValue = unit != null && Lua.GetReturnValues("return GetPartyAssignment('MAINASSIST','" + Spell.RealLuaEscape(unit.Name) + "')").First() == "1";
                     return retValue;

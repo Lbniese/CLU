@@ -5,7 +5,7 @@ using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 using CLU.Base;
 
 namespace CLU.Classes.Druid

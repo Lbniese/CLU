@@ -1,4 +1,4 @@
-﻿using TreeSharp;
+﻿using Styx.TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
 using Styx;
@@ -6,12 +6,15 @@ using CLU.Helpers;
 using CLU.Lists;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Settings;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using CLU.Base;
 using CLU.Managers;
 
 namespace CLU.Classes.Rogue
 {
+    using Styx.CommonBot;
+
+    using Rest = global::CLU.Base.Rest;
 
     class Subtlety : RotationBase
     {

@@ -1,7 +1,7 @@
 ﻿using CommonBehaviors.Actions;
 using Styx;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 using CLU.Base;
 using CLU.Managers;
 using CLU.Settings;

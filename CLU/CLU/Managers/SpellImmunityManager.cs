@@ -3,7 +3,8 @@
 namespace CLU.Managers
 {
     using System.Collections.Generic;
-    using Styx.Logic.Combat;
+    //using Styx.Logic.Combat;
+    using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
 
     static class SpellImmunityManager

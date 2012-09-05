@@ -6,16 +6,18 @@
     using CommonBehaviors.Actions;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    using Styx.Logic.Combat;
-    using Styx.Logic.Pathing;
+    using Styx.Common.Helpers;
+    using Styx.CommonBot;
+    //using Styx.Logic.Combat;
+    //using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
     using System.Drawing;
-    using Styx.Helpers;
-    using TreeSharp;
+
+    using Styx.TreeSharp;
     using global::CLU.Base;
     using global::CLU.Settings;
-    using Action = TreeSharp.Action;
+    using Action = Styx.TreeSharp.Action;
 
     internal class PetManager
     {
@@ -206,7 +208,7 @@
                 //    ret => StyxWoW.Me.CurrentPendingCursorSpell != null &&
                 //           StyxWoW.Me.CurrentPendingCursorSpell.Name == name,
                 //    new ActionAlwaysSucceed()),
-                new Action(a => LegacySpellManager.ClickRemoteLocation(onUnit(a).Location))));
+                new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))));
         }
 
         /*--------------------------------------------------------

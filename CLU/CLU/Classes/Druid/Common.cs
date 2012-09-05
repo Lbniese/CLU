@@ -1,7 +1,7 @@
 ﻿using CLU.Settings;
 using Styx;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 using CLU.Base;
 
 namespace CLU.Classes.Druid

@@ -1,10 +1,10 @@
 ﻿using CLU.Helpers;
-using TreeSharp;
+using Styx.TreeSharp;
 using System.Drawing;
 using CommonBehaviors.Actions;
 using CLU.Lists;
 using CLU.Settings;
-using Action = TreeSharp.Action;
+using Action = Styx.TreeSharp.Action;
 using CLU.Base;
 using CLU.Managers;
 

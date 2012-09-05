@@ -1,7 +1,7 @@
 ﻿using CLU.Helpers;
-using TreeSharp;
+using Styx.TreeSharp;
 using CommonBehaviors.Actions;
-using Styx.Logic.Combat;
+//using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx;
 using CLU.Settings;
@@ -10,6 +10,7 @@ using CLU.Managers;
 
 namespace CLU.Classes.Paladin
 {
+    using Styx.CommonBot;
 
     class Holy : HealerRotationBase
 	{

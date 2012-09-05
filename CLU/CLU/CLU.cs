@@ -10,12 +10,12 @@ using CLU.Settings;
 using Styx;
 using Styx.Combat.CombatRoutine;
 using Styx.Helpers;
-using Styx.Logic;
-using Styx.Logic.BehaviorTree;
-using Styx.Logic.Combat;
+//using Styx.Logic;
+//using Styx.Logic.BehaviorTree;
+//using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.WoWInternals.WoWObjects;
-using TreeSharp;
+using Styx.TreeSharp;
 using System.Windows.Forms;
 using CLU.Base;
 using CLU.CombatLog;
@@ -44,6 +44,9 @@ using Timer = System.Timers.Timer;
 [assembly: CLSCompliant(true)]
 namespace CLU
 {
+    using Styx.CommonBot;
+    using Styx.CommonBot.Routines;
+
     public class CLU : CombatRoutine
     {
 

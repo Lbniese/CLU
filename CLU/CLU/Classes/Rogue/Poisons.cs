@@ -7,10 +7,11 @@ namespace CLU.Classes.Rogue
     using System.Linq;
     using CommonBehaviors.Actions;
     using Styx;
-    using Styx.Logic.Pathing;
+    //using Styx.Logic.Pathing;
+    using Styx.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-    using TreeSharp;
+    using Styx.TreeSharp;
     using System.Drawing;
     using global::CLU.Base;
     using global::CLU.Settings;
