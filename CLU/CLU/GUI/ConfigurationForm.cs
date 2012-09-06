@@ -155,7 +155,7 @@ namespace CLU.GUI
             pgGeneral.CollapseAllGridItems();
             pgClass.CollapseAllGridItems();
 
-            CLU.Log(Utilities.AssemblyDirectory); //todo: fix me
+            //CLU.Log(Utilities.AssemblyDirectory); //todo: fix me
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png"))
             {
