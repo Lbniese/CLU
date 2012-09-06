@@ -5,16 +5,11 @@ namespace CLU.Base
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.CommonBot;
-    using Styx.MemoryManagement;
     using Styx.TreeSharp;
     using Styx.WoWInternals.WoWObjects;
-
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-
-    //using Styx.Logic.Combat;
-
     using Styx.WoWInternals;
     using global::CLU.CombatLog;
     using global::CLU.Managers;
@@ -186,7 +181,7 @@ namespace CLU.Base
                 WoWAura aura;
                 if (Me.Auras.TryGetValue(au.Key, out aura))
                 {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, " " + aura);
+                    CLU.TroubleshootDebugLog(Color.ForestGreen, "Name: " + aura.Name + " ID: " + aura.SpellId);
                 } else {
                     CLU.TroubleshootDebugLog(Color.ForestGreen, au.Key);
                 }
@@ -220,6 +215,31 @@ namespace CLU.Base
         public static bool HasAura(WoWUnit unit, string aura, WoWUnit creator)
         {
             return unit != null && unit.GetAllAuras().Any(a => a.Name == aura && (creator == null || a.CreatorGuid == creator.Guid));
+        }
+
+        /// <summary>
+        ///  Checks for the auras on a specified unit. Returns true if the unit has any aura in the auraNames list.
+        /// </summary>
+        /// <param name="unit"> The unit to check auras for. </param>
+        /// <param name="auraNames"> Aura names to be checked. </param>
+        /// <returns></returns>
+        public static bool HasAnyAura(this WoWUnit unit, params string[] auraNames)
+        {
+            var auras = unit.GetAllAuras();
+            var hashes = new HashSet<string>(auraNames);
+            return auras.Any(a => hashes.Contains(a.Name));
+        }
+
+        /// <summary>
+        ///  Checks for the auras on a specified unit. Returns true if the unit has any aura in the auraNames list.
+        /// </summary>
+        /// <param name="unit"> The unit to check auras for. </param>
+        /// <param name="auraIDs">Aura ID to be checked. </param>
+        /// <returns></returns>
+        public static bool HasAnyAura(this WoWUnit unit, HashSet<int> auraIDs)
+        {
+            var auras = unit.GetAllAuras();
+            return auras.Any(a => auraIDs.Contains(a.SpellId));
         }
 
         /// <summary>Checks the aura to see if it can be dispelled by the name on specified unit</summary>
@@ -478,9 +498,9 @@ namespace CLU.Base
 
         			// If we are solo then return true if the name of the requested buff matchs the users UI setting and the player does not have the buff..
         			if (!Me.IsInParty && !Me.IsInRaid && !Me.Dead && !Me.IsGhost && Me.IsAlive) {
-        				if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
-        				if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
-        				if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !Buff.PlayerHasBuff(name)) return true;
+        				if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !PlayerHasBuff(name)) return true;
+        				if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !PlayerHasBuff(name)) return true;
+        				if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !PlayerHasBuff(name)) return true;
         			}
 
         			// Continue on if we are in a raid group and check all raid members for the buffs we can provide and cast them if ok.
@@ -489,46 +509,70 @@ namespace CLU.Base
         			else if (Me.IsInParty)
         				players.AddRange(Me.PartyMembers);
 
-        			var ProvidablePlayerBuffs = new HashSet<HashSet<int>>();
+        			var ProvidablePlayerBuffs = new HashSet<int>();
         			switch (StyxWoW.Me.Class) {
         				case WoWClass.Warrior:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina, AttackPower};
-
+                            ProvidablePlayerBuffs.UnionWith(Stamina);
+                            ProvidablePlayerBuffs.UnionWith(AttackPower);
+        					
         					break;
         				case WoWClass.Paladin:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+                            ProvidablePlayerBuffs.UnionWith(Stats);
+                            ProvidablePlayerBuffs.UnionWith(Mastery);
+        					
         					break;
         				case WoWClass.Hunter:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, CriticalStrike};
+                            ProvidablePlayerBuffs.UnionWith(AttackPower);
+                            ProvidablePlayerBuffs.UnionWith(CriticalStrike);
+        					
         					break;
         				case WoWClass.Rogue:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed};
+                            ProvidablePlayerBuffs.UnionWith(AttackSpeed);
+        					
         					break;
         				case WoWClass.Priest:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellHaste};
+                            ProvidablePlayerBuffs.UnionWith(Stamina);
+                            ProvidablePlayerBuffs.UnionWith(SpellHaste);
+        					
         					break;
         				case WoWClass.DeathKnight:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackPower, AttackSpeed};
+                            ProvidablePlayerBuffs.UnionWith(AttackPower);
+                            ProvidablePlayerBuffs.UnionWith(AttackSpeed);
+        					
         					break;
         				case WoWClass.Shaman:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { AttackSpeed, SpellPower, SpellHaste,  Mastery };
+                            ProvidablePlayerBuffs.UnionWith(AttackSpeed);
+                            ProvidablePlayerBuffs.UnionWith(SpellPower);
+                            ProvidablePlayerBuffs.UnionWith(SpellHaste);
+                            ProvidablePlayerBuffs.UnionWith(Mastery);
+        					
         					break;
         				case WoWClass.Mage:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { SpellPower, CriticalStrike};
+                            ProvidablePlayerBuffs.UnionWith(SpellPower);
+                            ProvidablePlayerBuffs.UnionWith(CriticalStrike);
+        					
         					break;
         				case WoWClass.Warlock:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stamina,  SpellPower};
+                            ProvidablePlayerBuffs.UnionWith(Stamina);
+                            ProvidablePlayerBuffs.UnionWith(SpellPower);
+        					
         					break;
         				case WoWClass.Druid:
-        					ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, CriticalStrike, SpellHaste };
+                            ProvidablePlayerBuffs.UnionWith(Stats);
+                            ProvidablePlayerBuffs.UnionWith(CriticalStrike);
+                            ProvidablePlayerBuffs.UnionWith(SpellHaste);
 
         					//case WoWClass.Monk:
-        					//    ProvidablePlayerBuffs = new HashSet<HashSet<int>> { Stats, Mastery };
+                            // ProvidablePlayerBuffs.UnionWith(Stats);
+                            // ProvidablePlayerBuffs.UnionWith(Mastery);
+                           
         					break;
         				default:
         					break;
+                            
         			}
-        			return players.Any(x => x.Distance2DSqr < 40 * 40 && x.Auras.Values.All(ret => !ProvidablePlayerBuffs.Contains(new HashSet<int> { ret.Spell.Id })) && !x.Dead && !x.IsGhost && x.IsAlive);
+
+        			return  players.Any(x => x.Distance2DSqr < 40 * 40 && !x.HasAnyAura(ProvidablePlayerBuffs) && x.Distance <= 30f && !x.Dead && !x.IsGhost);
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Raid Buff] {0} ", label)),

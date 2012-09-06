@@ -7,9 +7,6 @@
     using CommonBehaviors.Actions;
     using Styx;
     using Styx.Combat.CombatRoutine;
-    //using Styx.Logic;
-    //using Styx.Logic.Combat;
-    //using Styx.Logic.Pathing;
     using Styx.CommonBot;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
