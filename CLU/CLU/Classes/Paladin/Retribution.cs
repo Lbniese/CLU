@@ -116,8 +116,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.RetributionHoRCount, 0.0, 0.0, ret => Me.CurrentHolyPower <= 5, "Hammer of the Righteous"),
                                    Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
                                    Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
-                                   Spell.CastSpell("Judgement",                   ret => !Buff.PlayerHasBuff("Holy Avenger") && Me.CurrentHolyPower < 5, "Judgement"),
-                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"),
+                                   Spell.CastSpell("Judgement", ret => true, "Judgement"), //!Buff.PlayerHasBuff("Holy Avenger") && Me.CurrentHolyPower < 5
+                                   Spell.CastSpell("Templar's Verdict", ret => true, "Templar's Verdict"), //(Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3)
                                    Spell.CastSpell("Exorcism",                    ret => true, "Exorcism"),
                                    Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20) && Me.CurrentTarget.MaxHealth > 1, "Hammer of Wrath"),
                                    Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),

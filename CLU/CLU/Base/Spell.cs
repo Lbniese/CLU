@@ -161,24 +161,26 @@
         /// <param name="name">name of the spell to cast.</param>
         public static void CastMySpell(string name)
         {
-            CastfuckingSpell(name);
-            //var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
+            //CastfuckingSpell(name);
+            var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
 
-            //// Fishing for KeyNotFoundException's yay!
-            //if (mySpellToCast != null) {
-            //    SpellManager.Cast(mySpellToCast);
-            //}
+            // Fishing for KeyNotFoundException's yay!
+            if (mySpellToCast != null)
+            {
+                SpellManager.Cast(mySpellToCast);
+            }
         }
 
         public static void CastMySpell(string name, WoWUnit unit)
         {
-            CastfuckingSpell(name);
-            //var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
+            //CastfuckingSpell(name);
+            var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
 
-            //// Fishing for KeyNotFoundException's yay!
-            //if (mySpellToCast != null) {
-            //    SpellManager.Cast(mySpellToCast, unit);
-            //}
+            // Fishing for KeyNotFoundException's yay!
+            if (mySpellToCast != null)
+            {
+                SpellManager.Cast(mySpellToCast, unit);
+            }
         }
 
         // trmporary
