@@ -86,8 +86,8 @@ namespace CLU.Classes.Shaman
                            // Threat
                            Buff.CastBuff("Wind Shear",                ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90, "Wind Shear (Threat)"),
                            // Weapon enchants
-                           Buff.CastBuff("Windfury Weapon",           ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
-                           Buff.CastBuff("Flametongue Weapon",        ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon"),
+                           //Buff.CastBuff("Windfury Weapon",           ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
+                          // Buff.CastBuff("Flametongue Weapon",        ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon"),
                            // Totem management
                            Totems.CreateSetTotems(),
                            // AoE
@@ -134,9 +134,9 @@ namespace CLU.Classes.Shaman
                                Item.UseBagItem("Healthstone",              ret => Me.HealthPercent < 30, "Healthstone"),
                                Buff.CastBuff("Lightning Shield",           ret => true, "Lightning Shield"),
                                Buff.CastBuff("Shamanistic Rage",           ret => Me.CurrentTarget != null && (Me.HealthPercent < 60 || (Me.ManaPercent < 65 && Me.CurrentTarget.HealthPercent >= 75)), "Shamanistic Rage"),
-                               Spell.CastSelfSpell("Healing Surge",        ret => Me.HealthPercent < 35, "Healing Surge"),
-                               Buff.CastBuff("Windfury Weapon",            ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
-                               Buff.CastBuff("Flametongue Weapon",         ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon")
+                               Spell.CastSelfSpell("Healing Surge",        ret => Me.HealthPercent < 35, "Healing Surge")
+                               //Buff.CastBuff("Windfury Weapon",            ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
+                               //Buff.CastBuff("Flametongue Weapon",         ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon")
                            ));
             }
         }
@@ -152,9 +152,9 @@ namespace CLU.Classes.Shaman
                                    new Sequence(
                                        new Action(ret => CLU.Log(" [Totems] Recalling Totems")),
                                        new Action(ret => Totems.RecallTotems()))),
-                               Buff.CastBuff("Lightning Shield",       ret => true, "Lightning Shield"),
-                               Buff.CastBuff("Windfury Weapon",        ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
-                               Buff.CastBuff("Flametongue Weapon",     ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon")
+                               Buff.CastBuff("Lightning Shield",       ret => true, "Lightning Shield")
+                              // Buff.CastBuff("Windfury Weapon",        ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Windfury", 8232) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Windfury Weapon"),
+                              // Buff.CastBuff("Flametongue Weapon",     ret => !Item.HasWeaponImbue(WoWInventorySlot.OffHand, "Flametongue", 8024) && Item.HasSuitableWeapon(WoWInventorySlot.OffHand), "Flametongue Weapon")
                            ));
             }
         }

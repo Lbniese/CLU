@@ -83,13 +83,13 @@
 
             var enchant = item.TemporaryEnchantment;
             if (enchant != null) {
-                //CLU.TroubleShootDebugLog(Color.ForestGreen, "Enchantment Name: " + enchant.Name);
-                //CLU.TroubleShootDebugLog(Color.ForestGreen, "Enchantment ID: " + enchant.Id);
-                //CLU.TroubleShootDebugLog(Color.ForestGreen, "ImbueName: " + imbueName);
-                //CLU.TroubleShootDebugLog(Color.ForestGreen, "Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
+                //CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchantment Name: " + enchant.Name);
+                CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchantment ID: " + enchant.Id);
+                CLU.TroubleshootDebugLog(Color.ForestGreen, "ImbueName: " + imbueName);
+                //CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
             }
 
-            return enchant != null && (enchant.Name == imbueName || imbueId == enchant.Id);
+            return enchant != null && (imbueId == enchant.Id); //enchant.Name == imbueName ||
         }
 
         /// <summary>

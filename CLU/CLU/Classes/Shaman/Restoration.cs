@@ -120,7 +120,7 @@ namespace CLU.Classes.Shaman
 						)),
 
 					// Weapon Imbue
-					Buff.CastBuff("Earthliving Weapon", ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Earthliving Weapon"),
+					//Buff.CastBuff("Earthliving Weapon", ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Earthliving Weapon"),
 
 					//// Cooldowns
 					//Healer.FindAreaHeal(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, 10, 65, 38f, (Me.IsInRaid ? 6 : 4), "Cooldowns: Avg: 10-65, 38yrds, count: 6 or 3",
@@ -226,8 +226,8 @@ namespace CLU.Classes.Shaman
 						Healer.FindTank(a => CanEarthshield, x => !x.ToUnit().Dead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Earth Shield") && x.EarthShield, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Earth Shield on tank precombat",
 						                Buff.CastTargetBuff("Earth Shield", a => true, "Earth Shield on tank")
 						               ),
-						Buff.CastBuff("Water Shield",        ret => true, "Water Shield"),
-						Buff.CastBuff("Earthliving Weapon",  ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Earthliving Weapon")
+						Buff.CastBuff("Water Shield",        ret => true, "Water Shield")
+						//Buff.CastBuff("Earthliving Weapon",  ret => !Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345) && Item.HasSuitableWeapon(WoWInventorySlot.MainHand), "Earthliving Weapon")
 					));
 			}
 		}
