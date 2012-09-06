@@ -83,11 +83,12 @@ namespace CLU.Classes.Hunter
                             Movement.EnsureMovementStoppedBehavior(),
                             Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet"))),
                     new Sequence(
-                        new Action(ret => PetManager.CastPetSummonSpell("Call Pet " + (int)CLUSettings.Instance.Hunter.PetSlotSelection, x => Pet == null, " Calling Pet in " + CLUSettings.Instance.Hunter.PetSlotSelection)),
-                        new WaitContinue(2, ret => StyxWoW.Me.GotAlivePet || StyxWoW.Me.Combat, new ActionAlwaysSucceed()),
-                        new Decorator(
-                            ret => !Me.GotAlivePet && (!Me.Combat || reviveInCombat),
-                            Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet")))
+                        new Action(ret => PetManager.CastPetSummonSpell("Call Pet " + (int)CLUSettings.Instance.Hunter.PetSlotSelection, x => StyxWoW.Me.Pet == null, " Calling Pet in " + CLUSettings.Instance.Hunter.PetSlotSelection)),
+                        new WaitContinue(2, ret => StyxWoW.Me.GotAlivePet || StyxWoW.Me.Combat, new ActionAlwaysSucceed())
+                        //new Decorator(
+                        //    ret => !Me.GotAlivePet && (!Me.Combat || reviveInCombat),
+                        //    Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet")
+                            )
                     )
                 );
         }

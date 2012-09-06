@@ -126,7 +126,6 @@ namespace CLU.Classes.Warlock
                            new Decorator(
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
-                                   Buff.CastBuff("Fel Armor", ret => true, "Fel Armor"),
                                    PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.IsMoving && !Me.GotAlivePet, "Summoning Pet Imp"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link"),
                                    new Decorator(

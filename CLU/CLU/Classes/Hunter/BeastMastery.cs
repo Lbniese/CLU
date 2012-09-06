@@ -86,6 +86,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            // For DS Encounters.
                            EncounterSpecific.ExtraActionButton(),
 
+                           Spell.CastSelfSpell("Call Pet 1", ret => true, "Call Pet 1"),
+
                            // Camouflage
                            Buff.CastBuff("Camouflage", ret => CLUSettings.Instance.Hunter.EnableAlwaysCamouflage, "Camouflage"),
 
@@ -105,6 +107,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
                                    // TODO: Add Binding shot logic..need to see it working well.
                                    Common.HandleMisdirection(),
+                                   
                                    Buff.CastBuff("Hunter's Mark",             ret => true, "Hunter's Mark"),
                                    Spell.CastSelfSpell("Feign Death",         ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && CLUSettings.Instance.Hunter.UseFeignDeath, "Feign Death Threat"),
                                    Spell.CastSpell("Concussive Shot",         ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTargetGuid == Me.Guid && CLUSettings.Instance.Hunter.UseConcussiveShot, "Concussive Shot"),

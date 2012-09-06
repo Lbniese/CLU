@@ -380,7 +380,7 @@
         		delegate(object a) {
         			if (!cond(a))
         				return false;
-
+                    //CLU.TroubleshootDebugLog(Color.Chartreuse, "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
         			if (!CanCast(name, onUnit(a)))
         				return false;
 

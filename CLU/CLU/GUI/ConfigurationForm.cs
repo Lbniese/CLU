@@ -746,6 +746,10 @@ namespace CLU.GUI
                 textBox2.Text += output + Environment.NewLine;
                 output = target == null ? string.Empty : "Me.CurrentHolyPower : " + Me.CurrentHolyPower;
                 textBox2.Text += output + Environment.NewLine;
+                output = target == null ? string.Empty : "PetSlotSelection : " + (int)CLUSettings.Instance.Hunter.PetSlotSelection;
+                textBox2.Text += output + Environment.NewLine;
+
+                
 
               
 
