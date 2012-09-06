@@ -12,7 +12,7 @@ namespace CLU.Classes.Rogue
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
     using Styx.TreeSharp;
-    using System.Drawing;
+
     using global::CLU.Base;
     using global::CLU.Settings;
 
@@ -128,7 +128,7 @@ namespace CLU.Classes.Rogue
                        new Decorator(
                            ret => MainHandNeedsPoison && MainHandPoison != null,
                            new Sequence(
-                               new Action(ret => CLU.TroubleshootDebugLog(Color.ForestGreen, "Applying {0} to main hand", MainHandPoison.Name)),
+                               new Action(ret => CLU.TroubleshootLog( "Applying {0} to main hand", MainHandPoison.Name)),
                                new Action(ret => Navigator.PlayerMover.MoveStop()),
                                Spell.CreateWaitForLagDuration(),
                                new Action(ret => MainHandPoison.UseContainerItem()),
@@ -140,7 +140,7 @@ namespace CLU.Classes.Rogue
                        new Decorator(
                            ret => OffHandNeedsPoison && OffHandPoison != null,
                            new Sequence(
-                               new Action(ret => CLU.TroubleshootDebugLog(Color.ForestGreen, "Applying {0} to off hand", OffHandPoison.Name)),
+                               new Action(ret => CLU.TroubleshootLog( "Applying {0} to off hand", OffHandPoison.Name)),
                                new Action(ret => Navigator.PlayerMover.MoveStop()),
                                Spell.CreateWaitForLagDuration(),
                                new Action(ret => OffHandPoison.UseContainerItem()),
@@ -152,7 +152,7 @@ namespace CLU.Classes.Rogue
                        new Decorator(
                            ret => ThrownNeedsPoison && ThrownPoison != null,
                            new Sequence(
-                               new Action(ret => CLU.TroubleshootDebugLog(Color.ForestGreen, "Applying {0} to main hand", ThrownPoison.Name)),
+                               new Action(ret => CLU.TroubleshootLog( "Applying {0} to main hand", ThrownPoison.Name)),
                                new Action(ret => Navigator.PlayerMover.MoveStop()),
                                Spell.CreateWaitForLagDuration(),
                                new Action(ret => ThrownPoison.UseContainerItem()),

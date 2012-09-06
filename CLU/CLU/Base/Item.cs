@@ -5,7 +5,6 @@
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
     using Styx.TreeSharp;
-    using System.Drawing;
     using Styx.Combat.CombatRoutine;
     using System.Text;
     using global::CLU.Lists;
@@ -74,19 +73,19 @@
             // GTFO if we have a fishing pole equiped
             if (StyxWoW.Me.Inventory.Equipped.MainHand.ItemInfo.WeaponClass == WoWItemWeaponClass.FishingPole) return true;
 
-            //CLU.TroubleShootDebugLog(Color.ForestGreen, "Checking Weapon Imbue on " + slot + " for " + imbueName);
+            //CLU.TroubleshootLog( "Checking Weapon Imbue on " + slot + " for " + imbueName);
             var item = StyxWoW.Me.Inventory.Equipped.GetEquippedItem(slot);
             if (item == null) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "We have no " + slot + " equipped!");
+                CLU.TroubleshootLog( "We have no " + slot + " equipped!");
                 return true;
             }
 
             var enchant = item.TemporaryEnchantment;
             if (enchant != null) {
-                //CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchantment Name: " + enchant.Name);
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchantment ID: " + enchant.Id);
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "ImbueName: " + imbueName);
-                //CLU.TroubleshootDebugLog(Color.ForestGreen, "Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
+                //CLU.TroubleshootLog( "Enchantment Name: " + enchant.Name);
+                CLU.TroubleshootLog( "Enchantment ID: " + enchant.Id);
+                CLU.TroubleshootLog( "ImbueName: " + imbueName);
+                //CLU.TroubleshootLog( "Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
             }
 
             return enchant != null && (imbueId == enchant.Id); //enchant.Name == imbueName ||

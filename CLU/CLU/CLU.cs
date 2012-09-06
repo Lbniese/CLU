@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Timers;
 using CLU.Classes;
@@ -9,6 +8,7 @@ using CLU.Helpers;
 using CLU.Settings;
 using Styx;
 using Styx.Combat.CombatRoutine;
+using System.Windows.Media;
 using Styx.Helpers;
 //using Styx.Logic;
 //using Styx.Logic.BehaviorTree;
@@ -56,7 +56,7 @@ namespace CLU
             Instance = this;
 
             // Yes, we are hooking in ctor. before a botbase caches us
-            TroubleshootDebugLog(Color.ForestGreen, "Attatching BotEvents");
+            TroubleshootLog("Attatching BotEvents");
             BotEvents.OnBotStarted += WoWStats.Instance.WoWStatsOnStarted;
             BotEvents.OnBotStopped += WoWStats.Instance.WoWStatsOnStopped;
             BotEvents.OnBotStarted += CombatLogEvents.Instance.CombatLogEventsOnStarted;
@@ -129,26 +129,24 @@ namespace CLU
             }
         }
 
-        /// <summary>writes debug messages to the log file (regardless of debug log setting) This is necassary information for CLU's programmer</summary>
-        /// <param name="color">The color.</param>
+        /// <summary>writes debug messages to the log file. This is necassary information for CLU's programmer</summary>
         /// <param name="msg">the message to write to the log</param>
         /// <param name="args">the arguments that accompany the message</param>
-        public static void TroubleshootDebugLog(Color color, string msg, params object[] args)
+        public static void TroubleshootLog(string msg, params object[] args)
         {
             if (msg != null) {
-                Logging.WriteQuiet("[CLU] " + Version + ": " + msg, args);
+                Logging.Write(LogLevel.Quiet, Colors.DimGray, "[CLU] " + Version + ": " + msg, args);
             }
         }
 
 
         /// <summary>writes debug messages to the log file (false by default)</summary>
-        /// <param name="color">The color.</param>
         /// <param name="msg">the message to write to the log</param>
         /// <param name="args">the arguments that accompany the message</param>
-        public static void DebugLog(Color color, string msg, params object[] args)
+        public static void DiagnosticLog(string msg, params object[] args)
         {
             if (msg != null && CLUSettings.Instance.EnableDebugLogging) {
-                Logging.WriteDiagnostic("[CLU] " + Version + ": " + msg, args);
+                Logging.Write(LogLevel.Diagnostic, Colors.White, "[CLU] " + Version + ": " + msg, args);
             }
         }
 
@@ -160,7 +158,7 @@ namespace CLU
         public static void Log(string msg, params object[] args)
         {
             if (msg != null) {
-                Logging.Write("[CLU] " + Version + ": " + msg, args);
+                Logging.Write(LogLevel.Normal, Colors.Yellow, "[CLU] " + Version + ": " + msg, args);
             }
         }
 
@@ -184,32 +182,32 @@ namespace CLU
             ///////////////////////////////////////////////////////////////////
             // Start non invasive user information
             ///////////////////////////////////////////////////////////////////
-            TroubleshootDebugLog(Color.ForestGreen, "Character level: {0}", Me.Level);
-            TroubleshootDebugLog(Color.ForestGreen, "Character Faction: {0}", Me.IsAlliance ? "Alliance" : "Horde");
-            TroubleshootDebugLog(Color.ForestGreen, "Character Race: {0}", Me.Race);
-            TroubleshootDebugLog(Color.ForestGreen, "Character Mapname: {0}", Me.MapName);
+            CLU.TroubleshootLog("Character level: {0}", Me.Level);
+            CLU.TroubleshootLog("Character Faction: {0}", Me.IsAlliance ? "Alliance" : "Horde");
+            CLU.TroubleshootLog("Character Race: {0}", Me.Race);
+            CLU.TroubleshootLog("Character Mapname: {0}", Me.MapName);
             // Talents
-            TroubleshootDebugLog(Color.ForestGreen, "Retrieving Talent Spec");
+            CLU.TroubleshootLog("Retrieving Talent Spec");
             try {
                 TalentManager.Update();
             } catch (Exception e) {
                 StopBot(e.ToString());
             }
-            TroubleshootDebugLog(Color.ForestGreen, " Character Current Build: {0}",TalentManager.CurrentSpec.ToString());
+            CLU.TroubleshootLog(" Character Current Build: {0}",TalentManager.CurrentSpec.ToString());
             // Racials
-            TroubleshootDebugLog(Color.ForestGreen, "Retrieving Racial Abilities");
+            CLU.TroubleshootLog("Retrieving Racial Abilities");
             foreach (WoWSpell racial in Spell.CurrentRacials) {
-                TroubleshootDebugLog(Color.ForestGreen, " Character Racial Abilitie: {0} ", racial.Name);
+                CLU.TroubleshootLog(" Character Racial Abilitie: {0} ", racial.Name);
             }
-            TroubleshootDebugLog(Color.ForestGreen, " {0}", Me.IsInInstance ? "Character is currently in an Instance" : "Character seems to be outside an Instance");
-            TroubleshootDebugLog(Color.ForestGreen, "Character HB Pull Range: {0}", Targeting.PullDistance);
+            CLU.TroubleshootLog(" {0}", Me.IsInInstance ? "Character is currently in an Instance" : "Character seems to be outside an Instance");
+            CLU.TroubleshootLog("Character HB Pull Range: {0}", Targeting.PullDistance);
             ///////////////////////////////////////////////////////////////////
             // END non invasive user information
             ///////////////////////////////////////////////////////////////////
 
 
             // Create the new List of HealableUnit type.
-            TroubleshootDebugLog(Color.ForestGreen, "Initializing list of HealableUnits");
+            CLU.TroubleshootLog("Initializing list of HealableUnits");
             switch (CLUSettings.Instance.SelectedHealingAquisition) {
             case HealingAquisitionMethod.Proximity:
                 HealableUnit.HealableUnitsByProximity();
@@ -218,16 +216,16 @@ namespace CLU
                 HealableUnit.HealableUnitsByPartyorRaid();
                 break;
             }
-            TroubleshootDebugLog(Color.ForestGreen, " {0}", IsHealerRotationActive ? "Healer Base Detected" : "No Healer Base Detectected");
+            CLU.TroubleshootLog(" {0}", IsHealerRotationActive ? "Healer Base Detected" : "No Healer Base Detectected");
 
             // Initialize Botchecks
-            TroubleshootDebugLog(Color.ForestGreen, "Initializing Bot Checker");
+            CLU.TroubleshootLog("Initializing Bot Checker");
             BotChecker.Initialize();
 
-            TroubleshootDebugLog(Color.ForestGreen, "Initializing Sound Player");
+            CLU.TroubleshootLog("Initializing Sound Player");
             SoundManager.Initialize();
 
-            TroubleshootDebugLog(Color.ForestGreen, "Initializing Keybinds");
+            CLU.TroubleshootLog("Initializing Keybinds");
             this.clupulsetimer.Interval = 1000; // 1second
             this.clupulsetimer.Elapsed += ClupulsetimerElapsed; // Attatch
             this.clupulsetimer.Enabled = true; // Enable
@@ -322,7 +320,7 @@ namespace CLU
         {
             get {
                 if (this.rotationBase == null) {
-                    TroubleshootDebugLog(Color.ForestGreen, "ActiveRotation is null..retrieving.");
+                    CLU.TroubleshootLog("ActiveRotation is null..retrieving.");
                     this.QueryClassTree();
                     if (this.rotationBase == null) {
                         if (TalentManager.CurrentSpec.ToString() == "Lowbie") {
@@ -359,11 +357,11 @@ namespace CLU
                 if (constructorInfo != null) {
                     var rb = constructorInfo.Invoke(new object[] { }) as RotationBase;
                     if (rb != null && SpellManager.HasSpell(rb.KeySpell)) {
-                        TroubleshootDebugLog(Color.ForestGreen, " Using " + rb.Name + " rotation. Character has " + rb.KeySpell);
+                        CLU.TroubleshootLog(" Using " + rb.Name + " rotation. Character has " + rb.KeySpell);
                         this.rotations.Add(rb);
                     } else {
                         if (rb != null)
-                            TroubleshootDebugLog(Color.ForestGreen, " Skipping " + rb.Name + " rotation. Character is missing " + rb.KeySpell);
+                            CLU.TroubleshootLog(" Skipping " + rb.Name + " rotation. Character is missing " + rb.KeySpell);
                     }
                 }
             }
@@ -409,14 +407,14 @@ namespace CLU
             }
 
             if (this.ActiveRotation.GetType().BaseType == typeof(HealerRotationBase)) {
-                TroubleshootDebugLog(Color.ForestGreen, " [HealingChecker] HealerRotationBase Detected. *Activating Automatic HealableUnit refresh*");
+                CLU.TroubleshootLog(" [HealingChecker] HealerRotationBase Detected. *Activating Automatic HealableUnit refresh*");
                 IsHealerRotationActive = true;
             }
         }
 
         private static void StopBot(string reason)
         {
-            TroubleshootDebugLog(Color.ForestGreen, reason);
+            CLU.TroubleshootLog(reason);
             TreeRoot.Stop();
         }
 

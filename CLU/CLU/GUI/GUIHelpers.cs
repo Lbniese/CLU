@@ -81,7 +81,7 @@ namespace CLU.GUI
                         if (ctrl.Name != cmbobox.Name) {
                             bool matchs = ((ComboBox)ctrl).SelectedValue.ToString() == cmbobox.SelectedValue.ToString();
                             if (matchs && ((ComboBox)ctrl).SelectedValue.ToString() != "Nothing") {
-                                CLU.TroubleshootDebugLog(Color.Red, " [Keybind Match] {0} == {1}. Please Make another selection", ctrl.Name, cmbobox.Name);
+                                CLU.TroubleshootLog(" [Keybind Match] {0} == {1}. Please Make another selection", ctrl.Name, cmbobox.Name);
                                 cmbobox.SelectedIndex = cmbobox.FindStringExact("Nothing");
                             }
                         }

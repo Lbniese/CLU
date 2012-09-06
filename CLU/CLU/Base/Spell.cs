@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Windows.Media;
+
     using CommonBehaviors.Actions;
     using Styx;
     using Styx.Combat.CombatRoutine;
@@ -12,7 +14,7 @@
     using Styx.WoWInternals.WoWObjects;
     using Styx.TreeSharp;
     using System.Diagnostics;
-    using System.Drawing;
+
     using global::CLU.Lists;
     using global::CLU.Settings;
     using Action = Styx.TreeSharp.Action;
@@ -119,7 +121,7 @@
                 if (TreePerformanceTimer.ElapsedMilliseconds > 0)
                 {
                     // NOTE: This dosnt account for Spell casts (meaning the total time is not the time to traverse the tree plus the current cast time of the spell)..this is actual time to traverse the tree.
-                    CLU.DebugLog(Color.DarkGray, "[CLU] " + CLU.Version + ": " + " [CLU TreePerformance] Elapsed Time to traverse the tree: {0} ms", TreePerformanceTimer.ElapsedMilliseconds);
+                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": " + " [CLU TreePerformance] Elapsed Time to traverse the tree: {0} ms", TreePerformanceTimer.ElapsedMilliseconds);
                     TreePerformanceTimer.Stop();
                     TreePerformanceTimer.Reset();
                 }
@@ -285,7 +287,7 @@
                 WoWSpell s = SpellManager.Spells[name];
                 return s.CastTime / 1000.0;
             } catch {
-                CLU.TroubleshootDebugLog(Color.Red," [ERROR] in CastTime: {0} ", name);
+                CLU.TroubleshootLog("[ERROR] in CastTime: {0} ", name);
                 return 999999.9;
             }
         }
@@ -835,7 +837,7 @@
                 // dont break it if already casting it
                 new Decorator(
                     x => PlayerIsChanneling && Me.ChanneledCastingSpellId == SpellManager.Spells[name].Id,
-                    new Action(a => CLU.DebugLog(Color.ForestGreen,name))),
+                    new Action(a => CLU.TroubleshootLog(name))),
                 // casting logic
                 new Sequence(
                     new Action(a => CLU.Log(" [AoE Channel] {0} ", label)),
@@ -910,7 +912,7 @@
                 var retValue = Double.Parse(Lua.GetReturnValues(lua)[0]);
                 return retValue;
             } catch {
-                CLU.TroubleshootDebugLog(Color.Red, "Lua failed in RuneCooldown: " + lua);
+                CLU.TroubleshootLog("Lua failed in RuneCooldown: " + lua);
                 return 9999;
             }
         }
@@ -928,13 +930,13 @@
                         if (luaRet != null) {
                             var purgableSpell = luaRet[0] == "Magic";
                             if (purgableSpell) {
-                                CLU.DebugLog(Color.ForestGreen, "Buff Name: {0} is Dispelable!", luaRet[1]);
+                                CLU.TroubleshootLog( "Buff Name: {0} is Dispelable!", luaRet[1]);
                             }
 
                             return purgableSpell;
                         }
                     } catch {
-                        CLU.TroubleshootDebugLog(Color.Red, "Lua failed in TargetHasDispelableBuff");
+                        CLU.TroubleshootLog("Lua failed in TargetHasDispelableBuff");
                         return false;
                     }
                 }
@@ -960,13 +962,13 @@
                         if (luaRet != null && luaRet[0] == "1") {
                             var stealableSpell = !Buff.PlayerHasActiveBuff(luaRet[1]) && (luaRet[1] != "Arcane Brilliance" && luaRet[1] != "Dalaran Brilliance");
                             if (stealableSpell) {
-                                CLU.DebugLog(Color.ForestGreen, "Buff Name: {0} isStealable", luaRet[1]);
+                                CLU.TroubleshootLog( "Buff Name: {0} isStealable", luaRet[1]);
                             }
 
                             return stealableSpell;
                         }
                     } catch {
-                        CLU.TroubleshootDebugLog(Color.Red, "Lua failed in TargetHasStealableBuff");
+                        CLU.TroubleshootLog("Lua failed in TargetHasStealableBuff");
                         return false;
                     }
                 }
@@ -1111,18 +1113,18 @@
         /// </summary>
         public static void DumpSpells()
         {
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "==================SpellManager.RawSpells===============");
+            CLU.TroubleshootLog( "==================SpellManager.RawSpells===============");
             foreach (var sp in SpellManager.RawSpells)
             {
                 WoWSpell spell;
                 if (SpellManager.Spells.TryGetValue(sp.Name, out spell))
                 {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "Spell ID:" + sp.Id + " MaxRange:" + sp.MaxRange + " " + spell);
+                    CLU.TroubleshootLog( "Spell ID:" + sp.Id + " MaxRange:" + sp.MaxRange + " " + spell);
                 } else {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, sp.Name);
+                    CLU.TroubleshootLog( sp.Name);
                 }
             }
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "=======================================================");
+            CLU.TroubleshootLog( "=======================================================");
         }
 
         /// <summary>Return the player to apply focus magic too (will probably go for a static list)</summary>

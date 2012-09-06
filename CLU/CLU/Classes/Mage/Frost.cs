@@ -1,6 +1,6 @@
 ﻿using CLU.Helpers;
 using Styx.TreeSharp;
-using System.Drawing;
+
 using CommonBehaviors.Actions;
 using CLU.Lists;
 using CLU.Settings;
@@ -77,7 +77,7 @@ namespace CLU.Classes.Mage
 
                            // Comment: Dont break Invinsibility!!
                            new Decorator(
-                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.DebugLog(Color.ForestGreen,"Invisibility active"))),
+                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.TroubleshootLog("Invisibility active"))),
                            // Interupts & Steal Buffs
                            Spell.CastSpell("Spellsteal",                  ret => Spell.TargetHasStealableBuff() && !Me.IsMoving, "[Steal] Spellsteal"),
                            // Rotation based on SimCraft - Build 15211

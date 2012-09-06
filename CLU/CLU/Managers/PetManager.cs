@@ -8,12 +8,8 @@
     using Styx.Combat.CombatRoutine;
     using Styx.Common.Helpers;
     using Styx.CommonBot;
-    //using Styx.Logic.Combat;
-    //using Styx.Logic.Pathing;
     using Styx.WoWInternals;
     using Styx.WoWInternals.WoWObjects;
-    using System.Drawing;
-
     using Styx.TreeSharp;
     using global::CLU.Base;
     using global::CLU.Settings;
@@ -78,7 +74,7 @@
                 return TimeSpan.Zero;
             }
 
-            CLU.DebugLog(Color.ForestGreen, " [PetSpellCooldown] {0} : {1}", name, petAction.Spell.CooldownTimeLeft);
+            CLU.TroubleshootLog( " [PetSpellCooldown] {0} : {1}", name, petAction.Spell.CooldownTimeLeft);
             return petAction.Spell.CooldownTimeLeft;
         }
 
@@ -136,10 +132,10 @@
         {
             WoWPetSpell petAction = Me.PetSpells.FirstOrDefault(p => p.ToString() == name);
             if (petAction == null || petAction.Spell == null) {
-                CLU.DebugLog(Color.ForestGreen, String.Format("[PetManager] Pet does not have the spell {0}", name));
+                CLU.TroubleshootLog( String.Format("[PetManager] Pet does not have the spell {0}", name));
                 return false;
             }
-            CLU.DebugLog(Color.ForestGreen, String.Format("[PetManager] Spell {0}, Cooldown left {1}", petAction.Spell.Name, petAction.Spell.CooldownTimeLeft));
+            CLU.TroubleshootLog( String.Format("[PetManager] Spell {0}, Cooldown left {1}", petAction.Spell.Name, petAction.Spell.CooldownTimeLeft));
             return !petAction.Spell.Cooldown;
         }
 
@@ -152,7 +148,7 @@
         {
             WoWPetSpell petAction = Me.PetSpells.FirstOrDefault(p => p.ToString() == name);
             if (petAction == null || petAction.Spell == null) {
-                CLU.DebugLog(Color.ForestGreen, String.Format("[PetManager] Pet does not have the spell {0}", name));
+                CLU.TroubleshootLog( String.Format("[PetManager] Pet does not have the spell {0}", name));
                 return false;
             }
             return true;

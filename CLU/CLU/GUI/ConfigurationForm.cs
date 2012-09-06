@@ -264,7 +264,7 @@ namespace CLU.GUI
                 HealingGrid.CurrentCellDirtyStateChanged += this.HealingGrid_CurrentCellDirtyStateChanged;
                 //HealingGrid.CellMouseClick += this.HealingGrid_OnCellMouseUp;
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "InitializeHealingGrid : {0}", ex);
+                CLU.TroubleshootLog( "InitializeHealingGrid : {0}", ex);
             }
         }
 
@@ -281,7 +281,7 @@ namespace CLU.GUI
                 // Add a couple of HealableUnits to the list.
                 if (Me.CurrentTarget != null && HealableUnit.Filter(Me.CurrentTarget)) {
                     if (!HealableUnit.Contains(Me.CurrentTarget)) {
-                        CLU.TroubleshootDebugLog(Color.ForestGreen, " Adding: {0} because of user request.", CLU.SafeName(Me.CurrentTarget));
+                        CLU.TroubleshootLog( " Adding: {0} because of user request.", CLU.SafeName(Me.CurrentTarget));
                         HealableUnit.ListofHealableUnits.Add(new HealableUnit(Me.CurrentTarget));
                     }
                 } else {
@@ -294,7 +294,7 @@ namespace CLU.GUI
                 }
                 this.RefreshDataGridView();
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "addHealableUnit_Click : {0}", ex);
+                CLU.TroubleshootLog( "addHealableUnit_Click : {0}", ex);
             }
         }
 
@@ -308,7 +308,7 @@ namespace CLU.GUI
             try {
 
                 if (this.HealingGrid.SelectedRows.Count > 0) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, " Removing: {0} because of user request.", this.HealingGrid.SelectedRows[0].Cells[6].Value);
+                    CLU.TroubleshootLog( " Removing: {0} because of user request.", this.HealingGrid.SelectedRows[0].Cells[6].Value);
                     HealableUnit.ListofHealableUnits.RemoveAt(this.HealingGrid.SelectedRows[0].Index);
                 } else {
                     MessageBox.Show(
@@ -321,7 +321,7 @@ namespace CLU.GUI
                 this.RefreshDataGridView(); // update
             } catch (Exception ex) {
                 this.RefreshDataGridView(); // update
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "removeUnitHealingGrid_Click : {0}", ex);
+                CLU.TroubleshootLog( "removeUnitHealingGrid_Click : {0}", ex);
             }
         }
 
@@ -378,7 +378,7 @@ namespace CLU.GUI
         /// </summary>
         private void updateListofHealableUnitsGrid_Click(object sender, EventArgs e)
         {
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "User clicked update - Re-Initialize list Of HealableUnits");
+            CLU.TroubleshootLog( "User clicked update - Re-Initialize list Of HealableUnits");
             HealableUnit.ListofHealableUnits.Clear();
             switch (CLUSettings.Instance.SelectedHealingAquisition) {
             case HealingAquisitionMethod.Proximity:
@@ -502,7 +502,7 @@ namespace CLU.GUI
                 }
                 Close();
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "ERROR saving settings: {0}", ex);
+                CLU.TroubleshootLog( "ERROR saving settings: {0}", ex);
             }
         }
 
@@ -717,7 +717,7 @@ namespace CLU.GUI
                         MessageBoxDefaultButton.Button1);
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Checker_Click : {0}", ex);
+                CLU.TroubleshootLog( "Checker_Click : {0}", ex);
             }
         }
 
@@ -768,7 +768,7 @@ namespace CLU.GUI
                 }
                 textBox2.Text += output + Environment.NewLine;
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Current Target Information : {0}", ex);
+                CLU.TroubleshootLog( "Current Target Information : {0}", ex);
             }
         }
 

@@ -2,13 +2,14 @@ namespace CLU.Base
 {
 
     using System;
+    using System.Windows.Media;
+
     using Styx;
     using Styx.Combat.CombatRoutine;
     using Styx.CommonBot;
     using Styx.TreeSharp;
     using Styx.WoWInternals.WoWObjects;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Linq;
     using Styx.WoWInternals;
     using global::CLU.CombatLog;
@@ -175,18 +176,18 @@ namespace CLU.Base
         public static void DumpAuras()
         {
             if (Me.CurrentTarget == null) return;
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "===============Me.CurrentTarget.Auras===================");
+            CLU.TroubleshootLog("===============Me.CurrentTarget.Auras===================");
             foreach (KeyValuePair<string, WoWAura> au in Me.CurrentTarget.Auras)
             {
                 WoWAura aura;
                 if (Me.Auras.TryGetValue(au.Key, out aura))
                 {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "Name: " + aura.Name + " ID: " + aura.SpellId);
+                    CLU.TroubleshootLog("Name: " + aura.Name + " ID: " + aura.SpellId);
                 } else {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, au.Key);
+                    CLU.TroubleshootLog( au.Key);
                 }
             }
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "=======================================================");
+            CLU.TroubleshootLog( "=======================================================");
         }
 
         /// <summary>Used to  provide the time at which to attempt to refresh our debuff</summary>
@@ -343,7 +344,7 @@ namespace CLU.Base
                 return wantedAura != null ? wantedAura.TimeLeft : TimeSpan.Zero;
             }
 
-            CLU.DebugLog(Color.ForestGreen," [GetAuraTimeLeft] Unit is null ");
+            CLU.TroubleshootLog(" [GetAuraTimeLeft] Unit is null ");
             return TimeSpan.Zero;
         }
 
@@ -362,7 +363,7 @@ namespace CLU.Base
                 return stackCountAura != null ? stackCountAura.StackCount : 0;
             }
 
-            CLU.DebugLog(Color.ForestGreen," [GetAuraStack] Unit is null ");
+            CLU.TroubleshootLog(" [GetAuraStack] Unit is null ");
             return 0;
         }
 
@@ -654,7 +655,7 @@ namespace CLU.Base
                     var t = Double.Parse(Lua.GetReturnValues(lua)[0]);
                     return t;
                 } catch {
-                    CLU.TroubleshootDebugLog(Color.Red, "Lua failed in PlayerBuffTimeLeft");
+                    CLU.TroubleshootLog("Lua failed in PlayerBuffTimeLeft");
                     return 999999;
                 }
             }

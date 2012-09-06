@@ -10,11 +10,9 @@ todo:                                                               Done by:
 namespace CLU.Classes.DeathKnight
 {
     using System;
-    using System.Drawing;
     using System.Linq;
 
     using Styx;
-    using Styx.Combat.CombatRoutine;
     using Styx.WoWInternals.WoWObjects;
     using Styx.TreeSharp;
     using global::CLU.Base;
@@ -58,7 +56,7 @@ namespace CLU.Classes.DeathKnight
             }
             catch (Exception ex)
             {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "IsWieldingBigWeapon : {0}", ex);
+                CLU.TroubleshootLog( "IsWieldingBigWeapon : {0}", ex);
             }
 
             return false;
@@ -77,7 +75,7 @@ namespace CLU.Classes.DeathKnight
                 }
                 catch (Exception ex)
                 {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "RuneCalculus : {0}", ex);
+                    CLU.TroubleshootLog( "RuneCalculus : {0}", ex);
                 }
 
                 return 0;
@@ -105,8 +103,8 @@ namespace CLU.Classes.DeathKnight
             }
             catch (Exception ex)
             {
-                //CLU.TroubleshootDebugLog(Color.ForestGreen, "IsWieldingBigWeapon : {0}", ex);//Yeah yeah...copy and paste :D haha
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "CanPlagueLeech : {0}", ex);
+                //CLU.TroubleshootLog( "IsWieldingBigWeapon : {0}", ex);//Yeah yeah...copy and paste :D haha
+                CLU.TroubleshootLog( "CanPlagueLeech : {0}", ex);
             }
 
             return false;

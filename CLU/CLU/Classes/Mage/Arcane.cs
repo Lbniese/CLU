@@ -1,7 +1,7 @@
 using System.Linq;
 using CLU.Helpers;
 using Styx.TreeSharp;
-using System.Drawing;
+
 using CommonBehaviors.Actions;
 using CLU.Settings;
 using Action = Styx.TreeSharp.Action;
@@ -75,7 +75,7 @@ namespace CLU.Classes.Mage
                                    Item.UseEngineerGloves())),
                            // Comment: Dont break Invinsibility!!
                            new Decorator(
-                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.DebugLog(Color.ForestGreen,"Invisibility active"))),
+                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.TroubleshootLog("Invisibility active"))),
                            // Interupts & Steal Buffs
                            Spell.CastSpell("Spellsteal",                  ret => Spell.TargetHasStealableBuff() && !Me.IsMoving, "[Steal] Spellsteal"),
                            Spell.CastInterupt("Counterspell",             ret => true, "Counterspell"),

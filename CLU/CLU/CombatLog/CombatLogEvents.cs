@@ -4,12 +4,8 @@
     using System.Collections.Generic;
     using Styx;
     using Styx.CommonBot;
-    //using Styx.Logic.Combat;
     using Styx.CommonBot.POI;
     using Styx.WoWInternals;
-    using System.Drawing;
-    //using Styx.Logic;
-    //using Styx.Logic.POI;
     using Styx.WoWInternals.WoWObjects;
     using global::CLU.Base;
     using global::CLU.Helpers;
@@ -34,7 +30,7 @@
 
         public void CombatLogEventsOnStarted(object o)
         {
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "CombatLogEvents: Connected to the Grid");
+            CLU.TroubleshootLog( "CombatLogEvents: Connected to the Grid");
 
             // Lua.Events.AttachEvent("CHARACTER_POINTS_CHANGED", UpdateActiveRotation);
             // Lua.Events.AttachEvent("ACTIVE_TALENT_GROUP_CHANGED", UpdateActiveRotation)
@@ -86,7 +82,7 @@
         {
             try {
                 if (CLU.IsHealerRotationActive && StyxWoW.IsInGame) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "CombatLogEvents: Party Members Changed - Re-Initialize list Of HealableUnits");
+                    CLU.TroubleshootLog( "CombatLogEvents: Party Members Changed - Re-Initialize list Of HealableUnits");
                     switch (CLUSettings.Instance.SelectedHealingAquisition) {
                     case HealingAquisitionMethod.Proximity:
                         HealableUnit.HealableUnitsByProximity();
@@ -97,7 +93,7 @@
                     }
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "HandlePartyMembersChanged : {0}", ex);
+                CLU.TroubleshootLog( "HandlePartyMembersChanged : {0}", ex);
             }
 
         }
@@ -106,7 +102,7 @@
         {
             try {
                 if (CLU.IsHealerRotationActive && StyxWoW.IsInGame) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "CombatLogEvents: Party Members Changed - Re-Initialize list Of HealableUnits");
+                    CLU.TroubleshootLog( "CombatLogEvents: Party Members Changed - Re-Initialize list Of HealableUnits");
                     switch (CLUSettings.Instance.SelectedHealingAquisition) {
                     case HealingAquisitionMethod.Proximity:
                         HealableUnit.HealableUnitsByProximity();
@@ -117,7 +113,7 @@
                     }
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Player_OnMapChanged : {0}", ex);
+                CLU.TroubleshootLog( "Player_OnMapChanged : {0}", ex);
             }
         }
 
@@ -150,7 +146,7 @@
             var spellName = WoWSpell.FromId(spellID).Name;
 
             if (!success && spellCast) {
-                CLU.TroubleshootDebugLog(Color.Orange, "Woops, '{0}' cast failed: {1}", spellName, raw.EventName);
+                CLU.TroubleshootLog("Woops, '{0}' cast failed: {1}", spellName, raw.EventName);
             }
 
             // if the spell is locked, let's extend it (spell travel time + client lag) / or reset it...
@@ -174,7 +170,7 @@
 
             switch (missType) {
             case "EVADE":
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Mob is evading. Blacklisting it!");
+                CLU.TroubleshootLog( "Mob is evading. Blacklisting it!");
                 Blacklist.Add(e.DestGuid, TimeSpan.FromMinutes(30));
                 if (StyxWoW.Me.CurrentTargetGuid == e.DestGuid) {
                     StyxWoW.Me.ClearTarget();
@@ -186,7 +182,7 @@
             case "IMMUNE":
                 WoWUnit unit = e.DestUnit;
                 if (unit != null && !unit.IsPlayer) {
-                    CLU.TroubleshootDebugLog(Color.ForestGreen, "{0} is immune to {1} spell school", unit.Name, e.SpellSchool);
+                    CLU.TroubleshootLog( "{0} is immune to {1} spell school", unit.Name, e.SpellSchool);
                     SpellImmunityManager.Add(unit.Entry, e.SpellSchool);
                 }
 

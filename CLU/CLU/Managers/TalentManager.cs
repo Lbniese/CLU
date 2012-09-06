@@ -133,7 +133,7 @@ namespace CLU.Managers
             Update();
 
             if (CurrentSpec != oldSpec) {
-                CLU.TroubleshootDebugLog(Color.ForestGreen, "Your spec has been changed. Rebuilding rotation");
+                CLU.TroubleshootLog( "Your spec has been changed. Rebuilding rotation");
                 //SpellManager.Update();
                 CLU.Instance.QueryClassTree();
             }
@@ -368,7 +368,7 @@ namespace CLU.Managers
             //}
 
             //int max = Math.Max(Math.Max(treeOne, treeTwo), treeThree);
-            //CLU.TroubleshootDebugLog(Color.ForestGreen, " Best Tree: " + max);
+            //CLU.TroubleshootLog( " Best Tree: " + max);
             //int specMask = ((int)StyxWoW.Me.Class << 8);
 
             //if (max == treeOne) {

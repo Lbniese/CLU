@@ -50,17 +50,17 @@ namespace CLU.Helpers
 
         private static void Log(string s, params object[] a)
         {
-            CLU.DebugLog(Color.GreenYellow, s, a);
+            CLU.TroubleshootLog(s, a);
         }
 
         private static void Logparty(string s, params object[] a)
         {
-            CLU.DebugLog(Color.DeepPink, s, a);
+            CLU.TroubleshootLog(s, a);
         }
 
         private static void Logpartymatchs(string s, params object[] a)
         {
-            CLU.DebugLog(Color.HotPink, s, a);
+            CLU.TroubleshootLog(s, a);
         }
 
         private static IEnumerable<HealableUnit> UnitsFilter(TargetFilter filter)
@@ -409,7 +409,7 @@ namespace CLU.Helpers
             return new Decorator(
                        cond,
                        new Sequence(
-                           new Action(a => CLU.DebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. I dont have a target, someone must have died. Targeting myself")),
+                           new Action(a => CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. I dont have a target, someone must have died. Targeting myself")),
                            new Action(a => Me.Target())));
         }
     }

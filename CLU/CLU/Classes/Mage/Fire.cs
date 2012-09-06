@@ -1,6 +1,6 @@
 using CLU.Helpers;
 using Styx.TreeSharp;
-using System.Drawing;
+
 using CommonBehaviors.Actions;
 using CLU.Lists;
 using CLU.Settings;
@@ -75,10 +75,10 @@ namespace CLU.Classes.Mage
                                    Item.UseEngineerGloves())),
                            // Comment: Dont break Invinsibility!!
                            new Decorator(
-                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.DebugLog(Color.ForestGreen,"Invisibility active"))),
+                               x => Buff.PlayerHasBuff("Invisibility"), new Action(a => CLU.TroubleshootLog("Invisibility active"))),
                            // Comment: Dont break Evocation!!
                            new Decorator(
-                               x => Buff.PlayerHasBuff("Evocation"), new Action(a => CLU.DebugLog(Color.ForestGreen,"Evocation active"))),
+                               x => Buff.PlayerHasBuff("Evocation"), new Action(a => CLU.TroubleshootLog("Evocation active"))),
                            Buff.CastBuff("Molten Armor",                      ret => !Buff.PlayerHasBuff("Mage Armor") && !Buff.PlayerHasBuff("Molten Armor"), "No Armor Buff - Molten Armor"),
                            Buff.CastBuff("Molten Armor",                      ret => Me.ManaPercent > 45 && Buff.PlayerHasBuff("Mage Armor"), "Molten Armor Now We Have Enough Mana Returned From Mage Armor"),
                            // Threat

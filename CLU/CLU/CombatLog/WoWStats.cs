@@ -3,12 +3,13 @@
     using System;
     using System.Collections.Generic;
     //using Styx.Logic.Combat;
+    using System.Windows.Media;
+
     using Styx.Common;
     using Styx.WoWInternals;
-    using System.Drawing;
+
     using System.Globalization;
     using Styx;
-    using Styx.Helpers;
     using Styx.WoWInternals.WoWObjects;
 
     public class WoWStats
@@ -55,7 +56,7 @@
         public void WoWStatsOnStarted(object o)
         {
             Lua.Events.AttachEvent("UNIT_SPELLCAST_SUCCEEDED", this.UNIT_SPELLCAST_SUCCEEDED);
-            CLU.TroubleshootDebugLog(Color.ForestGreen, "WoWStats: Connected to the Grid");
+            CLU.TroubleshootLog( "WoWStats: Connected to the Grid");
             this.spellCasts = 0;
             this.spellList = new Dictionary<string, int>();
             this.spellInterval = new Dictionary<string, List<DateTime>>();
@@ -103,7 +104,7 @@
             case "Holy Radiance":
             case "Divine Light":
             case "Holy Shock":
-                CLU.DebugLog(Color.Aqua, "Sleeping for heal success. ({0})", spell);
+                CLU.TroubleshootLog("Sleeping for heal success. ({0})", spell);
                 StyxWoW.SleepForLagDuration();
                 break;
             }
@@ -122,17 +123,17 @@
                 this.spellInterval[spell] = new List<DateTime>();
 
             if (!this.spellInterval[spell].Contains(DateTime.Now)) {
-                CLU.DebugLog(Color.ForestGreen, "Adding " + DateTime.Now + " for " + spell);
+                CLU.TroubleshootLog( "Adding " + DateTime.Now + " for " + spell);
                 this.spellInterval[spell].Add(DateTime.Now);
             }
 
             // initialize or increment the count for this item
             try {
                 this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth);
-                CLU.DebugLog(Color.Aqua, "[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
+                CLU.TroubleshootLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             } catch {
                 this.healingStats[DateTime.Now] = this.healingStats.ContainsKey(DateTime.Now) ? this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) : "blank";
-                CLU.DebugLog(Color.Aqua, "[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
+                CLU.TroubleshootLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             }
         }
 

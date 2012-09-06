@@ -10,8 +10,7 @@
     using Styx.WoWInternals.WoWObjects;
     using CommonBehaviors.Actions;
     using Styx.TreeSharp;
-    using System.Drawing;
-    //using Styx.Logic;
+        //using Styx.Logic;
     using global::CLU.Settings;
     using Action = Styx.TreeSharp.Action;
 
@@ -61,7 +60,7 @@
                                              	new Decorator(
                                              		ret => ret != null, //checks that the above ctx returned a valid target.
                                              		new Sequence(
-                                             			//new Action(ret => CLU.TroubleShootDebugLog(Color.Goldenrod, " CLU targeting activated. Targeting " + CLU.SafeName((WoWUnit)ret))),
+                                             			//new Action(ret => CLU.TroubleshootLog(" CLU targeting activated. Targeting " + CLU.SafeName((WoWUnit)ret))),
                                              			new Action(ret => ((WoWUnit)ret).Target()),
                                              			new WaitContinue(2, ret => onUnit(ret) != null && onUnit(ret) == (WoWUnit)ret, new ActionAlwaysSucceed()))))),
 
@@ -79,14 +78,14 @@
                        // Move to Location
                        new DecoratorContinue(ret => onUnit(ret) != null && !onUnit(ret).InLineOfSight && !Me.IsCasting && !Spell.PlayerIsChanneling,
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Target not in LoS. Moving closer.")),
+                                                 new Action(ret => CLU.TroubleshootLog(" [CLU Movement] Target not in LoS. Moving closer.")),
                                                  new Action(ret => Navigator.MoveTo(onUnit(ret).Location)))),
 
                        // Blacklist targets TODO:  check this.
                        new DecoratorContinue(ret => onUnit(ret) != null && !Me.IsInInstance && Navigator.GeneratePath(Me.Location, onUnit(ret).Location).Length <= 0,
                                              new Action(delegate {
                                                         	Blacklist.Add(Me.CurrentTargetGuid, TimeSpan.FromDays(365));
-                                                        	CLU.TroubleshootDebugLog(Color.BlanchedAlmond, "[CLU] " + CLU.Version + ": Failed to generate path to: {0} blacklisted!", Me.CurrentTarget.Name);
+                                                        	CLU.TroubleshootLog( "[CLU] " + CLU.Version + ": Failed to generate path to: {0} blacklisted!", Me.CurrentTarget.Name);
                                                         	return RunStatus.Success;
                                                         })),
 
@@ -102,7 +101,7 @@
                                              onUnit(ret).InLineOfSight && onUnit(ret).IsAlive && !onUnit(ret).MeIsBehind && !Me.IsCasting && !Spell.PlayerIsChanneling &&
                                              Unit.DistanceToTargetBoundingBox() >= 10,// && (Unit.Tanks != null && Unit.Tanks.Any(x => x.Guid != Me.Guid))
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Not behind the target. Moving behind target.")),
+                                                 new Action(ret => CLU.TroubleshootLog( " [CLU Movement] Not behind the target. Moving behind target.")),
                                                  new Action(ret => Navigator.MoveTo(CalculatePointBehindTarget())))),
 
                        // Target is greater than CombatMinDistance?
@@ -112,7 +111,7 @@
                        new DecoratorContinue(ret => onUnit(ret) != null && Unit.DistanceToTargetBoundingBox() >= CLU.Instance.ActiveRotation.CombatMinDistance &&
                                              onUnit(ret).IsMoving && !Me.MovementInfo.MovingForward && onUnit(ret).InLineOfSight,
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Too far away from moving target (T[{0}] >= P[{1}]). Moving forward.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMinDistance)),
+                                                 new Action(ret => CLU.TroubleshootLog( " [CLU Movement] Too far away from moving target (T[{0}] >= P[{1}]). Moving forward.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMinDistance)),
                                                  new Action(ret => WoWMovement.Move(WoWMovement.MovementDirection.Forward)))),
 
                        // Target is less than CombatMinDistance?
@@ -122,7 +121,7 @@
                        new DecoratorContinue(ret => onUnit(ret) != null && Unit.DistanceToTargetBoundingBox() < CLU.Instance.ActiveRotation.CombatMinDistance &&
                                              onUnit(ret).IsMoving && Me.MovementInfo.MovingForward && onUnit(ret).InLineOfSight,
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Too close to target (T[{0}] < P[{1}]). Movement Stopped.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMinDistance)),
+                                                 new Action(ret => CLU.TroubleshootLog( " [CLU Movement] Too close to target (T[{0}] < P[{1}]). Movement Stopped.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMinDistance)),
                                                  new Action(ret => WoWMovement.MoveStop()))),
 
                        // Target is not Moving?
@@ -132,7 +131,7 @@
                        new DecoratorContinue(ret => onUnit(ret) != null && !onUnit(ret).IsMoving &&
                                              Unit.DistanceToTargetBoundingBox() >= CLU.Instance.ActiveRotation.CombatMaxDistance && onUnit(ret).InLineOfSight,
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Too far away from non moving target (T[{0}] >= P[{1}]). Moving forward.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMaxDistance)),
+                                                 new Action(ret => CLU.TroubleshootLog( " [CLU Movement] Too far away from non moving target (T[{0}] >= P[{1}]). Moving forward.", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMaxDistance)),
                                                  new Action(ret => WoWMovement.Move(WoWMovement.MovementDirection.Forward, new TimeSpan(99, 99, 99))))),
 
                        // Target is less than CombatMaxDistance?
@@ -142,7 +141,7 @@
                        new DecoratorContinue(ret => onUnit(ret) != null && Unit.DistanceToTargetBoundingBox() < CLU.Instance.ActiveRotation.CombatMaxDistance &&
                                              Me.IsMoving && Me.MovementInfo.MovingForward && onUnit(ret).InLineOfSight,
                                              new Sequence(
-                                                 new Action(ret => CLU.TroubleshootDebugLog(Color.BlanchedAlmond, " [CLU Movement] Too close to target  (T[{0}] < P[{1}]). Movement Stopped", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMaxDistance)),
+                                                 new Action(ret => CLU.TroubleshootLog( " [CLU Movement] Too close to target  (T[{0}] < P[{1}]). Movement Stopped", Unit.DistanceToTargetBoundingBox(), CLU.Instance.ActiveRotation.CombatMaxDistance)),
                                                  new Action(ret => WoWMovement.MoveStop()))));
         }
 
