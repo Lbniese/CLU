@@ -2,6 +2,8 @@
 {
     using System.IO;
     using System.Media;
+    using System.Windows.Forms;
+
     using Styx.Helpers;
 
     public static class SoundManager
@@ -26,14 +28,14 @@
         {
             // Make sure we check for existence of the the
             // selected file.
-            var fileExists = File.Exists(Logging.ApplicationPath + path);
+            var fileExists = File.Exists(Application.LocalUserAppDataPath + path);
 
             try {
                 // Check the file exists.
                 if (fileExists) {
                     // Assign the selected file's path to
                     // the SoundPlayer object.
-                    player.SoundLocation = Logging.ApplicationPath + path;
+                    player.SoundLocation = Application.LocalUserAppDataPath + path;
                 }
 
                 // Load the .wav file.

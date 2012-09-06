@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     //using Styx.Logic.Combat;
+    using Styx.Common;
     using Styx.WoWInternals;
     using System.Drawing;
     using System.Globalization;
@@ -166,7 +167,7 @@
                 }
 
                 CLU.Log(spell.Key + " intervals: ");
-                Logging.Write(Color.Aqua, " " + output);
+                Logging.Write(" " + output);
             }
         }
 

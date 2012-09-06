@@ -170,8 +170,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                        new PrioritySelector(
                                            Item.UseTrinkets(),
                                            Spell.UseRacials(),
-                                           Item.UseEngineerGloves(),
-                                           Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),  // Thanks Kink
+                                           Item.UseEngineerGloves()
+                                           //Buff.CastBuff("Lifeblood", ret => true, "Lifeblood")
+                                           )),  // Thanks Kink
                                    // Interupts
                                    Spell.CastInterupt("Skull Bash",             ret => true, "Skull Bash"),
                                    Spell.CastSelfSpell("Tiger's Fury",          ret => Me.CurrentEnergy <= (Item.Has2PcTeirBonus(ItemSetId) ? 45 : 35) && !Buff.PlayerHasBuff("Clearcasting"), "Tigers Fury"),
@@ -180,7 +181,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    // actions+=/incarnation,if=buff.berserk.up&talent.incarnation.enabled
                                    Spell.CastSelfSpell("Berserking",            ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasBuff("Tiger's Fury"), "Berserking"),
                                    Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
-                                   Spell.CastSpell("Savage Roar",               ret => Buff.PlayerBuffTimeLeft("Savage Roar") <= 1 || (Buff.PlayerBuffTimeLeft("Savage Roar") <= 3 && Me.ComboPoints > 0 && (!Buff.PlayerHasBuff("Dream of Cenarius") || Me.ComboPoints < 5)), "Savage Roar"),
+                                   Item.RunMacroText("/cast Savage Roar", ret => Buff.PlayerBuffTimeLeft("Savage Roar") <= 1 || (Buff.PlayerBuffTimeLeft("Savage Roar") <= 3 && Me.ComboPoints > 0 && (!Buff.PlayerHasBuff("Dream of Cenarius") || Me.ComboPoints < 5)), "Savage Roar"),
+                                   //Spell.CastSpell("Savage Roar",               ret => Buff.PlayerBuffTimeLeft("Savage Roar") <= 1 || (Buff.PlayerBuffTimeLeft("Savage Roar") <= 3 && Me.ComboPoints > 0 && (!Buff.PlayerHasBuff("Dream of Cenarius") || Me.ComboPoints < 5)), "Savage Roar"),
                                    Spell.CastSpell("Faerie Fire",               ret => Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
                                    Spell.CastSpell("Faerie Swarm",              ret => Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
                                    Spell.CastSpell("Ferocious Bite",            ret => Me.CurrentTarget != null && Me.ComboPoints >= 5 && Buff.TargetHasDebuff("Rip") && ((Me.CurrentTarget.HealthPercent <= (Item.Has2PcTeirBonus(ItemSetId) ? 60 : 25)) || Me.CurrentTarget.MaxHealth == 1), "Ferocious Bite"),
@@ -190,7 +192,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSpell("Shred",                     ret => Buff.TargetHasDebuff("Rip") && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds <= 4 && (Common.IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Shred (Extend Rip)"),
                                    Spell.CastSpell("Rip",                       ret => Me.ComboPoints >= 5 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds < 2 && (Buff.PlayerHasBuff("Berserk") || (Buff.TargetDebuffTimeLeft("Rip").TotalSeconds <= Spell.SpellCooldown("Tiger's Fury").TotalSeconds)), "Rip"),
                                    Spell.CastSpell("Ferocious Bite",            ret => Me.ComboPoints >= 5 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds > 5 && Buff.PlayerBuffTimeLeft("Savage Roar") >= 1 && Buff.PlayerHasBuff("Berserk"), "Ferocious Bite"),
-                                   Spell.CastSpell("Savage Roar",               ret => Me.ComboPoints >= 5 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds < 12 && Buff.PlayerBuffTimeLeft("Savage Roar") <= (Buff.TargetDebuffTimeLeft("Rip").TotalSeconds + 4), "Savage Roar"),
+                                   Item.RunMacroText("/cast Savage Roar", ret => Me.ComboPoints >= 5 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds < 12 && Buff.PlayerBuffTimeLeft("Savage Roar") <= (Buff.TargetDebuffTimeLeft("Rip").TotalSeconds + 4), "Savage Roar"),
+                                   //Spell.CastSpell("Savage Roar",               ret => Me.ComboPoints >= 5 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds < 12 && Buff.PlayerBuffTimeLeft("Savage Roar") <= (Buff.TargetDebuffTimeLeft("Rip").TotalSeconds + 4), "Savage Roar"),
                                    Spell.CastSpell("Rake",                      ret => Buff.PlayerHasBuff("Tiger's Fury") && Buff.TargetDebuffTimeLeft("Rake").TotalSeconds < 8.9, "Rake (TF.up & Rake < 9)"),
                                    Spell.CastSpell("Rake",                      ret => Buff.TargetDebuffTimeLeft("Rake").TotalSeconds < 2.9 && (Buff.PlayerHasBuff("Berserk") || ((Spell.SpellCooldown("Tiger's Fury").TotalSeconds + 0.8) > Buff.TargetDebuffTimeLeft("rake").TotalSeconds)), "Rake"),
                                    //Item.RunMacroText("/cast Ravage",            ret => Buff.PlayerHasBuff("Clearcasting"), "Ravage (Clearcasting)"),

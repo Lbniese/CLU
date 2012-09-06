@@ -105,7 +105,7 @@ namespace CLU.Classes.Warlock
                            // Unit.FindMultiDotTarget(a => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.Location, 40) > 1 && Unit.CountEnnemiesInRange(Me.Location, 40) < 6 && Me.ManaPercent > 50 && !Buff.UnitsHasMyBuff("Corruption"), "Corruption"),
                            // Unit.FindMultiDotTarget(a => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.Location, 40) > 1 && Unit.CountEnnemiesInRange(Me.Location, 40) < 6 && Me.ManaPercent > 50 && !Buff.UnitsHasMyBuff("Unstable Affliction"), "Unstable Affliction"),
                            // End Multi Dotting
-                           Spell.CastSelfSpell("Summon Doomguard",            ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Doomguard"),
+                          // Spell.CastSelfSpell("Summon Doomguard",            ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Doomguard"),
                            Spell.ChannelSpell("Drain Soul",                   ret => Me.CurrentTarget != null && Unit.TimeToDeath(Me.CurrentTarget) < 4 && ((Buff.TargetHasDebuff("Bane of Doom") || (Buff.TargetDebuffTimeLeft("Bane of Agony").TotalSeconds >= 4)) && Buff.TargetDebuffTimeLeft("Haunt").TotalSeconds >= 4 && Buff.TargetDebuffTimeLeft("Corruption").TotalSeconds >= 3 && Buff.TargetDebuffTimeLeft("Unstable Affliction").TotalSeconds >= 3), "Drain Soul"),
                            Spell.CastConicSpell("Shadowflame", 11f, 33f, ret => true, "ShadowFlame"),
                            Spell.CastSelfSpell("Life Tap",                    ret => Me.ManaPercent <= 35, "Life tap <= 35%"),

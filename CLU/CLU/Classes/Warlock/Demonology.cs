@@ -111,7 +111,7 @@ namespace CLU.Classes.Warlock
                                new PrioritySelector(
                                    Buff.CastBuff("Metamorphosis",             ret => true, "Metamorphosis"),
                                    Spell.CastSelfSpell("Demon Soul",          ret => true, "Demon Soul"),
-                                   Spell.CastSelfSpell("Summon Doomguard",    ret => true, "Doomguard"),
+                                  // Spell.CastSelfSpell("Summon Doomguard",    ret => true, "Doomguard"),
                                    PetManager.CastPetSpell("Felstorm",              ret => Me.GotAlivePet && Me.CurrentTarget != null && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < Spell.MeleeRange, "Felstorm(Special Ability)"),
                                    // Make sure our Felhunter did Axe Toss, before calling new pet -> Axe Toss needs to be on Cooldown
                                    Spell.CastSelfSpell("Soulburn", ret => !PetManager.CanCastPetSpell("Axe Toss") && !PetManager.PetHasBuff("Felstorm"), "Soulburn to raise Felhunter"),

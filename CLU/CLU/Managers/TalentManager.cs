@@ -315,7 +315,7 @@ namespace CLU.Managers
                         break;
                 }
             }
-            CLU.TroubleshootDebugLog(Color.Chartreuse, "getSpecialization =  " + getSpecialization);
+            //CLU.TroubleshootDebugLog(Color.Chartreuse, "getSpecialization =  " + getSpecialization);
 
             WoWClass myClass = StyxWoW.Me.Class;
             //int treeOne = 0, treeTwo = 0, treeThree = 0;
@@ -350,8 +350,6 @@ namespace CLU.Managers
                 Glyphs.Clear();
 
                 var glyphCount = Lua.GetReturnVal<int>("return GetNumGlyphSockets()", 0);
-
-                CLU.TroubleshootDebugLog(Color.Chartreuse, " " + getSpecialization);
 
                 if (glyphCount != 0) {
                     for (int i = 1; i <= glyphCount; i++) {

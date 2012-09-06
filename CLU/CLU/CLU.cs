@@ -44,6 +44,7 @@ using Timer = System.Timers.Timer;
 [assembly: CLSCompliant(true)]
 namespace CLU
 {
+    using Styx.Common;
     using Styx.CommonBot;
     using Styx.CommonBot.Routines;
 
@@ -135,7 +136,7 @@ namespace CLU
         public static void TroubleshootDebugLog(Color color, string msg, params object[] args)
         {
             if (msg != null) {
-                Logging.WriteDebug(color, "[CLU] " + Version + ": " + msg, args);
+                Logging.WriteQuiet("[CLU] " + Version + ": " + msg, args);
             }
         }
 
@@ -147,7 +148,7 @@ namespace CLU
         public static void DebugLog(Color color, string msg, params object[] args)
         {
             if (msg != null && CLUSettings.Instance.EnableDebugLogging) {
-                Logging.WriteDebug(color, "[CLU] " + Version + ": " + msg, args);
+                Logging.WriteVerbose("[CLU] " + Version + ": " + msg, args);
             }
         }
 
@@ -159,7 +160,7 @@ namespace CLU
         public static void Log(string msg, params object[] args)
         {
             if (msg != null) {
-                Logging.Write(Color.Yellow, "[CLU] " + Version + ": " + msg, args);
+                Logging.Write("[CLU] " + Version + ": " + msg, args);
             }
         }
 
