@@ -161,12 +161,29 @@
         /// <param name="name">name of the spell to cast.</param>
         public static void CastMySpell(string name)
         {
-            var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
+            CastfuckingSpell(name);
+            //var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
 
-            // Fishing for KeyNotFoundException's yay!
-            if (mySpellToCast != null) {
-                SpellManager.Cast(mySpellToCast);
-            }
+            //// Fishing for KeyNotFoundException's yay!
+            //if (mySpellToCast != null) {
+            //    SpellManager.Cast(mySpellToCast);
+            //}
+        }
+
+        public static void CastMySpell(string name, WoWUnit unit)
+        {
+            CastfuckingSpell(name);
+            //var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
+
+            //// Fishing for KeyNotFoundException's yay!
+            //if (mySpellToCast != null) {
+            //    SpellManager.Cast(mySpellToCast, unit);
+            //}
+        }
+
+        public static void CastfuckingSpell(string name)
+        {
+            Lua.DoString(string.Format("CastSpellByName(\"{0}\")", RealLuaEscape(name)));
         }
 
         /// <summary>
@@ -388,7 +405,7 @@
         		},
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
-                new Action(a => SpellManager.Cast(name, onUnit(a)))));
+                new Action(a => CastMySpell(name, onUnit(a)))));
         }
 
 
@@ -477,7 +494,7 @@
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                 new Decorator(x => faceTarget && !StyxWoW.Me.IsSafelyFacing(onUnit(x), 45f), new Action(a => WoWMovement.Face(onUnit(a).Guid))),
-                new Action(a => SpellManager.Cast(name, onUnit(a)))));
+                new Action(a => CastMySpell(name, onUnit(a)))));
         }
 
         /// <summary>Casts a spell on the CurrentTargets Target (used for smite healing with disc priest mainly)</summary>
@@ -514,7 +531,7 @@
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a).CurrentTarget))),
                 new DecoratorContinue(x => faceTarget, new Action(a => WoWMovement.Face(onUnit(a).CurrentTarget.Guid))),
-                new Action(a => SpellManager.Cast(name, onUnit(a).CurrentTarget))));
+                new Action(a => CastMySpell(name, onUnit(a).CurrentTarget))));
         }
 
         /// <summary>Casts a spell on the MostFocused Target (used for smite healing with disc priest mainly)</summary>
@@ -545,7 +562,7 @@
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                 new DecoratorContinue(x => faceTarget, new Action(a => WoWMovement.Face(onUnit(a).Guid))),
-                new Action(a => SpellManager.Cast(name, onUnit(a)))));
+                new Action(a => CastMySpell(name, onUnit(a)))));
         }
 
         /// <summary>Casts the interupt by name on your current target. Checks CanInterruptCurrentSpellCast.</summary>

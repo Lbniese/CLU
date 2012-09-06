@@ -629,7 +629,7 @@ namespace CLU.Base
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
-                new Action(a => SpellManager.Cast(name, onUnit(a)))));
+                new Action(a => Spell.CastMySpell(name, onUnit(a)))));
         }
 
 
@@ -686,12 +686,27 @@ namespace CLU.Base
             return GetAuraStack(Me, name, true);
         }
 
-        /// <summary>Returns true if the player has the buff</summary>
-        /// <param name="name">the name of the buff to check for</param>
-        /// <returns>The player has buff.</returns>
+        ///// <summary>Returns true if the player has the buff</summary>
+        ///// <param name="name">the name of the buff to check for</param>
+        ///// <returns>The player has buff.</returns>
+        //public static bool PlayerHasBuff(string name)
+        //{
+        //    return Me.HasAura(name);
+        //}
+
+        // todo: temporary fix.
         public static bool PlayerHasBuff(string name)
         {
-            return Me.HasAura(name);
+            try
+            {
+                var lua = string.Format("local x=UnitBuff('player', \"{0}\"); if x==nil then return 0 else return 1 end", Spell.RealLuaEscape(name));
+                return Lua.GetReturnValues(lua)[0] == "1";
+            }
+            catch
+            {
+                CLU.TroubleshootDebugLog(Color.Green,"Lua failed in PlayerHasBuff");
+                return false;
+            }
         }
 
         /// <summary>Returns true if the player has the ACTIVE buff. Good for checking procs.</summary>
