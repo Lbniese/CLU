@@ -93,7 +93,7 @@
                     }
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "HandlePartyMembersChanged : {0}", ex);
+                CLU.DiagnosticLog("HandlePartyMembersChanged : {0}", ex);
             }
 
         }
@@ -113,7 +113,7 @@
                     }
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Player_OnMapChanged : {0}", ex);
+                CLU.DiagnosticLog("Player_OnMapChanged : {0}", ex);
             }
         }
 
@@ -146,7 +146,7 @@
             var spellName = WoWSpell.FromId(spellID).Name;
 
             if (!success && spellCast) {
-                CLU.TroubleshootLog("Woops, '{0}' cast failed: {1}", spellName, raw.EventName);
+                CLU.DiagnosticLog("Woops, '{0}' cast failed: {1}", spellName, raw.EventName);
             }
 
             // if the spell is locked, let's extend it (spell travel time + client lag) / or reset it...

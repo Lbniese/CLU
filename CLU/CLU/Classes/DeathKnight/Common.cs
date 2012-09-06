@@ -56,7 +56,7 @@ namespace CLU.Classes.DeathKnight
             }
             catch (Exception ex)
             {
-                CLU.TroubleshootLog( "IsWieldingBigWeapon : {0}", ex);
+                CLU.DiagnosticLog("IsWieldingBigWeapon : {0}", ex);
             }
 
             return false;
@@ -75,7 +75,7 @@ namespace CLU.Classes.DeathKnight
                 }
                 catch (Exception ex)
                 {
-                    CLU.TroubleshootLog( "RuneCalculus : {0}", ex);
+                    CLU.DiagnosticLog("RuneCalculus : {0}", ex);
                 }
 
                 return 0;

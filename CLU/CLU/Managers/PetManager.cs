@@ -74,7 +74,7 @@
                 return TimeSpan.Zero;
             }
 
-            CLU.TroubleshootLog( " [PetSpellCooldown] {0} : {1}", name, petAction.Spell.CooldownTimeLeft);
+            CLU.DiagnosticLog(" [PetSpellCooldown] {0} : {1}", name, petAction.Spell.CooldownTimeLeft);
             return petAction.Spell.CooldownTimeLeft;
         }
 

@@ -87,7 +87,7 @@ namespace CLU.Helpers
                     Remove();
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "HealableUnit Pulse : {0}", ex);
+                CLU.DiagnosticLog("HealableUnit Pulse : {0}", ex);
             }
         }
 
@@ -297,7 +297,7 @@ namespace CLU.Helpers
                 try {
                     return this.UnitObject.Location;
                 } catch (Exception ex) {
-                    CLU.TroubleshootLog( "Error with Healable Unit Location : {0}", ex);
+                    CLU.DiagnosticLog("Error with Healable Unit Location : {0}", ex);
                 }
                 return new WoWPoint();
             }
@@ -418,7 +418,7 @@ namespace CLU.Helpers
 
                     result = list;
                 } catch (Exception ex) {
-                    CLU.TroubleshootLog( "HealableUnits : {0}", ex);
+                    CLU.DiagnosticLog("HealableUnits : {0}", ex);
                 }
 
                 return result;
@@ -461,7 +461,7 @@ namespace CLU.Helpers
                     }
                     result = list;
                 } catch (Exception ex) {
-                    CLU.TroubleshootLog( "HealableUnitsByProximity : {0}", ex);
+                    CLU.DiagnosticLog("HealableUnitsByProximity : {0}", ex);
                 }
                 return result;
             }
@@ -488,7 +488,7 @@ namespace CLU.Helpers
                 
                 Adding = false;
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "AddHealableUnits : {0}", ex);
+                CLU.DiagnosticLog("AddHealableUnits : {0}", ex);
             }
         }
         
@@ -511,7 +511,7 @@ namespace CLU.Helpers
                 
                 Removing = false;
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Remove : {0}", ex);
+                CLU.DiagnosticLog("Remove : {0}", ex);
             }
         }
 
@@ -527,7 +527,7 @@ namespace CLU.Helpers
                 listofHealableUnits.AddRange(result.Where(t => t != null).Select(t => t));
 
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Initialize HealableUnitsByProximity : {0}", ex);
+                CLU.DiagnosticLog("Initialize HealableUnitsByProximity : {0}", ex);
             }
         }
 
@@ -541,7 +541,7 @@ namespace CLU.Helpers
                 listofHealableUnits.AddRange(result.Where(t => t != null).Select(t => t));
 
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "InitializeHealing HealableUnitsByPartyorRaid : {0}", ex);
+                CLU.DiagnosticLog("InitializeHealing HealableUnitsByPartyorRaid : {0}", ex);
             }
         }
 
@@ -555,7 +555,7 @@ namespace CLU.Helpers
                 var grp = ListofHealableUnits.ToList();
                 return grp.Any(n => n != null && (unit != null && n.ToUnit().Guid == unit.Guid));
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Contains : {0}", ex);
+                CLU.DiagnosticLog("Contains : {0}", ex);
             }
             return false;
         }
@@ -578,7 +578,7 @@ namespace CLU.Helpers
                                         !unit.ToPlayer().OnTaxi &&
                                         unit.Distance2DSqr < 40 * 40);
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Filter : {0}", ex);
+                CLU.DiagnosticLog("Filter : {0}", ex);
             }
             return false;
         }
@@ -612,7 +612,7 @@ namespace CLU.Helpers
                         var result = Tanks.Aggregate((t1, t2) => t1.MaxHealth > t2.MaxHealth ? t1 : t2);
                         if (result != null)
                         {
-                            CLU.TroubleshootLog( "Selecting {0} as Main Tank based on max health...dont like it? Change it yourself via the UI settings!", CLU.SafeName(result.ToUnit()));
+                            CLU.DiagnosticLog("Selecting {0} as Main Tank based on max health...dont like it? Change it yourself via the UI settings!", CLU.SafeName(result.ToUnit()));
                             return result;
                         }
                     }
@@ -620,7 +620,7 @@ namespace CLU.Helpers
                 }
                 catch (Exception ex)
                 {
-                    CLU.TroubleshootLog( "GetMaintank : {0}", ex);
+                    CLU.DiagnosticLog("GetMaintank : {0}", ex);
                 }
                 return null;
             }
@@ -647,7 +647,7 @@ namespace CLU.Helpers
                 }
                 catch (Exception ex)
                 {
-                    CLU.TroubleshootLog( "Tanks : {0}", ex);
+                    CLU.DiagnosticLog("Tanks : {0}", ex);
                 }
 
                 return result;

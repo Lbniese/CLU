@@ -466,7 +466,7 @@
                     var retValue = player != null && Lua.GetReturnValues("return UnitGroupRolesAssigned('" + Spell.RealLuaEscape(player.Name) + "')").First() == "TANK";
                     return retValue;
                 } catch {
-                    CLU.TroubleshootLog("Lua failed in IsTank");
+                    CLU.DiagnosticLog("Lua failed in IsTank");
                     return false;
                 }
             }
@@ -484,7 +484,7 @@
                     var retValue = unit != null && Lua.GetReturnValues("return GetPartyAssignment('MAINTANK','" + Spell.RealLuaEscape(unit.Name) + "')").First() == "1";
                     return retValue;
                 } catch {
-                    CLU.TroubleshootLog("Lua failed in IsMaintank");
+                    CLU.DiagnosticLog("Lua failed in IsMaintank");
                     return false;
                 }
             }
@@ -502,7 +502,7 @@
                     var retValue = unit != null && Lua.GetReturnValues("return GetPartyAssignment('MAINASSIST','" + Spell.RealLuaEscape(unit.Name) + "')").First() == "1";
                     return retValue;
                 } catch {
-                    CLU.TroubleshootLog("Lua failed in IsOfftank");
+                    CLU.DiagnosticLog("Lua failed in IsOfftank");
                     return false;
                 }
             }
@@ -610,7 +610,7 @@
 
             var targetIsWorthy = ((IsBoss(target) || miniBoss || IsTrainingDummy(target) || pvpTarget) && CLUSettings.Instance.BurstOn == Burst.onBoss) || (CLUSettings.Instance.BurstOn == Burst.onMob && Unit.EnemyUnits.Count() >= CLUSettings.Instance.BurstOnMobCount);
             if (targetIsWorthy) {
-                CLU.TroubleshootLog( String.Format("[IsTargetWorthy] {0} is a boss? {1} or miniBoss? {2} or Training Dummy? {4}. {0} current Health = {3}",
+                CLU.DiagnosticLog( String.Format("[IsTargetWorthy] {0} is a boss? {1} or miniBoss? {2} or Training Dummy? {4}. {0} current Health = {3}",
                              CLU.SafeName(target),
                              IsBoss(target),
                              miniBoss,
@@ -784,31 +784,31 @@
                 var rafLeader = RaFHelper.Leader;
                 if (rafLeader != null && rafLeader.IsValid && !rafLeader.IsMe && rafLeader.Combat &&
                         rafLeader.CurrentTarget != null && rafLeader.CurrentTarget.IsAlive && !Blacklist.Contains(rafLeader.CurrentTarget)) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: RaFHelper*", CLU.SafeName(rafLeader));
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: RaFHelper*", CLU.SafeName(rafLeader));
                     return rafLeader.CurrentTarget;
                 }
 
                 // Healers first
                 if (EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && CLU.LocationContext == GroupLogic.Battleground) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Healer*", CLU.SafeName(EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Healer*", CLU.SafeName(EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
                     return EnemyHealer.OrderBy(u => u.CurrentHealth).FirstOrDefault();
                 }
 
                 // Enemys Attacking Us
                 if (EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10) != null && CLU.LocationContext == GroupLogic.Battleground) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Enemy Attacking Us*", CLU.SafeName(EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10)));
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Enemy Attacking Us*", CLU.SafeName(EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10)));
                     return EnemysAttackingUs.OrderBy(u => u.CurrentHealth).FirstOrDefault(u => u.DistanceSqr < 10);
                 }
 
                 // Flag Carrier units
                 if (EnemyFlagCarrier != null && CLU.LocationContext == GroupLogic.Battleground) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Flag Carrier*", EnemyFlagCarrier);
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Flag Carrier*", EnemyFlagCarrier);
                     return EnemyFlagCarrier;
                 }
 
                 // Low Health units
                 if (EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault() != null && CLU.LocationContext == GroupLogic.Battleground) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Low Health*", CLU.SafeName(EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Low Health*", CLU.SafeName(EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault()));
                     return EnemyLowHealth.OrderBy(u => u.CurrentHealth).FirstOrDefault();
                 }
 
@@ -817,7 +817,7 @@
                     var unit = BotPoi.Current.AsObject as WoWUnit;
 
                     if (unit != null && unit.IsAlive && !unit.IsMe && !Blacklist.Contains(unit)) {
-                        CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: BotPoi*", CLU.SafeName(unit));
+                        CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: BotPoi*", CLU.SafeName(unit));
                         return unit;
                     }
                 }
@@ -827,19 +827,19 @@
                 var firstUnit = Targeting.Instance.FirstUnit;
                 if (firstUnit != null && firstUnit.IsAlive && !firstUnit.IsMe &&
                         (CLU.LocationContext != GroupLogic.Battleground ? firstUnit.Combat : firstUnit != null) && !Blacklist.Contains(firstUnit)) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Target list*", CLU.SafeName(firstUnit));
+                            CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Target list*", CLU.SafeName(firstUnit));
                     return firstUnit;
                 }
 
                 // Check for Instancebuddy and Disable targeting
                 if (BotChecker.BotBaseInUse("Instancebuddy")) {
-                    CLU.TroubleshootLog(" [BotChecker] Instancebuddy Detected. *TARGETING DISABLED*");
+                    CLU.DiagnosticLog(" [BotChecker] Instancebuddy Detected. *TARGETING DISABLED*");
                     return null;
                 }
 
                 // Target the unit everyone else is belting on.
                 if (MostFocusedUnit.Unit != null) {
-                    CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging  [{0}] Reason: Most Focused*", CLU.SafeName(MostFocusedUnit.Unit));
+                    CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging  [{0}] Reason: Most Focused*", CLU.SafeName(MostFocusedUnit.Unit));
                     return MostFocusedUnit.Unit;
                 }
 
@@ -849,7 +849,7 @@
                 // CLU.DebugLog(Color.Goldenrod, "[CLU] " + CLU.Version + ": CLU targeting activated. *Engaging [{0}] Reason: Healing Target*", HealList.OrderBy(u => u.CurrentHealth).FirstOrDefault());
                 // return HealList.OrderBy(u => u.CurrentHealth).FirstOrDefault();
                 // }
-                CLU.TroubleshootLog("[CLU] " + CLU.Version + ": CLU targeting FAILED. *Reason: I cannot find a good target.*");
+                CLU.DiagnosticLog("[CLU] " + CLU.Version + ": CLU targeting FAILED. *Reason: I cannot find a good target.*");
                 return null;
             }
         }
@@ -1018,7 +1018,7 @@
 
                            		WoWUnit target = RangedPvEUnits.FirstOrDefault(u => !u.HasAura(spell) && u.Distance2DSqr < 40 * 40);
                            		if (target != null) {
-                           			CLU.TroubleshootLog(target.Name);
+                                    CLU.DiagnosticLog(target.Name);
                            			target.Target();
                            			return RunStatus.Success;
                            		}
@@ -1050,10 +1050,10 @@
                                         && x.Location.Distance2DSqr(fromLocation) < maxDistance2).ToList();
             }
 
-            CLU.TroubleshootLog( "CountEnnemiesInRange");
+            CLU.DiagnosticLog("CountEnnemiesInRange");
             foreach (var u in hostile)
-                CLU.TroubleshootLog( " -> " + CLU.SafeName(u) + " " + u.Level);
-            CLU.TroubleshootLog( "---------------------");
+                CLU.DiagnosticLog(" -> " + CLU.SafeName(u) + " " + u.Level);
+            CLU.DiagnosticLog("---------------------");
             return hostile;
         }
 
@@ -1078,10 +1078,10 @@
             }
 
             if (CLUSettings.Instance.EnableDebugLogging) {
-                CLU.TroubleshootLog( "CountControlledEnemiesInRange");
+                CLU.DiagnosticLog("CountControlledEnemiesInRange");
                 foreach (var u in hostile)
-                    CLU.TroubleshootLog( " -> " + CLU.SafeName(u) + " " + u.Level);
-                CLU.TroubleshootLog( "---------------------");
+                    CLU.DiagnosticLog(" -> " + CLU.SafeName(u) + " " + u.Level);
+                CLU.DiagnosticLog("---------------------");
             }
 
             return hostile;
@@ -1108,10 +1108,10 @@
             }
 
             if (CLUSettings.Instance.EnableDebugLogging) {
-                CLU.TroubleshootLog( "CountNonControlledEnemiesInRange");
+                CLU.DiagnosticLog("CountNonControlledEnemiesInRange");
                 foreach (var u in hostile)
-                    CLU.TroubleshootLog( " -> " + CLU.SafeName(u) + " " + u.Level);
-                CLU.TroubleshootLog( "---------------------");
+                    CLU.DiagnosticLog(" -> " + CLU.SafeName(u) + " " + u.Level);
+                CLU.DiagnosticLog("---------------------");
             }
 
             return hostile;
@@ -1175,10 +1175,10 @@
                     if (hits > score) {
                         best = spot;
                         score = hits;
-                        CLU.TroubleshootLog( "ClusteredTargets(range=" + minDistance + "-" + maxDistance + ", radius=" + radius + ") => SCORE=" + score + " at " + spot);
+                        CLU.DiagnosticLog("ClusteredTargets(range=" + minDistance + "-" + maxDistance + ", radius=" + radius + ") => SCORE=" + score + " at " + spot);
                         foreach (var u in hostile.Where(t => t.Location.DistanceSqr(spot) < radius * radius))
-                            CLU.TroubleshootLog( " -> " + CLU.SafeName(u) + " " + u.Level);
-                        CLU.TroubleshootLog( "---------------------");
+                            CLU.DiagnosticLog(" -> " + CLU.SafeName(u) + " " + u.Level);
+                        CLU.DiagnosticLog("---------------------");
                     }
                 }
             }

@@ -315,7 +315,7 @@ namespace CLU.Managers
                         break;
                 }
             }
-            //CLU.TroubleshootDebugLog(Color.Chartreuse, "getSpecialization =  " + getSpecialization);
+            //CLU.DiagnosticLog( "getSpecialization =  " + getSpecialization);
 
             WoWClass myClass = StyxWoW.Me.Class;
             //int treeOne = 0, treeTwo = 0, treeThree = 0;

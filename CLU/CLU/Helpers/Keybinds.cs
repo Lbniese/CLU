@@ -283,7 +283,7 @@ namespace CLU.Helpers
                 var raw = Lua.GetReturnValues("if " + key.ToString("g") + "() then return 1 else return 0 end");
                 return raw[0] == "1";
             } catch {
-                CLU.TroubleshootLog("Lua failed in IsKeyDown" + key.ToString("g"));
+                CLU.DiagnosticLog("Lua failed in IsKeyDown" + key.ToString("g"));
                 return false;
             }
         }

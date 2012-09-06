@@ -344,7 +344,7 @@ namespace CLU.Base
                 return wantedAura != null ? wantedAura.TimeLeft : TimeSpan.Zero;
             }
 
-            CLU.TroubleshootLog(" [GetAuraTimeLeft] Unit is null ");
+            CLU.DiagnosticLog(" [GetAuraTimeLeft] Unit is null ");
             return TimeSpan.Zero;
         }
 
@@ -363,7 +363,7 @@ namespace CLU.Base
                 return stackCountAura != null ? stackCountAura.StackCount : 0;
             }
 
-            CLU.TroubleshootLog(" [GetAuraStack] Unit is null ");
+            CLU.DiagnosticLog(" [GetAuraStack] Unit is null ");
             return 0;
         }
 
@@ -655,7 +655,7 @@ namespace CLU.Base
                     var t = Double.Parse(Lua.GetReturnValues(lua)[0]);
                     return t;
                 } catch {
-                    CLU.TroubleshootLog("Lua failed in PlayerBuffTimeLeft");
+                    CLU.DiagnosticLog("Lua failed in PlayerBuffTimeLeft");
                     return 999999;
                 }
             }
@@ -705,7 +705,7 @@ namespace CLU.Base
         //    }
         //    catch
         //    {
-        //        CLU.TroubleshootDebugLog(Color.Green,"Lua failed in PlayerHasBuff");
+        //        CLU.DiagnosticLog("Lua failed in PlayerHasBuff");
         //        return false;
         //    }
         //}

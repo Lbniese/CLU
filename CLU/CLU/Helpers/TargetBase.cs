@@ -50,17 +50,17 @@ namespace CLU.Helpers
 
         private static void Log(string s, params object[] a)
         {
-            CLU.TroubleshootLog(s, a);
+            CLU.DiagnosticLog(s, a);
         }
 
         private static void Logparty(string s, params object[] a)
         {
-            CLU.TroubleshootLog(s, a);
+            CLU.DiagnosticLog(s, a);
         }
 
         private static void Logpartymatchs(string s, params object[] a)
         {
-            CLU.TroubleshootLog(s, a);
+            CLU.DiagnosticLog(s, a);
         }
 
         private static IEnumerable<HealableUnit> UnitsFilter(TargetFilter filter)

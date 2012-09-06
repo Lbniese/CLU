@@ -104,7 +104,7 @@
             case "Holy Radiance":
             case "Divine Light":
             case "Holy Shock":
-                CLU.TroubleshootLog("Sleeping for heal success. ({0})", spell);
+                CLU.DiagnosticLog("Sleeping for heal success. ({0})", spell);
                 StyxWoW.SleepForLagDuration();
                 break;
             }
@@ -123,17 +123,17 @@
                 this.spellInterval[spell] = new List<DateTime>();
 
             if (!this.spellInterval[spell].Contains(DateTime.Now)) {
-                CLU.TroubleshootLog( "Adding " + DateTime.Now + " for " + spell);
+                CLU.DiagnosticLog("Adding " + DateTime.Now + " for " + spell);
                 this.spellInterval[spell].Add(DateTime.Now);
             }
 
             // initialize or increment the count for this item
             try {
                 this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth);
-                CLU.TroubleshootLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
+                CLU.DiagnosticLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             } catch {
                 this.healingStats[DateTime.Now] = this.healingStats.ContainsKey(DateTime.Now) ? this.healingStats[DateTime.Now] = CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) : "blank";
-                CLU.TroubleshootLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
+                CLU.DiagnosticLog("[CLU SUCCEED] " + CLU.Version + ": " + CLU.SafeName(Me.CurrentTarget) + ", " + spell + ", MaxHealth: " + Me.CurrentTarget.MaxHealth + ", CurrentHealth: " + Me.CurrentTarget.CurrentHealth + ", Deficit: " + (Me.CurrentTarget.MaxHealth - Me.CurrentTarget.CurrentHealth) + ", HealthPercent: " + Math.Round(Me.CurrentTarget.HealthPercent * 10.0) / 10.0);
             }
         }
 

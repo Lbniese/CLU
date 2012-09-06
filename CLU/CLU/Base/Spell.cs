@@ -287,7 +287,7 @@
                 WoWSpell s = SpellManager.Spells[name];
                 return s.CastTime / 1000.0;
             } catch {
-                CLU.TroubleshootLog("[ERROR] in CastTime: {0} ", name);
+                CLU.DiagnosticLog("[ERROR] in CastTime: {0} ", name);
                 return 999999.9;
             }
         }
@@ -402,7 +402,7 @@
         		delegate(object a) {
         			if (!cond(a))
         				return false;
-                    //CLU.TroubleshootDebugLog(Color.Chartreuse, "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
+                    //CLU.DiagnosticLog( "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
         			if (!CanCast(name, onUnit(a)))
         				return false;
 
@@ -912,7 +912,7 @@
                 var retValue = Double.Parse(Lua.GetReturnValues(lua)[0]);
                 return retValue;
             } catch {
-                CLU.TroubleshootLog("Lua failed in RuneCooldown: " + lua);
+                CLU.DiagnosticLog("Lua failed in RuneCooldown: " + lua);
                 return 9999;
             }
         }
@@ -930,13 +930,13 @@
                         if (luaRet != null) {
                             var purgableSpell = luaRet[0] == "Magic";
                             if (purgableSpell) {
-                                CLU.TroubleshootLog( "Buff Name: {0} is Dispelable!", luaRet[1]);
+                                CLU.DiagnosticLog("Buff Name: {0} is Dispelable!", luaRet[1]);
                             }
 
                             return purgableSpell;
                         }
                     } catch {
-                        CLU.TroubleshootLog("Lua failed in TargetHasDispelableBuff");
+                        CLU.DiagnosticLog("Lua failed in TargetHasDispelableBuff");
                         return false;
                     }
                 }
@@ -962,13 +962,13 @@
                         if (luaRet != null && luaRet[0] == "1") {
                             var stealableSpell = !Buff.PlayerHasActiveBuff(luaRet[1]) && (luaRet[1] != "Arcane Brilliance" && luaRet[1] != "Dalaran Brilliance");
                             if (stealableSpell) {
-                                CLU.TroubleshootLog( "Buff Name: {0} isStealable", luaRet[1]);
+                                CLU.DiagnosticLog("Buff Name: {0} isStealable", luaRet[1]);
                             }
 
                             return stealableSpell;
                         }
                     } catch {
-                        CLU.TroubleshootLog("Lua failed in TargetHasStealableBuff");
+                        CLU.DiagnosticLog("Lua failed in TargetHasStealableBuff");
                         return false;
                     }
                 }

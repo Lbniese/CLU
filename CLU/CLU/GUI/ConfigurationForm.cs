@@ -264,7 +264,7 @@ namespace CLU.GUI
                 HealingGrid.CurrentCellDirtyStateChanged += this.HealingGrid_CurrentCellDirtyStateChanged;
                 //HealingGrid.CellMouseClick += this.HealingGrid_OnCellMouseUp;
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "InitializeHealingGrid : {0}", ex);
+                CLU.DiagnosticLog("InitializeHealingGrid : {0}", ex);
             }
         }
 
@@ -294,7 +294,7 @@ namespace CLU.GUI
                 }
                 this.RefreshDataGridView();
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "addHealableUnit_Click : {0}", ex);
+                CLU.DiagnosticLog("addHealableUnit_Click : {0}", ex);
             }
         }
 
@@ -321,7 +321,7 @@ namespace CLU.GUI
                 this.RefreshDataGridView(); // update
             } catch (Exception ex) {
                 this.RefreshDataGridView(); // update
-                CLU.TroubleshootLog( "removeUnitHealingGrid_Click : {0}", ex);
+                CLU.DiagnosticLog("removeUnitHealingGrid_Click : {0}", ex);
             }
         }
 
@@ -502,7 +502,7 @@ namespace CLU.GUI
                 }
                 Close();
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "ERROR saving settings: {0}", ex);
+                CLU.DiagnosticLog("ERROR saving settings: {0}", ex);
             }
         }
 
@@ -717,7 +717,7 @@ namespace CLU.GUI
                         MessageBoxDefaultButton.Button1);
                 }
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Checker_Click : {0}", ex);
+                CLU.DiagnosticLog("Checker_Click : {0}", ex);
             }
         }
 
@@ -768,7 +768,7 @@ namespace CLU.GUI
                 }
                 textBox2.Text += output + Environment.NewLine;
             } catch (Exception ex) {
-                CLU.TroubleshootLog( "Current Target Information : {0}", ex);
+                CLU.DiagnosticLog("Current Target Information : {0}", ex);
             }
         }
 
