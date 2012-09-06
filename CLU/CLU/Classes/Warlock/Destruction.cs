@@ -127,12 +127,8 @@ namespace CLU.Classes.Warlock
                                ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    PetManager.CastPetSummonSpell("Summon Imp", ret => !Me.IsMoving && !Me.GotAlivePet, "Summoning Pet Imp"),
-                                   Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link"),
-                                   new Decorator(
-                                       ret => !Me.IsMoving,
-                                       new Sequence( // Waiting for a bit
-                    //new ActionSleep(2000), //TODO: replace with new WaitContinue(2, ret => StyxWoW.Me.IsFunnel, new ActionAlwaysSucceed()),
-                                           Spell.ChannelSelfSpell("Soul Harvest", ret => Me.CurrentSoulShards < 2 && !Me.IsMoving, "[Shards] Soul Harvest - < 2 shards"))))));
+                                   Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link")
+                                  )));
             }
         }
 
