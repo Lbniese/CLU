@@ -86,7 +86,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            // For DS Encounters.
                            EncounterSpecific.ExtraActionButton(),
 
-                           Spell.CastSelfSpell("Call Pet 1", ret => true, "Call Pet 1"),
+                           //Spell.CastSelfSpell("Call Pet 1", ret => true, "Call Pet 1"),
 
                            // Camouflage
                            Buff.CastBuff("Camouflage", ret => CLUSettings.Instance.Hunter.EnableAlwaysCamouflage, "Camouflage"),
