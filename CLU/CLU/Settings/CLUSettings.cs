@@ -17,6 +17,8 @@ namespace CLU.Settings
 {
     using System.Windows.Forms;
 
+    using Styx.Common;
+
     internal class CLUSettings : Styx.Helpers.Settings
     {
         private static CLUSettings _instance;
@@ -29,7 +31,7 @@ namespace CLU.Settings
         public static string SettingsPath
         {
             get {
-                return string.Format("{0}\\Settings\\CLUSettings_{1}", Application.LocalUserAppDataPath, StyxWoW.Me.Name);
+                return string.Format("{0}\\Settings\\CLUSettings_{1}", Utilities.AssemblyDirectory, StyxWoW.Me.Name);
             }
         }
 

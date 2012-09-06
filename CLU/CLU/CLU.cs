@@ -148,7 +148,7 @@ namespace CLU
         public static void DebugLog(Color color, string msg, params object[] args)
         {
             if (msg != null && CLUSettings.Instance.EnableDebugLogging) {
-                Logging.WriteVerbose("[CLU] " + Version + ": " + msg, args);
+                Logging.WriteDiagnostic("[CLU] " + Version + ": " + msg, args);
             }
         }
 

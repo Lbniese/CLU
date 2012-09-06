@@ -25,6 +25,8 @@ using Styx.Helpers;
 
 namespace CLU.GUI
 {
+    using Styx.Common;
+
     using global::CLU.Base;
     using global::CLU.CombatLog;
 
@@ -153,13 +155,15 @@ namespace CLU.GUI
             pgGeneral.CollapseAllGridItems();
             pgClass.CollapseAllGridItems();
 
-            //if (File.Exists(Logging.ApplicationPath + @"\CustomClasses\CLU\GUI\Resources\CLU.png")) {
-            //    pictureBox1.ImageLocation = Logging.ApplicationPath + @"\CustomClasses\CLU\GUI\Resources\CLU.png";
-            //}
+            if (File.Exists(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png"))
+            {
+                pictureBox1.ImageLocation = Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png";
+            }
 
-            //if (File.Exists(Logging.ApplicationPath + @"\CustomClasses\CLU\GUI\Resources\CLU.ico")) {
-            //    this.Icon = new Icon(Logging.ApplicationPath + @"\CustomClasses\CLU\GUI\Resources\CLU.ico");
-            //}
+            if (File.Exists(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico"))
+            {
+                this.Icon = new Icon(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico");
+            }
 
             // AoE and Single target healing control ============================================================
             const string Firstrowtext = "Ok, so this is how it works. The slider below is linked to";
