@@ -87,7 +87,7 @@ namespace CLU.Classes.Warlock
                            Spell.CastAreaSpell("Shadowfury", 10, true, 4, 0.0, 0.0, ret => Me.ManaPercent > 40, "Shadowfury"),
                            // End AoE
                            Buff.CastDebuff("Curse of the Elements",       ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.CurrentTarget.HealthPercent > 70 && !Buff.UnitHasMagicVulnerabilityDeBuffs(Me.CurrentTarget), "Curse of the Elements"),
-                           Spell.CastSelfSpell("Soulburn",                ret => !Buff.UnitHasHasteBuff(Me), "Soulburn"),
+                           //Spell.CastSelfSpell("Soulburn",                ret => !Buff.UnitHasHasteBuff(Me), "Soulburn"),
                            Spell.CastSpell("Soul Fire",                   ret => Buff.PlayerHasBuff("Soulburn"), "Soul Fire with soulburn"),
                            Buff.CastDebuff("Immolate",                    ret => true, "Immolate"),
                            Spell.CastSpell("Conflagrate",                 ret => true, "Conflagrate"),
@@ -95,10 +95,10 @@ namespace CLU.Classes.Warlock
                            Buff.CastDebuff("Bane of Doom",                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Unit.TimeToDeath(Me.CurrentTarget) > 60 && !Buff.UnitsHasMyBuff("Bane of Doom"), "Bane of Doom TTL=" + Unit.TimeToDeath(Me.CurrentTarget)),
                            Buff.CastDebuff("Bane of Agony",               ret => Me.CurrentTarget != null && !Unit.IsTargetWorthy(Me.CurrentTarget) || (Unit.IsTargetWorthy(Me.CurrentTarget) && (Unit.TimeToDeath(Me.CurrentTarget) < 60 || Unit.TimeToDeath(Me.CurrentTarget) == 9999) && (!Buff.UnitsHasMyBuff("Bane of Doom") || !Buff.TargetHasDebuff("Bane of Doom"))), "Bane of Agony TTL=" + Unit.TimeToDeath(Me.CurrentTarget)),
                            Spell.CastSpell("Bane of Havoc", u => Unit.BestBaneOfHavocTarget, ret => true, "Bane of Havoc on "), // + Unit.BestBaneOfHavocTarget.Name
-                           Buff.CastDebuff("Corruption",                  ret => true, "Corruption"),
+                           //Buff.CastDebuff("Corruption",                  ret => true, "Corruption"),
                            Spell.CastConicSpell("Shadowflame", 11f, 33f,  ret => true, "ShadowFlame"),
                            Spell.CastSpell("Chaos Bolt",                  ret => (Spell.CastTime("Chaos Bolt") > 0.9), "Chaos Bolt"),
-                           Spell.CastSelfSpell("Summon Doomguard",        ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Doomguard"),
+                           //Spell.CastSelfSpell("Summon Doomguard",        ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Doomguard"),
                            Spell.CastSpell("Soul Fire",                   ret => Buff.PlayerHasBuff("Empowered Imp"), "Soul Fire with Empowered Imp"),
                            // Buff.CastOffensiveBuff("Soul Fire", "Empowered Imp", Buff.PlayerBuffTimeLeft("Improved Soul Fire").TotalSeconds, "Soul Fire with Improved Soul Fire... (Empowered Imp=" + Buff.PlayerBuffTimeLeft("Empowered Imp").TotalSeconds + ")"),
                            Buff.CastOffensiveBuff("Soul Fire", "Improved Soul Fire", Spell.CastTime("Soul Fire") + 1.5 + Spell.CastTime("Incinerate") + Spell.GCD, "Soul Fire... (Soul Fire.cast_time+travel_time+incinerate.cast_time+gcd=" + (Spell.CastTime("Soul Fire") + 1.5 + Spell.CastTime("Incinerate") + Spell.GCD) + ")"),
