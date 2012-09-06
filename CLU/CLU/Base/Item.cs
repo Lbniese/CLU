@@ -230,7 +230,8 @@
         public static Composite UseTrinkets()
         {
             return new PrioritySelector(delegate {
-                foreach (WoWItem trinket in Trinkets.CurrentTrinkets.Where(trinket => CanUseEquippedItem(trinket) && TrinketUsageSatisfied(trinket) && !HasItemInBag(trinket))) {
+                foreach (WoWItem trinket in Trinkets.CurrentTrinkets.Where(trinket => CanUseEquippedItem(trinket) && TrinketUsageSatisfied(trinket) && !HasItemInBag(trinket) && HasCarriedItem(trinket)))
+                {
                     if (trinket != null) {
                         CLU.Log(" [Trinket] {0} ", trinket.Name);
                         trinket.Use();
@@ -301,6 +302,14 @@
         public static bool HasItemInBag(WoWItem item)
         {
             return item != null && Me.BagItems.Any(x => x.ItemInfo.Id == item.ItemInfo.Id);
+        }
+
+        /// <summary>Returns true if the player has the item in his bag.</summary>
+        /// <param name="item">The item.</param>
+        /// <returns>true of false</returns>
+        public static bool HasCarriedItem(WoWItem item)
+        {
+            return item != null && Me.CarriedItems.Any(x => x.ItemInfo.Id == item.ItemInfo.Id);
         }
 
         /// <summary>

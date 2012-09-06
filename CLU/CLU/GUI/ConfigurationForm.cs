@@ -744,6 +744,10 @@ namespace CLU.GUI
                 textBox2.Text += output + Environment.NewLine;
                 output = target == null ? string.Empty : "PrayerofHealingPartymaxAH : " + CLUSettings.Instance.Priest.PrayerofHealingPartymaxAH;
                 textBox2.Text += output + Environment.NewLine;
+                output = target == null ? string.Empty : "Me.CurrentHolyPower : " + Me.CurrentHolyPower;
+                textBox2.Text += output + Environment.NewLine;
+
+              
 
 
                 if (target != null) {
