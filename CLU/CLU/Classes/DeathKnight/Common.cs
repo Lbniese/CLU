@@ -14,6 +14,7 @@ namespace CLU.Classes.DeathKnight
     using System.Linq;
 
     using Styx;
+    using Styx.Combat.CombatRoutine;
     using Styx.WoWInternals.WoWObjects;
     using Styx.TreeSharp;
     using global::CLU.Base;

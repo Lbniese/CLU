@@ -23,7 +23,7 @@ namespace CLU.Classes.Priest
         public override string KeySpell
         {
             get {
-                return "Mind Flay";
+                return "Mind Blast"; // Mind Flay
             }
         }
 

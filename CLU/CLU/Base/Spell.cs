@@ -181,6 +181,7 @@
             //}
         }
 
+        // trmporary
         public static void CastfuckingSpell(string name)
         {
             Lua.DoString(string.Format("CastSpellByName(\"{0}\")", RealLuaEscape(name)));
