@@ -15,6 +15,7 @@ using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
 namespace CLU.Settings
 {
+    using System;
     using System.Windows.Forms;
 
     using Styx.Common;
@@ -31,7 +32,7 @@ namespace CLU.Settings
         public static string SettingsPath
         {
             get {
-                return string.Format("{0}\\Settings\\CLUSettings_{1}", Utilities.AssemblyDirectory, StyxWoW.Me.Name);
+                return string.Format("{0}\\Settings\\CLUSettings_{1}", AppDomain.CurrentDomain.BaseDirectory, StyxWoW.Me.Name); //todo: fix my path
             }
         }
 

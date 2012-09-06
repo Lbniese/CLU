@@ -155,14 +155,16 @@ namespace CLU.GUI
             pgGeneral.CollapseAllGridItems();
             pgClass.CollapseAllGridItems();
 
-            if (File.Exists(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png"))
+            CLU.Log(Utilities.AssemblyDirectory); //todo: fix me
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png"))
             {
-                pictureBox1.ImageLocation = Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png";
+                pictureBox1.ImageLocation = AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png";
             }
 
-            if (File.Exists(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico"))
             {
-                this.Icon = new Icon(Utilities.AssemblyDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico");
+                this.Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico");
             }
 
             // AoE and Single target healing control ============================================================

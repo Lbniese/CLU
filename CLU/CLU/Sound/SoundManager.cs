@@ -1,5 +1,6 @@
 ﻿namespace CLU.Sound
 {
+    using System;
     using System.IO;
     using System.Media;
     using System.Windows.Forms;
@@ -29,14 +30,14 @@
         {
             // Make sure we check for existence of the the
             // selected file.
-            var fileExists = File.Exists(Utilities.AssemblyDirectory + path);
+            var fileExists = File.Exists(AppDomain.CurrentDomain.BaseDirectory + path); 
 
             try {
                 // Check the file exists.
                 if (fileExists) {
                     // Assign the selected file's path to
                     // the SoundPlayer object.
-                    player.SoundLocation = Utilities.AssemblyDirectory + path;
+                    player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + path;
                 }
 
                 // Load the .wav file.
