@@ -159,10 +159,10 @@ namespace CLU.Managers
                                 CurrentSpec = TalentSpec.ArmsWarrior;
                                 break;
                             case 2:
-                                CurrentSpec = TalentSpec.ProtectionWarrior;
+                                CurrentSpec = TalentSpec.FuryWarrior;
                                 break;
                             case 3:
-                                CurrentSpec = TalentSpec.FuryWarrior;
+                                CurrentSpec = TalentSpec.ProtectionWarrior;
                                 break;
                         }
                         break;
