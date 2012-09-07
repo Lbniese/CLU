@@ -189,8 +189,8 @@
                               .Where(unit =>
                                      !unit.IsFriendly
                                      && (unit.IsTargetingMeOrPet
-                                         || unit.IsTargetingMyPartyMember
-                                         || unit.IsTargetingMyRaidMember
+                                         //|| unit.IsTargetingMyPartyMember
+                                         //|| unit.IsTargetingMyRaidMember
                                          || unit.IsPlayer
                                          || unit.MaxHealth == 1)
                                      && !unit.IsNonCombatPet
