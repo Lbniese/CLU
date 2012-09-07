@@ -105,7 +105,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                            //Do Damage continue1
                            Spell.CastSpell("Howling Blast", 					ret => Buff.PlayerHasBuff("Freezing Fog"), "Howling Blast (Rime)"),
                            //Utility Talent: Blood Tap;
-                           Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Tap") < 11 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes
+                           Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Charge") < 11 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes
                            //Do Damage continue2
                            Spell.CastSpell("Obliterate", 						ret => true, "Obliterate (Because we can)"),
                            Spell.CastSpell("Howling Blast", 					ret => true, "Howling Blast (Because we can)"),
@@ -119,7 +119,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
             get {
                 return
                     new PrioritySelector(
-                        Buff.CastBuff("Anti-Magic Shell",ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0) && Me.CurrentTarget.IsTargetingMeOrPet, "AMS"),
+                        Buff.CastBuff("Anti-Magic Shell", ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0), "AMS"), // TODO: Put this back in when its fixed. && Me.CurrentTarget.IsTargetingMeOrPet
                         new Decorator(
                             ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                             new PrioritySelector(

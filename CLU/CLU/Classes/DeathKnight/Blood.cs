@@ -46,6 +46,7 @@ namespace CLU.Classes.Deathknight
 ----------------------------------------------------------------------
 Blood:
 [*] *IMPORTANT* Please select you Tier one Talent in the settings UI
+[*] *IMPORTANT* Please Spec into Blood Tap for Maximum effectiveness.
 [*] Choose your own presence (blood is recommended)
 [*] AutomaticCooldowns now works with Boss's or Mob's (See: General Setting)
 [*] UnholyBlight and RoilingBlood support for spreading diseases
@@ -92,9 +93,9 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                            // Spell.CastSelfSpell("Bone Shield", ret => Me.CurrentTarget != null && Me.CurrentTarget.ChanneledCastingSpellId == 109632 && Me.CurrentTarget.IsTargetingMeOrPet, "Bone Shield for Impale"),
                            // Spell.CastSpell("Death Strike", ret =>Me.CurrentTarget != null && Me.CurrentTarget.ChanneledCastingSpellId == 109632 && Me.CurrentTarget.IsTargetingMeOrPet, "DS for shield"),
                            // Interupts
-                           Spell.CastInterupt("Mind Freeze",              ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), 
-                           Spell.CastInterupt("Strangulate",              ret => true, "Strangulate"),
-                           Spell.CastInterupt("Asphyxiate",               ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
+                           //Spell.CastInterupt("Mind Freeze",              ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), 
+                           //Spell.CastInterupt("Strangulate",              ret => true, "Strangulate"),
+                           //Spell.CastInterupt("Asphyxiate",               ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
                            Spell.CastSelfSpell("Bone Shield",             ret => Spell.SpellCooldown("Death Strike").TotalSeconds > 3 && CLUSettings.Instance.DeathKnight.UseBoneShieldonCooldown, "Bone Shield"),
                             // Apply/Refresh Diseases (Single Target) TODO: Decide if we want to refresh Weakened Blows with blood boil here. -- wulf
                            Common.ApplyDiseases(ret => Me.CurrentTarget),
@@ -104,14 +105,12 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                            // Main Rotation
                            // TODO: Scent of Blood Procs monitoring for fully stacked Death Strikes as soon as you take damage. --wulf
                            Spell.CastSpell("Death Strike", 				  ret => Me.HealthPercent < CLUSettings.Instance.DeathKnight.DeathStrikePercent || (Me.UnholyRuneCount + Me.FrostRuneCount + Me.DeathRuneCount >= 4) || (Me.HealthPercent < CLUSettings.Instance.DeathKnight.DeathStrikeBloodShieldPercent && (Buff.PlayerBuffTimeLeft("Blood Shield") < CLUSettings.Instance.DeathKnight.DeathStrikeBloodShieldTimeRemaining)), "Death Strike"),
-                           Spell.CastSpell("Blood Tap",                   ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Tap") < 11 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes
+                           Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Charge") < 11 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes 
                            Spell.CastSelfSpell("Rune Tap",                ret => Me.HealthPercent <= CLUSettings.Instance.DeathKnight.RuneTapPercent && Me.BloodRuneCount >= 1 && CLUSettings.Instance.DeathKnight.UseRuneTap, "Rune Tap"),
-                           Buff.CastDebuff("Plague Strike",               ret => Me.CurrentTarget != null && Spell.SpellCooldown("Outbreak").TotalSeconds > 3 && Me.HealthPercent > 50, "Plague Strike for Scarlet Fevor"),
-                           Buff.CastDebuff("Icy Touch",                   ret => Me.CurrentTarget != null && Spell.SpellCooldown("Outbreak").TotalSeconds > 3 && Me.HealthPercent > 50, "Icy Touch for Frost Fever"),
+                           Spell.CastSpell("Rune Strike",                 ret => (Me.CurrentRunicPower >= CLUSettings.Instance.DeathKnight.RuneStrikePercent || Me.HealthPercent > 90) && Me.CurrentRunicPower >= 30 && (Me.UnholyRuneCount == 0 || Me.FrostRuneCount == 0) && !Buff.PlayerHasBuff("Lichborne"), "Rune Strike"),
                            Spell.CastAreaSpell("Blood Boil", 10, false, CLUSettings.Instance.DeathKnight.BloodBloodBoilCount, 0.0, 0.0, ret => Me.BloodRuneCount >= 1 || Buff.PlayerHasBuff("Crimson Scourge"), "Blood Boil"),
                            Spell.CastSpell("Soul Reaper",                 ret => Me.BloodRuneCount > 0 && Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent < 35, "Soul Reaping"), // Never use Soul Reaping if you have no Blood runes, as this will cause Heart Strike to consume a Death rune, which should be saved for Death Strike.
                            Spell.CastSpell("Heart Strike",                ret => Me.BloodRuneCount > 0, "Heart Strike"), // Never use Heart Strike if you have no Blood runes, as this will cause Heart Strike to consume a Death rune, which should be saved for Death Strike.
-                           Spell.CastSpell("Rune Strike",                 ret => (Me.CurrentRunicPower >= CLUSettings.Instance.DeathKnight.RuneStrikePercent || Me.HealthPercent > 90) && (Me.UnholyRuneCount == 0 || Me.FrostRuneCount == 0) && !Buff.PlayerHasBuff("Lichborne"), "Rune Strike"),
                            Spell.CastSpell("Death Coil",                  ret => Me.CurrentTarget != null && !Spell.CanCast("Rune Strike", Me.CurrentTarget) && Me.CurrentRunicPower >= 90, "Death Coil"),
                            Spell.CastSpell("Horn of Winter",              ret => (Me.CurrentRunicPower < 34 || !Buff.UnitHasStrAgiBuff(Me)), "Horn of Winter for RP"));
             }
@@ -121,7 +120,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
         {
             get {
                 return new PrioritySelector(
-                        Buff.CastBuff("Anti-Magic Shell",                     ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0) && Me.CurrentTarget.IsTargetingMeOrPet, "AMS"),
+                        Buff.CastBuff("Anti-Magic Shell", ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0), "AMS"), // TODO: Put this back in when its fixed. && Me.CurrentTarget.IsTargetingMeOrPet
                         Spell.CastSelfSpell("Bone Shield",                    ret => CLUSettings.Instance.DeathKnight.UseBoneShieldDefensively && CLUSettings.Instance.EnableSelfHealing && Spell.SpellCooldown("Death Strike").TotalSeconds > 3 && !Buff.PlayerHasBuff("Vampiric Blood") && !Buff.PlayerHasBuff("Icebound Fortitude") && !Buff.PlayerHasBuff("Dancing Rune Weapon") && !Buff.PlayerHasBuff("Lichborne"), "Bone Shield"),
                         new Decorator(
                             ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,

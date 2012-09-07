@@ -125,7 +125,7 @@ namespace CLU.Classes.DeathKnight
                                 new Switch<DeathKnightTierOneTalent>(ctx => CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent,
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.PlagueLeech,
                                         new PrioritySelector(
-                                        Spell.CastAreaSpell("Pestilence", TalentManager.HasGlyph("Pestilence") ? 14.5 : 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => !TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Pestilence"))),
+                                        Spell.CastAreaSpell("Pestilence", TalentManager.HasGlyph("Pestilence") ? 14.5 : 10, false, CLUSettings.Instance.DeathKnight.BloodPestilenceCount, 0.0, 0.0, ret => !TalentManager.HasGlyph("Pestilence") && Buff.TargetHasDebuff("Blood Plague") && Buff.TargetHasDebuff("Frost Fever") && (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") && enemy.Distance2DSqr < 10 * 10 select enemy).Any(), "Pestilence"))),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.UnholyBlight,
                                         Spell.CastAreaSpell("Unholy Blight", 10, false, CLUSettings.Instance.DeathKnight.UnholyBlightCount, 0.0, 0.0, ret => (from enemy in Unit.EnemyUnits where !enemy.HasAura("Blood Plague") && !enemy.HasAura("Frost Fever") select enemy).Any(), "Unholy Blight")),
                                     new SwitchArgument<DeathKnightTierOneTalent>(DeathKnightTierOneTalent.RoilingBlood,
@@ -146,6 +146,7 @@ namespace CLU.Classes.DeathKnight
                     //Diseases -- The most important stuff for playing a Death Knight is keeping them up at all times
                     Spell.CastSpell("Plague Leech" , ret => CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
                     Spell.CastSpell("Outbreak"     , ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 ||Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
+                    Buff.CastDebuff("Icy Touch",    ret => TalentManager.CurrentSpec != TalentSpec.FrostDeathKnight && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Icy Touch for Frost Fever"),
                     Spell.CastSpell("Howling Blast", ret => TalentManager.CurrentSpec == TalentSpec.FrostDeathKnight && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5,"Howling Blast (Frost Fever)"),
                     Spell.CastSpell("Plague Strike", ret => TalentManager.CurrentSpec != TalentSpec.FrostDeathKnight && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5, "Plague Strike"))
                     );

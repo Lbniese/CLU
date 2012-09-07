@@ -12,13 +12,9 @@ using Styx.Helpers;
 using CLU.Base;
 using DefaultValue = Styx.Helpers.DefaultValueAttribute;
 
-
 namespace CLU.Settings
 {
     using System;
-    using System.Windows.Forms;
-
-    using Styx.Common;
 
     internal class CLUSettings : Styx.Helpers.Settings
     {

@@ -81,7 +81,7 @@ namespace CLU.Classes.DeathKnight
                            // Interupts
                            Spell.CastInterupt("Mind Freeze",                  ret => true, "Mind Freeze"),
                            Spell.CastInterupt("Strangulate",                  ret => true, "Strangulate"),
-                           Buff.CastBuff("Anti-Magic Shell",                  ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0) && Me.CurrentTarget.IsTargetingMeOrPet, "AMS"),
+                           Buff.CastBuff("Anti-Magic Shell", ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0), "AMS"), // TODO: Put this back in when its fixed. && Me.CurrentTarget.IsTargetingMeOrPet
                            Spell.CastSelfSpell("Blood Tap",                   ret => PetManager.PetCountBuff("Shadow Infusion") == 5 && (Me.BloodRuneCount + Me.UnholyRuneCount + Me.DeathRuneCount == 0), "Blood Tap for Dark Transformation"),
                            Spell.CastSelfSpell("Blood Tap",                   ret => Me.FrostRuneCount == 1 && (Me.UnholyRuneCount == 0 || Me.BloodRuneCount == 0), "Blood Tap"),
                            // Start Disease ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
