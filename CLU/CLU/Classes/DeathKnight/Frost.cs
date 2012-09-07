@@ -75,9 +75,9 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                    Item.UseEngineerGloves())),
                            
                            //Interrupts
-                           Spell.CastInterupt("Mind Freeze", 		ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), //Why does nobody check for the range of melee kicks? // CurrentTarget Null check, we are accessing the objects property ;) --wulf
-                           Spell.CastInterupt("Strangulate", 		ret => true, "Strangulate"),
-                           Spell.CastInterupt("Asphyxiate", 		ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
+                           //Spell.CastInterupt("Mind Freeze", 		ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), //Why does nobody check for the range of melee kicks? // CurrentTarget Null check, we are accessing the objects property ;) --wulf
+                           //Spell.CastInterupt("Strangulate", 		ret => true, "Strangulate"),
+                           //Spell.CastInterupt("Asphyxiate", 		ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
                            //Diseases
                            Common.ApplyDiseases(ret => Me.CurrentTarget),
                            //Cooldowns
