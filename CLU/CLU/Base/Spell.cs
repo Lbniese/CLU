@@ -171,6 +171,12 @@
             {
                 SpellManager.Cast(mySpellToCast);
             }
+            else
+            {
+                CLU.DiagnosticLog("Unknown spell {0} - casting by name anyway.", name);
+                CastfuckingSpell(name); 
+            }
+            
         }
 
         public static void CastMySpell(string name, WoWUnit unit)
@@ -182,6 +188,11 @@
             if (mySpellToCast != null)
             {
                 SpellManager.Cast(mySpellToCast, unit);
+            }
+            else
+            {
+                CLU.DiagnosticLog("Unknown spell {0} - casting by name anyway.", name);
+                CastfuckingSpell(name);
             }
         }
 

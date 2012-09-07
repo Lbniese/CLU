@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Macro.cs" />
     <Compile Include="Classes\DeathKnight\Blood.cs" />
     <Compile Include="Classes\DeathKnight\Common.cs" />
     <Compile Include="Classes\DeathKnight\Frost.cs" />

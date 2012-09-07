@@ -82,13 +82,13 @@
 
             var enchant = item.TemporaryEnchantment;
             if (enchant != null) {
-                CLU.DiagnosticLog( "Enchantment Name: " + enchant.Name);
-                CLU.DiagnosticLog("Enchantment ID: " + enchant.Id);
-                CLU.DiagnosticLog("ImbueName: " + imbueName);
-                CLU.DiagnosticLog("Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
+                //CLU.DiagnosticLog( "Enchantment Name: " + enchant.Name);
+                //CLU.DiagnosticLog("Enchantment ID: " + enchant.Id);
+                //CLU.DiagnosticLog("ImbueName: " + imbueName);
+                //CLU.DiagnosticLog("Enchant: " + enchant.Name + " - " + (enchant.Name == imbueName));
             }
 
-            return enchant != null && (enchant.Name == imbueName || imbueId == enchant.Id); 
+            return enchant != null && (imbueId == enchant.Id);  //enchant.Name == imbueName || 
         }
 
         /// <summary>

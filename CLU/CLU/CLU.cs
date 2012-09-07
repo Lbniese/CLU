@@ -155,12 +155,14 @@ namespace CLU
         /// </summary>
         /// <param name="msg">the message to write to the log</param>
         /// <param name="args">the arguments that accompany the message</param>
+        static string lastLine;
         public static void Log(string msg, params object[] args)
         {
-            if (msg != null) {
-                Logging.Write(LogLevel.Normal, Colors.Yellow, "[CLU] " + Version + ": " + msg, args);
-            }
+            //if (msg == lastLine) return;
+            Logging.Write(LogLevel.Normal, Colors.Yellow, "[CLU] " + Version + ": " + msg, args);
+            //lastLine = msg;
         }
+
 
         /// <summary>
         /// Returns the string "Myself" if the unit name is equal to our name.
