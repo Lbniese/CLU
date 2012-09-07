@@ -82,7 +82,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Buff.CastBuff("Seal of Righteousness",         ret => Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Righteousness"),
                            Buff.CastBuff("Seal of Truth",                 ret => Me.ManaPercent > CLUSettings.Instance.Paladin.SealofInsightMana && Unit.EnemyUnits.Count() < CLUSettings.Instance.Paladin.SealofRighteousnessCount, "Seal of Truth"),
                            //Main Rotation
-                           Spell.CastInterupt("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
+                           Spell.CastSpell("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
                            Buff.CastBuff("Holy Shield",                   ret => true, "Holy Shield"),
                            Buff.CastBuff("Sacred Shield",                 ret => true, "Sacred Shield"),
                            Spell.CastInterupt("Rebuke",                   ret => true, "Rebuke"),
@@ -91,16 +91,17 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Shield of the Righteous",     ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ShoRPercent || (Me.CurrentHolyPower == 5), "Shield of the Righteous"),
                            // TODO: Shield of the Righteous damage reduction buff is all and well but we need to prioritise if we are getting hit with a shit load of magic damage, in this instance we can forsake ShoR and simply poor our holy power into Word of Glory.
                            Spell.HealMe("Word of Glory",                  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.WordofGloryPercent && (Me.CurrentHolyPower > 1 || Buff.PlayerHasBuff("Divine Purpose")), "Word of Glory"),
-                           Spell.CastSpell("Crusader Strike",             ret => true, "Crusader Strike"),
-                           // AOE
+                            // AOE
                            Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.ProtectionHoRCount, 0.0, 0.0, ret => true, "Hammer of the Righteous"),
-                           Spell.CastSpell("Holy Prism",                  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.HolyPrismCount, "Holy Prism"),
-                           Spell.CastSpell("Light's Hammer",              ret => Me.HealthPercent > CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.LightsHammerCount, "Light's Hammer"),
+                           Spell.CastSpell("Holy Prism", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.HolyPrismCount, "Holy Prism"),
+                           Spell.CastSpell("Light's Hammer", ret => Me.HealthPercent > CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.LightsHammerCount, "Light's Hammer"),
                            // end AoE
+                           Spell.CastSpell("Crusader Strike",             ret => true, "Crusader Strike"),
+                           
                            Spell.CastSpell("Avenger's Shield",            ret => Buff.PlayerHasBuff("Grand Crusader"), "Avengers Shield Proc"),
                            Spell.CastSpell("Judgement",                   ret => true, "Judgement"),
                            Spell.CastSpell("Avenger's Shield",            ret => true, "Avengers Shield"),
-                           Spell.CastSpell("Hammer of Wrath",             ret => true, "Hammer of Wrath"),
+                           Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent < 20, "Hammer of Wrath"),
                            Spell.CastSpell("Execution Sentence",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
                            Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > CLUSettings.Instance.Paladin.ConsecrationManaPercent && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.ConsecrationCount, "Consecration"),
                            Spell.CastSpell("Holy Wrath",                  ret => true, "Holy Wrath"),
