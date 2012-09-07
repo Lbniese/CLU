@@ -67,10 +67,10 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
 
                            // For DS Encounters.
-                           EncounterSpecific.ExtraActionButton(),
+                           //EncounterSpecific.ExtraActionButton(),
                            
                            // Handle shapeshift form
-                           Common.HandleShapeshiftForm,
+                           //Common.HandleShapeshiftForm,
 
                            // Rotations.
                            new Decorator(ret => Buff.PlayerHasBuff("Bear Form"), GuardianRotation),
@@ -87,15 +87,15 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                new Decorator(
                                    ret => Buff.PlayerHasBuff("Bear Form"),
                                    new PrioritySelector(
-                                       Spell.CastSelfSpell("Frenzied Regeneration",   ret => Me.HealthPercent <= 25 && !Buff.PlayerHasBuff("Survival Instincts"), "Frenzied Regeneration"),
-                                       Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40 && !Buff.PlayerHasBuff("Frenzied Regeneration"), "Survival Instincts"),
-                                       Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
+                                       //Spell.CastSelfSpell("Frenzied Regeneration",   ret => Me.HealthPercent <= 25 && !Buff.PlayerHasBuff("Survival Instincts"), "Frenzied Regeneration"),
+                                       //Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40 && !Buff.PlayerHasBuff("Frenzied Regeneration"), "Survival Instincts"),
+                                       //Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
                                        Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < 40, "Healthstone"))),
                                new Decorator(
                                    ret => Buff.PlayerHasBuff("Cat Form"),
                                    new PrioritySelector(
-                                       Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40, "Survival Instincts"),
-                                       Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
+                                       //Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40, "Survival Instincts"),
+                                       //Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
                                        Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < 40, "Healthstone")))));
             }
         }

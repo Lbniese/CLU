@@ -144,7 +144,9 @@
     <Compile Include="Settings\WarriorSettings.cs" />
     <Compile Include="Base\enums.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="PvPRogue5.0.4.zip" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\ConfigurationForm.resx">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
