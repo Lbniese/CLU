@@ -85,7 +85,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Hammer of the Righteous",  ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Hammer of the Righteous for Weakened Blows"),
                            Buff.CastBuff("Holy Shield",                   ret => true, "Holy Shield"),
                            Buff.CastBuff("Sacred Shield",                 ret => true, "Sacred Shield"),
-                           Spell.CastInterupt("Rebuke",                   ret => true, "Rebuke"),
+                           //Spell.CastInterupt("Rebuke",                   ret => true, "Rebuke"),
                            //Healing TODO: Check for Shield of the Righteous damage reduction buff and ensure we maintain 100% uptime.
                            Spell.CastSpell("Shield of the Righteous",     ret => (Me.CurrentHolyPower >= 3 && Buff.PlayerHasBuff("Sacred Duty")) || Buff.PlayerHasBuff("Divine Purpose"), "Shield of the Righteous Proc"),
                            Spell.CastSpell("Shield of the Righteous",     ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ShoRPercent || (Me.CurrentHolyPower == 5), "Shield of the Righteous"),
