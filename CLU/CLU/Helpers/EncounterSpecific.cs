@@ -93,21 +93,21 @@ namespace CLU.Helpers
         /// Returns true if DeathWing is casting Shrapnel
         /// </summary>
         /// <returns>true or false</returns>
-        private static bool IsShrapnel()
-        {
-            return
-                ObjectManager.GetObjectsOfType<WoWUnit>(true, true).Any(
-                    u => u != null && u.IsAlive &&
-                    u.Guid != Me.Guid &&
-                    u.IsHostile &&
-                    (u.IsTargetingMyPartyMember ||
-                     u.IsTargetingMyRaidMember ||
-                     u.IsTargetingMeOrPet ||
-                     u.IsTargetingAnyMinion) &&
-                    u.IsCasting &&
-                    u.CastingSpell.Name == "Shrapnel" &&
-                    u.CurrentCastTimeLeft.TotalMilliseconds <= 2000) && !Buff.PlayerHasBuff("Dream");
-        }
+        //private static bool IsShrapnel()
+        //{
+        //    return
+        //        ObjectManager.GetObjectsOfType<WoWUnit>(true, true).Any(
+        //            u => u != null && u.IsAlive &&
+        //            u.Guid != Me.Guid &&
+        //            u.IsHostile &&
+        //            (u.IsTargetingMyPartyMember ||
+        //             u.IsTargetingMyRaidMember ||
+        //             u.IsTargetingMeOrPet ||
+        //             u.IsTargetingAnyMinion) &&
+        //            u.IsCasting &&
+        //            u.CastingSpell.Name == "Shrapnel" &&
+        //            u.CurrentCastTimeLeft.TotalMilliseconds <= 2000) && !Buff.PlayerHasBuff("Dream");
+        //}
 
         /// <summary>Returns true if Ultraxion is casting Hour of Twilight and its my turn to soak</summary>
         /// <param name="myGroupNumber">The my Group Number.</param>
@@ -122,7 +122,7 @@ namespace CLU.Helpers
         public static Composite ExtraActionButton()
         {
             return new Decorator(
-                       x => (IsFadingLight() || IsShrapnel() || IsHourofTwilight()) && CLUSettings.Instance.ClickExtraActionButton,
+                       x => (IsFadingLight() || IsHourofTwilight()) && CLUSettings.Instance.ClickExtraActionButton, //|| IsShrapnel() todo: removed...cos its retarted.
                        new Sequence(
                            new Action(a => CLU.TroubleshootLog(" [ExtraActionButton] Time to get Lazy!")),
                            Item.RunMacroText("/click ExtraActionButton1", ret => true, "[Push Button] ExtraActionButton1"),
