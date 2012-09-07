@@ -202,6 +202,9 @@ namespace CLU
                 CLU.TroubleshootLog(" Character Racial Abilitie: {0} ", racial.Name);
             }
             CLU.TroubleshootLog(" {0}", Me.IsInInstance ? "Character is currently in an Instance" : "Character seems to be outside an Instance");
+            CLU.TroubleshootLog(" {0}", StyxWoW.Me.CurrentMap.IsArena ? "Character is currently in an Arena" : "Character seems to be outside an Arena");
+            CLU.TroubleshootLog(" {0}", StyxWoW.Me.CurrentMap.IsBattleground ? "Character is currently in a Battleground  " : "Character seems to be outside a Battleground");
+            CLU.TroubleshootLog(" {0}", StyxWoW.Me.CurrentMap.IsDungeon ? "Character is currently in a Dungeon  " : "Character seems to be outside a Dungeon");
             CLU.TroubleshootLog("Character HB Pull Range: {0}", Targeting.PullDistance);
             ///////////////////////////////////////////////////////////////////
             // END non invasive user information
