@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Styx.WoWInternals;
 using Styx;
 using Styx.CommonBot;
@@ -10,6 +9,9 @@ namespace CLU.Base
     {
         /* Putting all the Macro logic here */
 
+        /// <summary>
+        /// Toggle macro for rotation pause
+        /// </summary>
         public static bool Manual
         {
             get
@@ -18,6 +20,9 @@ namespace CLU.Base
             }
         }
 
+        /// <summary>
+        /// Toggle macro for burst rotation
+        /// </summary>
         public static bool Burst
         {
             get
@@ -26,6 +31,9 @@ namespace CLU.Base
             }
         }
 
+        /// <summary>
+        /// Toggle macro for Obliterate to Necrotic Strike rotations
+        /// </summary>
         public static bool rotationSwap
         {
             get
@@ -34,6 +42,9 @@ namespace CLU.Base
             }
         }
 
+        /// <summary>
+        /// Toggle macro for Necrotic Strike preassure to stack rotations
+        /// </summary>
         public static bool necroSwap
         {
             get
@@ -42,11 +53,18 @@ namespace CLU.Base
             }
         }
 
+        /// <summary>
+        /// Resets individual MultiCastMacro int's to 0
+        /// </summary>
+        /// <param name="Which">Spell name</param>
         public static void resetMacro(string Which)
         {
             Lua.DoString(Which + " = 0;");
         }
 
+        /// <summary>
+        /// Resets All MultiCastMacro int's within to 0
+        /// </summary>
         public static void resetAllMacros()
         {
             using (StyxWoW.Memory.AcquireFrame())
@@ -60,6 +78,10 @@ namespace CLU.Base
         static int MultiCastMacroFT = 0;
         static string whatSpell;
         static WoWSpell _Spell;
+
+        /// <summary>
+        /// Checks to see if the MultiCastMacro is a 0 or 1, if 1 is present ~> run MT or FT call, also checks for LoS and if we can cast the spell or not
+        /// </summary>
         public static void isMultiCastMacroInUse()
         {
             using (StyxWoW.Memory.AcquireFrame())
