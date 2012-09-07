@@ -53,7 +53,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
         public override string KeySpell
         {
             get {
-                return "Frost Strike";
+                return "Howling Blast";
             }
         }
 
