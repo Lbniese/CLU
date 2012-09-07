@@ -26,7 +26,7 @@ namespace CLU.Classes.Deathknight
         public override string KeySpell
         {
             get {
-                return "Death Strike";
+                return "Heart Strike";
             }
         }
 
