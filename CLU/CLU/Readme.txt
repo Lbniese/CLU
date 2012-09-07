@@ -28,7 +28,7 @@ Method 1: Zip File
 -------------------
 
 * You can download a stable version from the HB forum post Download the latest zip file
-* Copy the CLU folder into "%Your Honorbuddy Folder%\CustomClasses\"
+* Copy the CLU folder into "%Your Honorbuddy Folder%\Routines\"
 * Load Honorbuddy
 * Select "Combat" as your bot base (Lazyraider and RaidBot tested OK)
 * Select "Load Profile" and load the BlankProfile.xml (Provided at the end of this post.)
@@ -40,7 +40,7 @@ Method 2: SVN
 
 * You can access the latest CLU build from the following SVN Link http://clu-for-honorbuddy.googlecode.com/svn/trunk/CLU/
 * Google: How to use tortoisesvn. (Please do not PM HB moderators if you do not know how to use a SVN, PM me instead)
-* Copy the CLU folder into "%Your Honorbuddy Folder%\CustomClasses\"
+* Copy the CLU folder into "%Your Honorbuddy Folder%\Routines\"
 * Load Honorbuddy
 * Select "Combat" as your bot base (Lazyraider and RaidBot tested OK)
 * Select "Load Profile" and load the BlankProfile.xml (Provided at the end of this post.)
