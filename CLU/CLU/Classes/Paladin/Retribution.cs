@@ -81,6 +81,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Item.UseTrinkets(),
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
+                                   Item.UseBagItem("Golemblood Potion", ret => Buff.UnitHasHasteBuff(Me), "Golemblood Potion Heroism/Bloodlust"),
                                    Item.UseEngineerGloves())),
                            // Interupt
                            Spell.CastInterupt("Rebuke",           ret => true, "Rebuke"),
