@@ -105,22 +105,22 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    // HandleMovement? Lets Misdirect to Focus, Pet, RafLeader or Tank
                                    // TODO: Add Binding shot logic..need to see it working well.
                                    Common.HandleMisdirection(),
-                                   Buff.CastBuff("Hunter's Mark", ret => true, "Hunter's Mark"),
+                                   Buff.CastDebuff("Hunter's Mark", ret => true, "Hunter's Mark"),
                                    Spell.CastSelfSpell("Feign Death", ret => Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && CLUSettings.Instance.Hunter.UseFeignDeath, "Feign Death Threat"),
                                    Spell.CastSpell("Concussive Shot", ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTargetGuid == Me.Guid && CLUSettings.Instance.Hunter.UseConcussiveShot, "Concussive Shot"),
                                    Spell.CastSpell("Tranquilizing Shot", ret => Buff.TargetHasBuff("Enrage") && CLUSettings.Instance.Hunter.UseTranquilizingShot, "Tranquilizing Shot"),
                                    Common.HandleAspectSwitching(),
-                                   Spell.CastSpell("Kill Shot", ret => true, "Kill Shot"),
+                                   Spell.CastSpell("Kill Shot", ret => Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent < 20, "Kill Shot"),
                                    // AoE
                                    Spell.HunterTrapBehavior("Explosive Trap",   ret => Me.CurrentTarget, ret => Me.CurrentTarget != null && !Lists.BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 10) >= CLUSettings.Instance.Hunter.ExplosiveTrapCount),
                                    Spell.CastSelfSpell("Blink Strike",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10, "Blink Strike"), // teleports behind target mad damage.
-                                   Spell.CastSelfSpell("Lynx Rush",             ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
+                                   Spell.CastSpell("Lynx Rush",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
                                    Spell.CastSpell("Multi-Shot",                ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 20) >= CLUSettings.Instance.Hunter.MarksMultiShotCount, "Multi-Shot"),
                                    Spell.CastSpell("Steady Shot",               ret => Unit.CountEnnemiesInRange(Me.Location, 30) >= CLUSettings.Instance.Hunter.MarksMultiShotCount, "Steady Shot"),
                                    // Main rotation
                                    Buff.CastDebuff("Serpent Sting",           ret => Me.CurrentTarget != null && Buff.TargetDebuffTimeLeft("Serpent Sting").TotalSeconds <= 0.5 && (Me.CurrentTarget.HealthPercent <= 90 || Me.CurrentTarget.MaxHealth == 1), "Serpent Sting"),
                                    Spell.CastSpell("Chimera Shot",            ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent <= 90 || Me.CurrentTarget.MaxHealth == 1), "Chimera Shot"),
-                                   Spell.CastSelfSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Dire Beast"),
+                                   Spell.CastSpell("Dire Beast",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Dire Beast"),
                                    Buff.CastBuff("Stampede",                  ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Stampede"),
                                    Buff.CastBuff("Rapid Fire",                ret => Me.CurrentTarget != null && !Buff.UnitHasHasteBuff(Me) && Unit.IsTargetWorthy(Me.CurrentTarget), "Rapid Fire"),
                                    Buff.CastBuff("Readiness",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),

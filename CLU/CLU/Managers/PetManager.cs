@@ -19,6 +19,8 @@
     {
         /* putting all the Pets Spell/Buff/Debuff logic here */
 
+        private static readonly WaitTimer CallPetTimer = WaitTimer.OneSecond;
+
         private static readonly List<WoWPetSpell> PetSpells = new List<WoWPetSpell>();
 
         private static readonly PetManager PetsInstance = new PetManager();
@@ -32,7 +34,7 @@
             }
         }
 
-        private static readonly WaitTimer PetTimer = new WaitTimer(TimeSpan.FromSeconds(2));
+        public static readonly WaitTimer PetTimer = new WaitTimer(TimeSpan.FromSeconds(2));
 
         /// <summary>
         /// An instance of the Pets Class
@@ -111,6 +113,62 @@
                                             new ActionAlwaysSucceed())))));
         }
 
+
+        /// <summary>
+        ///   Calls a pet by name, if applicable.
+        /// </summary>
+        /// <remarks>
+        ///   Created 2/7/2011.
+        /// </remarks>
+        /// <param name = "petName">Name of the pet. This parameter is ignored for mages. Warlocks should pass only the name of the pet. Hunters should pass which pet (1, 2, etc)</param>
+        /// <returns>true if it succeeds, false if it fails.</returns>
+        public static bool CallPet(string petName)
+        {
+            if (!CallPetTimer.IsFinished)
+            {
+                return false;
+            }
+
+            switch (StyxWoW.Me.Class)
+            {
+                case WoWClass.Warlock:
+                    if (SpellManager.CanCast("Summon " + petName))
+                    {
+                        CLU.DiagnosticLog(string.Format("[Pet] Calling out my {0}", petName));
+                        bool result = SpellManager.Cast("Summon " + petName);
+                        //if (result)
+                        //    StyxWoW.SleepForLagDuration();
+                        return result;
+                    }
+                    break;
+
+                case WoWClass.Mage:
+                    if (SpellManager.CanCast("Summon Water Elemental"))
+                    {
+                        CLU.DiagnosticLog("[Pet] Calling out Water Elemental");
+                        bool result = SpellManager.Cast("Summon Water Elemental");
+                        //if (result)   - All calls to this method are now placed in a sequence that uses WaitContinue 
+                        //    StyxWoW.SleepForLagDuration();
+                        return result;
+                    }
+                    break;
+
+                case WoWClass.Hunter:
+                    if (SpellManager.CanCast("Call Pet " + petName))
+                    {
+                        if (!StyxWoW.Me.GotAlivePet)
+                        {
+                            CLU.DiagnosticLog(string.Format("[Pet] Calling out pet #{0}", petName));
+                            bool result = SpellManager.Cast("Call Pet " + petName);
+                            //if (result)
+                            //    StyxWoW.SleepForLagDuration();
+                            return result;
+                        }
+                    }
+                    break;
+            }
+            return false;
+        }
 
         /// <summary>Cast's a pet spell</summary>
         /// <param name="name">the pet spell to cast</param>

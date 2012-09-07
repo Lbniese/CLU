@@ -68,29 +68,28 @@ namespace CLU.Classes.Hunter
                                    PetManager.CastPetSpell("Heart of the Phoenix",       ret => !Me.GotAlivePet && CLUSettings.Instance.Hunter.UseHeartofthePhoenix, "Heart of the Phoenix")));
         }
 
-        /// <summary>
-        /// Will call pet or revive pet (in combat selection true/false)
-        /// </summary>
         public static Composite HunterCallPetBehavior(bool reviveInCombat)
         {
             return new Decorator(
-                ret => !StyxWoW.Me.GotAlivePet,
+                ret => !StyxWoW.Me.GotAlivePet && PetManager.PetTimer.IsFinished,
                 new PrioritySelector(
                     Spell.WaitForCast(false),
                     new Decorator(
-                        ret => StyxWoW.Me.Pet != null && (!Me.Combat || reviveInCombat),
+                        ret => StyxWoW.Me.Pet != null && (!StyxWoW.Me.Combat || reviveInCombat),
                         new PrioritySelector(
                             Movement.EnsureMovementStoppedBehavior(),
                             Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet"))),
                     new Sequence(
-                        new Action(ret => PetManager.CastPetSummonSpell("Call Pet " + (int)CLUSettings.Instance.Hunter.PetSlotSelection, x => StyxWoW.Me.Pet == null, " Calling Pet in " + CLUSettings.Instance.Hunter.PetSlotSelection)),
-                        new WaitContinue(2, ret => StyxWoW.Me.GotAlivePet || StyxWoW.Me.Combat, new ActionAlwaysSucceed())
-                        //new Decorator(
-                        //    ret => !Me.GotAlivePet && (!Me.Combat || reviveInCombat),
-                        //    Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet")
-                            )
+                        new Action(ret => PetManager.CallPet("" + (int)CLUSettings.Instance.Hunter.PetSlotSelection)),
+                        Spell.CreateWaitForLagDuration(),
+                        new WaitContinue(2, ret => StyxWoW.Me.GotAlivePet || StyxWoW.Me.Combat, new ActionAlwaysSucceed()),
+                        new Decorator(
+                            ret => !StyxWoW.Me.GotAlivePet && (!StyxWoW.Me.Combat || reviveInCombat),
+                            Spell.CastSelfSpell("Revive Pet", ret => true, "Revive Pet")))
                     )
                 );
         }
+
+        
     }
 }

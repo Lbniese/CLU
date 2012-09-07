@@ -151,8 +151,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Mangle",                ret => true, "Mangle"),
                            Spell.CastSpell("Thrash",                ret => Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
                            Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
-                           Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
                            Spell.CastSpell("Faerie Swarm",          ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
+                           Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
                            Buff.CastDebuff("Lacerate",              ret => true, "Lacerate"),
                            Spell.CastSpell("Maul",                  ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),                           
                            Spell.CastSpell("Lacerate",              ret => true, "Lacerate"));

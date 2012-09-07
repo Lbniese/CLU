@@ -242,7 +242,7 @@ namespace CLU.Settings
 
         [Setting]
         [DefaultValue(66)]
-        [Category("Survival")]
+        [Category("Marksmanship")]
         [DisplayName("Arcane Shot FocusPercent")]
         [Description("Will use Arcane Shot at the set FocusPercent")]
         public int MarksArcaneShotFocusPercent
@@ -253,7 +253,7 @@ namespace CLU.Settings
 
         [Setting]
         [DefaultValue(50)]
-        [Category("Survival")]
+        [Category("Marksmanship")]
         [DisplayName("Fevor FocusPercent")]
         [Description("Will use Fevor at the set FocusPercent")]
         public int MarksFevorFocusPercent

@@ -225,38 +225,48 @@
             ////CLU.DebugLog(Color.ForestGreen, "OnUnit: " + target);
             ////CLU.DebugLog(Color.ForestGreen, "CanCast: " + SpellManager.CanCast(name, target, false));
 
-
+            var canCast = false;
+            var inRange = false;
             var minReqs = target != null;
             if (minReqs)
             {
-                var canCast = SpellManager.CanCast(name, target, false, false);
+                canCast = SpellManager.CanCast(name, target, false, false);
 
-                // Make sure we set this.
-                minReqs = canCast;
-                // We're always in range of ourselves. So just ignore this bit if we're casting it on us
-                if (canCast && !target.IsMe && !BossList.IgnoreRangeCheck.Contains(target.Entry))
+                if (canCast)
                 {
-                    WoWSpell spell;
-                    if (SpellManager.Spells.TryGetValue(name, out spell))
+                    // We're always in range of ourselves. So just ignore this bit if we're casting it on us
+                    if (target.IsMe)
                     {
-                        // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
-                        if (spell.IsSelfOnlySpell)
-                            return true;
+                        inRange = true;
+                    }
+                    else
+                    {
+                        WoWSpell spell;
+                        if (SpellManager.Spells.TryGetValue(name, out spell))
+                        {
+                            var minRange = spell.MinRange;
+                            var maxRange = spell.MaxRange;
+                            var targetDistance = Unit.DistanceToTargetBoundingBox(target);
 
-                        // RangeId 2 is melee range. Huzzah :)
-                        if (spell.IsMeleeSpell)
-                            minReqs = Unit.DistanceToTargetBoundingBox(target) < MeleeRange;
-                        else
-                            minReqs = Unit.DistanceToTargetBoundingBox(target) < spell.MaxRange;
+                            // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
+                            if (spell.IsSelfOnlySpell)
+                                inRange = true;
+                            // RangeId 2 is melee range. Huzzah :)
+                            else if (spell.IsMeleeSpell)
+                                inRange = targetDistance < MeleeRange;
+                            else
+                                inRange = targetDistance < maxRange &&
+                                          targetDistance > (minRange == 0 ? minRange : minRange + 3);
+                        }
                     }
                 }
             }
 
-            return minReqs;
+            return minReqs && canCast && inRange;
         }
 
         /// <summary>
-        ///  Returns the current Melee range for the player
+        ///  Returns the current Melee range for the player Unit.DistanceToTargetBoundingBox(target)
         /// </summary>
         public static float MeleeRange
         {
@@ -790,20 +800,25 @@
                 new Decorator(
                     ret => Me.HasAura("Trap Launcher"),
                     new Sequence(
-                        new Switch<string>(ctx => trapName,
-                                           new SwitchArgument<string>("Immolation Trap",
-                                                   new Action(ret => SpellManager.CastSpellById(82945))),
-                                           new SwitchArgument<string>("Freezing Trap",
-                                                   new Action(ret => SpellManager.CastSpellById(60192))),
-                                           new SwitchArgument<string>("Explosive Trap",
-                                                   new Action(ret => SpellManager.CastSpellById(82939))),
-                                           new SwitchArgument<string>("Ice Trap",
-                                                   new Action(ret => SpellManager.CastSpellById(82941))),
-                                           new SwitchArgument<string>("Snake Trap",
-                                                   new Action(ret => SpellManager.CastSpellById(82948)))
-                                          ),
-                        // new ActionSleep(200),
-                        new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location)))))));
+                        //new Switch<string>(ctx => trapName,
+                        //                   new SwitchArgument<string>("Immolation Trap",
+                        //                           new Action(ret => SpellManager.CastSpellById(82945))),
+                        //                   new SwitchArgument<string>("Freezing Trap",
+                        //                           new Action(ret => SpellManager.CastSpellById(60192))),
+                        //                   new SwitchArgument<string>("Explosive Trap",
+                        //                           new Action(ret => SpellManager.CastSpellById(82939))),
+                        //                   new SwitchArgument<string>("Ice Trap",
+                        //                           new Action(ret => SpellManager.CastSpellById(82941))),
+                        //                   new SwitchArgument<string>("Snake Trap",
+                        //                           new Action(ret => SpellManager.CastSpellById(82948)))
+                        //                  ),
+                        //// new ActionSleep(200),
+                        //new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))))
+                        
+                        new Action(ret => Lua.DoString(string.Format("CastSpellByName(\"{0}\")", trapName))),
+                                new WaitContinue(TimeSpan.FromMilliseconds(200), ret => false, new ActionAlwaysSucceed()),
+                                new Action(ret => SpellManager.ClickRemoteLocation(onUnit(ret).Location))
+                        )))));
         }
 
         /// <summary>Channels an area spell such as Rain of Fire</summary>
