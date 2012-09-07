@@ -209,7 +209,7 @@
         {
             WoWSpell spell;
             if (!SpellManager.Spells.TryGetValue(spellName, out spell))
-                spell = SpellManager.RawSpells.FirstOrDefault(s => s.Name == spellName);
+                spell = SpellManager.Spells.FirstOrDefault(s => s.Key == spellName).Value;
 
             return spell;
         }
@@ -1086,7 +1086,10 @@
         public static IEnumerable<WoWSpell> CurrentRacials
         {
             get {
-                return SpellManager.RawSpells.Where(racial => racial != null && Racials.Contains(racial.Name)).ToList();
+
+                //lil bit hackish ... but HB is broken ... maybe -- edit by wulf.
+                var listPairs = SpellManager.Spells.Where(racial => Racials.Contains(racial.Value.Name)).ToList();
+                return listPairs.Select(s => s.Value).ToList();
             }
         }
 
@@ -1138,14 +1141,16 @@
         public static void DumpSpells()
         {
             CLU.TroubleshootLog( "==================SpellManager.RawSpells===============");
-            foreach (var sp in SpellManager.RawSpells)
+            foreach (var sp in SpellManager.Spells)
             {
                 WoWSpell spell;
-                if (SpellManager.Spells.TryGetValue(sp.Name, out spell))
+                if (SpellManager.Spells.TryGetValue(sp.Value.Name, out spell))
                 {
-                    CLU.TroubleshootLog( "Spell ID:" + sp.Id + " MaxRange:" + sp.MaxRange + " " + spell);
-                } else {
-                    CLU.TroubleshootLog( sp.Name);
+                    CLU.TroubleshootLog("Spell ID:" + sp.Value.Id + " MaxRange:" + sp.Value.MaxRange + " " + spell);
+                }
+                else
+                {
+                    CLU.TroubleshootLog(sp.Value.Name);
                 }
             }
             CLU.TroubleshootLog( "=======================================================");

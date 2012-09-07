@@ -37,7 +37,7 @@ using Timer = System.Timers.Timer;
 // * Toney001 for his improvements to the Unholy Deathknight rotation
 // * kbrebel04  for his improvements to Subtlety Rogue
 
-[assembly: CLSCompliant(true)]
+//[assembly: CLSCompliant(true)]
 namespace CLU
 {
     using Styx.Common;
