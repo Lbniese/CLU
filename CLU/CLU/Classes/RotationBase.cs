@@ -28,6 +28,8 @@ namespace CLU.Classes
 
 		public abstract Composite PreCombat { get; }
 
+        //public abstract Composite PVPRotationSelector { get; }
+
 		public abstract Composite Resting { get; }
 
 		public abstract string Name { get; }
