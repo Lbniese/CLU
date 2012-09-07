@@ -144,7 +144,7 @@ namespace CLU.Classes.Paladin
 					               ),
 
 					// cast Judgement for Judgements of the Pure
-					Spell.CastSpellOnMostFocusedTarget("Judgement", u => Unit.MostFocusedUnit.Unit, ret => !Buff.PlayerHasActiveBuff("Judgements of the Pure") && StyxWoW.Me.Combat, "Judgement for (Judgements of the Pure)", false),
+					Spell.CastSpellOnMostFocusedTarget("Judgment", u => Unit.MostFocusedUnit.Unit, ret => !Buff.PlayerHasActiveBuff("Judgements of the Pure") && StyxWoW.Me.Combat, "Judgment for (Judgements of the Pure)", false),
 
 					// Holy Radiance
 					Healer.FindAreaHeal(a => true, 10, 93, 12f, 4, "Holy Radiance party healing: Avg: 10-98 or 85, 11yrds, count: 5 or 4",

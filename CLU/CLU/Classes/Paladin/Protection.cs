@@ -99,7 +99,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Crusader Strike",             ret => true, "Crusader Strike"),
                            
                            Spell.CastSpell("Avenger's Shield",            ret => Buff.PlayerHasBuff("Grand Crusader"), "Avengers Shield Proc"),
-                           Spell.CastSpell("Judgement",                   ret => true, "Judgement"),
+                           Spell.CastSpell("Judgment",                    ret => true, "Judgment"),
                            Spell.CastSpell("Avenger's Shield",            ret => true, "Avengers Shield"),
                            Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent < 20, "Hammer of Wrath"),
                            Spell.CastSpell("Execution Sentence",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
