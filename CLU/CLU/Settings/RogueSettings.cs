@@ -25,37 +25,16 @@ namespace CLU.Settings
         #region Common
 
         [Setting]
-        [DefaultValue(PoisonType.Instant)]
-        [Category("Common")]
-        [DisplayName("Main Hand Poison")]
-        [Description("Main Hand Poison")]
-        public PoisonType MHPoison
-        {
-            get;
-            set;
-        }
-
-        [Setting]
         [DefaultValue(PoisonType.Deadly)]
         [Category("Common")]
-        [DisplayName("Off Hand Poison")]
-        [Description("Off Hand Poison")]
-        public PoisonType OHPoison
+        [DisplayName("Wanted Poison")]
+        [Description("Wanted Poison")]
+        public PoisonType WantedPoison
         {
             get;
             set;
         }
 
-        [Setting]
-        [DefaultValue(PoisonType.Wound)]
-        [Category("Common")]
-        [DisplayName("Thrown Poison")]
-        [Description("Thrown Poison")]
-        public PoisonType ThrownPoison
-        {
-            get;
-            set;
-        }
         
         [Setting]
         [DefaultValue(false)]

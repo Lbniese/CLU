@@ -79,7 +79,6 @@
     }
 
     public enum PoisonType {
-        Instant,
         Crippling,
         MindNumbing,
         Deadly,
