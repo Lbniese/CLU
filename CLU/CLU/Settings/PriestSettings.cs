@@ -111,6 +111,19 @@ namespace CLU.Settings
         #region Shadow
 
         [Setting]
+        [DefaultValue(0.6)]
+        [Category("Shadow Spec")]
+        [DisplayName("Mind Flay Clipping")]
+        [Description("Will attempt to clip mind flay at this time value.")]
+        public double MindFlayClippingDuration
+        {
+            get;
+            set;
+        }
+
+        
+
+        [Setting]
         [DefaultValue(ShadowPriestRotation.Leveling)]
         [Category("Shadow Spec")]
         [DisplayName("Rotation Selector")]

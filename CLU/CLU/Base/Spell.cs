@@ -80,7 +80,7 @@
         /// <returns>Time to begin next channel</returns>
         public static double ClippingDuration()
         {
-            return 0.4;
+            return CLUSettings.Instance.Priest.MindFlayClippingDuration;
         }
 
         /// <summary>
