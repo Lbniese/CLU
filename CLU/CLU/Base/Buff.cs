@@ -196,7 +196,7 @@ namespace CLU.Base
         public static double DotDelta(string name)
         {
             // TODO: Decide if we need to individually supply seconds left to refresh the spell (for instance we could supply 2.5 seconds to refresh Vampiric Touch).
-            return (Spell.CastTime(name) + Spell.GCD) + CombatLogEvents.ClientLag;
+            return (Spell.CastTime(name) == 0 ? 1 :  Spell.CastTime(name) + Spell.GCD) + CombatLogEvents.ClientLag;
         }
 
         /// <summary>Check the aura thats created by yourself by the name on specified unit</summary>
