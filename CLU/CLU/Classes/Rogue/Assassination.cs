@@ -107,7 +107,7 @@ namespace CLU.Classes.Rogue
                            // TotT
                            Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade, "Tricks of the Trade"),
                            Spell.CastSpell("Redirect",             ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
-                           Spell.CastSelfSpell("Slice and Dice",   ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"),
+                           Spell.CastSpell("Slice and Dice",        ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"),
                            // Aoe
                            new Decorator(ret => Unit.EnemyUnits.Count(a => a.DistanceSqr <= 15*15) > 3,
                                          new PrioritySelector(
@@ -115,13 +115,8 @@ namespace CLU.Classes.Rogue
                                              Spell.CastSpell("Fan of Knifes", ret => Me.CurrentTarget != null && Me.ComboPoints < 5, "Fan of Knifes")
                                          )
                                         ),
-                           //Vanish -- We want to use Ambush and NOT Garrote
-                           new Sequence(
-                               Spell.CastSpell("Vanish",       ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"),
-                               new WaitContinue(1, ret => Me.HasMyAura("Stealth") || Me.HasMyAura("Vanish"), new ActionAlwaysSucceed()),// Waiting for lag to come by...best thing we can do, i don't want to lock out the whole rotation when we are stealthed
-                               Spell.CastSpell("Ambush",       ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget) && SpellManager.HasSpell("Subterfuge"), "Ambush"), //I hope this works this way :/
-                               Spell.CastSpell("Ambush",       ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget), "Ambush") // Do this when we don't specced in Subterfuge. But if so, then we will maybe get a second Ambush. Needs testing
-                           ),
+                          // Vanish -- We want to use Ambush and NOT Garrote
+                            //HandleVanish,
                            // Doin' ya damage
                            Spell.CastSpell("Rupture",          ret => (!Buff.TargetHasDebuff("Rupture")) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Rupture"),
                            Spell.CastSpell("Vendetta",         ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
@@ -181,6 +176,21 @@ namespace CLU.Classes.Rogue
             get {
                 return this.SingleRotation;
             }
+        }
+
+        public Composite HandleVanish    // Weischbier TODO:
+        { 
+            get
+               {
+                return
+                  new Decorator(ret => !Spell.SpellOnCooldown("Vanish"),
+                          new Sequence(
+                             Spell.CastSpell("Vanish", ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"),
+                             new WaitContinue(1, ret => Me.HasMyAura("Stealth") || Me.HasMyAura("Vanish"), new ActionAlwaysSucceed()),// Waiting for lag to come by...best thing we can do, i don't want to lock out the whole rotation when we are stealthed
+                             Spell.CastSpell("Ambush", ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget) && SpellManager.HasSpell("Subterfuge"), "Ambush"), //I hope this works this way :/
+                             Spell.CastSpell("Ambush", ret => true, "Ambush") // Do this when we don't specced in Subterfuge. But if so, then we will maybe get a second Ambush. Needs testing
+                         ));
+                }
         }
     }
 }
