@@ -81,7 +81,7 @@ namespace CLU.GUI
                     WoWAura aura;
                     if (StyxWoW.Me.CurrentTarget.Auras.TryGetValue(au.Key, out aura))
                     {
-                        dump = dump + "Name: " + aura.Name + " ID: " + aura.SpellId + " StackCount: " + aura.StackCount + " TimeLeft: " + aura.TimeLeft + "\r\n";
+                        dump = dump + "Name: " + aura.Name + " ID: " + aura.SpellId + " StackCount: " + aura.StackCount + " TimeLeft: " + aura.TimeLeft + " Duration: " + aura.Duration + "\r\n";
                     }
                     else
                     {
