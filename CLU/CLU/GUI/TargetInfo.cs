@@ -5,6 +5,7 @@ using Styx.WoWInternals;
 
 namespace CLU.GUI
 {
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Globalization;
 
@@ -28,6 +29,7 @@ namespace CLU.GUI
         private TargetInfo()
         {
             this.InitializeComponent();
+            GUIHelpers.SetDoubleBuffered(this.textBox1);
         }
 
         private void update()
@@ -52,6 +54,13 @@ namespace CLU.GUI
                 var ta = target.Location;
                 facing.Text = Math.Round(Unit.FacingTowardsUnitDegrees(me, ta), 2) + "°";
             }
+
+            if (checkBox1.Checked)
+            {
+                checkaura();
+            }
+
+            
         }
 
         void Timer1Tick(object sender, EventArgs e)
@@ -59,6 +68,34 @@ namespace CLU.GUI
             try {
                 this.update();
             } catch { }
+        }
+
+        private void checkaura()
+        {
+            textBox1.Clear();
+            string dump = null;
+            if (StyxWoW.Me.CurrentTarget != null)
+            {
+                foreach (KeyValuePair<string, WoWAura> au in StyxWoW.Me.CurrentTarget.Auras)
+                {
+                    WoWAura aura;
+                    if (StyxWoW.Me.CurrentTarget.Auras.TryGetValue(au.Key, out aura))
+                    {
+                        dump = dump + "Name: " + aura.Name + " ID: " + aura.SpellId + "\r\n";
+                    }
+                    else
+                    {
+                        dump = dump + au.Key + "\r\n";
+                    }
+                }
+            }
+
+            textBox1.Text += dump;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            checkaura();
         }
     }
 }
