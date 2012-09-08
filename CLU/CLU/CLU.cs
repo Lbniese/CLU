@@ -240,20 +240,28 @@ namespace CLU
             if (!Me.IsValid || !StyxWoW.IsInGame) {
                 return;
             }
-
-            Keybinds.Pulse();
+            if (CLUSettings.Instance.EnableKeybinds) Keybinds.Pulse();
         }
 
         public override void Pulse()
         {
-            if (Me.IsValid && StyxWoW.IsInGame) {
-                if (StyxWoW.Me.Class == WoWClass.Hunter
-                        || StyxWoW.Me.Class == WoWClass.DeathKnight
-                        || StyxWoW.Me.Class == WoWClass.Warlock
-                        || StyxWoW.Me.Class == WoWClass.Mage) PetManager.Pulse();
-                //ManageOracle();
-                HealableUnit.Pulse();
+            if (!Me.IsValid || !StyxWoW.IsInGame)
+            {
+                return;
             }
+            switch (StyxWoW.Me.Class)
+            {
+                case WoWClass.Hunter:
+                case WoWClass.DeathKnight:
+                case WoWClass.Warlock:
+                case WoWClass.Mage:
+                    PetManager.Pulse();
+                    break;
+            }
+
+            if (IsHealerRotationActive) HealableUnit.Pulse();
+            //ManageOracle();
+            
         }
 
         internal static GroupType GroupType

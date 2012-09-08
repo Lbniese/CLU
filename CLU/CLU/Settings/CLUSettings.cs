@@ -237,6 +237,18 @@ namespace CLU.Settings
 
         #region Category: Keybinds
 
+
+        [Setting]
+        [DefaultValue(false)]
+        [Category("Keybinds")]
+        [DisplayName("Enable Keybinds")]
+        [Description("Enable the use of Keybinds.")]
+        public bool EnableKeybinds
+        {
+            get;
+            set;
+        }
+
         [Setting]
         [DefaultValue(true)]
         [Category("Keybinds")]
