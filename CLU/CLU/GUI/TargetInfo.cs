@@ -60,7 +60,7 @@ namespace CLU.GUI
             if (checkBox1.Checked)
             {
                 checkaura();
-                if (StyxWoW.Me.Class == WoWClass.DeathKnight) checkrunes();
+                // if (StyxWoW.Me.Class == WoWClass.DeathKnight) checkrunes(); enable this and it will kill HB.
             }
 
         }
