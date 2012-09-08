@@ -292,7 +292,7 @@
         /// <returns>The have mana gem.</returns>
         public static bool HaveManaGem()
         {
-            return ObjectManager.GetObjectsOfType<WoWItem>(false).Any(item => item.Entry == 36799);
+            return ObjectManager.GetObjectsOfType<WoWItem>(false).Any(item => item.Entry == 36799 || item.Entry == 81901);
         }
 
         /// <summary>Returns true if the player has the item in his bag.</summary>

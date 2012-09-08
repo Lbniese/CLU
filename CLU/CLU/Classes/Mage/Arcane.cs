@@ -91,10 +91,10 @@ namespace CLU.Classes.Mage
                     // AoE
                     new Decorator(ret => CLUSettings.Instance.UseAoEAbilities,
                         new PrioritySelector(
-                            Spell.CastSpell("Fire Blast", ret => Me.CurrentTarget.HasMyAura("Living Bomb") && Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly) >= 3, "Fire Blast (Spreading the news...)"),
-                            Spell.CastSpell("Frost Bomb", ret => Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly) >= 3, "Frost Bomb"),
-                            Spell.CastSpellAtLocation("Flametrike", ret => Me.CurrentTarget, ret => Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly) >= 3, "Flamestrike"),
-                            Spell.CastSpell("Arcane Explosion",ret => Unit.NearbyNonControlledUnits(Me.Location, 10f, false).Count(a => !a.IsFriendly) >= 3,"Arcane Explsion")
+                            Spell.CastSpell("Fire Blast", ret => Me.CurrentTarget.HasMyAura("Living Bomb") && Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly && a.Combat) >= 3, "Fire Blast (Spreading the news...)"),
+                            Spell.CastSpell("Frost Bomb", ret => Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly && a.Combat) >= 3, "Frost Bomb"),
+                            Spell.CastSpellAtLocation("Flametrike", ret => Me.CurrentTarget, ret => Unit.NearbyNonControlledUnits(Me.CurrentTarget.Location, 10f, false).Count(a => !a.IsFriendly && a.Combat) >= 3, "Flamestrike"),
+                            Spell.CastSpell("Arcane Explosion", ret => Unit.NearbyNonControlledUnits(Me.Location, 10f, false).Count(a => !a.IsFriendly && a.Combat) >= 3, "Arcane Explsion")
                         )
                     ),
                     //Damage
