@@ -10,7 +10,7 @@ namespace CLU.Base
         /* Putting all the Macro logic here */
 
         /// <summary>
-        /// Toggle macro for rotation pause
+        /// Toggle macro for combat rotation On/Off
         /// </summary>
         public static bool Manual
         {
@@ -21,7 +21,7 @@ namespace CLU.Base
         }
 
         /// <summary>
-        /// Toggle macro for burst rotation
+        /// Toggle macro for burst rotation On/Off
         /// </summary>
         public static bool Burst
         {
@@ -32,7 +32,7 @@ namespace CLU.Base
         }
 
         /// <summary>
-        /// Toggle macro for Obliterate to Necrotic Strike rotations
+        /// Toggle macro for switching between two(2) rotations
         /// </summary>
         public static bool rotationSwap
         {
@@ -43,7 +43,7 @@ namespace CLU.Base
         }
 
         /// <summary>
-        /// Toggle macro for Necrotic Strike preassure to stack rotations
+        /// Toggle macro for switching Necrotic Strike rotations (pressure ~> stack & vise versa)
         /// </summary>
         public static bool necroSwap
         {
@@ -54,7 +54,7 @@ namespace CLU.Base
         }
 
         /// <summary>
-        /// Resets individual MultiCastMacro int's to 0
+        /// Resets individual MultiCastMacro int's from one(1) to zero(0)
         /// </summary>
         /// <param name="Which">Spell name</param>
         public static void resetMacro(string Which)
@@ -63,7 +63,7 @@ namespace CLU.Base
         }
 
         /// <summary>
-        /// Resets All MultiCastMacro int's within to 0
+        /// Resets all MultiCastMacro int's within from one(1) to zero(0)
         /// </summary>
         public static void resetAllMacros()
         {
@@ -80,7 +80,9 @@ namespace CLU.Base
         static WoWSpell _Spell;
 
         /// <summary>
-        /// Checks to see if the MultiCastMacro is a 0 or 1, if 1 is present ~> run MT or FT call, also checks for LoS and if we can cast the spell or not
+        /// Main MultiCastMacro call: checks if MultiCastMacro MT or FT is active, also checks for LoS and if we can cast the specified spell
+        /// If zero(0) is present: return to primary or previous rotation
+        /// If one(1) is present: run MT or FT then return to primary or previous rotation
         /// </summary>
         public static void isMultiCastMacroInUse()
         {
