@@ -50,6 +50,10 @@ namespace CLU.Classes.Rogue
                         return 5761;
                     case OHPoisonType.Crippling:
                         return 3408;
+                    case OHPoisonType.Paralytic:
+                        return 108215;
+                    case OHPoisonType.Leeching:
+                        return 108211;
                     default:
                         return 0;
                 }

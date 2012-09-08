@@ -86,7 +86,9 @@
     public enum OHPoisonType
     {
         MindNumbing,
-        Crippling
+        Crippling,
+        Leeching,
+        Paralytic
        
     }
 
