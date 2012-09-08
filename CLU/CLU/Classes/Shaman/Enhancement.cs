@@ -145,7 +145,7 @@ namespace CLU.Classes.Shaman
         {
             get {
                 return new Decorator(
-                           ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                           ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                                new Decorator(
                                    ret => Totems.NeedToRecallTotems,

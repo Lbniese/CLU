@@ -182,7 +182,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
             get {
                 return new PrioritySelector(
                            new Decorator(
-                               ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                               ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    // Item.RunMacroText("/cast Shadowform", ret => !Buff.PlayerHasBuff("Shadowform"), "Shadowform"),
                                    Buff.CastRaidBuff("Power Word: Fortitude",   ret => CLUSettings.Instance.Priest.UsePowerWordFortitude, "Power Word: Fortitude"),

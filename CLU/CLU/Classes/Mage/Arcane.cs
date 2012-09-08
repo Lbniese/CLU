@@ -120,7 +120,7 @@ namespace CLU.Classes.Mage
         {
             get {
                 return new Decorator(
-                           ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                           ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                                Buff.CastBuff("Mage Armor",                     ret => true, "Mage Armor"),
                                Buff.CastRaidBuff("Dalaran Brilliance",         ret => true, "Dalaran Brilliance"),

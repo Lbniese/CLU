@@ -133,7 +133,7 @@ namespace CLU.Classes.Warrior
             {
                 return new PrioritySelector(
                         new Decorator(
-                            ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                            ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                             new PrioritySelector(
                                 Buff.CastRaidBuff("Commanding Shout",   ret => true, "Commanding Shout"),
                                 Buff.CastRaidBuff("Battle Shout",       ret => true, "Battle Shout"))));

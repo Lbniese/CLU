@@ -243,7 +243,7 @@
                 try {
                     var ret = ObjectManager.GetObjectsOfType<WoWPlayer>().Where(
                                   p => !p.IsMe &&
-                                  p.Dead &&
+                                  p.IsDead &&
                                   p.IsFriendly &&
                                   p.IsInMyPartyOrRaid &&
                                   p.DistanceSqr < 30 * 30);
@@ -287,7 +287,7 @@
                     var ret = ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
                                   u => u.HealthPercent < 20 &&
                                   !u.ActiveAuras.ContainsKey("Rallying Cry") &&
-                                  !u.Dead &&
+                                  !u.IsDead &&
                                   u.IsFriendly &&
                                   u.DistanceSqr < 30 * 30);
 
@@ -558,7 +558,7 @@
                 return false;
 
             // Duh
-            if (unit.Dead)
+            if (unit.IsDead)
                 return false;
 
             // on a transport
@@ -1211,7 +1211,7 @@
         {
             if (target == null) return 0;
             if (IsTrainingDummy(target)) return 9999; // added for DoT's and Black arrow and shit so users wont post.."But its not using XXX abilitie" when their fucking around on the training dummy.
-            if (target.CurrentHealth == 0 || target.Dead || !target.IsValid || !target.IsAlive) {
+            if (target.CurrentHealth == 0 || target.IsDead || !target.IsValid || !target.IsAlive) {
                 return 0;
             }
             // Fill variables on new target or on target switch, this will loose all calculations from last target

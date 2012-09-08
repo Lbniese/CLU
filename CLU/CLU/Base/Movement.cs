@@ -42,7 +42,7 @@
                        // No Target?
                        // Targeting Enabled?
                        // Aquire Target
-                       new DecoratorContinue(ret => (onUnit == null || onUnit(ret) == null || onUnit(ret).Dead) && CLUSettings.Instance.EnableTargeting,
+                       new DecoratorContinue(ret => (onUnit == null || onUnit(ret) == null || onUnit(ret).IsDead) && CLUSettings.Instance.EnableTargeting,
                                              new PrioritySelector(
                                              	ctx => {
                                              		// Aquires a target.

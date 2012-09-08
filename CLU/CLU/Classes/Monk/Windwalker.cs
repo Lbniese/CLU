@@ -115,7 +115,7 @@ namespace CLU.Classes.Monk
         {
             get {
                 return new Decorator(
-                           ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                           ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                               Buff.CastRaidBuff("Legacy of the Emperor", ret => true, "Legacy of the Emperor"),
                               Buff.CastRaidBuff("Legacy of the White Tiger", ret => true, "Legacy of the White Tiger")));

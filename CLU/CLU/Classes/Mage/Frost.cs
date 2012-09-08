@@ -128,7 +128,7 @@ namespace CLU.Classes.Mage
         {
             get {
                 return new Decorator(
-                           ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                           ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                                PetManager.CastPetSummonSpell("Summon Water Elemental", ret => !Me.GotAlivePet, "Calling Pet Water Elemental"),
                                Buff.CastBuff("Molten Armor",               ret => true, "Molten Armor"),

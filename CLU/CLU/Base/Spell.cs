@@ -1023,7 +1023,7 @@
                             where p.IsFriendly
                             && p.IsInMyPartyOrRaid
                             && !p.IsMe
-                            && !p.Dead
+                            && !p.IsDead
                             && (p.PowerType == WoWPowerType.Mana)
                             && p.IsPlayer && !p.IsPet
                             orderby p.MaxPower descending

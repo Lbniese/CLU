@@ -115,8 +115,19 @@ namespace CLU.Classes.Rogue
                                              Spell.CastSpell("Fan of Knifes", ret => Me.CurrentTarget != null && Me.ComboPoints < 5, "Fan of Knifes")
                                          )
                                         ),
+<<<<<<< .mine
+                           //Vanish -- We want to use Ambush and NOT Garrote
+                           new Decorator(ret => !Spell.SpellOnCooldown("Vanish"),
+                                new Sequence(
+                                    Spell.CastSpell("Vanish",       ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Vanish"),
+                                    new WaitContinue(1, ret => Me.HasMyAura("Stealth") || Me.HasMyAura("Vanish"), new ActionAlwaysSucceed()),// Waiting for lag to come by...best thing we can do, i don't want to lock out the whole rotation when we are stealthed
+                                    Spell.CastSpell("Ambush",       ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget), "Ambush") //I hope this works this way :/
+                                )
+                           ),
+=======
                           // Vanish -- We want to use Ambush and NOT Garrote
                             //HandleVanish,
+>>>>>>> .r96
                            // Doin' ya damage
                            Spell.CastSpell("Rupture",          ret => (!Buff.TargetHasDebuff("Rupture")) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Rupture"),
                            Spell.CastSpell("Vendetta",         ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
@@ -149,7 +160,7 @@ namespace CLU.Classes.Rogue
         {
             get {
                 return new Decorator(
-                           ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                           ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                            new PrioritySelector(
                                // Stealth
                                Spell.CastSelfSpell("Stealth", ret => !Buff.PlayerHasBuff("Stealth") && CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),

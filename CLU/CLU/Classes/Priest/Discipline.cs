@@ -115,7 +115,7 @@ namespace CLU.Classes.Priest
                            //),
 
                            // emergency heals on most injured tank
-                           Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < CLUSettings.Instance.Priest.EmergencyhealsonmostinjuredtankHealthPercent, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
+                           Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < CLUSettings.Instance.Priest.EmergencyhealsonmostinjuredtankHealthPercent, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
                                            Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && CLUSettings.Instance.UseCooldowns && Buff.PlayerCountBuff("Evangelism") > 4, "Archangel...Tank Time!"),
                                            Spell.CastSpell("Flash Heal", a => Buff.PlayerHasActiveBuff("Surge of Light"), "Flash Heal (Surge of Light)"),
                                            Spell.CastSpell("Power Word: Shield", a => CanShield && GraceStacks < 3, "Shield before penance (emergency)"),
@@ -127,13 +127,13 @@ namespace CLU.Classes.Priest
                                           ),
 
                            // Urgent Dispel Magic
-                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Urgent Dispel Magic",
+                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Urgent Dispel Magic",
                                                  Spell.CastSpell("Dispel Magic", a => Me.CurrentTarget != null && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Dispel Magic (Urgent)"),
                                                  Spell.CastSpell("Cure Disease", a => Me.CurrentTarget != null && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cure Disease (Urgent)")
                                                 ),
 
                            // I'm fine and tanks are not dying => ensure nobody is REALLY low life
-                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < CLUSettings.Instance.Priest.emergencyhealsonmostinjuredraidpartymemberHealthPercent, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
+                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < CLUSettings.Instance.Priest.emergencyhealsonmostinjuredraidpartymemberHealthPercent, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
                                                  Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && CLUSettings.Instance.UseCooldowns && Buff.PlayerCountBuff("Evangelism") > 4, "Archangel...Single Target Time!"),
                                                  Spell.CastSpell("Flash Heal", a => Buff.PlayerHasActiveBuff("Surge of Light"), "Flash Heal (Surge of Light)"),
                                                  Spell.CastSpell("Power Word: Shield", a => CanShield && GraceStacks < 3, "Shield before penance (emergency)"),
@@ -142,7 +142,7 @@ namespace CLU.Classes.Priest
                                                 ),
 
                            // Prayer of Mending on tank
-                           Healer.FindTank(a => !Buff.AnyHasMyAura("Prayer of Mending"), x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && !x.ToUnit().HasAura("Prayer of Mending"), (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Prayer of Mending on tank",
+                           Healer.FindTank(a => !Buff.AnyHasMyAura("Prayer of Mending"), x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && !x.ToUnit().HasAura("Prayer of Mending"), (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Prayer of Mending on tank",
                                            Spell.CastSpell("Prayer of Mending", a => true, "PoM on tank")
                                           ),
 
@@ -179,7 +179,7 @@ namespace CLU.Classes.Priest
 
 
                            // single target healing
-                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < CLUSettings.Instance.Priest.SingleTargethealingParty, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
+                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < CLUSettings.Instance.Priest.SingleTargethealingParty, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
                                                  Spell.CastSpell("Flash Heal", a => Buff.PlayerHasActiveBuff("Surge of Light"), "Flash Heal (Surge of Light)"),
                                                  Spell.CastSpell("Penance", a => (GraceStacks < 3 || Buff.PlayerHasActiveBuff("Borrowed Time")) && NotMoving, "Penance"),
                                                  new Decorator(
@@ -195,7 +195,7 @@ namespace CLU.Classes.Priest
                                                 ),
 
                            // Dispel Magic
-                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Dispel Magic",
+                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Dispel Magic",
                                                  Spell.CastSelfSpell("Dispel Magic", a => Me.CurrentTarget != null && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Dispel Magic"),
                                                  Spell.CastSelfSpell("Cure Disease", a => Me.CurrentTarget != null && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cure Disease")
                                                 ),
@@ -208,12 +208,12 @@ namespace CLU.Classes.Priest
                                                Spell.CastSelfSpell("Holy Nova", a => true, "Holy Nova")),
 
                            // cast shields while moving
-                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < CLUSettings.Instance.Priest.PowerWordShieldMovingParty && !x.ToUnit().HasAura("Weakened Soul"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast shields while moving",
+                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < CLUSettings.Instance.Priest.PowerWordShieldMovingParty && !x.ToUnit().HasAura("Weakened Soul"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast shields while moving",
                                                  Spell.CastSpell("Power Word: Shield", a => CanShield && !Buff.TargetHasBuff("Power Word: Shield"), "Shield while moving")
                                                 ),
 
                            // cast renew while moving
-                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < CLUSettings.Instance.Priest.RenewMovingParty && !x.ToUnit().HasAura("Renew"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast renew while moving",
+                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < CLUSettings.Instance.Priest.RenewMovingParty && !x.ToUnit().HasAura("Renew"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast renew while moving",
                                                  Spell.CastSpell("Renew", a => true, "Renew while moving")
                                                 )
                        );
@@ -235,7 +235,7 @@ namespace CLU.Classes.Priest
             get {
                 return new PrioritySelector(
                     new Decorator(
-                        ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                        ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                         new PrioritySelector(
                             Buff.CastRaidBuff("Power Word: Fortitude", 	ret => CLUSettings.Instance.Priest.UsePowerWordFortitude, "Power Word: Fortitude"),
                             Buff.CastRaidBuff("Shadow Protection", 		ret => CLUSettings.Instance.Priest.UseShadowProtection, "Shadow Protection"),

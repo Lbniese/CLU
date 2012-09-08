@@ -244,7 +244,7 @@ namespace CLU.Helpers
         public int CurrentHealth
         {
             get {
-                return this.UnitObject.Dead ? 0 : (int)this.UnitObject.CurrentHealth;
+                return this.UnitObject.IsDead ? 0 : (int)this.UnitObject.CurrentHealth;
             }
         }
 
@@ -264,7 +264,7 @@ namespace CLU.Helpers
         public int HealthPercent
         {
             get {
-                return this.UnitObject.Dead ? 0 : (int)this.UnitObject.HealthPercent;
+                return this.UnitObject.IsDead ? 0 : (int)this.UnitObject.HealthPercent;
             }
         }
 

@@ -87,11 +87,11 @@ namespace CLU.Classes.Druid
                            Spell.HealMe("Regrowth", a => Me.HealthPercent < 40, "Regrowth on me, emergency"),
 
                            // Remove Corruption (Urgent)
-                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Remove Corruption (Urgent)",
+                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Remove Corruption (Urgent)",
                                                  Spell.CastSpell("Remove Corruption", a => true, "Remove Corruption (Urgent)")
                                                 ),
                            // Lifebloom to three stacks
-                           Healer.FindTank(a => StyxWoW.Me.Combat, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && (!x.ToUnit().HasAura("Lifebloom") || x.ToUnit().Auras["Lifebloom"].StackCount < 3 || x.ToUnit().Auras["Lifebloom"].TimeLeft <= TimeSpan.FromSeconds(3)) && x.LifeBloom, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Lifebloom to three stacks",
+                           Healer.FindTank(a => StyxWoW.Me.Combat, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && (!x.ToUnit().HasAura("Lifebloom") || x.ToUnit().Auras["Lifebloom"].StackCount < 3 || x.ToUnit().Auras["Lifebloom"].TimeLeft <= TimeSpan.FromSeconds(3)) && x.LifeBloom, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Lifebloom to three stacks",
                                            Spell.CastSpell("Lifebloom", a => true, "Lifebloom on tank")
                                           ),
 
@@ -100,12 +100,12 @@ namespace CLU.Classes.Druid
 
 
                            // Rebirth the tank first
-                           Healer.FindTank(a => Spell.SpellCooldown("Rebirth").TotalSeconds < 0.2 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, x => x.ToUnit().Dead, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Rebirth the tank first",
+                           Healer.FindTank(a => Spell.SpellCooldown("Rebirth").TotalSeconds < 0.2 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, x => x.ToUnit().IsDead, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Rebirth the tank first",
                                            Spell.CastSpell("Rebirth", a => true, "Rebirth on Tank")
                                           ),
 
                            // Rebirth the Healers next
-                           Healer.FindHealer(a => Spell.SpellCooldown("Rebirth").TotalSeconds < 0.2 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, x => x.ToUnit().Dead, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Rebirth the Healers next",
+                           Healer.FindHealer(a => Spell.SpellCooldown("Rebirth").TotalSeconds < 0.2 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, x => x.ToUnit().IsDead, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Rebirth the Healers next",
                                              Spell.CastSpell("Rebirth", a => true, "Rebirth on Healer")
                                             ),
 
@@ -122,7 +122,7 @@ namespace CLU.Classes.Druid
                            //),
 
                            // emergency heals on most injured tank
-                           Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 50, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
+                           Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 50, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
                                            new Sequence(ret => Spell.CanCast("Nature's Swiftness", Me),
                                                         Spell.CastSelfSpell("Nature's Swiftness", ret => true, "Nature's Swiftness"),
                                                         Spell.CastSpell("Healing Touch", a => true, "Healing Touch")),
@@ -132,7 +132,7 @@ namespace CLU.Classes.Druid
                                           ),
 
                            // I'm fine and tanks are not dying => ensure nobody is REALLY low life
-                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
+                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
                                                  Spell.CastSpell("Swiftmend", a => (Buff.TargetHasBuff("Regrowth") || Buff.TargetHasBuff("Rejuvenation")), "Swiftmend (emergency)"),
                                                  Spell.CastSpell("Rejuvenation", a => !Buff.TargetHasBuff("Rejuvenation"), "Rejuvenation (emergency)"),
                                                  new Sequence(ret => Spell.CanCast("Nature's Swiftness", Me),
@@ -147,7 +147,7 @@ namespace CLU.Classes.Druid
                                               ),
 
                            // Lifebloom during Tree of Life
-                           Healer.FindTank(a => StyxWoW.Me.Shapeshift == ShapeshiftForm.TreeOfLife && StyxWoW.Me.Combat, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && (!x.ToUnit().HasAura("Lifebloom") || x.ToUnit().Auras["Lifebloom"].StackCount < 3 || x.ToUnit().Auras["Lifebloom"].TimeLeft <= TimeSpan.FromSeconds(3)), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Lifebloom during Tree of Life",
+                           Healer.FindTank(a => StyxWoW.Me.Shapeshift == ShapeshiftForm.TreeOfLife && StyxWoW.Me.Combat, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && (!x.ToUnit().HasAura("Lifebloom") || x.ToUnit().Auras["Lifebloom"].StackCount < 3 || x.ToUnit().Auras["Lifebloom"].TimeLeft <= TimeSpan.FromSeconds(3)), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Lifebloom during Tree of Life",
                                            Spell.CastSpell("Lifebloom", a => true, "Lifebloom tree of life")
                                           ),
 
@@ -163,7 +163,7 @@ namespace CLU.Classes.Druid
                                               ),
 
                            // single target healing
-                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 95, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
+                           Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 95, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
                                                  Spell.CastSpell("Swiftmend", a =>  (Buff.TargetHasBuff("Regrowth") || Buff.TargetHasBuff("Rejuvenation")), "Swiftmend (Single)"),
                                                  Spell.CastSpell("Regrowth", a => !Buff.TargetHasBuff("Regrowth") && Buff.PlayerHasActiveBuff("Clearcasting"), "Regrowth (Single-Clearcasting)"),
                                                  Spell.CastSpell("Rejuvenation", a => !Buff.TargetHasBuff("Rejuvenation"), "Rejuvenation (Single)"),
@@ -175,17 +175,17 @@ namespace CLU.Classes.Druid
 
 
                            // Remove Corruption // Assumes you have Nature's Cure talented as well!
-                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Remove Corruption",
+                           Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Remove Corruption",
                                                  Spell.CastSpell("Remove Corruption", a => true, "Remove Corruption")
                                                 ),
 
                            // cast Rejuvenation while moving
-                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 90 && !x.ToUnit().ToPlayer().HasAura("Rejuvenation"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Rejuvenation while moving",
+                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 90 && !x.ToUnit().ToPlayer().HasAura("Rejuvenation"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Rejuvenation while moving",
                                                  Spell.CastSpell("Rejuvenation", a => !Buff.TargetHasBuff("Rejuvenation"), "Rejuvenation while moving")
                                                 ),
 
                            // cast Swiftmend while moving
-                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 90 && (x.ToUnit().HasAura("Rejuvenation") || x.ToUnit().HasAura("Regrowth")), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Swiftmend while moving",
+                           Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 90 && (x.ToUnit().HasAura("Rejuvenation") || x.ToUnit().HasAura("Regrowth")), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Swiftmend while moving",
                                                  Spell.CastSpell("Swiftmend", a => true, "Swiftmend while moving")
                                                 )
                        );
@@ -207,7 +207,7 @@ namespace CLU.Classes.Druid
         {
             get {
                 return new Decorator(
-                    ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                    ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                     new PrioritySelector(
                         Buff.CastRaidBuff("Mark of the Wild", ret => !Spell.PlayerIsChanneling, "Mark of the Wild")));
             }

@@ -94,18 +94,18 @@ namespace CLU.Classes.Paladin
 					Buff.CastBuff("Divine Plea", ret => Me.ManaPercent < 75 && StyxWoW.Me.Combat, "Divine Plea"),
 
 					// emergency Cooldowns
-					Healer.FindRaidMember(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat && Spell.SpellCooldown("Hand of Sacrifice").TotalSeconds < 0.5, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency Cooldowns",
+					Healer.FindRaidMember(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat && Spell.SpellCooldown("Hand of Sacrifice").TotalSeconds < 0.5, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency Cooldowns",
 					                      Spell.CastSpell("Hand of Sacrifice", ret => (IsTank || IsHealer) && !IsMe, "Hand of Sacrifice")
 					                     ),
 
 					// emergency Cooldowns that cause Forbearance
-					Healer.FindRaidMember(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat && (Spell.SpellCooldown("Lay on Hands").TotalSeconds < 0.5 || Spell.SpellCooldown("Hand of Protection").TotalSeconds < 0.5), x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 35 && !x.ToUnit().HasAura("Forbearance"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency Cooldowns that cause Forbearance",
+					Healer.FindRaidMember(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat && (Spell.SpellCooldown("Lay on Hands").TotalSeconds < 0.5 || Spell.SpellCooldown("Hand of Protection").TotalSeconds < 0.5), x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 35 && !x.ToUnit().HasAura("Forbearance"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency Cooldowns that cause Forbearance",
 					                      Spell.CastSpell("Lay on Hands", ret => IsTank || IsHealer || IsMe, "Lay on Hands"),
 					                      Spell.CastSpell("Hand of Protection", ret => !IsTank, "Hand of Protection")
 					                     ),
 
 					// emergency heals on most injured tank
-					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 50, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
+					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 50, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
 					                Spell.CastSpell("Holy Shock", a => HolyPower < 3 || Buff.PlayerHasActiveBuff("Daybreak"), "Holy Shock before WoG (emergency)"),
 					                Spell.CastSpell("Word of Glory", a => HolyPower == 3, "Word of Glory (emergency)"),
 					                Spell.CastSpell("Holy Shock", a => true, "Holy Shock"),
@@ -114,12 +114,12 @@ namespace CLU.Classes.Paladin
 					               ),
 
 					// Urgent Cleanse
-					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Cleanse (Urgent)",
+					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Cleanse (Urgent)",
 					                      Spell.CastSpell("Cleanse", a => true, "Cleanse (Urgent)")
 					                     ),
 
 					// I'm fine and tanks are not dying => ensure nobody is REALLY low life
-					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
+					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
 					                      Spell.CastSpell("Holy Shock", a => HolyPower < 3 || Buff.PlayerHasActiveBuff("Daybreak"), "Holy Shock before WoG (emergency)"),
 					                      Spell.CastSpell("Word of Glory", a => HolyPower == 3, "Word of Glory (emergency)"),
 					                      Spell.CastSpell("Holy Shock", a => true, "Holy Shock"),
@@ -139,7 +139,7 @@ namespace CLU.Classes.Paladin
 					//),
 
 					// Beacon of Light on tank
-					Healer.FindTank(a => true, x => !x.ToUnit().Dead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Beacon of Light") && x.Beacon, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Beacon of Light on tank",
+					Healer.FindTank(a => true, x => !x.ToUnit().IsDead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Beacon of Light") && x.Beacon, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Beacon of Light on tank",
 					                Buff.CastTargetBuff("Beacon of Light", a => true, "Beacon of Light")
 					               ),
 
@@ -152,7 +152,7 @@ namespace CLU.Classes.Paladin
 					                    Spell.CastSpell("Holy Radiance", a => Me.ManaPercent > 15, "Holy Radiance")),
 
 					// single target healing not the tank
-					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 92 && !x.ToUnit().HasMyAura("Beacon of Light"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Single target healing",
+					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 92 && !x.ToUnit().HasMyAura("Beacon of Light"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Single target healing",
 					                      Spell.CastSpell("Holy Shock", a => HolyPower < 3 || Buff.PlayerHasActiveBuff("Daybreak"), "Holy Shock before WoG "),
 					                      Spell.CastSpell("Holy Shock", a => true, "Holy Shock"),
 					                      Spell.CastSpell("Word of Glory", a => HolyPower == 3, "Word of Glory"),
@@ -162,7 +162,7 @@ namespace CLU.Classes.Paladin
 					                     ),
 
 					// single target healing with the tank
-					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 92, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Single target Tank healing",
+					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 92, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Single target Tank healing",
 					                Spell.CastSpell("Holy Shock", a => HolyPower < 3 || Buff.PlayerHasActiveBuff("Daybreak"), "Holy Shock before WoG "),
 					                Spell.CastSpell("Word of Glory", a => HolyPower == 3, "Word of Glory"),
 					                Spell.CastSpell("Holy Shock", a => true, "Holy Shock"),
@@ -172,17 +172,17 @@ namespace CLU.Classes.Paladin
 					               ),
 
 					// Cleanse
-					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Cleanse",
+					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Cleanse",
 					                      Spell.CastSpell("Cleanse", a => true, "Cleanse ")
 					                     ),
 
 					//// Nub DPS
-					//Healer.FindDPS(a => Spell.SpellCooldown("Hand of Salvation").TotalSeconds < 0.3 && CLUSettings.Instance.UseCooldowns, x => x.InLineOfSight && x.Dead && x.CurrentTarget.ThreatInfo.RawPercent > 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Nub DPS Salvation",
+					//Healer.FindDPS(a => Spell.SpellCooldown("Hand of Salvation").TotalSeconds < 0.3 && CLUSettings.Instance.UseCooldowns, x => x.InLineOfSight && x.IsDead && x.CurrentTarget.ThreatInfo.RawPercent > 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Nub DPS Salvation",
 					//        Spell.CastSpell("Hand of Salvation", a => true, "Hand of Salvation (Threat)")
 					//),
 
 					// cast Holy Shock while moving
-					Healer.FindRaidMember(a => Me.IsMoving && SpellManager.CanCast("Holy Shock"), x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Holy Shock while moving",
+					Healer.FindRaidMember(a => Me.IsMoving && SpellManager.CanCast("Holy Shock"), x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Holy Shock while moving",
 					                      Spell.CastSpell("Holy Shock", a => true, "Holy Shock while moving")
 					                     ),
 
@@ -209,10 +209,10 @@ namespace CLU.Classes.Paladin
 		{
 			get {
 				return new Decorator(
-					ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+					ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
 					new PrioritySelector(
 						// Beacon of Light on tank
-						Healer.FindTank(a => true, x => !x.ToUnit().Dead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Beacon of Light") && x.Beacon, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Beacon of Light on tank",
+						Healer.FindTank(a => true, x => !x.ToUnit().IsDead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Beacon of Light") && x.Beacon, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Beacon of Light on tank",
 						                Buff.CastTargetBuff("Beacon of Light", a => true, "Beacon of Light")
 						               ),
 						Buff.CastBuff("Seal of Insight", ret => true, "Seal of Insight"),

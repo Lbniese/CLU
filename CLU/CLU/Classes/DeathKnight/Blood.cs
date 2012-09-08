@@ -146,7 +146,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
             get {
                 return new PrioritySelector(
                            new Decorator(
-                               ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                               ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    Buff.CastBuff("Bone Shield",        ret => (Buff.PlayerCountBuff("Bone Shield") < 2 || !Buff.PlayerHasBuff("Bone Shield")) && (CLUSettings.Instance.DeathKnight.UseBoneShieldDefensively || CLUSettings.Instance.DeathKnight.UseBoneShieldonCooldown), "Bone Shield"),
                                    Buff.CastRaidBuff("Horn of Winter", ret => CLUSettings.Instance.DeathKnight.UseHornofWinter && Me.CurrentTarget != null && !Me.CurrentTarget.IsFriendly, "Horn of Winter"))));

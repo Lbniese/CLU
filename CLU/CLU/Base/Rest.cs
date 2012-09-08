@@ -30,7 +30,7 @@ namespace CLU.Base
         {
             get {
                 return ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
-                           u => u.Distance < 5 && u.Dead &&
+                           u => u.Distance < 5 && u.IsDead &&
                            (u.CreatureType == WoWCreatureType.Humanoid || u.CreatureType == WoWCreatureType.Undead));
             }
         }
@@ -48,7 +48,7 @@ namespace CLU.Base
 
                 // Don't fucking run the rest behavior (or any other) if we're dead or a ghost. Thats all.
                 new Decorator(
-                    ret => !StyxWoW.Me.Dead && !StyxWoW.Me.IsGhost && !StyxWoW.Me.IsCasting && CLUSettings.Instance.EnableMovement && BotPoi.Current.Type != PoiType.Loot,
+                    ret => !StyxWoW.Me.IsDead && !StyxWoW.Me.IsGhost && !StyxWoW.Me.IsCasting && CLUSettings.Instance.EnableMovement && BotPoi.Current.Type != PoiType.Loot,
                     new PrioritySelector(
                         // Make sure we wait out res sickness. Fuck the classes that can deal with it. :O
                         new Decorator(

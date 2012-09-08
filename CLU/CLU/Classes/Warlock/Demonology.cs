@@ -160,7 +160,7 @@ namespace CLU.Classes.Warlock
             get {
                 return new PrioritySelector(
                            new Decorator(
-                               ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+                               ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    PetManager.CastPetSummonSpell("Summon Felguard", ret => !Me.IsMoving && !Me.GotAlivePet, " Summoning Pet Felguard"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link")

@@ -498,7 +498,7 @@ namespace CLU.Base
         				return false;
 
         			// If we are solo then return true if the name of the requested buff matchs the users UI setting and the player does not have the buff..
-        			if (!Me.IsInParty && !Me.IsInRaid && !Me.Dead && !Me.IsGhost && Me.IsAlive) {
+        			if (!Me.IsInParty && !Me.IsInRaid && !Me.IsDead && !Me.IsGhost && Me.IsAlive) {
         				if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !PlayerHasBuff(name)) return true;
         				if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !PlayerHasBuff(name)) return true;
         				if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !PlayerHasBuff(name)) return true;
@@ -573,7 +573,7 @@ namespace CLU.Base
                             
         			}
 
-        			return  players.Any(x => x.Distance2DSqr < 40 * 40 && !x.HasAnyAura(ProvidablePlayerBuffs) && x.Distance <= 30f && !x.Dead && !x.IsGhost);
+        			return  players.Any(x => x.Distance2DSqr < 40 * 40 && !x.HasAnyAura(ProvidablePlayerBuffs) && x.Distance <= 30f && !x.IsDead && !x.IsGhost);
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Raid Buff] {0} ", label)),

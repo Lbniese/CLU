@@ -94,7 +94,7 @@ namespace CLU.Classes.Shaman
 						Totems.CreateSetTotems()),
 
 					// Urgent Dispel
-					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Urgent Dispel",
+					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Urgent Dispel",
 					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit (Urgent)"),
 					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge (Urgent)")
 					                     ),
@@ -132,7 +132,7 @@ namespace CLU.Classes.Shaman
 
 
 					// emergency heals on most injured tank
-					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 60, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
+					Healer.FindTank(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 60, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "emergency heals on most injured tank",
 					                Spell.CastSpell("Unleash Elements", ret => Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345), "Unleash Elements"),
 					                Spell.CastSpell("Riptide", a => !Buff.TargetHasBuff("Riptide"), "Riptide (emergency)"),
 					                Spell.CastSelfSpell("Nature’s Swiftness", ret => CLUSettings.Instance.UseCooldowns, "Nature’s Swiftness (emergency)"),
@@ -142,7 +142,7 @@ namespace CLU.Classes.Shaman
 
 
 					// I'm fine and tanks are not dying => ensure nobody is REALLY low life
-					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
+					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 45, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "I'm fine and tanks are not dying => ensure nobody is REALLY low life",
 					                      Spell.CastSpell("Unleash Elements", ret => Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345), "Unleash Elements (emergency)"),
 					                      Spell.CastSpell("Riptide", a => !Buff.TargetHasBuff("Riptide"), "Riptide (emergency)"),
 					                      Spell.CastSelfSpell("Nature’s Swiftness", ret => true, "Nature’s Swiftness (emergency)"),
@@ -151,7 +151,7 @@ namespace CLU.Classes.Shaman
 					                     ),
 
 					// Earth Shield Earth Shield on tank
-					Healer.FindTank(a => true, x => !x.ToUnit().Dead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Earth Shield") && x.EarthShield, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Earth Shield on tank",
+					Healer.FindTank(a => true, x => !x.ToUnit().IsDead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Earth Shield") && x.EarthShield, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Earth Shield on tank",
 					                Buff.CastTargetBuff("Earth Shield", a => true, "Earth Shield on tank")
 					               ),
 
@@ -173,7 +173,7 @@ namespace CLU.Classes.Shaman
 					                   ),
 
 					// single target healing
-					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < (Me.IsInRaid ? 95 : 90), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
+					Healer.FindRaidMember(a => true, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < (Me.IsInRaid ? 95 : 90), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "single target healing",
 					                      Spell.CastSpell("Unleash Elements", ret => Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345), "Unleash Elements"),
 					                      Spell.CastSpell("Riptide", a => !Buff.TargetHasBuff("Riptide"), "Riptide (single target healing)"),
 					                      Spell.CastSpell("Greater Healing Wave", a => CurrentTargetHealthPercent < (Me.IsInRaid ? 20 : 70) && Buff.PlayerHasActiveBuff("Tidal Waves"), "Greater Healing Wave"),
@@ -181,18 +181,18 @@ namespace CLU.Classes.Shaman
 					                     ),
 
 					// Dispel
-					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Dispel",
+					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Dispel",
 					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit"),
 					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge")
 					                     ),
 
 					// cast Riptide while moving
-					Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 90 && !x.ToUnit().ToPlayer().HasAura("Riptide"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Riptide while moving",
+					Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 90 && !x.ToUnit().ToPlayer().HasAura("Riptide"), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Riptide while moving",
 					                      Spell.CastSpell("Riptide", a => true, "Riptide while moving")
 					                     ),
 
 					// cast Unleash Elements while moving
-					Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().Dead && x.HealthPercent < 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Unleash Elements while moving",
+					Healer.FindRaidMember(a => Me.IsMoving, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.HealthPercent < 90, (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "cast Unleash Elements while moving",
 					                      Spell.CastSpell("Unleash Elements", ret => Item.HasWeaponImbue(WoWInventorySlot.MainHand, "Earthliving", 3345), "Unleash Elements while moving")
 					                     )
 				);
@@ -215,7 +215,7 @@ namespace CLU.Classes.Shaman
 		{
 			get {
 				return new Decorator(
-					ret => !Me.Mounted && !Me.Dead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
+					ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
 					new PrioritySelector(
 						new Decorator(
 							ret => Totems.NeedToRecallTotems,
@@ -223,7 +223,7 @@ namespace CLU.Classes.Shaman
 								new Action(ret => CLU.Log(" [Totems] Recalling Totems")),
 								new Action(ret => Totems.RecallTotems()))),
 						// Earth Shield
-						Healer.FindTank(a => CanEarthshield, x => !x.ToUnit().Dead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Earth Shield") && x.EarthShield, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Earth Shield on tank precombat",
+						Healer.FindTank(a => CanEarthshield, x => !x.ToUnit().IsDead && x.ToUnit().InLineOfSight && !x.ToUnit().HasMyAura("Earth Shield") && x.EarthShield, (a, b) => (int)(a.MaxHealth - b.MaxHealth), "Earth Shield on tank precombat",
 						                Buff.CastTargetBuff("Earth Shield", a => true, "Earth Shield on tank")
 						               ),
 						Buff.CastBuff("Water Shield",        ret => true, "Water Shield")
