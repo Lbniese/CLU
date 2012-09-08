@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Takes a string in the format of @"\CustomClasses\CLU\Sound\rotationenabled.wav"
+        /// Takes a string in the format of @"\Routines\CLU\Sound\rotationenabled.wav"
         /// and checks if the file exists within the application folder\path
         /// </summary>
         /// <param name="path">the path to the sound file within the applications directory</param>
@@ -30,14 +30,14 @@
         {
             // Make sure we check for existence of the the
             // selected file.
-            var fileExists = File.Exists(AppDomain.CurrentDomain.BaseDirectory + path); 
+            var fileExists = File.Exists(Utilities.AssemblyDirectory + path); 
 
             try {
                 // Check the file exists.
                 if (fileExists) {
                     // Assign the selected file's path to
                     // the SoundPlayer object.
-                    player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + path;
+                    player.SoundLocation = Utilities.AssemblyDirectory + path;
                 }
 
                 // Load the .wav file.

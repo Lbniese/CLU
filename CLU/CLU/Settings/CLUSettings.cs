@@ -16,6 +16,8 @@ namespace CLU.Settings
 {
     using System;
 
+    using Styx.Common;
+
     internal class CLUSettings : Styx.Helpers.Settings
     {
         private static CLUSettings _instance;
@@ -28,7 +30,7 @@ namespace CLU.Settings
         public static string SettingsPath
         {
             get {
-                return string.Format("{0}\\Settings\\CLUSettings_{1}", AppDomain.CurrentDomain.BaseDirectory, StyxWoW.Me.Name); //todo: fix my path
+                return string.Format("{0}\\Settings\\CLUSettings_{1}", Utilities.AssemblyDirectory, StyxWoW.Me.Name); //todo: fix my path
             }
         }
 

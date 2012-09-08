@@ -157,14 +157,14 @@ namespace CLU.GUI
 
            // CLU.Log(Utilities.AssemblyDirectory); //todo: fix me
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png"))
+            if (File.Exists(Utilities.AssemblyDirectory + @"\Routines\CLU\GUI\Resources\CLU.png"))
             {
-                pictureBox1.ImageLocation = AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.png";
+                pictureBox1.ImageLocation = Utilities.AssemblyDirectory + @"\Routines\CLU\GUI\Resources\CLU.png";
             }
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico"))
+            if (File.Exists(Utilities.AssemblyDirectory + @"\Routines\CLU\GUI\Resources\CLU.ico"))
             {
-                this.Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory + @"\CustomClasses\CLU\GUI\Resources\CLU.ico");
+                this.Icon = new Icon(Utilities.AssemblyDirectory + @"\Routines\CLU\GUI\Resources\CLU.ico");
             }
 
             // AoE and Single target healing control ============================================================
