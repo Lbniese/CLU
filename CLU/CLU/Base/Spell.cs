@@ -951,6 +951,39 @@
             }
         }
 
+        public static bool IsRuneCooldown(int rune)
+        {
+            //using (StyxWoW.Memory.AcquireFrame())
+            //{
+                string runename = String.Empty;
+                if (rune == 1) runename = "Blood_1";
+                else if (rune == 2) runename = "Blood_2";
+                else if (rune == 3) runename = "Unholy_1";
+                else if (rune == 4) runename = "Unholy_2";
+                else if (rune == 5) runename = "Frost_1";
+                else if (rune == 6) runename = "Frost_2";
+
+                // Lets track some rune cooldowns!
+
+                //var raw = Lua.GetReturnValues("if " + key.ToString("g") + "() then return 1 else return 0 end");
+                var lua =
+                    String.Format(
+                        "local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_ready then return 1 else return 0 end",
+                        rune);
+                try
+                {
+                    return Lua.GetReturnValues(lua)[0] == "1";
+                        //bool retValue = Convert.ToBoolean(Lua.GetReturnValues(lua)[0]);
+                    //return retValue;
+                }
+                catch
+                {
+                    CLU.DiagnosticLog("Lua failed in IsRuneCooldown: " + lua);
+                    return false;
+                }
+            //}
+        }
+
         /// <summary>Return true of the target has a Dispelable HELPFUL buff</summary>
         /// <returns>The target has Dispelable buff.</returns>
         public static bool TargetHasDispelableBuffLua()

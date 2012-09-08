@@ -144,6 +144,7 @@ namespace CLU.Classes.DeathKnight
                 new Decorator(ret => onUnit != null && onUnit(ret) != null,
                     new PrioritySelector(
                     //Diseases -- The most important stuff for playing a Death Knight is keeping them up at all times
+                    Spell.CastSpell("Blood Boil", ret => Buff.PlayerHasActiveBuff("Crimson Scourge"), "Blood Boil (Crimson Scourge)"),
                     Spell.CastSpell("Plague Leech" , ret => CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
                     Spell.CastSpell("Outbreak"     , ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 ||Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
                     Buff.CastDebuff("Icy Touch",    ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 1, "Icy Touch for Frost Fever"),

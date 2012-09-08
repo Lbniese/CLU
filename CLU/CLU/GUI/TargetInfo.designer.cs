@@ -43,10 +43,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.issafelybehindtarget = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.blood1lbl = new System.Windows.Forms.Label();
+            this.blood2lbl = new System.Windows.Forms.Label();
+            this.Frost1lbl = new System.Windows.Forms.Label();
+            this.Frost2lbl = new System.Windows.Forms.Label();
+            this.Unholy1lbl = new System.Windows.Forms.Label();
+            this.Unholy2lbl = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -158,7 +166,7 @@
             // 
             this.issafelybehindtarget.AutoSize = true;
             this.issafelybehindtarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.issafelybehindtarget.Location = new System.Drawing.Point(148, 193);
+            this.issafelybehindtarget.Location = new System.Drawing.Point(146, 189);
             this.issafelybehindtarget.Name = "issafelybehindtarget";
             this.issafelybehindtarget.Size = new System.Drawing.Size(26, 16);
             this.issafelybehindtarget.TabIndex = 11;
@@ -170,12 +178,22 @@
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(311, 16);
+            this.groupBox1.Location = new System.Drawing.Point(370, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(461, 269);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Current Target Auras";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(362, 232);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "check";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox1
             // 
@@ -199,21 +217,87 @@
             this.textBox1.TabIndex = 15;
             this.textBox1.WordWrap = false;
             // 
-            // button1
+            // blood1lbl
             // 
-            this.button1.Location = new System.Drawing.Point(362, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "check";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.blood1lbl.AutoSize = true;
+            this.blood1lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blood1lbl.Location = new System.Drawing.Point(15, 32);
+            this.blood1lbl.Name = "blood1lbl";
+            this.blood1lbl.Size = new System.Drawing.Size(40, 13);
+            this.blood1lbl.TabIndex = 16;
+            this.blood1lbl.Text = "Blood1";
+            // 
+            // blood2lbl
+            // 
+            this.blood2lbl.AutoSize = true;
+            this.blood2lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blood2lbl.Location = new System.Drawing.Point(69, 32);
+            this.blood2lbl.Name = "blood2lbl";
+            this.blood2lbl.Size = new System.Drawing.Size(40, 13);
+            this.blood2lbl.TabIndex = 17;
+            this.blood2lbl.Text = "Blood2";
+            // 
+            // Frost1lbl
+            // 
+            this.Frost1lbl.AutoSize = true;
+            this.Frost1lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Frost1lbl.Location = new System.Drawing.Point(123, 32);
+            this.Frost1lbl.Name = "Frost1lbl";
+            this.Frost1lbl.Size = new System.Drawing.Size(36, 13);
+            this.Frost1lbl.TabIndex = 18;
+            this.Frost1lbl.Text = "Frost1";
+            // 
+            // Frost2lbl
+            // 
+            this.Frost2lbl.AutoSize = true;
+            this.Frost2lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Frost2lbl.Location = new System.Drawing.Point(173, 32);
+            this.Frost2lbl.Name = "Frost2lbl";
+            this.Frost2lbl.Size = new System.Drawing.Size(36, 13);
+            this.Frost2lbl.TabIndex = 19;
+            this.Frost2lbl.Text = "Frost2";
+            // 
+            // Unholy1lbl
+            // 
+            this.Unholy1lbl.AutoSize = true;
+            this.Unholy1lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Unholy1lbl.Location = new System.Drawing.Point(223, 32);
+            this.Unholy1lbl.Name = "Unholy1lbl";
+            this.Unholy1lbl.Size = new System.Drawing.Size(46, 13);
+            this.Unholy1lbl.TabIndex = 20;
+            this.Unholy1lbl.Text = "Unholy1";
+            // 
+            // Unholy2lbl
+            // 
+            this.Unholy2lbl.AutoSize = true;
+            this.Unholy2lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Unholy2lbl.Location = new System.Drawing.Point(283, 32);
+            this.Unholy2lbl.Name = "Unholy2lbl";
+            this.Unholy2lbl.Size = new System.Drawing.Size(46, 13);
+            this.Unholy2lbl.TabIndex = 21;
+            this.Unholy2lbl.Text = "Unholy2";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Frost2lbl);
+            this.groupBox2.Controls.Add(this.Unholy2lbl);
+            this.groupBox2.Controls.Add(this.blood1lbl);
+            this.groupBox2.Controls.Add(this.Unholy1lbl);
+            this.groupBox2.Controls.Add(this.blood2lbl);
+            this.groupBox2.Controls.Add(this.Frost1lbl);
+            this.groupBox2.Location = new System.Drawing.Point(12, 221);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(347, 64);
+            this.groupBox2.TabIndex = 22;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "IsRuneCooldown (Highlighted Green when true)";
             // 
             // TargetInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 297);
+            this.ClientSize = new System.Drawing.Size(841, 297);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.issafelybehindtarget);
             this.Controls.Add(this.label2);
@@ -231,6 +315,8 @@
             this.Text = "TargetInfo";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,5 +341,12 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label blood1lbl;
+        private System.Windows.Forms.Label blood2lbl;
+        private System.Windows.Forms.Label Frost1lbl;
+        private System.Windows.Forms.Label Frost2lbl;
+        private System.Windows.Forms.Label Unholy1lbl;
+        private System.Windows.Forms.Label Unholy2lbl;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

@@ -9,6 +9,8 @@ namespace CLU.GUI
     using System.Drawing;
     using System.Globalization;
 
+    using Styx.Combat.CombatRoutine;
+
     using global::CLU.Base;
 
     using Styx;
@@ -58,9 +60,9 @@ namespace CLU.GUI
             if (checkBox1.Checked)
             {
                 checkaura();
+                if (StyxWoW.Me.Class == WoWClass.DeathKnight) checkrunes();
             }
 
-            
         }
 
         void Timer1Tick(object sender, EventArgs e)
@@ -93,9 +95,28 @@ namespace CLU.GUI
             textBox1.Text += dump;
         }
 
+        public void checkrunes()
+        {
+            var blood1Lblcolor = Spell.IsRuneCooldown(1) ? Color.DarkGreen : Color.Red;
+            var blood2Lblcolor = Spell.IsRuneCooldown(2) ? Color.DarkGreen : Color.Red;
+            var frost1Lblcolor = Spell.IsRuneCooldown(3) ? Color.DarkGreen : Color.Red;
+            var frost2Lblcolor = Spell.IsRuneCooldown(4) ? Color.DarkGreen : Color.Red;
+            var unholy1Lblcolor = Spell.IsRuneCooldown(5) ? Color.DarkGreen : Color.Red;
+            var unholy2Lblcolor = Spell.IsRuneCooldown(6) ? Color.DarkGreen : Color.Red;
+
+
+            blood1lbl.ForeColor = blood1Lblcolor;
+            blood2lbl.ForeColor = blood2Lblcolor;
+            Frost1lbl.ForeColor = frost1Lblcolor;
+            Frost2lbl.ForeColor = frost2Lblcolor;
+            Unholy1lbl.ForeColor = unholy1Lblcolor;
+            Unholy2lbl.ForeColor = unholy2Lblcolor;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             checkaura();
+            if (StyxWoW.Me.Class == WoWClass.DeathKnight) checkrunes();
         }
     }
 }
