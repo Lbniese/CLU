@@ -24,21 +24,34 @@ namespace CLU.Classes.Rogue
             }
         }
 
-        public static int WantedPoison
+        public static int MainHandPoison
         {
             get {
-                switch (CLUSettings.Instance.Rogue.WantedPoison)
+                switch (CLUSettings.Instance.Rogue.MainHandPoison)
                 {
-                case PoisonType.Crippling:
-                        return 3408;
-                case PoisonType.MindNumbing:
-                        return 571;
-                case PoisonType.Deadly:
-                        return 2823;
-                case PoisonType.Wound:
+
+                case MHPoisonType.Wound:
                         return 8679;
+                case MHPoisonType.Deadly:
+                        return 2823;
                 default:
                     return 0;
+                }
+            }
+        }
+
+        public static int OffHandHandPoison
+        {
+            get
+            {
+                switch (CLUSettings.Instance.Rogue.OffHandPoison)
+                {
+                    case OHPoisonType.MindNumbing:
+                        return 5761;
+                    case OHPoisonType.Crippling:
+                        return 3408;
+                    default:
+                        return 0;
                 }
             }
         }   
@@ -47,12 +60,24 @@ namespace CLU.Classes.Rogue
         {
             return new PrioritySelector(
                        new Decorator(
-                           ret => NeedsPoison && !StyxWoW.Me.HasAura(WantedPoison),
+                           ret => NeedsPoison && !StyxWoW.Me.HasAura(MainHandPoison),
                            new Sequence(
-                               new Action(ret => CLU.TroubleshootLog("Applying {0} to main hand", CLUSettings.Instance.Rogue.WantedPoison)),
+                               new Action(ret => CLU.TroubleshootLog("Applying {0} to main hand", CLUSettings.Instance.Rogue.MainHandPoison)),
                                new Action(ret => Navigator.PlayerMover.MoveStop()),
                                Spell.CreateWaitForLagDuration(),
-                               new Action(ret => SpellManager.CastSpellById(WantedPoison)),
+                               new Action(ret => SpellManager.CastSpellById(MainHandPoison)),
+                               Spell.CreateWaitForLagDuration(),
+                               new WaitContinue(2, ret => StyxWoW.Me.IsCasting, new ActionAlwaysSucceed()),
+                               new WaitContinue(10, ret => !StyxWoW.Me.IsCasting, new ActionAlwaysSucceed()),
+                               new WaitContinue(1, ret => false, new ActionAlwaysSucceed()))),
+
+                          new Decorator(
+                           ret => NeedsPoison && !StyxWoW.Me.HasAura(OffHandHandPoison),
+                           new Sequence(
+                               new Action(ret => CLU.TroubleshootLog("Applying {0} to off hand", CLUSettings.Instance.Rogue.OffHandPoison)),
+                               new Action(ret => Navigator.PlayerMover.MoveStop()),
+                               Spell.CreateWaitForLagDuration(),
+                               new Action(ret => SpellManager.CastSpellById(OffHandHandPoison)),
                                Spell.CreateWaitForLagDuration(),
                                new WaitContinue(2, ret => StyxWoW.Me.IsCasting, new ActionAlwaysSucceed()),
                                new WaitContinue(10, ret => !StyxWoW.Me.IsCasting, new ActionAlwaysSucceed()),

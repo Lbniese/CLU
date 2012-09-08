@@ -78,11 +78,16 @@
         Sanctuary
     }
 
-    public enum PoisonType {
-        Crippling,
+    public enum MHPoisonType {
+        Wound,
+        Deadly
+    }
+
+    public enum OHPoisonType
+    {
         MindNumbing,
-        Deadly,
-        Wound
+        Crippling
+       
     }
 
     public enum PetType {
