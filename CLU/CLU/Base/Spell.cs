@@ -163,12 +163,12 @@
         /// <param name="name">name of the spell to cast.</param>
         public static void CastMySpell(string name)
         {
-            var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
-
+            WoWSpell spell;
+            SpellManager.Spells.TryGetValue(name, out spell);
             // Fishing for KeyNotFoundException's yay!
-            if (mySpellToCast != null)
+            if (spell != null)
             {
-                SpellManager.Cast(mySpellToCast);
+                SpellManager.Cast(name);
             }
             else
             {
@@ -180,12 +180,12 @@
 
         public static void CastMySpell(string name, WoWUnit unit)
         {
-            var mySpellToCast = GetSpellByName(name); // Convert the string name to a wowspell
-
+            WoWSpell spell;
+            SpellManager.Spells.TryGetValue(name, out spell);
             // Fishing for KeyNotFoundException's yay!
-            if (mySpellToCast != null)
+            if (spell != null)
             {
-                SpellManager.Cast(mySpellToCast, unit);
+                SpellManager.Cast(name, unit);
             }
             else
             {
@@ -194,7 +194,7 @@
             }
         }
 
-        // trmporary
+        // TODO: Remove this.
         public static void CastfuckingSpell(string name)
         {
             Lua.DoString(string.Format("CastSpellByName(\"{0}\")", RealLuaEscape(name)));
@@ -431,7 +431,7 @@
         		delegate(object a) {
         			if (!cond(a))
         				return false;
-                    //CLU.DiagnosticLog( "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
+                    CLU.DiagnosticLog( "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
         			if (!CanCast(name, onUnit(a)))
         				return false;
 
