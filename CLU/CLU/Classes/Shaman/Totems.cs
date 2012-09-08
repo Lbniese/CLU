@@ -173,19 +173,19 @@ namespace CLU.Classes.Shaman
             // WoWTotem fire;
 
             switch (TalentManager.CurrentSpec) {
-            case TalentSpec.ElementalShaman:
+            case WoWSpec.ShamanElemental:
                 earth = CLUSettings.Instance.Shaman.ElementalEarthTotem;
                 air = CLUSettings.Instance.Shaman.ElementalAirTotem;
                 water = CLUSettings.Instance.Shaman.ElementalWaterTotem;
                 // fire = CLUSettings.Instance.Shaman.ElementalFireTotem;
                 break;
-            case TalentSpec.EnhancementShaman:
+            case WoWSpec.ShamanEnhancement:
                 earth = CLUSettings.Instance.Shaman.EnhancementEarthTotem;
                 air = CLUSettings.Instance.Shaman.EnhancementAirTotem;
                 water = CLUSettings.Instance.Shaman.EnhancementWaterTotem;
                 //fire = CLUSettings.Instance.Shaman.EnhancementFireTotem;
                 break;
-            case TalentSpec.RestorationShaman:
+            case WoWSpec.ShamanRestoration:
                 earth = CLUSettings.Instance.Shaman.RestorationEarthTotem;
                 air = CLUSettings.Instance.Shaman.RestorationAirTotem;
                 water = CLUSettings.Instance.Shaman.RestorationWaterTotem;
@@ -286,23 +286,23 @@ namespace CLU.Classes.Shaman
             if (StyxWoW.Me.Totems.Any(t => t.WoWTotem == WoWTotem.EarthElemental)) return WoWTotem.EarthElemental;
 
             switch (TalentManager.CurrentSpec) {
-            case TalentSpec.ElementalShaman:
+                case WoWSpec.ShamanElemental:
                 if (CLUSettings.Instance.Shaman.ElementalEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalEarthTotem;
                 break;
-            case TalentSpec.EnhancementShaman:
+                case WoWSpec.ShamanEnhancement:
                 if (CLUSettings.Instance.Shaman.EnhancementEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementEarthTotem;
                 break;
-            case TalentSpec.RestorationShaman:
+                case WoWSpec.ShamanRestoration:
                 if (CLUSettings.Instance.Shaman.RestorationEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationEarthTotem;
                 break;
             }
 
             LocalPlayer me = StyxWoW.Me;
-            bool isEnhance = TalentManager.CurrentSpec == TalentSpec.EnhancementShaman;
+            bool isEnhance = TalentManager.CurrentSpec == WoWSpec.ShamanEnhancement;
             // Solo play
             if (!me.IsInParty && !me.IsInRaid) {
                 // Enhance, lowbie
-                if (isEnhance || TalentManager.CurrentSpec == TalentSpec.Lowbie) {
+                if (isEnhance || TalentManager.CurrentSpec == WoWSpec.None) {
                     if (TotemIsKnown(WoWTotem.StrengthOfEarth)) {
                         return WoWTotem.StrengthOfEarth;
                     }
@@ -342,24 +342,25 @@ namespace CLU.Classes.Shaman
 
         public static WoWTotem GetAirTotem()
         {
-            if (TalentManager.CurrentSpec == TalentSpec.Lowbie) {
+            if (TalentManager.CurrentSpec == WoWSpec.None)
+            {
                 return WoWTotem.None;
             }
 
             switch (TalentManager.CurrentSpec) {
-            case TalentSpec.ElementalShaman:
+                case WoWSpec.ShamanElemental:
                 if (CLUSettings.Instance.Shaman.ElementalAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalAirTotem;
                 break;
-            case TalentSpec.EnhancementShaman:
+                case WoWSpec.ShamanEnhancement:
                 if (CLUSettings.Instance.Shaman.EnhancementAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementAirTotem;
                 break;
-            case TalentSpec.RestorationShaman:
+                case WoWSpec.ShamanRestoration:
                 if (CLUSettings.Instance.Shaman.RestorationAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationAirTotem;
                 break;
             }
 
             LocalPlayer me = StyxWoW.Me;
-            bool isEnhance = TalentManager.CurrentSpec == TalentSpec.EnhancementShaman;
+            bool isEnhance = TalentManager.CurrentSpec == WoWSpec.ShamanEnhancement;
 
             if (!me.IsInParty && !me.IsInRaid) {
                 if (isEnhance) {
@@ -398,19 +399,20 @@ namespace CLU.Classes.Shaman
         public static WoWTotem GetWaterTotem()
         {
             switch (TalentManager.CurrentSpec) {
-            case TalentSpec.ElementalShaman:
+                case WoWSpec.ShamanElemental:
                 if (CLUSettings.Instance.Shaman.ElementalWaterTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalWaterTotem;
                 break;
-            case TalentSpec.EnhancementShaman:
+                case WoWSpec.ShamanEnhancement:
                 if (CLUSettings.Instance.Shaman.EnhancementWaterTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementWaterTotem;
                 break;
-            case TalentSpec.RestorationShaman:
+                case WoWSpec.ShamanRestoration:
                 if (CLUSettings.Instance.Shaman.RestorationWaterTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationWaterTotem;
                 break;
             }
 
             // Plain and simple. If we're resto, we never want a different water totem out. Thats all there is to it.
-            if (TalentManager.CurrentSpec == TalentSpec.RestorationShaman) {
+            if (TalentManager.CurrentSpec == WoWSpec.ShamanRestoration)
+            {
                 if (TotemIsKnown(WoWTotem.HealingStream)) {
                     return WoWTotem.HealingStream;
                 }
@@ -442,24 +444,25 @@ namespace CLU.Classes.Shaman
 
         public static WoWTotem GetFireTotem()
         {
-            if (TalentManager.CurrentSpec == TalentSpec.Lowbie) {
+            if (TalentManager.CurrentSpec == WoWSpec.None)
+            {
                 return WoWTotem.None;
             }
 
             switch (TalentManager.CurrentSpec) {
-            case TalentSpec.ElementalShaman:
+                case WoWSpec.ShamanElemental:
                 // if (CLUSettings.Instance.Shaman.ElementalFireTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalFireTotem;
                 break;
-            case TalentSpec.EnhancementShaman:
+                case WoWSpec.ShamanEnhancement:
                 //if (CLUSettings.Instance.Shaman.EnhancementFireTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementFireTotem;
                 break;
-            case TalentSpec.RestorationShaman:
+            case WoWSpec.ShamanRestoration:
                 // if (CLUSettings.Instance.Shaman.RestorationFireTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationFireTotem;
                 break;
             }
 
-            bool isEnhance = TalentManager.CurrentSpec == TalentSpec.EnhancementShaman;
-            bool isElemental = TalentManager.CurrentSpec == TalentSpec.ElementalShaman;
+            bool isEnhance = TalentManager.CurrentSpec == WoWSpec.ShamanEnhancement;
+            bool isElemental = TalentManager.CurrentSpec == WoWSpec.ShamanElemental;
             // Enhance || Elemental
             if (isEnhance || isElemental) {
                 if (TotemIsKnown(WoWTotem.Searing)) {

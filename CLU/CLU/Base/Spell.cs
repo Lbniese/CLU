@@ -214,6 +214,20 @@
             return spell;
         }
 
+        public static float ActualMaxRange(this WoWSpell spell, WoWUnit unit)
+        {
+            if (spell.MaxRange == 0)
+                return 0;
+            return unit != null ? spell.MaxRange + unit.CombatReach + 1f : spell.MaxRange;
+        }
+
+        public static float ActualMinRange(this WoWSpell spell, WoWUnit unit)
+        {
+            if (spell.MinRange == 0)
+                return 0;
+            return unit != null ? spell.MinRange + unit.CombatReach + 1.6666667f : spell.MinRange;
+        }
+
         /// <summary>This is CLU's cancast method. It checks ALOT! Returns true if the player can cast the spell.</summary>
         /// <param name="name">name of the spell to check.</param>
         /// <param name="target">The target.</param>
@@ -244,8 +258,8 @@
                         WoWSpell spell;
                         if (SpellManager.Spells.TryGetValue(name, out spell))
                         {
-                            var minRange = spell.MinRange;
-                            var maxRange = spell.MaxRange;
+                            float minRange = spell.ActualMinRange(target);
+                            float maxRange = spell.ActualMaxRange(target);
                             var targetDistance = Unit.DistanceToTargetBoundingBox(target);
 
                             // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
@@ -270,16 +284,16 @@
         /// </summary>
         public static float MeleeRange
         {
-            get {
+            get
+            {
                 // If we have no target... then give nothing.
-                if (Me.CurrentTargetGuid == 0)
+                if (StyxWoW.Me.CurrentTargetGuid == 0)
                     return 0f;
 
-                if (Me.CurrentTarget != null) {
-                    return Me.CurrentTarget.IsPlayer ? 3.5f : Math.Max(5f, Me.CombatReach + 1.3333334f + Me.CurrentTarget.CombatReach);
-                }
+                if (StyxWoW.Me.CurrentTarget.IsPlayer)
+                    return 3.5f;
 
-                return 0f;
+                return Math.Max(5f, StyxWoW.Me.CombatReach + 1.3333334f + StyxWoW.Me.CurrentTarget.CombatReach);
             }
         }
 
@@ -313,14 +327,10 @@
 
         /// <summary>Returns the spellcooldown using Timespan (00:00:00.0000000)
         /// gtfo if the player dosn't have the spell.</summary>
-        /// <param name="name">the name of the spell to check for</param>
         /// <returns>The spell cooldown.</returns>
-        public static TimeSpan SpellCooldown(string name)
+        public static TimeSpan SpellCooldown(string spell)
         {
-            var spellToCheck = GetSpellByName(name); // Convert the string name to a WoWspell
-
-            // Fishing for KeyNotFoundException's yay!
-            return spellToCheck == null ? TimeSpan.MaxValue : spellToCheck.CooldownTimeLeft;
+            return SpellManager.HasSpell(spell) ? SpellManager.Spells[spell].CooldownTimeLeft : TimeSpan.MaxValue;
         }
 
         /// <summary>Returns the true if the spell is on cooldown (ie: its been used)

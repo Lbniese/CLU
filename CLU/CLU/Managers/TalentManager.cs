@@ -88,47 +88,43 @@ namespace CLU.Managers
             Lua.Events.AttachEvent("ACTIVE_TALENT_GROUP_CHANGED", UpdateTalentManager);
         }
 
-        public static TalentSpec CurrentSpec
-        {
-            get;
-            private set;
-        }
+        public static WoWSpec CurrentSpec { get; private set; }
 
-        public static List<Talent> Talents
-        {
-            get;
-            private set;
-        }
+        public static List<Talent> Talents { get; private set; }
 
-        public static HashSet<string> Glyphs
-        {
-            get;
-            private set;
-        }
+        public static HashSet<string> Glyphs { get; private set; }
 
         public static int GetCount(int tab, int index)
         {
-            return Talents.FirstOrDefault(t => t.Tab == tab && t.Index == index).Count;
+            return GetCount(index);
         }
 
-        public static bool HasTalent(int tab, int index)
+        public static int GetCount(int index)
         {
-            return Talents.FirstOrDefault(t => t.Tab == tab && t.Index == index).Count != 0;
+            return Talents.FirstOrDefault(t => t.Index == index).Count;
         }
 
         /// <summary>
         ///   Checks if we have a glyph or not
         /// </summary>
         /// <param name = "glyphName">Name of the glyph without "Glyph of". i.e. HasGlyph("Aquatic Form")</param>
-        /// <returns>true of we have the glyph</returns>
+        /// <returns></returns>
         public static bool HasGlyph(string glyphName)
         {
             return Glyphs.Count > 0 && Glyphs.Contains(glyphName);
         }
 
+
+        public static bool HasTalent(int tab, int index)
+        {
+            return Talents.FirstOrDefault(t => t.Tab == tab && t.Index == index).Count != 0; // TODO: Tab no longer valid
+        }
+
+
+
         private static void UpdateTalentManager(object sender, LuaEventArgs args)
         {
-            TalentSpec oldSpec = CurrentSpec;
+            WoWSpec oldSpec = CurrentSpec;
 
             Update();
 
@@ -142,256 +138,52 @@ namespace CLU.Managers
         public static void Update()
         {
             // Don't bother if we're < 10
-            if (StyxWoW.Me.Level < 10) {
-                CurrentSpec = TalentSpec.Lowbie;
+            if (StyxWoW.Me.Level < 10)
+            {
+                CurrentSpec = WoWSpec.None;
                 return;
             }
 
-            var getSpecialization = Lua.GetReturnVal<int>("return GetSpecialization()", 0);
-            if (getSpecialization != 0)
+            // Keep the frame stuck so we can do a bunch of injecting at once.
+            using (StyxWoW.Memory.AcquireFrame())
             {
-                switch (StyxWoW.Me.Class)
+                CurrentSpec = StyxWoW.Me.Specialization;
+                CLU.Log("TalentManager - looks like a {0}", CurrentSpec.ToString());
+
+                Talents.Clear();
+
+                var numTalents = Lua.GetReturnVal<int>("return GetNumTalents()", 0);
+                for (int index = 1; index <= numTalents; index++)
                 {
-                    case WoWClass.Warrior:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.ArmsWarrior;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.FuryWarrior;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.ProtectionWarrior;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Paladin:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.HolyPaladin;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.ProtectionPaladin;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.RetributionPaladin;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Hunter:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.BeastMasteryHunter;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.MarksmanshipHunter;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.SurvivalHunter;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Rogue:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.AssasinationRogue;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.CombatRogue;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.SubtletyRogue;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Priest:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.DisciplinePriest;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.HolyPriest;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.ShadowPriest;
-                                break;
-                        }
-                        break;
-                    case WoWClass.DeathKnight:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.BloodDeathKnight;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.FrostDeathKnight;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.UnholyDeathKnight;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Shaman:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.ElementalShaman;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.EnhancementShaman;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.RestorationShaman;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Mage:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.ArcaneMage;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.FireMage;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.FrostMage;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Warlock:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.AfflictionWarlock;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.DemonologyWarlock;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.DestructionWarlock;
-                                break;
-                        }
-                        break;
-                    case WoWClass.Druid:
-                        switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.BalanceDruid;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.FeralDruid;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.GaurdianDruid;
-                                break;
-                            case 4:
-                                CurrentSpec = TalentSpec.RestorationDruid;
-                                break;
-                        }
-                        break;
-                    //TODO: Monk Settings
-                    /*case WoWClass.Monk:
-                         switch (getSpecialization)
-                        {
-                            case 1:
-                                CurrentSpec = TalentSpec.BrewmasterMonk;
-                                break;
-                            case 2:
-                                CurrentSpec = TalentSpec.MistweaverMonk;
-                                break;
-                            case 3:
-                                CurrentSpec = TalentSpec.WindwalkerMonk;
-                                break;
-                        }
-                        break;*/
-
-                    default:
-                        break;
+                    var selected = Lua.GetReturnVal<int>(string.Format("return GetTalentInfo({0})", index), 4);
+                    var t = new Talent { Index = index, Count = selected };
+                    Talents.Add(t);
                 }
-            }
-            //CLU.DiagnosticLog( "getSpecialization =  " + getSpecialization);
-
-            WoWClass myClass = StyxWoW.Me.Class;
-            //int treeOne = 0, treeTwo = 0, treeThree = 0;
-
-
-
-
-            //// Keep the frame stuck so we can do a bunch of injecting at once.
-            //using (StyxWoW.Memory.AcquireFrame()) {
-            //    Talents.Clear();
-            //    for (int tab = 1; tab <= 3; tab++) {
-            //        var numTalents = Lua.GetReturnVal<int>("return GetNumTalents(" + tab + ")", 0);
-            //        for (int index = 1; index <= numTalents; index++) {
-            //            var rank = Lua.GetReturnVal<int>(string.Format("return GetTalentInfo({0}, {1})", tab, index), 4);
-            //            var t = new Talent { Tab = tab, Index = index, Count = rank };
-            //            Talents.Add(t);
-
-            //            switch (tab) {
-            //            case 1:
-            //                treeOne += rank;
-            //                break;
-            //            case 2:
-            //                treeTwo += rank;
-            //                break;
-            //            case 3:
-            //                treeThree += rank;
-            //                break;
-            //            }
-            //        }
-            //    }
 
                 Glyphs.Clear();
 
                 var glyphCount = Lua.GetReturnVal<int>("return GetNumGlyphSockets()", 0);
 
-                if (glyphCount != 0) {
-                    for (int i = 1; i <= glyphCount; i++) {
+                if (glyphCount != 0)
+                {
+                    for (int i = 1; i <= glyphCount; i++)
+                    {
                         List<string> glyphInfo = Lua.GetReturnValues(String.Format("return GetGlyphSocketInfo({0})", i));
 
-                        if (glyphInfo != null && glyphInfo[3] != "nil" && !string.IsNullOrEmpty(glyphInfo[3])) {
-                            Glyphs.Add(WoWSpell.FromId(int.Parse(glyphInfo[3])).Name.Replace("Glyph of ", string.Empty));
+                        if (glyphInfo != null && glyphInfo[3] != "nil" && !string.IsNullOrEmpty(glyphInfo[3]))
+                        {
+                            Glyphs.Add(WoWSpell.FromId(int.Parse(glyphInfo[3])).Name.Replace("Glyph of ", ""));
                         }
                     }
                 }
-            //}
-
-            //if (treeOne == 0 && treeTwo == 0 && treeThree == 0) {
-            //    CurrentSpec = TalentSpec.Lowbie;
-            //    return;
-            //}
-
-            //int max = Math.Max(Math.Max(treeOne, treeTwo), treeThree);
-            //CLU.TroubleshootLog( " Best Tree: " + max);
-            //int specMask = ((int)StyxWoW.Me.Class << 8);
-
-            //if (max == treeOne) {
-            //    CurrentSpec = (TalentSpec)(specMask + 0);
-            //} else if (max == treeTwo) {
-            //    CurrentSpec = (TalentSpec)(specMask + 1);
-            //} else {
-            //    CurrentSpec = (TalentSpec)(specMask + 2);
-            //}
+            }
 
         }
-
         public struct Talent {
             public int Count;
 
-            public int Index;
-
             public int Tab;
+            public int Index;
         }
-
-
-        //local currentSpec = GetSpecialization()
-        //local currentSpecName = currentSpec and select(2, GetSpecializationInfo(currentSpec)) or "None"
-        //print("Your current spec:", currentSpecName)
     }
 }
