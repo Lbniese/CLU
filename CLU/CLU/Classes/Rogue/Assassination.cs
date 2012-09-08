@@ -101,7 +101,7 @@ namespace CLU.Classes.Rogue
                                              Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                              Item.UseEngineerGloves())),
                            // Threat
-                           Spell.CastSpell("Feint",ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()), "Feint"),
+                           Spell.CastSpell("Feint", ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()) && CLUSettings.Instance.EnableSelfHealing, "Feint"),
                            // Kick
                            Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
                            // TotT

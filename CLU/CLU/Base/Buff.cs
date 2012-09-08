@@ -497,11 +497,19 @@ namespace CLU.Base
         			if (!cond(a))
         				return false;
 
+                    if (!Spell.CanCast(name, Me))
+                    {
+                        return false;
+                    }
+
         			// If we are solo then return true if the name of the requested buff matchs the users UI setting and the player does not have the buff..
         			if (!Me.IsInParty && !Me.IsInRaid && !Me.IsDead && !Me.IsGhost && Me.IsAlive) {
-        				if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !PlayerHasBuff(name)) return true;
-        				if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !PlayerHasBuff(name)) return true;
-        				if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !PlayerHasBuff(name)) return true;
+                        //if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && !PlayerHasBuff(name)) return true;
+                        //if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && !PlayerHasBuff(name)) return true;
+                        //if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && !PlayerHasBuff(name)) return true;
+                        if (name.Contains(CLUSettings.Instance.Warrior.ShoutSelection.ToString()) && PlayerHasBuff(name)) return false;
+                        if (name.Contains(CLUSettings.Instance.Monk.LegacySelection.ToString()) && PlayerHasBuff(name)) return false;
+                        if (name.Contains(CLUSettings.Instance.Paladin.BlessingSelection.ToString()) && PlayerHasBuff(name)) return false;
         			}
 
         			// Continue on if we are in a raid group and check all raid members for the buffs we can provide and cast them if ok.
