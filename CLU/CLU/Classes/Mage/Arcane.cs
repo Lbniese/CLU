@@ -100,10 +100,10 @@ namespace CLU.Classes.Mage
                         )
                     ),
                     //Damage
-                    //Tier1 Talent
+                    //Tier5 Talent
                     Buff.CastDebuff("Nether Tempest", ret => true, "Nether Tempest"),//Let's see how this turns out; Guides tell to refresh before LAST tick :/
                     Buff.CastDebuff("Living Bomb", ret => true, "Living Bomb"),
-                    Spell.CastSpell("Frost Bomb", ret => true, "Frost Bomb"),
+                    Buff.CastDebuff("Frost Bomb", ret => true, "Frost Bomb"),
                     Spell.CastSpell("Arcane Missiles", ret => Buff.GetAuraStack(Me, "Arcane Missiles!", true) == 2 || Buff.GetAuraStack(Me, "Arcane Charge", true) >= 5, "Arcane Missles"),
                     Spell.CastSpell("Arcane Barrage", ret => Buff.GetAuraStack(Me, "Arcane Charge", true) > 4, "Arcane Barrage"),
                     Spell.CastSpell("Arcane Blast", ret => Buff.GetAuraStack(Me, "Arcane Charge", true) < 6,"Arcane Blast")
