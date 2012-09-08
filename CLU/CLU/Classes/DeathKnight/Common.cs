@@ -3,7 +3,7 @@
 todo:                                                               Done by:
  * add pestilence with glyph                                                   : by Weischbier 15:46h GMT 31.08.2012 : Changed by Wulf 12:39h GMT 01.09.2012
  * revisit unholy with rune power management                                   : Pending
- * revisit frost...not happy                                                   : Pending
+ * revisit frost...not happy                                                   : by Weischbier 15:09h GMT 08.09.2012
  * add apply diseases composit, its all the same for any spec                  : by Weischbier 15:34h GMT 31.08.2012
  * add CanPlagueLeech to rotations                                             : by Weischbier 15:34h GMT 31.08.2012
 */
@@ -146,9 +146,9 @@ namespace CLU.Classes.DeathKnight
                     //Diseases -- The most important stuff for playing a Death Knight is keeping them up at all times
                     Spell.CastSpell("Plague Leech" , ret => CanPlagueLeech(), "Plague Leech"), // should be used just as your diseases are about to expire, and each time that you can refresh them right away with Outbreak
                     Spell.CastSpell("Outbreak"     , ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 ||Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
-                    Buff.CastDebuff("Icy Touch",    ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Icy Touch for Frost Fever"),
-                    Spell.CastSpell("Howling Blast", ret => TalentManager.CurrentSpec == WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5,"Howling Blast (Frost Fever)"),
-                    Spell.CastSpell("Plague Strike", ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5, "Plague Strike"))
+                    Buff.CastDebuff("Icy Touch",    ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 1, "Icy Touch for Frost Fever"),
+                    Spell.CastSpell("Howling Blast", ret => TalentManager.CurrentSpec == WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 1,"Howling Blast (Frost Fever)"),
+                    Spell.CastSpell("Plague Strike", ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 1, "Plague Strike"))
                     );
         }
     }
