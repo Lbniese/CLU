@@ -65,7 +65,7 @@ namespace CLU
 
         public delegate WoWUnit UnitSelection(object context);
 
-        public static readonly Version Version = new Version(3, 2, 4);
+        public static readonly Version Version = new Version(3, 2, 5);
 
         public override string Name
         {
@@ -259,7 +259,7 @@ namespace CLU
                     break;
             }
 
-            HealableUnit.Pulse(); //if (IsHealerRotationActive) 
+            if (IsHealerRotationActive)  HealableUnit.Pulse(); //
             //ManageOracle();
             
         }
