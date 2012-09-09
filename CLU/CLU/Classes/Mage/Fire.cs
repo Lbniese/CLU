@@ -103,13 +103,13 @@ namespace CLU.Classes.Mage
                                )),
                             // Default Rotaion
                             //Tier5 Talent
-                            Spell.CastSpell("Combustion",ret => CLUSettings.Instance.Mage.EnableCombustion && Buff.TargetHasDebuff("Ignite") && Buff.TargetHasDebuff("Pyroblast"),"Combustion"),
+                            Spell.CastSpell("Combustion", ret => CLUSettings.Instance.Mage.EnableCombustion && Buff.TargetHasDebuff("Ignite") && Buff.TargetHasDebuff("Pyroblast") && Unit.IsTargetWorthy(Me.CurrentTarget), "Combustion"),
                             Buff.CastDebuff("Nether Tempest", ret => true, "Nether Tempest"),//Let's see how this turns out; Guides tell to refresh before LAST tick :/
                             Spell.CastSpell("Living Bomb", ret => !Buff.TargetHasDebuff("Living Bomb"), "Living Bomb"),
                             Buff.CastDebuff("Frost Bomb", ret => true, "Frost Bomb"),
                             Spell.CastSpell("Pyroblast",ret => Me.HasMyAura("Pyroblast!"),"Pyroblast with Pyroblast! proc"),
                             Spell.CastSpell("Inferno Blast", ret => Me.HasMyAura("Heating Up") && !Spell.SpellOnCooldown("Inferno Blast"), "Inferno Blast with Heating Up proc"),
-                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up") || Spell.SpellOnCooldown("Inferno Blast"), "Fireball")
+                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up") || Spell.SpellOnCooldown("Inferno Blast") || (Me.HasMyAura("Heating Up") && Spell.SpellOnCooldown("Inferno Blast")), "Fireball")
                        );
             }
         }
