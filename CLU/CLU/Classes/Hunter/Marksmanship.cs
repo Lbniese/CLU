@@ -3,6 +3,7 @@ using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx.TreeSharp;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Hunter
 {

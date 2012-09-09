@@ -3,7 +3,6 @@ using CLU.Helpers;
 using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx;
-//using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx.TreeSharp;
 using CLU.Base;

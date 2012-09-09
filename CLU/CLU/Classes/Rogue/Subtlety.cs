@@ -6,16 +6,13 @@ using CLU.Helpers;
 using CLU.Lists;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Settings;
-//using Styx.Logic.Combat;
 using CLU.Base;
 using CLU.Managers;
+using Styx.CommonBot;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Rogue
 {
-    using Styx.CommonBot;
-
-    using Rest = global::CLU.Base.Rest;
-
     class Subtlety : RotationBase
     {
 

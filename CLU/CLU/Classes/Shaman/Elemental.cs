@@ -3,10 +3,10 @@ using Styx.TreeSharp;
 using System.Linq;
 using CommonBehaviors.Actions;
 using CLU.Lists;
-using Styx;
 using Styx.WoWInternals.WoWObjects;
 using CLU.Settings;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Shaman
 {

@@ -4,6 +4,7 @@ using Styx.TreeSharp;
 using CommonBehaviors.Actions;
 using CLU.Settings;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Paladin
 {

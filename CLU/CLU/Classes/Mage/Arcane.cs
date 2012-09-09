@@ -6,6 +6,7 @@ using CommonBehaviors.Actions;
 using CLU.Settings;
 using Action = Styx.TreeSharp.Action;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Mage
 {

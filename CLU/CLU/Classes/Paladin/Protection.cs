@@ -5,6 +5,7 @@ using CLU.Helpers;
 using CLU.Lists;
 using CLU.Settings;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Paladin
 {

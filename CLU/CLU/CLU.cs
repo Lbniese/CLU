@@ -427,34 +427,34 @@ namespace CLU
             TreeRoot.Stop();
         }
 
-        private const OracleWatchMode OracleWatchFlags = OracleWatchMode.Tank;
+        //private const OracleWatchMode OracleWatchFlags = OracleWatchMode.Tank;
 
-        private static void ManageOracle()
-        {
-            switch (OracleWatchFlags) {
-            case OracleWatchMode.Healer:
-                UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
-                if (ObjectManager.Me.IsInRaid) {
-                    ObjectManager.Me.RaidMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
-                } else if (ObjectManager.Me.IsInParty) {
-                    ObjectManager.Me.PartyMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
-                }
-                break;
-            case OracleWatchMode.DPS:
-                UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
-                break;
-            case OracleWatchMode.Tank:
-                UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
-                if (ObjectManager.Me.IsInRaid) {
-                    ObjectManager.Me.RaidMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
-                } else if (ObjectManager.Me.IsInParty) {
-                    ObjectManager.Me.PartyMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
-                }
-                break;
-            }
-            // tick
-            UnitOracle.Pulse();
-        }
+        //private static void ManageOracle()
+        //{
+        //    switch (OracleWatchFlags) {
+        //    case OracleWatchMode.Healer:
+        //        UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
+        //        if (ObjectManager.Me.IsInRaid) {
+        //            ObjectManager.Me.RaidMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
+        //        } else if (ObjectManager.Me.IsInParty) {
+        //            ObjectManager.Me.PartyMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
+        //        }
+        //        break;
+        //    case OracleWatchMode.DPS:
+        //        UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
+        //        break;
+        //    case OracleWatchMode.Tank:
+        //        UnitOracle.WatchUnit(ObjectManager.Me, UnitOracle.Watch.HealthVariance);
+        //        if (ObjectManager.Me.IsInRaid) {
+        //            ObjectManager.Me.RaidMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
+        //        } else if (ObjectManager.Me.IsInParty) {
+        //            ObjectManager.Me.PartyMembers.ForEach(x => UnitOracle.WatchUnit(x, UnitOracle.Watch.HealthVariance));
+        //        }
+        //        break;
+        //    }
+        //    // tick
+        //    UnitOracle.Pulse();
+        //}
 
         /// <summary>
         /// Allow HB to pulse our shit on our conditions.

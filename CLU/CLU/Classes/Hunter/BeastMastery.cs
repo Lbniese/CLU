@@ -4,6 +4,7 @@ using Styx.TreeSharp;
 using CLU.Settings;
 using CLU.Base;
 using CLU.Managers;
+using Rest = CLU.Base.Rest;
 
 
 namespace CLU.Classes.Hunter

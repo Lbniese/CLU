@@ -5,12 +5,11 @@ using CommonBehaviors.Actions;
 using Styx.TreeSharp;
 using System.Linq;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 
 namespace CLU.Classes.Druid
 {
-    using Styx.WoWInternals;
-
     class Feral : RotationBase
     {
         private const int ItemSetId = 1058; // Tier set ID

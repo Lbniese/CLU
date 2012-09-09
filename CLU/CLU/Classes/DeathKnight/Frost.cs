@@ -6,6 +6,7 @@ using CommonBehaviors.Actions;
 using Styx;
 using Styx.TreeSharp;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.DeathKnight
 {

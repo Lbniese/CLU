@@ -3,15 +3,12 @@ using CommonBehaviors.Actions;
 using CLU.Helpers;
 using CLU.Settings;
 using System.Collections.Generic;
-//using Styx.Logic.Combat;
 using CLU.Base;
+using Styx.CommonBot;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Monk
 {
-    using Styx.CommonBot;
-
-    using Rest = global::CLU.Base.Rest;
-
     class Brewmaster : RotationBase
     {
         public override string Name

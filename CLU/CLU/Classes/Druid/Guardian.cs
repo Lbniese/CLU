@@ -1,10 +1,10 @@
-using CLU.Helpers;
 using CLU.Lists;
 using CLU.Settings;
 using CommonBehaviors.Actions;
 using Styx.TreeSharp;
 using System.Linq;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Druid
 {

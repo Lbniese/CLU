@@ -3,12 +3,13 @@ using Styx.TreeSharp;
 using CommonBehaviors.Actions;
 using CLU.Settings;
 using CLU.Base;
+using Rest = CLU.Base.Rest;
+using CLU.Managers;
 
 namespace CLU.Classes.Warrior
 {
-    using global::CLU.Managers;
 
-    class Protection2 : RotationBase
+    class Protection : RotationBase
     {
 
         public override string Name

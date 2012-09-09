@@ -5,6 +5,7 @@ using CLU.Lists;
 using CLU.Settings;
 using CLU.Base;
 using CLU.Managers;
+using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Warlock
 {

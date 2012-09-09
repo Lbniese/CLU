@@ -14,13 +14,7 @@ namespace CLU.Base
     using Styx.WoWInternals.WoWObjects;
     using System.Linq;
     using CommonBehaviors.Actions;
-
-    //using Styx.Logic.Combat;
-    //using Styx.Logic.Inventory;
-    //using Styx.Logic.Pathing;
-
     using Styx.TreeSharp;
-    //using Styx.Logic.POI;
     using global::CLU.Settings;
 
     internal static class Rest

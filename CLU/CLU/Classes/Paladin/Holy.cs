@@ -1,7 +1,6 @@
 ﻿using CLU.Helpers;
 using Styx.TreeSharp;
 using CommonBehaviors.Actions;
-//using Styx.Logic.Combat;
 using Styx.WoWInternals;
 using Styx;
 using CLU.Settings;
