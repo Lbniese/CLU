@@ -170,7 +170,6 @@ namespace CLU
         public override void Initialize()
         {
 
-            // Yes, we are hooking in ctor. before a botbase caches us
             TroubleshootLog("Attatching BotEvents");
             BotEvents.OnBotStarted += WoWStats.Instance.WoWStatsOnStarted;
             BotEvents.OnBotStopped += WoWStats.Instance.WoWStatsOnStopped;
@@ -260,7 +259,7 @@ namespace CLU
                     break;
             }
 
-            if (IsHealerRotationActive) HealableUnit.Pulse();
+            HealableUnit.Pulse(); //if (IsHealerRotationActive) 
             //ManageOracle();
             
         }

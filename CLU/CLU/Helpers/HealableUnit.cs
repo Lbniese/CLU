@@ -6,8 +6,6 @@ using System;
 using System.ComponentModel;
 using CLU.Settings;
 using Styx;
-//using Styx.Logic.Pathing;
-//using Styx.Logic;
 using CLU.Base;
 
 namespace CLU.Helpers
@@ -44,13 +42,6 @@ namespace CLU.Helpers
             }
         }
         
-        // Me..
-        private static LocalPlayer Me
-        {
-            get {
-                return ObjectManager.Me;
-            }
-        }
 
         //a crude attempt at handling adding and removing from listofHealableUnits.
         private static bool Adding
@@ -358,7 +349,12 @@ namespace CLU.Helpers
             return this.UnitObject;
         }
 
-        
+
+        public static LocalPlayer Me { get { return StyxWoW.Me; } }
+        public static bool IsInGroup { get { return Me.IsInRaid || Me.IsInParty; } }
+        public static List<WoWPlayer> GroupMembers { get { return !Me.IsInRaid ? Me.PartyMembers : Me.RaidMembers; } }
+        public static List<WoWPartyMember> GroupMemberInfos { get { return !Me.IsInRaid ? Me.PartyMemberInfos : Me.RaidMemberInfos; } }
+
         /// <summary>
         ///  List of healable units by Raid or Party Information
         /// </summary>
@@ -367,12 +363,8 @@ namespace CLU.Helpers
             get {
                 var result = new List<HealableUnit>();
                 try {
-                    var units = new List<WoWPartyMember>();
-                    if (ObjectManager.Me.IsInRaid)
-                        units = ObjectManager.Me.RaidMemberInfos;
-                    else if (ObjectManager.Me.IsInParty)
-                        units = ObjectManager.Me.PartyMemberInfos;
-                    var grps = units.Where(p => !HealableUnit.Contains(p.ToPlayer()) && HealableUnit.Filter(p.ToPlayer())).Select(g => g);
+
+                    var grps = GroupMemberInfos.Where(p => !HealableUnit.Contains(p.ToPlayer()) && HealableUnit.Filter(p.ToPlayer())).Select(g => g);
 
                     var list = new List<HealableUnit>();
 
@@ -381,7 +373,10 @@ namespace CLU.Helpers
                         list.Add(new HealableUnit(Me));
                     }
 
-                    foreach (WoWPartyMember p in grps) {
+                    // CLU.TroubleshootLog("Units Count = {0}", grps.Count());
+
+                    foreach (WoWPartyMember p in grps)
+                    {
                         CLU.TroubleshootLog( "Adding Group Member: {0} to list of Healable Units", CLU.SafeName(p.ToPlayer()));
                         var role = p.Role;
                         bool tank = false;
