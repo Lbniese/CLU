@@ -759,10 +759,10 @@ namespace CLU.GUI
                 //textBox2.Text += output + Environment.NewLine;
                 //output = target == null ? string.Empty : "Thunder Clap Cooldown : " + Spell.CooldownTimeLeft6343;
                 //textBox2.Text += output + Environment.NewLine;
-                output = target == null ? string.Empty : "Mangle (" + SpellManager.Spells["Mangle"].Id + ") Cooldown : " + Spell.SpellCooldown("Mangle").TotalSeconds;
-                textBox2.Text += output + Environment.NewLine;
-                output = target == null ? string.Empty : "Mangle Cooldown : " + Spell.CooldownTimeLeft33878;
-                textBox2.Text += output + Environment.NewLine;
+                //output = target == null ? string.Empty : "Mangle (" + SpellManager.Spells["Thrash"].Id + ") Cooldown : " + Spell.SpellCooldown("Mangle").TotalSeconds;
+                //textBox2.Text += output + Environment.NewLine;
+                //output = target == null ? string.Empty : "Mangle Cooldown : " + Spell.CooldownTimeLeft33878;
+                //textBox2.Text += output + Environment.NewLine;
 
                 
 

@@ -197,6 +197,7 @@
         // TODO: Remove this.
         public static void CastfuckingSpell(string name)
         {
+            name = LocalizeSpellName(name);
             Lua.DoString(string.Format("CastSpellByName(\"{0}\")", RealLuaEscape(name)));
         }
 
@@ -333,29 +334,57 @@
             return SpellManager.HasSpell(spell) ? SpellManager.Spells[spell].CooldownTimeLeft : TimeSpan.MaxValue;
         }
 
-        //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
-        public static TimeSpan CooldownTimeLeft33878
-        {
-            get
-            {
-                var Id = 33878;
-                 var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-                if(luaTime <= 0)
-                    return TimeSpan.Zero;
-                return TimeSpan.FromSeconds(luaTime);
-           }
-       }
+       // //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
+       // public static TimeSpan CooldownTimeLeft33878
+       // {
+       //     get
+       //     {
+       //         var Id = 77758;
+       //          var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+       //         if(luaTime <= 0)
+       //             return TimeSpan.Zero;
+       //         return TimeSpan.FromSeconds(luaTime);
+       //    }
+       //}
 
-        public static TimeSpan CooldownTimeLeft6343
+       // public static TimeSpan CooldownTimeLeft6343
+       // {
+       //     get
+       //     {
+       //         var Id = 77758;
+       //         var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+       //         if (luaTime <= 0)
+       //             return TimeSpan.Zero;
+       //         return TimeSpan.FromSeconds(luaTime);
+       //     }
+       // }
+
+
+        /// <summary>
+        /// this will localise the spell name to the local client.
+        /// </summary>
+        private static readonly Dictionary<string, string> LocalizedSpellNames = new Dictionary<string, string>();
+        public static string LocalizeSpellName(string name)
         {
-            get
+            if (LocalizedSpellNames.ContainsKey(name))
+                return LocalizedSpellNames[name];
+
+            string loc;
+
+            int id = 0;
+            try
             {
-                var Id = 6343;
-                var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-                if (luaTime <= 0)
-                    return TimeSpan.Zero;
-                return TimeSpan.FromSeconds(luaTime);
+                id = SpellManager.Spells[name].Id;
             }
+            catch
+            {
+                return name;
+            }
+
+            loc = Lua.GetReturnValues("return select(1, GetSpellInfo(" + id + "))")[0];
+            LocalizedSpellNames[name] = loc;
+            CLU.TroubleshootLog("Localized spell: '" + name + "' is '" + loc + "'.");
+            return loc;
         }
 
         /// <summary>Returns the true if the spell is on cooldown (ie: its been used)
@@ -403,8 +432,8 @@
         			if (!cond(a))
         				return false;
 
-        			if (!SpellManager.CanCast(spellid, Me.CurrentTarget, true))
-        				return false;
+                    if (!SpellManager.CanCast(spellid, Me.CurrentTarget, true))
+                        return false;
 
         			return true;
         		},

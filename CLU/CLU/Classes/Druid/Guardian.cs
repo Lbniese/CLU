@@ -149,8 +149,20 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),
                            // Interupts
                            Spell.CastInterupt("Skull Bash",         ret => true, "Skull Bash"),
-                           Spell.CastSpell("Mangle",                ret => !WoWSpell.FromId(33878).Cooldown, "Mangle"),
-                           Spell.CastSpell("Thrash",                ret => Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
+                           new Decorator(ret => !WoWSpell.FromId(33878).Cooldown,
+                               new Sequence(
+                                    new Action(a => CLU.Log(" [Casting] Mangle ")), 
+                                    new Action(ret => Spell.CastfuckingSpell("Mangle")
+                                   ))),
+                           new Decorator(ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2,            
+                               new Sequence(
+                                    new Action(a => CLU.Log(" [Casting] Thrash ")),
+                                    new Action(ret => Spell.CastfuckingSpell("Thrash")
+                                   ))),
+                           //new Action(ret => Spell.CastfuckingSpell("Mangle")),
+                           //Spell.CastSpell("Mangle",                ret => !WoWSpell.FromId(33878).Cooldown, "Mangle "),
+                           //Spell.CastSpell("Thrash",                ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
+                           //Spell.CastSpellByID(106830, ret => !WoWSpell.FromId(77758).Cooldown, "thrash "),
                            Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
                            Spell.CastSpell("Faerie Swarm",          ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
                            Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
@@ -211,7 +223,11 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    //Item.RunMacroText("/cast Ravage",           ret =>  Unit.TimeToDeath(Me.CurrentTarget) < 8.5, "Ravage"),
                                    Spell.CastSpell("Ravage",                    ret => Unit.TimeToDeath(Me.CurrentTarget) < 8.5 && Common.CanRavage, "Ravage"),
                                    Spell.CastSpell("Shred",                     ret => (Common.IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Shred"),
-                                   Spell.CastSpell("Mangle",                    ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Mangle [NotBehind]"));
+                                    new Decorator(ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)),
+                                        new Sequence(
+                                            new Action(a => CLU.Log(" [Casting] Mangle [NotBehind]")),
+                                            new Action(ret => Spell.CastfuckingSpell("Mangle") // Spell.CastSpell("Mangle",                    ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Mangle [NotBehind]")
+                                   ))));
 
             }
         }
