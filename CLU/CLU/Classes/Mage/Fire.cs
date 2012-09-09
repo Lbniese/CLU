@@ -109,8 +109,8 @@ namespace CLU.Classes.Mage
                             Spell.CastSpell("Living Bomb", ret => !Buff.TargetHasDebuff("Living Bomb"), "Living Bomb"),
                             Buff.CastDebuff("Frost Bomb", ret => true, "Frost Bomb"),
                             Spell.CastSpell("Pyroblast",ret => Me.HasMyAura("Pyroblast!"),"Pyroblast with Pyroblast! proc"),
-                            Spell.CastSpell("Inferno Blast", ret => Me.HasMyAura("Heating Up") && !Spell.SpellOnCooldown("Pyroblast"), "Inferno Blast with Heating Up proc"),
-                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up"), "Fireball")
+                            Spell.CastSpell("Inferno Blast", ret => Me.HasMyAura("Heating Up") && !Spell.SpellOnCooldown("Inferno Blast"), "Inferno Blast with Heating Up proc"),
+                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up") && Spell.SpellOnCooldown("Inferno Blast"), "Fireball")
                        );
             }
         }
