@@ -14,7 +14,7 @@ namespace CLU.Classes.Warrior
 
         public override string Name
         {
-            get { return "Protection Warrior 5.0.4 V1"; }
+            get { return "Protection Warrior"; }
         }
 
         public override string KeySpell
@@ -80,8 +80,8 @@ namespace CLU.Classes.Warrior
                      Spell.CastSpell("Heroic Strike",       ret => Buff.PlayerHasActiveBuff("Ultimatum") || Me.RagePercent >= CLUSettings.Instance.Warrior.ProtHeroicStrikeRagePercent, "Heroic Strike"),
                      Spell.CastSpell("Shield Slam",         ret => true, "Shield Slam on CD"),
                      Spell.CastSpell("Revenge",             ret => true, "Revenge on CD"),
-                     Spell.CastSelfSpell("Deadly Calm",     ret => CLUSettings.Instance.Warrior.UseDeadlyCalm, "Deadly Calm"),
-                     Spell.CastSelfSpell("Berserker Rage",  ret => CLUSettings.Instance.Warrior.UseBerserkerRage, "Berserker Rage"),
+                     Spell.CastSelfSpell("Deadly Calm",     ret => CLUSettings.Instance.Warrior.UseDeadlyCalm && CLUSettings.Instance.UseCooldowns, "Deadly Calm"),
+                     Spell.CastSelfSpell("Berserker Rage",  ret => CLUSettings.Instance.Warrior.UseBerserkerRage && CLUSettings.Instance.UseCooldowns, "Berserker Rage"),
                      Spell.CastAreaSpell("Thunder Clap", 8, false, 1, 0.0, 0.0, ret => !Buff.UnitHasWeakenedBlows(Me.CurrentTarget), "Thunder Clap for Weakened Blows"),
                      Buff.CastDebuff("Demoralizing Shout",  ret => Me.CurrentTarget != null && !Buff.UnitHasWeakenedBlows(Me.CurrentTarget) && CLUSettings.Instance.Warrior.UseDemoralizingShout, "Demoralizing Shout"),
                      Spell.CastSpell("Commanding Shout",    ret => Me.RagePercent < 40 && CLUSettings.Instance.Warrior.ShoutSelection == WarriorShout.Commanding, "Commanding Shout for Rage"),

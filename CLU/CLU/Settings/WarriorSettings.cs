@@ -45,6 +45,21 @@ namespace CLU.Settings
         }
 
 
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Common")]
+        [DisplayName("Use Shockwave to interupt")]
+        [Description("When enabled CLU will use Shockwave (shared across all warrior rotations)")]
+        public bool UseShockwave { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Common")]
+        [DisplayName("Use Dragon Roar")]
+        [Description("When enabled CLU will use Dragon Roar. (shared across all warrior rotations)")]
+        public bool UseDragonRoar { get; set; }
+
         #endregion
 
         #region Protection
@@ -77,12 +92,6 @@ namespace CLU.Settings
         [Description("When enabled CLU will use Pummel.")]
         public bool UsePummel { get; set; }
 
-        [Setting]
-        [DefaultValue(true)]
-        [Category("Protection")]
-        [DisplayName("Use Shockwave to interupt")]
-        [Description("When enabled CLU will use Shockwave to interupt")]
-        public bool UseShockwave { get; set; }
 
         [Setting]
         [DefaultValue(true)]
