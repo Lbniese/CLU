@@ -51,13 +51,6 @@ namespace CLU
         {
             Instance = this;
 
-            // Yes, we are hooking in ctor. before a botbase caches us
-            TroubleshootLog("Attatching BotEvents");
-            BotEvents.OnBotStarted += WoWStats.Instance.WoWStatsOnStarted;
-            BotEvents.OnBotStopped += WoWStats.Instance.WoWStatsOnStopped;
-            BotEvents.OnBotStarted += CombatLogEvents.Instance.CombatLogEventsOnStarted;
-            BotEvents.OnBotStopped += CombatLogEvents.Instance.CombatLogEventsOnStopped;
-            BotEvents.Player.OnMapChanged += CombatLogEvents.Instance.Player_OnMapChanged;
         }
 
         public static CLU Instance
@@ -176,6 +169,14 @@ namespace CLU
 
         public override void Initialize()
         {
+
+            // Yes, we are hooking in ctor. before a botbase caches us
+            TroubleshootLog("Attatching BotEvents");
+            BotEvents.OnBotStarted += WoWStats.Instance.WoWStatsOnStarted;
+            BotEvents.OnBotStopped += WoWStats.Instance.WoWStatsOnStopped;
+            BotEvents.OnBotStarted += CombatLogEvents.Instance.CombatLogEventsOnStarted;
+            BotEvents.OnBotStopped += CombatLogEvents.Instance.CombatLogEventsOnStopped;
+            BotEvents.Player.OnMapChanged += CombatLogEvents.Instance.Player_OnMapChanged;
 
             ///////////////////////////////////////////////////////////////////
             // Start non invasive user information

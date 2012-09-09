@@ -8,6 +8,7 @@ using CLU.Managers;
 
 namespace CLU.Classes.Warrior
 {
+    using Styx.WoWInternals;
 
     class Protection : RotationBase
     {
@@ -72,9 +73,10 @@ namespace CLU.Classes.Warrior
                          new PrioritySelector(
                              Spell.CastConicSpell("Shockwave", 11f, 33f, ret => true, "Shockwave"),
                              Spell.CastSpell("Cleave",          ret => Buff.PlayerHasActiveBuff("Ultimatum") || Me.RagePercent >= CLUSettings.Instance.Warrior.ProtAoECleaveRagePercent, "Cleave"),
+                             Spell.CastAreaSpell("Thunder Clap", 10, false, CLUSettings.Instance.Warrior.ProtAoECount, 0.0, 0.0, ret => !WoWSpell.FromId(6343).Cooldown, "Thunder Clap"),
                              Spell.CastSpell("Intimidating Shout", ret => TalentManager.HasGlyph("Intimidating Shout"), "Intimidating Shout") //only use if glyphed
                              )),
-                    //Spell.CastAreaSpell("Thunder Clap", 10, false, CLUSettings.Instance.Warrior.ProtAoECount, 0.0, 0.0, ret => true, "Thunder Clap"), TODO: This - for some stupid reason is halting the rotation.
+                    //Spell.CastAreaSpell("Thunder Clap", 10, false, CLUSettings.Instance.Warrior.ProtAoECount, 0.0, 0.0, ret => !WoWSpell.FromId(6343).Cooldown, "Thunder Clap"), TODO: This - for some stupid reason is halting the rotation.
                     // START Main Rotation
 
                      Spell.CastSpell("Heroic Strike",       ret => Buff.PlayerHasActiveBuff("Ultimatum") || Me.RagePercent >= CLUSettings.Instance.Warrior.ProtHeroicStrikeRagePercent, "Heroic Strike"),
