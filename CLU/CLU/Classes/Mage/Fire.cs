@@ -90,7 +90,7 @@ namespace CLU.Classes.Mage
                             Spell.ChannelSelfSpell("Evocation", ret => Me.ManaPercent < 35 && !Me.IsMoving, "Evocation"),
                             Item.UseBagItem("Mana Gem", ret => Me.CurrentTarget != null && Me.ManaPercent < 90 && Unit.IsTargetWorthy(Me.CurrentTarget), "Mana Gem"),
                             Item.UseBagItem("Brilliant Mana Gem", ret => Me.CurrentTarget != null && Me.ManaPercent < 90 && Unit.IsTargetWorthy(Me.CurrentTarget), "Brilliant Mana Gem"),
-                            Spell.CastSelfSpell("Mirror Image", ret => Buff.PlayerHasBuff("Arcane Power") && Unit.IsTargetWorthy(Me.CurrentTarget), "Mirror Image"),
+                            Spell.CastSelfSpell("Mirror Image", ret => Unit.IsTargetWorthy(Me.CurrentTarget), "Mirror Image"),
                             Spell.CastSelfSpell("Presence of Mind", ret => !Buff.PlayerHasBuff("Invisibility"), "Presence of Mind"),
                             Spell.CastSelfSpell("Arcane Power", ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Improved Mana Gem") || Unit.IsTargetWorthy(Me.CurrentTarget), "Arcane Power"),
                             Item.RunMacroText("/cast Conjure Mana Gem", ret => Buff.PlayerHasBuff("Presence of Mind") && !Item.HaveManaGem(), "Conjure Mana Gem"),
@@ -103,14 +103,13 @@ namespace CLU.Classes.Mage
                                )),
                             // Default Rotaion
                             //Tier5 Talent
-                            
                             Spell.CastSpell("Combustion",ret => CLUSettings.Instance.Mage.EnableCombustion && Buff.TargetHasDebuff("Ignite") && Buff.TargetHasDebuff("Pyroblast"),"Combustion"),
                             Buff.CastDebuff("Nether Tempest", ret => true, "Nether Tempest"),//Let's see how this turns out; Guides tell to refresh before LAST tick :/
                             Spell.CastSpell("Living Bomb", ret => !Buff.TargetHasDebuff("Living Bomb"), "Living Bomb"),
                             Buff.CastDebuff("Frost Bomb", ret => true, "Frost Bomb"),
                             Spell.CastSpell("Pyroblast",ret => Me.HasMyAura("Pyroblast!"),"Pyroblast with Pyroblast! proc"),
                             Spell.CastSpell("Inferno Blast", ret => Me.HasMyAura("Heating Up") && !Spell.SpellOnCooldown("Inferno Blast"), "Inferno Blast with Heating Up proc"),
-                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up") && Spell.SpellOnCooldown("Inferno Blast"), "Fireball")
+                            Spell.CastSpell("Fireball", ret => !Me.HasMyAura("Heating Up") || Spell.SpellOnCooldown("Inferno Blast"), "Fireball")
                        );
             }
         }
