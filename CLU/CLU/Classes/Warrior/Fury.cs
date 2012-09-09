@@ -100,7 +100,6 @@ namespace CLU.Classes.Warrior
                                     Spell.CastSpell("Wild Strike",             ret => Me.CurrentTarget != null && (Buff.TargetHasDebuff("Colossus Smash") && Me.CurrentTarget.HealthPercent >= 20), "Wild Strike"),
                                     Spell.CastSpell("Impending Victory",       ret => Me.CurrentTarget != null && (SpellManager.HasSpell("Impending Victory") && Me.CurrentTarget.HealthPercent >= 20), "Wild Strike"),
                                     Spell.CastSpell("Wild Strike",             ret => Me.CurrentTarget != null && (Spell.SpellCooldown("Colossus Smash").TotalSeconds > 1 && Me.RagePercent >= 60 && Me.CurrentTarget.HealthPercent >= 20), "Wild Strike"),
-                                    Spell.CastSpell("Execute",                 ret => Me.CurrentRage >= 50, "Execute"),
                                     Spell.CastSpell("Commanding Shout",        ret => Me.RagePercent < 70 && CLUSettings.Instance.Warrior.ShoutSelection == WarriorShout.Commanding, "Commanding Shout for Rage"),
                                     Spell.CastSpell("Battle Shout",            ret => Me.RagePercent < 70 && CLUSettings.Instance.Warrior.ShoutSelection == WarriorShout.Battle, "Battle Shout for Rage"));
             }

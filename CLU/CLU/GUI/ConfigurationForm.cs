@@ -26,6 +26,7 @@ using Styx.Helpers;
 namespace CLU.GUI
 {
     using Styx.Common;
+    using Styx.CommonBot;
 
     using global::CLU.Base;
     using global::CLU.CombatLog;
@@ -754,8 +755,16 @@ namespace CLU.GUI
                 textBox2.Text += output + Environment.NewLine;
                 output = target == null ? string.Empty : "PetSlotSelection : " + (int)CLUSettings.Instance.Hunter.PetSlotSelection;
                 textBox2.Text += output + Environment.NewLine;
-                output = target == null ? string.Empty : "Thunder Clap Cooldown : " + Spell.SpellCooldown("Thunder Clap").TotalSeconds;
+                //output = target == null ? string.Empty : "Thunder Clap (" + SpellManager.Spells["Thunder Clap"].Id + ") Cooldown : " + Spell.SpellCooldown("Thunder Clap").TotalSeconds;
+                //textBox2.Text += output + Environment.NewLine;
+                //output = target == null ? string.Empty : "Thunder Clap Cooldown : " + Spell.CooldownTimeLeft6343;
+                //textBox2.Text += output + Environment.NewLine;
+                output = target == null ? string.Empty : "Mangle (" + SpellManager.Spells["Mangle"].Id + ") Cooldown : " + Spell.SpellCooldown("Mangle").TotalSeconds;
                 textBox2.Text += output + Environment.NewLine;
+                output = target == null ? string.Empty : "Mangle Cooldown : " + Spell.CooldownTimeLeft33878;
+                textBox2.Text += output + Environment.NewLine;
+
+                
 
 
                 

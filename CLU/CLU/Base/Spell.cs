@@ -333,6 +333,31 @@
             return SpellManager.HasSpell(spell) ? SpellManager.Spells[spell].CooldownTimeLeft : TimeSpan.MaxValue;
         }
 
+        //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
+        public static TimeSpan CooldownTimeLeft33878
+        {
+            get
+            {
+                var Id = 33878;
+                 var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+                if(luaTime <= 0)
+                    return TimeSpan.Zero;
+                return TimeSpan.FromSeconds(luaTime);
+           }
+       }
+
+        public static TimeSpan CooldownTimeLeft6343
+        {
+            get
+            {
+                var Id = 6343;
+                var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+                if (luaTime <= 0)
+                    return TimeSpan.Zero;
+                return TimeSpan.FromSeconds(luaTime);
+            }
+        }
+
         /// <summary>Returns the true if the spell is on cooldown (ie: its been used)
         /// gtfo if the player dosn't have the spell.</summary>
         /// <param name="name">the name of the spell to check for</param>
