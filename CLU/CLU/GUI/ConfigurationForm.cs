@@ -754,7 +754,11 @@ namespace CLU.GUI
                 textBox2.Text += output + Environment.NewLine;
                 output = target == null ? string.Empty : "PetSlotSelection : " + (int)CLUSettings.Instance.Hunter.PetSlotSelection;
                 textBox2.Text += output + Environment.NewLine;
+                output = target == null ? string.Empty : "Thunder Clap Cooldown : " + Spell.SpellCooldown("Thunder Clap").TotalSeconds;
+                textBox2.Text += output + Environment.NewLine;
 
+
+                
                 
 
               

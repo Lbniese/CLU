@@ -32,24 +32,155 @@ namespace CLU.Settings
             set;
         }
 
+
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Common")]
+        [DisplayName("Healthstone Percent")]
+        [Description("Will use a Healthstone for self heal at this healthpercent. (Self Healing (General Tab) must be enabled as well.)")]
+        public int HealthstonePercent
+        {
+            get;
+            set;
+        }
+
+
         #endregion
 
         #region Protection
 
-        //[Setting]
-        //[DefaultValue(50)]
-        //[Category("Protection")]
-        //[DisplayName("Enraged Regeneration Health")]
-        //[Description("Enrage Regeneration will be used when your health drops below this value")]
-        //public int WarriorEnragedRegenerationHealth { get; set; }
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Deadly Calm on CD")]
+        [Description("When enabled CLU will use deadly calm on CD.")]
+        public bool UseDeadlyCalm { get; set; }
 
-        //[Setting]
-        //[DefaultValue(40)]
-        //[Category("Protection")]
-        //[DisplayName("Shield Wall Health")]
-        //[Description("Shield Wall will be used when your health drops below this value")]
-        //public int WarriorProtShieldWallHealth { get; set; }
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Recklessness on bosses")]
+        [Description("When enabled CLU will use Recklessness on bosses.")]
+        public bool UseRecklessness { get; set; }
 
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Shattering Throw on bosses")]
+        [Description("When enabled CLU will use Shattering Throw on bosses.")]
+        public bool UseShatteringThrow { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Pummel")]
+        [Description("When enabled CLU will use Pummel.")]
+        public bool UsePummel { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Shockwave to interupt")]
+        [Description("When enabled CLU will use Shockwave to interupt")]
+        public bool UseShockwave { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Spell Reflection")]
+        [Description("When enabled CLU will use Spell Reflection")]
+        public bool UseSpellReflection { get; set; }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Intimidating Shout ")]
+        [Description("When enabled CLU will Intimidating Shout")]
+        public bool UseIntimidatingShout { get; set; }
+
+        
+        [Setting]
+        [DefaultValue(75)]
+        [Category("Protection")]
+        [DisplayName("Cleave Percent")]
+        [Description("Will use Cleave when Rage percent is grater than or equal to the set value")]
+        public int ProtAoECleaveRagePercent { get; set; }
+
+
+        [Setting]
+        [DefaultValue(3)]
+        [Category("Protection")]
+        [DisplayName("Prot AoE Count")]
+        [Description("Will use AoE abillites (Thunder Clap,Cleave,ShockWave) when agro mob count is equal to or higher then this value.")]
+        public int ProtAoECount { get; set; }
+
+        [Setting]
+        [DefaultValue(75)]
+        [Category("Protection")]
+        [DisplayName("Heroic Strike Percent")]
+        [Description("Will use Heroic Strike when Rage percent is greater than or equal to the set value")]
+        public int ProtHeroicStrikeRagePercent { get; set; }
+
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Use Berserker Rage ")]
+        [Description("When enabled CLU will Berserker Rage")]
+        public bool UseBerserkerRage { get; set; }
+
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Protection")]
+        [DisplayName("Demoralizing Shout")]
+        [Description("Will use Demoralizing Shout  if enabled and target does not have Weakened blows.")]
+        public bool UseDemoralizingShout { get; set; }
+
+
+        [Setting]
+        [DefaultValue(80)]
+        [Category("Protection")]
+        [DisplayName("Shield Block Percent")]
+        [Description("Will use Shield Block when health percent is less than or equal to the set value")]
+        public int ShieldBlockPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(80)]
+        [Category("Protection")]
+        [DisplayName("Shield Barrier Percent")]
+        [Description("Will use Shield Barrier when health percent is less than or equal to the set value")]
+        public int ShieldBarrierPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(80)]
+        [Category("Protection")]
+        [DisplayName("Impending Victory Percent")]
+        [Description("Will use Impending Victory when health percent is less than or equal to the set value")]
+        public int ImpendingVictoryPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Protection")]
+        [DisplayName("Shield Wall Percent")]
+        [Description("Will use Shield Wall when health percent is less than or equal to the set value")]
+        public int ShieldWallPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(60)]
+        [Category("Protection")]
+        [DisplayName("Rallying Cry Percent")]
+        [Description("Will use Rallying Cry when my health percent is greater than or equal to the set value")]
+        public int RallyingCryPercent { get; set; }
+
+        [Setting]
+        [DefaultValue(40)]
+        [Category("Protection")]
+        [DisplayName("Last Stand Percent")]
+        [Description("Will use Last Stand  when health percent is less than or equal to the set value")]
+        public int LastStandPercent { get; set; }
+        
+       
 
         #endregion
 
