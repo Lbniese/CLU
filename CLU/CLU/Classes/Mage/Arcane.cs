@@ -85,6 +85,7 @@ namespace CLU.Classes.Mage
                     // Cooldowns
                     Spell.ChannelSelfSpell("Evocation", ret => Me.ManaPercent < 35 && !Me.IsMoving, "Evocation"),
                     Item.UseBagItem("Mana Gem", ret => Me.CurrentTarget != null && Me.ManaPercent < 90 && Unit.IsTargetWorthy(Me.CurrentTarget), "Mana Gem"),
+                    Item.UseBagItem("Brilliant Mana Gem", ret => Me.CurrentTarget != null && Me.ManaPercent < 90 && Unit.IsTargetWorthy(Me.CurrentTarget), "Brilliant Mana Gem"),
                     Spell.CastSelfSpell("Mirror Image", ret => Buff.PlayerHasBuff("Arcane Power") && Unit.IsTargetWorthy(Me.CurrentTarget), "Mirror Image"),
                     Spell.CastSelfSpell("Presence of Mind", ret => !Buff.PlayerHasBuff("Invisibility"), "Presence of Mind"),
                     Spell.CastSelfSpell("Arcane Power", ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Improved Mana Gem") || Unit.IsTargetWorthy(Me.CurrentTarget), "Arcane Power"),
@@ -109,8 +110,6 @@ namespace CLU.Classes.Mage
                     Spell.CastSpell("Arcane Barrage", ret => Buff.GetAuraStack(Me, "Arcane Charge", true) > 4, "Arcane Barrage"),
                     Spell.CastSpell("Arcane Blast", ret => Buff.GetAuraStack(Me, "Arcane Charge", true) < 6,"Arcane Blast")
                     );
-
-
             }
         }
 

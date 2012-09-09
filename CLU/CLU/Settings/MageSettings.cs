@@ -6,6 +6,9 @@
 
 #endregion
 
+using System.ComponentModel;
+using Styx.Helpers;
+
 namespace CLU.Settings
 {
     internal class MageSettings : Styx.Helpers.Settings
@@ -31,6 +34,13 @@ namespace CLU.Settings
         #endregion
 
         #region Fire
+
+        [Setting]
+        [System.ComponentModel.DefaultValue(false)]
+        [Category("Fire")]
+        [DisplayName("Use Combustion")]
+        [Description("Enables the usage of Combustion (not recommended)")]
+        public bool EnableCombustion { get; set; }
         #endregion
 
         #region Arcane
