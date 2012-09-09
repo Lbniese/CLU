@@ -10,6 +10,7 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Druid
 {
+    using Styx;
     using Styx.WoWInternals;
 
     class Feral : RotationBase
@@ -78,8 +79,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Common.HandleShapeshiftForm,
 
                            // Rotations.
-                           new Decorator(ret => Buff.PlayerHasBuff("Bear Form"), GuardianRotation),
-                           new Decorator(ret => Buff.PlayerHasBuff("Cat Form"), FeralRotation));
+                          new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Bear, GuardianRotation),
+                           new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Cat, FeralRotation));
             }
         }
 
@@ -90,14 +91,14 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                            new PrioritySelector(
                                new Decorator(
-                                   ret => Buff.PlayerHasBuff("Bear Form"),
+                                   ret => Me.Shapeshift == ShapeshiftForm.Bear,
                                    new PrioritySelector(
                                        Spell.CastSelfSpell("Frenzied Regeneration",   ret => Me.HealthPercent <= 25 && !Buff.PlayerHasBuff("Survival Instincts"), "Frenzied Regeneration"),
                                        Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40 && !Buff.PlayerHasBuff("Frenzied Regeneration"), "Survival Instincts"),
                                        Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
                                        Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < 40, "Healthstone"))),
                                new Decorator(
-                                   ret => Buff.PlayerHasBuff("Cat Form"),
+                                   ret => Me.Shapeshift == ShapeshiftForm.Cat,
                                    new PrioritySelector(
                                        
                                        Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40, "Survival Instincts"),
