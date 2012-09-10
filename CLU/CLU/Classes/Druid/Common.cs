@@ -41,8 +41,8 @@ namespace CLU.Classes.Druid
                 return new Decorator(
                          ret => CLUSettings.Instance.EnableMovement,
                                new PrioritySelector(
-                                   Spell.CastSelfSpell("Bear Form", ret => Me.HealthPercent <= 20 && Me.Shapeshift != ShapeshiftForm.Bear, "Bear Form"),
-                                   Spell.CastSelfSpell("Cat Form", ret => Me.HealthPercent > 20 && Me.Shapeshift != ShapeshiftForm.Cat, "Cat Form")));
+                                   Spell.CastSelfSpell("Bear Form", ret => Me.HealthPercent <= 20 && Buff.PlayerHasBuff("Bear Form"), "Bear Form"),
+                                   Spell.CastSelfSpell("Cat Form", ret => Me.HealthPercent > 20 && Buff.PlayerHasBuff("Cat Form"), "Cat Form")));
             }
         }
 

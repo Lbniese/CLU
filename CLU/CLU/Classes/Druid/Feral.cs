@@ -79,8 +79,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Common.HandleShapeshiftForm,
 
                            // Rotations.
-                          new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Bear, GuardianRotation),
-                           new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Cat, FeralRotation));
+                          new Decorator(ret => Buff.PlayerHasBuff("Bear Form"), GuardianRotation), //Me.Shapeshift == ShapeshiftForm.Bear
+                           new Decorator(ret => Buff.PlayerHasBuff("Cat Form"), FeralRotation)); //Me.Shapeshift == ShapeshiftForm.CreatureCat
             }
         }
 
@@ -154,25 +154,22 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                            Item.UseEngineerGloves(),
                                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),
                             // Interupts
-                           Spell.CastInterupt("Skull Bash",     ret => true, "Skull Bash"),
                            new Decorator(ret => !WoWSpell.FromId(33878).Cooldown,
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Mangle ")),
-                                    new Action(ret => Spell.CastfuckingSpell("Mangle")
+                                    new Action(ret => Spell.CastfuckingSpell("Mangle")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
                            new Decorator(ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2,
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Thrash ")),
-                                    new Action(ret => Spell.CastfuckingSpell("Thrash")
+                                    new Action(ret => Spell.CastfuckingSpell("Thrash")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
-                           //Spell.CastSpell("Mangle",            ret => !WoWSpell.FromId(33878).Cooldown, "Mangle"),
-                           //Spell.CastSpell("Thrash",            ret => Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
                            Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
-                           Spell.CastSpell("Faerie Fire",       ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
-                           Spell.CastSpell("Faerie Swarm",      ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
-                           Buff.CastDebuff("Lacerate",          ret => true, "Lacerate"),
-                           Spell.CastSpell("Maul",              ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),
-                           Spell.CastSpell("Lacerate",          ret => true, "Lacerate"));
+                           Spell.CastSpell("Faerie Swarm", ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
+                           Spell.CastSpell("Faerie Fire", ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
+                           Buff.CastDebuff("Lacerate", ret => true, "Lacerate"),
+                           Spell.CastSpell("Maul", ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),
+                           Spell.CastSpell("Lacerate", ret => true, "Lacerate"));
             }
         }
 
@@ -226,12 +223,14 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSpell("Ravage",                    ret => Spell.SpellCooldown("Tiger's Fury").TotalSeconds <= 3 && Common.CanRavage, "Ravage"),
                                    //Item.RunMacroText("/cast Ravage",           ret =>  Unit.TimeToDeath(Me.CurrentTarget) < 8.5, "Ravage"),
                                    Spell.CastSpell("Ravage",                    ret => Unit.TimeToDeath(Me.CurrentTarget) < 8.5 && Common.CanRavage, "Ravage"),
-                                   Spell.CastSpell("Shred",                     ret => (Common.IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Shred"),
-                                    new Decorator(ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)),
-                                        new Sequence(
-                                            new Action(a => CLU.Log(" [Casting] Mangle [NotBehind]")),
-                                            new Action(ret => Spell.CastfuckingSpell("Mangle") // Spell.CastSpell("Mangle",                    ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Mangle [NotBehind]")
-                                   ))));
+                                   Spell.CastSpell("Shred",                     ret => (Common.IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Shred")
+                                   // new Decorator(ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)),
+                                   //     new Sequence(
+                                   //         new Action(a => CLU.Log(" [Casting] Mangle [NotBehind]")),
+                                   //         new Action(ret => Spell.CastfuckingSpell("Mangle") // Spell.CastSpell("Mangle",                    ret => !WoWSpell.FromId(33878).Cooldown && (!Common.IsBehind || !BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Mangle [NotBehind]")
+                                   //)))
+                                   
+                                   );
 
             }
         }

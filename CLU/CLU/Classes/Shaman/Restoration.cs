@@ -51,7 +51,7 @@ namespace CLU.Classes.Shaman
 				return "\n" +
 					"----------------------------------------------------------------------\n" +
 					"This Rotation will:\n" +
-					"1. Spec into Improved Cleanse Spirit to Dispel Curses *and* Magic!! Do you have it talented? " + TalentManager.HasTalent(3, 12) + " \n" +
+					"1. Spec into Improved Cleanse Spirit to Dispel Curses *and* Magic!! Do you have it talented? " + TalentManager.HasTalent(12) + " \n" +
 					"2. Enchant Weapon: EarthLiving Weapon(MainHand)\n" +
 					"3. Totem Bar: Stoneskin Totem, Wrath of Air, Healing Stream Totem, Flametongue \n" +
 					"4. AutomaticCooldowns has: \n" +
@@ -95,8 +95,8 @@ namespace CLU.Classes.Shaman
 
 					// Urgent Dispel
 					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Urgent Dispel",
-					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit (Urgent)"),
-					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge (Urgent)")
+					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit (Urgent)"),
+					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge (Urgent)")
 					                     ),
 
 					//don't break PlayerIsChanneling
@@ -182,8 +182,8 @@ namespace CLU.Classes.Shaman
 
 					// Dispel
 					Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(false), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Dispel",
-					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit"),
-					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(3, 12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge")
+					                      Spell.CastSpell("Cleanse Spirit", a => Me.CurrentTarget != null && (TalentManager.HasTalent(12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic)) || Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Curse), "Cleanse Spirit"),
+					                      Spell.CastSpell("Purge", a => Me.CurrentTarget != null && !TalentManager.HasTalent(12) && Buff.GetDispelType(Me.CurrentTarget).Contains(WoWDispelType.Magic), "Purge")
 					                     ),
 
 					// cast Riptide while moving

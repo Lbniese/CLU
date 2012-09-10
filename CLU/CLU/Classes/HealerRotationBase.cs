@@ -83,7 +83,7 @@ namespace CLU.Classes
         protected static bool IsAtonementSpec
         {
             get {
-                return TalentManager.HasTalent(1, 5) && TalentManager.HasGlyph("Divine Accuracy") && TalentManager.HasGlyph("Smite");
+                return TalentManager.HasTalent(5) && TalentManager.HasGlyph("Divine Accuracy") && TalentManager.HasGlyph("Smite");
             }
         }
 

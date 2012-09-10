@@ -94,7 +94,7 @@ namespace CLU.Classes.Warlock
                             Buff.CastDebuff("Corruption", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Corruption"), "Corruption"), //Should never met in regular situations
                             Buff.CastDebuff("Unstable Affliction", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Unstable Affliction"), "Unstable Affliction"),
                             //Basic DPSing
-                            Spell.CastSpell("Haunt", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Haunt") || Me.CurrentTarget.ActiveAuras["Haunt"].TimeLeft.TotalMilliseconds < 1250, "Haunt"),
+                            Spell.CastSpell("Haunt", ret => Me.CurrentTarget != null && (Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Haunt") || Me.CurrentTarget.ActiveAuras["Haunt"].TimeLeft.TotalMilliseconds < 1250), "Haunt"),
                             Spell.CastSelfSpell("Life Tap", ret => Me.ManaPercent < 20 && Me.HealthPercent > 40, "Life Tap"),
                             Spell.CastSpell("Fel Flame", ret => Me.IsMoving, "Fel flame while moving"),
                             Spell.CastSpell("Malefic Grasp", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent >= 20 || Me.CurrentSoulShards > 0) && !Me.IsMoving, "Malefic Grasp"),

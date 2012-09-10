@@ -84,7 +84,7 @@ namespace CLU.Classes.Priest
                            EncounterSpecific.ExtraActionButton(),
 
                            // emergency heals on me
-                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < 40 && TalentManager.HasTalent(2, 4) && !IsSpiritofRedemption, "Desperate Prayer"),
+                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < 40 && TalentManager.HasTalent(4) && !IsSpiritofRedemption, "Desperate Prayer"),
                            Spell.HealMe("Flash Heal", a => Me.HealthPercent < 40 && !IsSpiritofRedemption, "flash heal on me, emergency"),
 
 

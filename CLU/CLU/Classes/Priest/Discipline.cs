@@ -82,7 +82,7 @@ namespace CLU.Classes.Priest
                            Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && !Spell.PlayerIsChanneling && CLUSettings.Instance.UseCooldowns && Buff.PlayerCountBuff("Evangelism") > 3 && Buff.PlayerBuffTimeLeft("Evangelism") < (2 + CombatLogEvents.ClientLag), "Archangel...use it or lose it!"),
 
                            // emergency heals on me
-                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < CLUSettings.Instance.Priest.DesperatePrayerEHOM && TalentManager.HasTalent(2, 4), "Desperate Prayer"),
+                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < CLUSettings.Instance.Priest.DesperatePrayerEHOM && TalentManager.HasTalent(4), "Desperate Prayer"),
                            Spell.HealMe("Flash Heal", a => Me.HealthPercent < CLUSettings.Instance.Priest.FlashHealEHOM, "flash heal on me, emergency"),
 
                            // Threat

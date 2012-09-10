@@ -53,7 +53,7 @@ namespace CLU.Classes.Paladin
                 return "\n" +
                     "----------------------------------------------------------------------\n" +
                     "This Rotation will:\n" +
-                    "1. Has Sacred Cleansing? " + TalentManager.HasTalent(1, 14) + " \n" +
+                    "1. Has Sacred Cleansing? " + TalentManager.HasTalent(14) + " \n" +
                     "2. \n" +
                     "3. AutomaticCooldowns has: \n" +
                     "==> UseTrinkets \n" +

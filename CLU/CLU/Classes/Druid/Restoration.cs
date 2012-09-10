@@ -50,7 +50,7 @@ namespace CLU.Classes.Druid
                 return "\n" +
                        "----------------------------------------------------------------------\n" +
                        "This Rotation will:\n" +
-                       "1. Has Natures Cure? " + TalentManager.HasTalent(3, 17) + " \n" +
+                       "1. Has Natures Cure? " + TalentManager.HasTalent(17) + " \n" +
                        "2. AutomaticCooldowns has: \n" +
                        "==> UseTrinkets \n" +
                        "==> UseRacials \n" +
@@ -153,7 +153,7 @@ namespace CLU.Classes.Druid
 
                            // Tree of Life oh shit
                            Healer.FindAreaHeal(a => SpellManager.CanCast("Tree of Life") && StyxWoW.Me.Combat, 10, (Me.IsInRaid ? 75 : 65), 30f, (Me.IsInRaid ? 5 : 3), "Tree of Life party healing: Avg: 10-70 or 65, 30yrds, count: 5 or 3",
-                                               Spell.CastSelfSpell("Tree of Life", ret => CLUSettings.Instance.UseCooldowns, "Tree of Life")
+                                               Spell.CastSelfSpell("Tree of Life", ret => CLUSettings.Instance.UseCooldowns, "Tree of Life") //TODO: Check.
                                               ),
 
                            // Tranquility oh shit

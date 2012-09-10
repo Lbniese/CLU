@@ -75,8 +75,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            //Common.HandleShapeshiftForm,
 
                            // Rotations.
-                           new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Bear, GuardianRotation),
-                           new Decorator(ret => Me.Shapeshift == ShapeshiftForm.Cat, FeralRotation));
+                          new Decorator(ret => Buff.PlayerHasBuff("Bear Form"), GuardianRotation), //Me.Shapeshift == ShapeshiftForm.Bear
+                           new Decorator(ret => Buff.PlayerHasBuff("Cat Form"), FeralRotation)); //Me.Shapeshift == ShapeshiftForm.CreatureCat
             }
         }
 
@@ -87,14 +87,14 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                            new PrioritySelector(
                                new Decorator(
-                                   ret => Me.Shapeshift == ShapeshiftForm.Bear,
+                                   ret => Buff.PlayerHasBuff("Bear Form"),
                                    new PrioritySelector(
                                        Spell.CastSelfSpell("Frenzied Regeneration",   ret => Me.HealthPercent <= 25 && !Buff.PlayerHasBuff("Survival Instincts"), "Frenzied Regeneration"),
                                        Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40 && !Buff.PlayerHasBuff("Frenzied Regeneration"), "Survival Instincts"),
                                        Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
                                        Item.UseBagItem("Healthstone",                 ret => Me.HealthPercent < 40, "Healthstone"))),
                                new Decorator(
-                                   ret => Me.Shapeshift == ShapeshiftForm.Cat,
+                                   ret => Buff.PlayerHasBuff("Cat Form"),
                                    new PrioritySelector(
                                        Spell.CastSelfSpell("Survival Instincts",      ret => Me.HealthPercent <= 40, "Survival Instincts"),
                                        Spell.CastSelfSpell("Barkskin",                ret => Me.HealthPercent <= 80, "Barkskin"),
@@ -150,20 +150,18 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),
                            // Interupts
                            Spell.CastInterupt("Skull Bash",         ret => true, "Skull Bash"),
-                           new Decorator(ret => !WoWSpell.FromId(33878).Cooldown,
+
+
+                           new Decorator(ret => !WoWSpell.FromId(33878).Cooldown, 
                                new Sequence(
-                                    new Action(a => CLU.Log(" [Casting] Mangle ")), 
-                                    new Action(ret => Spell.CastfuckingSpell("Mangle")
+                                    new Action(a => CLU.Log(" [Casting] Mangle ")),
+                                    new Action(ret => Spell.CastfuckingSpell("Mangle")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
                            new Decorator(ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2,            
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Thrash ")),
-                                    new Action(ret => Spell.CastfuckingSpell("Thrash")
+                                    new Action(ret => Spell.CastfuckingSpell("Thrash")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
-                           //new Action(ret => Spell.CastfuckingSpell("Mangle")),
-                           //Spell.CastSpell("Mangle",                ret => !WoWSpell.FromId(33878).Cooldown, "Mangle "),
-                           //Spell.CastSpell("Thrash",                ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
-                           //Spell.CastSpellByID(106830, ret => !WoWSpell.FromId(77758).Cooldown, "thrash "),
                            Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
                            Spell.CastSpell("Faerie Swarm",          ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
                            Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),

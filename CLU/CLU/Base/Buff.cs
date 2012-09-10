@@ -263,16 +263,16 @@ namespace CLU.Base
                 var impWarlock = PetManager.CanCastPetSpell("Singe Magic");            			// Warlock has his imp out?
                 return HasAuraToDispel(unit, false, felhunterWarlock || impWarlock, false, false, isUrgent);
             case WoWClass.Shaman:
-                var restoShaman = TalentManager.HasTalent(3, 12);                               // Are we a Restoration Shaman with Improved Cleanse Spirit?
+                var restoShaman = TalentManager.HasTalent(12);                               // Are we a Restoration Shaman with Improved Cleanse Spirit?
                 return HasAuraToDispel(unit, false, restoShaman, false, true, isUrgent);
             case WoWClass.Druid:
-                var restoDruid = TalentManager.HasTalent(3, 17);                                // Do we have Nature's Cure talented?
+                var restoDruid = TalentManager.HasTalent(17);                                // Do we have Nature's Cure talented?
                 return HasAuraToDispel(unit, false, restoDruid, true, true, isUrgent);
             case WoWClass.Paladin:
-                var holyPaladin = TalentManager.HasTalent(1, 14);                               // Are we a Holy Paladin with Sacred Cleansing?
+                var holyPaladin = TalentManager.HasTalent(14);                               // Are we a Holy Paladin with Sacred Cleansing?
                 return HasAuraToDispel(unit, true, holyPaladin, true, false, isUrgent);
             case WoWClass.Priest:
-                // var holyPriest = TalentManager.HasTalent(2, 14);                             // Are we a Holy Priest with Body and Soul?
+                // var holyPriest = TalentManager.HasTalent(14);                             // Are we a Holy Priest with Body and Soul?
                 return HasAuraToDispel(unit, true, true, false, false, isUrgent);
             default:
                 return false;
