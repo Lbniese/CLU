@@ -17,7 +17,11 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Rogue
 {
-    public class Assassination : RotationBase
+    using System;
+
+    //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor! -- Weis is the best!
+    class Assassination : RotationBase
+
     {
         #region Public Properties
 

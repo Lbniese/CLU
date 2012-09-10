@@ -45,7 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tripper.Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c40611ce03f849a2, processorArchitecture=x86">
+    <Reference Include="Tripper.Tools">
       <HintPath>..\..\..\..\Applications\HB\Tripper.Tools.dll</HintPath>
     </Reference>
   </ItemGroup>
