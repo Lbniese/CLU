@@ -131,54 +131,22 @@ namespace CLU.Classes.Rogue
                     (new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
                      EncounterSpecific.ExtraActionButton(),
                      Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
-                     Cooldowns, //Spell.CastSelfSpell
-                    //    ("Feint",
-                    //     ret =>
-                    //     Me.CurrentTarget != null &&
-                    //     ( Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp() ), "Feint"),
-                     Spell.CastSpellByID
-                         (57934, u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade,
-                          "Tricks of the Trade"), Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
+                     Cooldowns,
+                     Spell.CastSelfSpell("Feint",ret =>Me.CurrentTarget != null &&(/*Me.CurrentTarget.ThreatInfo.RawPercent > 80 ||*/ EncounterSpecific.IsMorchokStomp()), "Feint"),
+                     Spell.CastSpellByID(57934, u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade,"Tricks of the Trade"), 
+                     Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
                      Spell.CastSpell("Redirect", ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"), AoE,
-                     Spell.CastSelfSpell
-                         ("Slice and Dice", ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"), Vanish,
+                     Spell.CastSelfSpell("Slice and Dice", ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"), 
+                     //Vanish,
                      Rupture,
-                     Spell.CastSpell
-                         ("Vendetta",
-                          ret =>
-                          Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) &&
-                          Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
-                     Spell.CastSelfSpellByID
-                         (14185,
-                          ret =>
-                          SpellManager.HasSpell(14185) && Me.CurrentTarget != null &&
-                          Unit.IsTargetWorthy(Me.CurrentTarget) && SpellManager.Spells["Vanish"].Cooldown, "Preparation"),
-                    //new Styx.TreeSharp.Action(x =>
-                    //    {
-                    //        CLU.DiagnosticLog("Blindside Active: {0}", Buff.PlayerHasActiveBuff("Blindside"));
-                    //        CLU.DiagnosticLog("Blindside Active Time: {0}", Buff.PlayerActiveBuffTimeLeft("Blindside")); 
-                    //        CLU.DiagnosticLog("Blindside Buff: {0}", Buff.PlayerHasBuff("Blindside"));
-                    //        CLU.DiagnosticLog("Blindside Buff Time: {0}", Buff.PlayerBuffTimeLeft("Blindside"));
-                    //        return RunStatus.Failure;
-                    //    }),
-                     Spell.CastSpell
-                         ("Dispatch",
-                          ret => Me.ComboPoints < 5 && Buff.PlayerActiveBuffTimeLeft("Blindside") > TimeSpan.Zero,
-                          "Dispatch @ Blindside"), //new Styx.TreeSharp.Action(x =>
-                    //    {
-                    //        CLU.DiagnosticLog("ReqCmbPts: {0}", ReqCmbPts);
-                    //        CLU.DiagnosticLog("CmbPts: {0}", Me.ComboPoints);
-                    //        CLU.DiagnosticLog("Envenom On: {0}", Buff.TargetHasDebuff("Envenom"));
-                    //        CLU.DiagnosticLog("Rupture: {0}", Buff.TargetDebuffTimeLeft("Rupture"));
-                    //        return RunStatus.Failure;
-                    //    }),
-                     Envenom,
-                     Spell.CastSpell
-                         ("Dispatch", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent < 35,
-                          "Dispatch"),
-                     Spell.CastSpell
-                         ("Mutilate", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent >= 35,
-                          "Mutilate"));
+                     Spell.CastSpell("Vendetta",ret =>Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) &&Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
+                     //Spell.CastSpell("Preparation",ret =>SpellManager.HasSpell(14185) && Me.CurrentTarget != null &&Unit.IsTargetWorthy(Me.CurrentTarget) && SpellManager.Spells["Vanish"].Cooldown, "Preparation"),
+                     Spell.CastSpell("Dispatch", ret => Me.ComboPoints < 5 && Buff.PlayerHasBuff("Blindside"), "Dispatch @ Blindside"),
+                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),// Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
+                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),// Envenom if we have enough combo points, Rupture is safe and we're about to cap.
+                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2,"Envenom @ Third (WARNING!)"),// Envenom if SnD is about to fall off. This should never happen.
+                     Spell.CastSpell("Dispatch", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent < 35, "Dispatch"),
+                     Spell.CastSpell("Mutilate", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent >= 35,"Mutilate"));
             }
         }
 
@@ -188,19 +156,15 @@ namespace CLU.Classes.Rogue
 
         /// <summary>
         /// Gets the area of effect rotaion.
-        /// Rotation by wuf.
+        /// Rotation by Wulf.
         /// </summary>
         private static PrioritySelector AoE
         {
             get
             {
                 return new PrioritySelector
-                    (Spell.CastAreaSpell
-                         ("Crimson Tempest", 8, false, 4, 0, 0,
-                          ret => Unit.EnemyUnits.Any(a => !a.HasMyAura("Crimson Tempest") && Me.ComboPoints > 3),
-                          "Crimson Tempest"),
-                     Spell.CastAreaSpell
-                         ("Fan of Knives", 8, false, 4, 0.0, 0.0, ret => Me.ComboPoints < 5, "Fan of Knives"));
+                    (Spell.CastAreaSpell("Crimson Tempest", 8, false, 4, 0, 0,ret => Unit.EnemyUnits.Any(a => !a.HasMyAura("Crimson Tempest") && Me.ComboPoints > 3),"Crimson Tempest"),
+                     Spell.CastAreaSpell("Fan of Knives", 8, false, 4, 0.0, 0.0, ret => Me.ComboPoints < 5, "Fan of Knives"));
             }
         }
 
@@ -211,11 +175,9 @@ namespace CLU.Classes.Rogue
                 return new Decorator
                     (ret =>
                      Me.CurrentTarget != null &&
-                     ((Unit.IsTargetWorthy(Me.CurrentTarget) || Buff.TargetHasDebuff("Vendetta"))),
-                    //Switched to || instead of &&, we want to use trinkets on Cd and not every 2min
+                     ((Unit.IsTargetWorthy(Me.CurrentTarget) || Buff.TargetHasDebuff("Vendetta"))),//Switched to || instead of &&, we want to use trinkets on Cd and not every 2min
                      new PrioritySelector
-                         (Item.UseTrinkets(), Spell.UseRacials(), Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),
-                    // Thanks Kink
+                         (Item.UseTrinkets(), Spell.UseRacials(), Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),// Thanks Kink
                           Item.UseEngineerGloves()));
             }
         }
@@ -224,23 +186,11 @@ namespace CLU.Classes.Rogue
         {
             get
             {
-                return new PrioritySelector
-                    (Spell.CastSpellByID
-                    // Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
-                         (32645,
-                          ret =>
-                          Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") &&
-                          Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),
-                     Spell.CastSpellByID
-                    // Envenom if we have enough combo points, Rupture is safe and we're about to cap.
-                         (32645,
-                          ret =>
-                          Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 &&
-                          Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),
-                     Spell.CastSpellByID // Envenom if SnD is about to fall off. This should never happen.
-                         (32645,
-                          ret => Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2,
-                          "Envenom @ Third (WARNING!)"));
+                return new PrioritySelector(
+                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),// Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
+                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),// Envenom if we have enough combo points, Rupture is safe and we're about to cap.
+                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2,"Envenom @ Third (WARNING!)")// Envenom if SnD is about to fall off. This should never happen.
+                    );
             }
         }
 
@@ -259,10 +209,8 @@ namespace CLU.Classes.Rogue
                      Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds <= 2,
                     // Do not rupture if SnD is about to come down.
                      new PrioritySelector
-                         (Spell.CastSpell // Rupture if it's down.
-                              ("Rupture", ret => !Buff.TargetHasDebuff("Rupture"), "Rupture @ Down"),
-                          Spell.CastSpell // Rupture if it's about to fall off and we have 4 or 5 combo points.
-                              ("Rupture", ret => Me.ComboPoints >= ReqCmbPts, "Rupture @ Low")));
+                         (Spell.CastSpell("Rupture", ret => !Buff.TargetHasDebuff("Rupture"), "Rupture @ Down"),// Rupture if it's down.
+                          Spell.CastSpell("Rupture", ret => Me.ComboPoints >= ReqCmbPts, "Rupture @ Low")));// Rupture if it's about to fall off and we have 4 or 5 combo points.
             }
         }
 
@@ -280,18 +228,11 @@ namespace CLU.Classes.Rogue
                      Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6 &&
                      Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 4 && Unit.IsTargetWorthy(Me.CurrentTarget) &&
                      Me.ComboPoints < 4 && Me.CurrentTarget.IsWithinMeleeRange,
-                     new Sequence
-                         (Spell.CastSelfSpell("Vanish", x => true, "Vanish"),
-                          new WaitContinue
-                              (1, ret => Me.HasMyAura("Stealth") || Me.HasMyAura("Vanish"), new ActionAlwaysSucceed()),
-                          Spell.CastSpell("Shadowstep", ret => SpellManager.HasSpell("Shadowstep"), "Shadowstep"),
-                          Spell.CastSpell
-                              ("Ambush",
-                               ret =>
-                               Me.CurrentTarget != null && IsBehind(Me.CurrentTarget) &&
-                               SpellManager.HasSpell("Subterfuge"), "Ambush"),
-                          Spell.CastSpell
-                              ("Ambush", ret => Me.CurrentTarget != null && IsBehind(Me.CurrentTarget), "Ambush")));
+                     new Sequence(
+                         Spell.CastSelfSpell("Vanish", x => true, "Vanish"),
+                    //new WaitContinue(1, ret => Me.HasMyAura("Stealth") || Me.HasMyAura("Vanish"), new ActionAlwaysSucceed()),
+                    //Spell.CastSpell("Shadowstep", ret => SpellManager.HasSpell("Shadowstep"), "Shadowstep"),
+                          Spell.CastSpellByID(8676, ret => Me.CurrentTarget != null && IsBehind, "Ambush")));
             }
         }
 
@@ -299,9 +240,12 @@ namespace CLU.Classes.Rogue
 
         #region Methods
 
-        private static bool IsBehind(WoWUnit target)
+        private static bool IsBehind
         {
-            return target != null && target.MeIsBehind;
+            get
+            {
+                return Me.CurrentTarget != null && Me.IsBehind(Me.CurrentTarget);
+            }
         }
 
         #endregion
