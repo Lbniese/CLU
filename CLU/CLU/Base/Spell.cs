@@ -360,15 +360,15 @@ namespace CLU.Base
         }
 
         // //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
-        // public static TimeSpan CooldownTimeLeft33878
-        // {
-        //     get
-        //     {
-        //         var Id = 77758;
-        //          var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-        //         if(luaTime <= 0)
-        //             return TimeSpan.Zero;
-        //         return TimeSpan.FromSeconds(luaTime);
+        //public static TimeSpan CooldownTimeLeft33878
+        //{
+        //    get
+        //    {
+        //        var Id = 770;
+        //        var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+        //        if (luaTime <= 0)
+        //            return TimeSpan.Zero;
+        //        return TimeSpan.FromSeconds(luaTime);
         //    }
         //}
 
@@ -468,7 +468,7 @@ namespace CLU.Base
                     }
                     if (spell == null)
                     {
-                        CLU.DiagnosticLog("SpellID not found: {0}", spellid);
+                        CLU.TroubleshootLog("SpellID not found: {0}", spellid);
                         return false;
                     }
 
@@ -476,7 +476,7 @@ namespace CLU.Base
 
                     if (target == null)
                     {
-                        CLU.DiagnosticLog("Target not found.");
+                        CLU.TroubleshootLog("Target not found.");
                         return false;
                     }
 

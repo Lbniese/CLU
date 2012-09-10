@@ -138,7 +138,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
             get
             {
                 return new PrioritySelector(
-                           // Cooldowns
+                    // Cooldowns
                            new Decorator(
                                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
                                   new PrioritySelector(
@@ -148,26 +148,29 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                            Spell.CastSelfSpell("Berserk", ret => Buff.PlayerHasBuff("Pulverize") && Buff.TargetCountDebuff("Lacerate") >= 1, "Berserk"),
                                            Item.UseEngineerGloves(),
                                            Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"))),
-                           // Interupts
-                           Spell.CastInterupt("Skull Bash",         ret => true, "Skull Bash"),
 
-
-                           new Decorator(ret => !WoWSpell.FromId(33878).Cooldown, 
-                               new Sequence(
-                                    new Action(a => CLU.Log(" [Casting] Mangle ")),
-                                    new Action(ret => Spell.CastfuckingSpell("Mangle")  //todo: change this to WoWSpell.FromId(33878).Cast()
-                                   ))),
-                           new Decorator(ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2,            
+                           Buff.CastDebuff("Mangle", ret => !WoWSpell.FromId(33878).Cooldown, "Mangle (Bear)"),
+                           Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
+                           new Decorator(ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2,
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Thrash ")),
                                     new Action(ret => Spell.CastfuckingSpell("Thrash")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
-                           Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
-                           Spell.CastSpell("Faerie Swarm",          ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
-                           Spell.CastSpell("Faerie Fire",           ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
-                           Buff.CastDebuff("Lacerate",              ret => true, "Lacerate"),
-                           Spell.CastSpell("Maul",                  ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),                           
-                           Spell.CastSpell("Lacerate",              ret => true, "Lacerate"));
+                    //Buff.CastDebuff("Mangle", ret => !WoWSpell.FromId(33878).Cooldown, "Mangle (Bear)"),
+
+                           new Decorator(ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3,
+                               new Sequence(
+                                    new Action(a => CLU.Log(" [Casting] Faerie Fire ")),
+                                    new Action(ret => Spell.CastfuckingSpell("Faerie Fire")  //todo: change this to WoWSpell.FromId(33878).Cast()
+                                   ))),
+                    //Spell.CastSpellByID(33917, ret => !WoWSpell.FromId(33878).Cooldown, "Mangle"),
+                    //Spell.CastSpellByID(77758, ret => !WoWSpell.FromId(77758).Cooldown && Buff.TargetDebuffTimeLeft("Weakened Blows").TotalSeconds < 2 || Buff.TargetDebuffTimeLeft("Thrash").TotalSeconds < 4 || Unit.EnemyUnits.Count() > 2, "Thrash"),
+
+                           //Spell.CastSpell("Faerie Swarm", ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Swarm"),
+                    //Spell.CastSpell("Faerie Fire", ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
+                           Buff.CastDebuff("Lacerate", ret => true, "Lacerate"),
+                           Spell.CastSpell("Maul", ret => Me.RagePercent > 70 || Buff.PlayerHasBuff("Clearcasting"), "Maul"),
+                           Spell.CastSpell("Lacerate", ret => true, "Lacerate"));
             }
         }
 
@@ -195,7 +198,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastAreaSpell("Swipe", 8, false, 3, 0.0, 0.0, ret => true, "Swipe"),
                                    Spell.CastSpell("Savage Roar", ret => (Buff.PlayerBuffTimeLeft("Savage Roar") <= 1 || (Buff.PlayerBuffTimeLeft("Savage Roar") <= 3) && Me.ComboPoints > 0 && (!Buff.PlayerHasBuff("Dream of Cenarius") || Me.ComboPoints < 5)) && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds > 4, "Savage Roar"),
                                    Spell.CastSpell("Faerie Fire", ret => Buff.TargetCountDebuff("Weakened Armor") < 3, "Faerie Fire"),
-                                   Spell.CastSpell("Faerie Swarm", ret => true, "Faerie Swarm"),
+                                   //Spell.CastSpell("Faerie Swarm", ret => true, "Faerie Swarm"),
                                    Spell.CastSpell("Ferocious Bite", ret => Me.CurrentTarget != null && Me.ComboPoints > 4 && Buff.TargetHasDebuff("Rip") && ((Me.CurrentTarget.HealthPercent <= (Item.Has2PcTeirBonus(ItemSetId) ? 60 : 25)) || Me.CurrentTarget.MaxHealth == 1), "Ferocious Bite"),
                                    Spell.CastSpell("Ferocious Bite", ret => Me.CurrentTarget != null && Me.ComboPoints >= 1 && Buff.TargetHasDebuff("Rip") && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds <= 2.1 && ((Me.CurrentTarget.HealthPercent <= (Item.Has2PcTeirBonus(ItemSetId) ? 60 : 25)) || Me.CurrentTarget.MaxHealth == 1), "Ferocious Bite Rip"),
                     //Item.RunMacroText("/cast Ravage",            ret => Buff.TargetDebuffTimeLeft("Rip").TotalSeconds <= 4, "Ravage"),
