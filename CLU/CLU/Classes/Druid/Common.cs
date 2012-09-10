@@ -27,7 +27,7 @@ namespace CLU.Classes.Druid
         {
             get
             {
-                return Me.CurrentTarget != null && Me.CurrentTarget.MeIsBehind;
+                return Me.CurrentTarget != null && StyxWoW.Me.IsBehind(Me.CurrentTarget);
             }
         }
 

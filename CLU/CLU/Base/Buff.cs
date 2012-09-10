@@ -340,8 +340,13 @@ namespace CLU.Base
         public static TimeSpan GetAuraTimeLeft(WoWUnit unit, string auraName, bool fromMyAura)
         {
             if (unit != null) {
-                WoWAura wantedAura = unit.GetAllAuras().FirstOrDefault(a => a.Name == auraName && a.Duration > 0 && (!fromMyAura || a.CreatorGuid == Me.Guid));
-                return wantedAura != null ? wantedAura.TimeLeft : TimeSpan.Zero;
+                WoWAura aura;
+                if (unit.Auras.TryGetValue(auraName, out aura))
+                {
+                    var returnvalue = (!fromMyAura || aura.CreatorGuid == Me.Guid);
+                    return returnvalue ? aura.TimeLeft : TimeSpan.Zero;
+                }
+                return  TimeSpan.Zero;
             }
 
             CLU.DiagnosticLog(" [GetAuraTimeLeft] Unit is null ");

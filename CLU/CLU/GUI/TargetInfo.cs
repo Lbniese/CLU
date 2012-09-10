@@ -76,14 +76,15 @@ namespace CLU.GUI
         {
             textBox1.Clear();
             string dump = null;
-            if (StyxWoW.Me.CurrentTarget != null)
+            var unit = StyxWoW.Me.CurrentTarget;
+            if (unit != null)
             {
                 foreach (KeyValuePair<string, WoWAura> au in StyxWoW.Me.CurrentTarget.Auras)
                 {
                     WoWAura aura;
-                    if (StyxWoW.Me.CurrentTarget.Auras.TryGetValue(au.Key, out aura))
+                    if (unit.Auras.TryGetValue(au.Key, out aura)) // unit.CreatedByUnitGuid 
                     {
-                        dump = dump + "Name: " + aura.Name + " ID: " + aura.SpellId + " StackCount: " + aura.StackCount + " TimeLeft: " + aura.TimeLeft + " Duration: " + aura.Duration + "\r\n";
+                        dump = dump + "Name: " + aura.Name + " ID: " + aura.SpellId + " StackCount: " + aura.StackCount + " TimeLeft: " + aura.TimeLeft + " Duration: " + aura.Duration + " CreatorGuid: " + aura.CreatorGuid + " Me.Guid: " + StyxWoW.Me.Guid + "\r\n";
                     }
                     else
                     {
