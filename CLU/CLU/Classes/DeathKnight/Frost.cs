@@ -224,7 +224,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                 //frost_strike
                                 Spell.CastSpell("Frost Strike", ret => true, "Frost Strike"),
                                 //death_and_decay
-                                Spell.CastSpell("Death and Decay", ret => true, "Death and Decay"),
+                                Spell.CastSpellAtLocation("Death and Decay", u => StyxWoW.Me.CurrentTarget, ret => true, "Death and Decay"),
                                 //plague_strike
                                 Spell.CastSpell("Plague Strike", ret => true, "Plague Strike"),
                                 //blood_tap,if=talent.blood_tap.enabled
@@ -287,6 +287,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                         new Decorator(ret => Macro.Manual,
                             new Decorator(ret => StyxWoW.Me.CurrentTarget != null && Unit.IsTargetWorthy(StyxWoW.Me.CurrentTarget),
                                 new PrioritySelector(
+                                    Spell.CastSpell("Chains of Ice", ret => !StyxWoW.Me.CurrentTarget.IsWithinMeleeRange && !Unit.IsCrowdControlled(StyxWoW.Me.CurrentTarget), "Chains of Ice"),
                                     Item.UseTrinkets(),
                                     Spell.UseRacials(),
                                     Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),
