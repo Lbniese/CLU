@@ -64,7 +64,6 @@
     public enum ShadowPriestRotation {
         Leveling,
         Default,
-        MindSpike
     }
 
     public enum SubtletyRogueRotation {

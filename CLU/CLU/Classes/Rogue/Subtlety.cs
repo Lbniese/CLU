@@ -129,7 +129,7 @@ namespace CLU.Classes.Rogue
                            new Decorator(
                                ret => CLUSettings.Instance.Rogue.SubtletyRogueRotationSelection == SubtletyRogueRotation.ImprovedTestVersion,
                                new PrioritySelector(
-                                   Spell.CastSpell("Feint", ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()) && CLUSettings.Instance.EnableSelfHealing, "Feint"),
+                                   //Spell.CastSpell("Feint", ret => Me.CurrentTarget != null && (Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp()) && CLUSettings.Instance.EnableSelfHealing, "Feint"),
                                    Spell.CastInterupt("Kick",                     ret => true, "Kick"),
                                    Spell.CastSpell("Redirect",                    ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"),
                                    Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => Me.CurrentEnergy >= 60 && Me.ComboPoints < 5 && (!Buff.PlayerHasActiveBuff("Vanish") && !Spell.SpellOnCooldown("Premeditation") && !Spell.SpellOnCooldown("Shadow Dance") || !Buff.PlayerHasActiveBuff("Stealth") && !Spell.SpellOnCooldown("Premeditation") && !Spell.SpellOnCooldown("Shadow Dance")), "Tricks of the Trade"),

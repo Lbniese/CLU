@@ -343,6 +343,7 @@ namespace CLU.Base
                 WoWAura aura;
                 if (unit.Auras.TryGetValue(auraName, out aura))
                 {
+                    //CLU.TroubleshootLog(" [GetAuraTimeLeft] auraName: {0} Aura: {1} AuraTimeLeft: {2}", auraName, aura, aura.TimeLeft);
                     var returnvalue = (!fromMyAura || aura.CreatorGuid == Me.Guid);
                     return returnvalue ? aura.TimeLeft : TimeSpan.Zero;
                 }
@@ -360,12 +361,15 @@ namespace CLU.Base
         /// <returns>The get aura stack.</returns>
         public static uint GetAuraStack(WoWUnit unit, string auraName, bool fromMyAura)
         {
-            if (unit != null) {
-                WoWAura stackCountAura =
-                    unit.GetAllAuras().FirstOrDefault(
-                        a => a.Name == auraName && a.StackCount > 0 && (!fromMyAura || a.CreatorGuid == Me.Guid));
-
-                return stackCountAura != null ? stackCountAura.StackCount : 0;
+            if (unit != null)
+            {
+                WoWAura aura;
+                if (unit.Auras.TryGetValue(auraName, out aura))
+                {
+                    var returnvalue = (!fromMyAura || aura.CreatorGuid == Me.Guid) && aura.StackCount > 0;
+                    return returnvalue ? aura.StackCount : 0;
+                }
+                return 0;
             }
 
             CLU.DiagnosticLog(" [GetAuraStack] Unit is null ");

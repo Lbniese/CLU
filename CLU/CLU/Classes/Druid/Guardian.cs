@@ -156,8 +156,6 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                     new Action(a => CLU.Log(" [Casting] Thrash ")),
                                     new Action(ret => Spell.CastfuckingSpell("Thrash")  //todo: change this to WoWSpell.FromId(33878).Cast()
                                    ))),
-                    //Buff.CastDebuff("Mangle", ret => !WoWSpell.FromId(33878).Cooldown, "Mangle (Bear)"),
-
                            new Decorator(ret => Buff.TargetDebuffTimeLeft("Weakened Armor").TotalSeconds < 2 || Buff.TargetCountDebuff("Weakened Armor") < 3,
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Faerie Fire ")),
