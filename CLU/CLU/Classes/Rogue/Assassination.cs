@@ -17,11 +17,7 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Rogue
 {
-    using System;
-
-    //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor! -- Weis is the best!
-    class Assassination : RotationBase
-
+    public class Assassination : RotationBase
     {
         #region Public Properties
 
@@ -136,10 +132,10 @@ namespace CLU.Classes.Rogue
                      EncounterSpecific.ExtraActionButton(),
                      Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
                      Cooldowns, //Spell.CastSelfSpell
-                     //    ("Feint",
-                     //     ret =>
-                     //     Me.CurrentTarget != null &&
-                     //     ( Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp() ), "Feint"),
+                    //    ("Feint",
+                    //     ret =>
+                    //     Me.CurrentTarget != null &&
+                    //     ( Me.CurrentTarget.ThreatInfo.RawPercent > 80 || EncounterSpecific.IsMorchokStomp() ), "Feint"),
                      Spell.CastSpellByID
                          (57934, u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade,
                           "Tricks of the Trade"), Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
@@ -157,25 +153,25 @@ namespace CLU.Classes.Rogue
                           ret =>
                           SpellManager.HasSpell(14185) && Me.CurrentTarget != null &&
                           Unit.IsTargetWorthy(Me.CurrentTarget) && SpellManager.Spells["Vanish"].Cooldown, "Preparation"),
-                     //new Styx.TreeSharp.Action(x =>
-                     //    {
-                     //        CLU.DiagnosticLog("Blindside Active: {0}", Buff.PlayerHasActiveBuff("Blindside"));
-                     //        CLU.DiagnosticLog("Blindside Active Time: {0}", Buff.PlayerActiveBuffTimeLeft("Blindside")); 
-                     //        CLU.DiagnosticLog("Blindside Buff: {0}", Buff.PlayerHasBuff("Blindside"));
-                     //        CLU.DiagnosticLog("Blindside Buff Time: {0}", Buff.PlayerBuffTimeLeft("Blindside"));
-                     //        return RunStatus.Failure;
-                     //    }),
+                    //new Styx.TreeSharp.Action(x =>
+                    //    {
+                    //        CLU.DiagnosticLog("Blindside Active: {0}", Buff.PlayerHasActiveBuff("Blindside"));
+                    //        CLU.DiagnosticLog("Blindside Active Time: {0}", Buff.PlayerActiveBuffTimeLeft("Blindside")); 
+                    //        CLU.DiagnosticLog("Blindside Buff: {0}", Buff.PlayerHasBuff("Blindside"));
+                    //        CLU.DiagnosticLog("Blindside Buff Time: {0}", Buff.PlayerBuffTimeLeft("Blindside"));
+                    //        return RunStatus.Failure;
+                    //    }),
                      Spell.CastSpell
                          ("Dispatch",
                           ret => Me.ComboPoints < 5 && Buff.PlayerActiveBuffTimeLeft("Blindside") > TimeSpan.Zero,
                           "Dispatch @ Blindside"), //new Styx.TreeSharp.Action(x =>
-                     //    {
-                     //        CLU.DiagnosticLog("ReqCmbPts: {0}", ReqCmbPts);
-                     //        CLU.DiagnosticLog("CmbPts: {0}", Me.ComboPoints);
-                     //        CLU.DiagnosticLog("Envenom On: {0}", Buff.TargetHasDebuff("Envenom"));
-                     //        CLU.DiagnosticLog("Rupture: {0}", Buff.TargetDebuffTimeLeft("Rupture"));
-                     //        return RunStatus.Failure;
-                     //    }),
+                    //    {
+                    //        CLU.DiagnosticLog("ReqCmbPts: {0}", ReqCmbPts);
+                    //        CLU.DiagnosticLog("CmbPts: {0}", Me.ComboPoints);
+                    //        CLU.DiagnosticLog("Envenom On: {0}", Buff.TargetHasDebuff("Envenom"));
+                    //        CLU.DiagnosticLog("Rupture: {0}", Buff.TargetDebuffTimeLeft("Rupture"));
+                    //        return RunStatus.Failure;
+                    //    }),
                      Envenom,
                      Spell.CastSpell
                          ("Dispatch", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent < 35,
@@ -215,11 +211,11 @@ namespace CLU.Classes.Rogue
                 return new Decorator
                     (ret =>
                      Me.CurrentTarget != null &&
-                     ( ( Unit.IsTargetWorthy(Me.CurrentTarget) || Buff.TargetHasDebuff("Vendetta") ) ),
-                     //Switched to || instead of &&, we want to use trinkets on Cd and not every 2min
+                     ((Unit.IsTargetWorthy(Me.CurrentTarget) || Buff.TargetHasDebuff("Vendetta"))),
+                    //Switched to || instead of &&, we want to use trinkets on Cd and not every 2min
                      new PrioritySelector
                          (Item.UseTrinkets(), Spell.UseRacials(), Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),
-                          // Thanks Kink
+                    // Thanks Kink
                           Item.UseEngineerGloves()));
             }
         }
@@ -230,13 +226,13 @@ namespace CLU.Classes.Rogue
             {
                 return new PrioritySelector
                     (Spell.CastSpellByID
-                         // Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
+                    // Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
                          (32645,
                           ret =>
                           Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") &&
                           Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),
                      Spell.CastSpellByID
-                         // Envenom if we have enough combo points, Rupture is safe and we're about to cap.
+                    // Envenom if we have enough combo points, Rupture is safe and we're about to cap.
                          (32645,
                           ret =>
                           Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 &&
@@ -250,7 +246,7 @@ namespace CLU.Classes.Rogue
 
         private static int ReqCmbPts
         {
-            get { return ( Me.CurrentTarget != null ) && ( Me.CurrentTarget.HealthPercent < 35 ) ? 5 : 4; }
+            get { return (Me.CurrentTarget != null) && (Me.CurrentTarget.HealthPercent < 35) ? 5 : 4; }
         }
 
         private static Decorator Rupture
@@ -261,7 +257,7 @@ namespace CLU.Classes.Rogue
                     (x =>
                      Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6 &&
                      Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds <= 2,
-                     // Do not rupture if SnD is about to come down.
+                    // Do not rupture if SnD is about to come down.
                      new PrioritySelector
                          (Spell.CastSpell // Rupture if it's down.
                               ("Rupture", ret => !Buff.TargetHasDebuff("Rupture"), "Rupture @ Down"),

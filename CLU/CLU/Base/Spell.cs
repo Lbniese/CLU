@@ -32,7 +32,8 @@ namespace CLU.Base
 
         private static HashSet<string> Racials
         {
-            get {
+            get
+            {
                 return _racials;
             }
         }
@@ -71,7 +72,8 @@ namespace CLU.Base
         /// </summary>
         private static LocalPlayer Me
         {
-            get {
+            get
+            {
                 return StyxWoW.Me;
             }
         }
@@ -90,7 +92,8 @@ namespace CLU.Base
         /// </summary>
         public static double GCD
         {
-            get {
+            get
+            {
                 return SpellManager.GlobalCooldownLeft.TotalSeconds;
             }
         }
@@ -100,7 +103,8 @@ namespace CLU.Base
         /// </summary>
         public static bool PlayerIsChanneling
         {
-            get {
+            get
+            {
                 return StyxWoW.Me.ChanneledCastingSpellId != 0;
             }
         }
@@ -114,7 +118,8 @@ namespace CLU.Base
         public static Composite TreePerformance(bool enable)
         {
             return
-            new Action(ret => {
+            new Action(ret =>
+            {
                 if (!enable)
                 {
                     return RunStatus.Failure;
@@ -143,7 +148,8 @@ namespace CLU.Base
         public static Composite WaitForCast(bool allowLagTollerance)
         {
             return
-            new Action(ret => {
+            new Action(ret =>
+            {
                 if (!StyxWoW.Me.IsCasting)
                     return RunStatus.Failure;
 
@@ -175,9 +181,9 @@ namespace CLU.Base
             else
             {
                 CLU.DiagnosticLog("Unknown spell {0} - casting by name anyway.", name);
-                CastfuckingSpell(name); 
+                CastfuckingSpell(name);
             }
-            
+
         }
 
         public static void CastMySpell(string name, WoWUnit unit)
@@ -246,12 +252,12 @@ namespace CLU.Base
             var minReqs = target != null;
             if (minReqs)
             {
-                if ( name == "Envenom" )
+                if (name == "Envenom")
                 {
                     WoWSpell test = WoWSpell.FromId(32645);
-                    
+
                     CLU.DiagnosticLog("Spell Is Null: {0}", test == null);
-                    if ( test != null )
+                    if (test != null)
                     {
                         CLU.DiagnosticLog("Has Spell: {0}", SpellManager.HasSpell(test));
                         CLU.DiagnosticLog("Spell ID: {0}", test.Id);
@@ -330,13 +336,16 @@ namespace CLU.Base
         /// <returns>The cast time.</returns>
         public static double CastTime(string name)
         {
-            try {
+            try
+            {
                 if (!SpellManager.HasSpell(name))
                     return 999999.9;
 
                 WoWSpell s = SpellManager.Spells[name];
                 return s.CastTime / 1000.0;
-            } catch {
+            }
+            catch
+            {
                 CLU.DiagnosticLog("[ERROR] in CastTime: {0} ", name);
                 return 999999.9;
             }
@@ -350,30 +359,30 @@ namespace CLU.Base
             return SpellManager.HasSpell(spell) ? SpellManager.Spells[spell].CooldownTimeLeft : TimeSpan.MaxValue;
         }
 
-       // //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
-       // public static TimeSpan CooldownTimeLeft33878
-       // {
-       //     get
-       //     {
-       //         var Id = 77758;
-       //          var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-       //         if(luaTime <= 0)
-       //             return TimeSpan.Zero;
-       //         return TimeSpan.FromSeconds(luaTime);
-       //    }
-       //}
+        // //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
+        // public static TimeSpan CooldownTimeLeft33878
+        // {
+        //     get
+        //     {
+        //         var Id = 77758;
+        //          var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+        //         if(luaTime <= 0)
+        //             return TimeSpan.Zero;
+        //         return TimeSpan.FromSeconds(luaTime);
+        //    }
+        //}
 
-       // public static TimeSpan CooldownTimeLeft6343
-       // {
-       //     get
-       //     {
-       //         var Id = 77758;
-       //         var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-       //         if (luaTime <= 0)
-       //             return TimeSpan.Zero;
-       //         return TimeSpan.FromSeconds(luaTime);
-       //     }
-       // }
+        // public static TimeSpan CooldownTimeLeft6343
+        // {
+        //     get
+        //     {
+        //         var Id = 77758;
+        //         var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+        //         if (luaTime <= 0)
+        //             return TimeSpan.Zero;
+        //         return TimeSpan.FromSeconds(luaTime);
+        //     }
+        // }
 
 
         /// <summary>
@@ -425,13 +434,14 @@ namespace CLU.Base
         /// <returns>The cast spell.</returns>
         public static Composite CastSpecialSpell(string name, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!cond(a))
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!cond(a))
+                        return false;
 
-        			return true;
-        		},
+                    return true;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} ", label)), new Action(a => CastMySpell(name))));
         }
@@ -451,34 +461,34 @@ namespace CLU.Base
             var spell = WoWSpell.FromId(spellid);
             return new Decorator
                 (context =>
+                {
+                    if (!cond(context))
                     {
-                        if ( !cond(context) )
-                        {
-                            return false;
-                        }
-                        if ( spell == null )
-                        {
-                            CLU.DiagnosticLog("SpellID not found: {0}", spellid);
-                            return false;
-                        }
+                        return false;
+                    }
+                    if (spell == null)
+                    {
+                        CLU.DiagnosticLog("SpellID not found: {0}", spellid);
+                        return false;
+                    }
 
-                        var target = onUnit(context);
+                    var target = onUnit(context);
 
-                        if ( target == null )
-                        {
-                            CLU.DiagnosticLog("Target not found.");
-                            return false;
-                        }
+                    if (target == null)
+                    {
+                        CLU.DiagnosticLog("Target not found.");
+                        return false;
+                    }
 
-                        var canCast = CanCast(spell, target);
+                    var canCast = CanCast(spell, target);
 
-                        if ( !canCast )
-                        {
-                            return false;
-                        }
+                    if (!canCast)
+                    {
+                        return false;
+                    }
 
-                        return true;
-                    },
+                    return true;
+                },
                  new Sequence
                      (new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                       new Action(a => SpellManager.Cast(spell, onUnit(a)))));
@@ -486,19 +496,19 @@ namespace CLU.Base
 
         private static bool CanCast(WoWSpell spell, WoWUnit target)
         {
-            if ( target == null )
+            if (target == null)
             {
                 CLU.DiagnosticLog("{0}({1},{2}): Target is null.", MethodBase.GetCurrentMethod().Name, spell.Name, target.Name);
                 return false;
             }
 
-            if ( !spell.CanCast )
+            if (!spell.CanCast)
             {
                 CLU.DiagnosticLog("{0}({1},{2}): CanCast failed.", MethodBase.GetCurrentMethod().Name, spell.Name, target.Name);
                 return false;
             }
 
-            if ( target.IsMe )
+            if (target.IsMe)
                 return true;
 
             float minRange = spell.ActualMinRange(target);
@@ -506,14 +516,14 @@ namespace CLU.Base
             var targetDistance = Unit.DistanceToTargetBoundingBox(target);
 
             // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
-            if ( spell.IsSelfOnlySpell )
+            if (spell.IsSelfOnlySpell)
                 return true;
             // RangeId 2 is melee range. Huzzah :)
-            if ( spell.IsMeleeSpell )
+            if (spell.IsMeleeSpell)
                 return targetDistance < MeleeRange;
 
             bool inRange = targetDistance < maxRange &&
-                           targetDistance > ( Math.Abs(minRange - 0) < 0.01 ? minRange : minRange + 3 );
+                           targetDistance > (Math.Abs(minRange - 0) < 0.01 ? minRange : minRange + 3);
 
             if (!inRange)
             {
@@ -553,16 +563,17 @@ namespace CLU.Base
         /// <returns>The cast spell on the unit</returns>
         public static Composite CastSpell(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!cond(a))
-        				return false;
-                    CLU.DiagnosticLog( "Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
-        			if (!CanCast(name, onUnit(a)))
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!cond(a))
+                        return false;
+                    CLU.DiagnosticLog("Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
+                    if (!CanCast(name, onUnit(a)))
+                        return false;
 
-        			return onUnit(a) != null;
-        		},
+                    return onUnit(a) != null;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                 new Action(a => CastMySpell(name, onUnit(a)))));
@@ -591,43 +602,46 @@ namespace CLU.Base
                        CastSpell(name, onUnit, cond, label),
                        new WaitContinue(
                            1,
-                           ret => {
-                           	WoWSpell spell;
-                           	if (SpellManager.Spells.TryGetValue(name, out spell))
-                           	{
-                           		if (spell.CastTime == 0) {
-                           			return true;
-                           		}
+                           ret =>
+                           {
+                               WoWSpell spell;
+                               if (SpellManager.Spells.TryGetValue(name, out spell))
+                               {
+                                   if (spell.CastTime == 0)
+                                   {
+                                       return true;
+                                   }
 
-                           		return StyxWoW.Me.IsCasting;
-                           	}
+                                   return StyxWoW.Me.IsCasting;
+                               }
 
-                return true;
-            },
+                               return true;
+                           },
             new ActionAlwaysSucceed()),
                        new WaitContinue(
                            10,
-                           ret => {
-                           	// Dont interupt chanelled spells
-                           	if (StyxWoW.Me.ChanneledCastingSpellId != 0)
-                           	{
-                           		return false;
-                           	}
+                           ret =>
+                           {
+                               // Dont interupt chanelled spells
+                               if (StyxWoW.Me.ChanneledCastingSpellId != 0)
+                               {
+                                   return false;
+                               }
 
-                           	// Interrupted or finished casting. Continue
-                           	if (!StyxWoW.Me.IsCasting)
-                           	{
-                           		return true;
-                           	}
+                               // Interrupted or finished casting. Continue
+                               if (!StyxWoW.Me.IsCasting)
+                               {
+                                   return true;
+                               }
 
-                           	// If conditions are no longer valid, stop casting and continue
-                           	if (!cond(ret))
-                           	{
-                           		SpellManager.StopCasting();
-                           		return true;
-                           	}
+                               // If conditions are no longer valid, stop casting and continue
+                               if (!cond(ret))
+                               {
+                                   SpellManager.StopCasting();
+                                   return true;
+                               }
 
-                           	return false;
+                               return false;
                            },
             new ActionAlwaysSucceed()));
         }
@@ -641,16 +655,17 @@ namespace CLU.Base
         /// <returns>The cast spell at location.</returns>
         public static Composite CastFacingSpellOnTarget(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label, bool faceTarget)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!cond(a))
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!cond(a))
+                        return false;
 
-        			if (!CanCast(name, onUnit(a)))
-        				return false;
+                    if (!CanCast(name, onUnit(a)))
+                        return false;
 
-        			return onUnit(a) != null;
-        		},
+                    return onUnit(a) != null;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                 new Decorator(x => faceTarget && !StyxWoW.Me.IsSafelyFacing(onUnit(x), 45f), new Action(a => WoWMovement.Face(onUnit(a).Guid))),
@@ -666,28 +681,29 @@ namespace CLU.Base
         /// <returns>The cast spell at location.</returns>
         public static Composite CastSpellOnCurrentTargetsTarget(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label, bool faceTarget)
         {
-        	return new Decorator(
-        		delegate(object a) {
+            return new Decorator(
+                delegate(object a)
+                {
                     if (onUnit == null || onUnit(a) == null)
-        				return false;
+                        return false;
 
-        			if (onUnit(a).CurrentTarget == null)
-        				return false;
+                    if (onUnit(a).CurrentTarget == null)
+                        return false;
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			if (onUnit(a).Guid == Me.Guid)
-        				return false;
+                    if (onUnit(a).Guid == Me.Guid)
+                        return false;
 
-        			if (!CanCast(name, onUnit(a).CurrentTarget))
-        				return false;
+                    if (!CanCast(name, onUnit(a).CurrentTarget))
+                        return false;
 
-        			// if (Unit.TimeToDeath(onUnit(a).CurrentTarget) < 5)
-        			// return false;
+                    // if (Unit.TimeToDeath(onUnit(a).CurrentTarget) < 5)
+                    // return false;
 
-        			return  (Unit.NearbyNonControlledUnits(onUnit(a).Location, 15, false).Any() || BossList.IgnoreRangeCheck.Contains(onUnit(a).CurrentTarget.Entry));
-        		},
+                    return (Unit.NearbyNonControlledUnits(onUnit(a).Location, 15, false).Any() || BossList.IgnoreRangeCheck.Contains(onUnit(a).CurrentTarget.Entry));
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a).CurrentTarget))),
                 new DecoratorContinue(x => faceTarget, new Action(a => WoWMovement.Face(onUnit(a).CurrentTarget.Guid))),
@@ -703,22 +719,23 @@ namespace CLU.Base
         /// <returns>The cast spell at location.</returns>
         public static Composite CastSpellOnMostFocusedTarget(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label, bool faceTarget)
         {
-        	return new Decorator(
-        		delegate(object a) {
+            return new Decorator(
+                delegate(object a)
+                {
                     if (onUnit == null || onUnit(a) == null)
-        				return false;
+                        return false;
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			if (!CanCast(name, onUnit(a)))
-        				return false;
+                    if (!CanCast(name, onUnit(a)))
+                        return false;
 
-        			// if (Unit.TimeToDeath(onUnit(a).CurrentTarget) < 5)
-        			// return false;
+                    // if (Unit.TimeToDeath(onUnit(a).CurrentTarget) < 5)
+                    // return false;
 
-        			return (Unit.NearbyNonControlledUnits(onUnit(a).Location, 15, false).Any() || BossList.IgnoreRangeCheck.Contains(onUnit(a).CurrentTarget.Entry));
-        		},
+                    return (Unit.NearbyNonControlledUnits(onUnit(a).Location, 15, false).Any() || BossList.IgnoreRangeCheck.Contains(onUnit(a).CurrentTarget.Entry));
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
                 new DecoratorContinue(x => faceTarget, new Action(a => WoWMovement.Face(onUnit(a).Guid))),
@@ -732,22 +749,23 @@ namespace CLU.Base
         /// <returns>The cast interupt.</returns>
         public static Composite CastInterupt(string name, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!CLUSettings.Instance.EnableInterupts)
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!CLUSettings.Instance.EnableInterupts)
+                        return false;
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			if (Me.CurrentTarget != null && !(Me.CurrentTarget.IsCasting && Me.CurrentTarget.CanInterruptCurrentSpellCast))
-        				return false;
+                    if (Me.CurrentTarget != null && !(Me.CurrentTarget.IsCasting && Me.CurrentTarget.CanInterruptCurrentSpellCast))
+                        return false;
 
-        			if (Me.CurrentTarget != null && !CanCast(name, Me.CurrentTarget))
-        				return false;
+                    if (Me.CurrentTarget != null && !CanCast(name, Me.CurrentTarget))
+                        return false;
 
-        			return true;
-        		},
+                    return true;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Interupt] {0} on {1}", label, CLU.SafeName(Me.CurrentTarget))), new Action(a => CastMySpell(name))));
         }
@@ -759,19 +777,20 @@ namespace CLU.Base
         /// <returns>The cast spell.</returns>
         public static Composite CastTotem(string name, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!CLUSettings.Instance.Shaman.HandleTotems)
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!CLUSettings.Instance.Shaman.HandleTotems)
+                        return false;
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			if (!CanCast(name, Me))
-        				return false;
+                    if (!CanCast(name, Me))
+                        return false;
 
-        			return true;
-        		},
+                    return true;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Totem] {0} ", label)), new Action(a => CastMySpell(name))));
         }
@@ -838,23 +857,24 @@ namespace CLU.Base
         {
             WoWPoint bestLocation = WoWPoint.Empty;
             return new Decorator(
-            	delegate(object a) {
-            		if (!CLUSettings.Instance.UseAoEAbilities)
-            			return false;
+                delegate(object a)
+                {
+                    if (!CLUSettings.Instance.UseAoEAbilities)
+                        return false;
 
-            		if (!cond(a))
-            			return false;
+                    if (!cond(a))
+                        return false;
 
-            		bestLocation = Unit.FindClusterTargets(
-            			radius, minRange, maxRange, minAffectedTargets, Battlegrounds.IsInsideBattleground);
-            		if (bestLocation == WoWPoint.Empty)
-            			return false;
+                    bestLocation = Unit.FindClusterTargets(
+                        radius, minRange, maxRange, minAffectedTargets, Battlegrounds.IsInsideBattleground);
+                    if (bestLocation == WoWPoint.Empty)
+                        return false;
 
-            		if (!CanCast(name, Me.CurrentTarget))
-            			return false;
+                    if (!CanCast(name, Me.CurrentTarget))
+                        return false;
 
-            		return true;
-            	},
+                    return true;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [AoE] {0} ", label)),
                 new Action(a => CastMySpell(name)),
@@ -869,16 +889,17 @@ namespace CLU.Base
         /// <returns>The cast spell at location.</returns>
         public static Composite CastSpellAtLocation(string name, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!CLUSettings.Instance.UseAoEAbilities)
-        				return false;
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!CLUSettings.Instance.UseAoEAbilities)
+                        return false;
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			return onUnit != null && CanCast(name, onUnit(a));
-        		},
+                    return onUnit != null && CanCast(name, onUnit(a));
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting at Location] {0} ", label)),
                 new Action(a => CastMySpell(name)),
@@ -897,14 +918,15 @@ namespace CLU.Base
         /// <returns>Sanctuary at location.</returns>
         public static Composite CastSanctuaryAtLocation(CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
+            return new Decorator(
+                delegate(object a)
+                {
 
-        			if (!cond(a))
-        				return false;
+                    if (!cond(a))
+                        return false;
 
-        			return onUnit(a) != null && !WoWSpell.FromId(88685).Cooldown;
-        		},
+                    return onUnit(a) != null && !WoWSpell.FromId(88685).Cooldown;
+                },
             new Sequence(
                 new Action(a => CLU.Log(" [Casting at Location] {0} ", label)),
                 Item.RunMacroText("/cast Holy Word: Sanctuary", cond, label),
@@ -920,37 +942,38 @@ namespace CLU.Base
         /// <returns>nothing</returns>
         public static Composite HunterTrapBehavior(string trapName, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond)
         {
-        	return new PrioritySelector(
-        		new Decorator(
-        			delegate(object a) {
-        				if (!CLUSettings.Instance.UseAoEAbilities)
-        					return false;
+            return new PrioritySelector(
+                new Decorator(
+                    delegate(object a)
+                    {
+                        if (!CLUSettings.Instance.UseAoEAbilities)
+                            return false;
 
-        				if (!cond(a)) return false;
+                        if (!cond(a)) return false;
 
-        				return onUnit != null && onUnit(a) != null && !onUnit(a).IsMoving && onUnit(a).DistanceSqr < 40 * 40
-        					&& SpellManager.HasSpell(trapName) && !SpellManager.Spells[trapName].Cooldown;
-        			},
+                        return onUnit != null && onUnit(a) != null && !onUnit(a).IsMoving && onUnit(a).DistanceSqr < 40 * 40
+                            && SpellManager.HasSpell(trapName) && !SpellManager.Spells[trapName].Cooldown;
+                    },
             new PrioritySelector(
                 Buff.CastBuff("Trap Launcher", ret => true, "Trap Launcher"),
                 new Decorator(
                     ret => Me.HasAura("Trap Launcher"),
                     new Sequence(
-                        //new Switch<string>(ctx => trapName,
-                        //                   new SwitchArgument<string>("Immolation Trap",
-                        //                           new Action(ret => SpellManager.CastSpellById(82945))),
-                        //                   new SwitchArgument<string>("Freezing Trap",
-                        //                           new Action(ret => SpellManager.CastSpellById(60192))),
-                        //                   new SwitchArgument<string>("Explosive Trap",
-                        //                           new Action(ret => SpellManager.CastSpellById(82939))),
-                        //                   new SwitchArgument<string>("Ice Trap",
-                        //                           new Action(ret => SpellManager.CastSpellById(82941))),
-                        //                   new SwitchArgument<string>("Snake Trap",
-                        //                           new Action(ret => SpellManager.CastSpellById(82948)))
-                        //                  ),
-                        //// new ActionSleep(200),
-                        //new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))))
-                        
+                //new Switch<string>(ctx => trapName,
+                //                   new SwitchArgument<string>("Immolation Trap",
+                //                           new Action(ret => SpellManager.CastSpellById(82945))),
+                //                   new SwitchArgument<string>("Freezing Trap",
+                //                           new Action(ret => SpellManager.CastSpellById(60192))),
+                //                   new SwitchArgument<string>("Explosive Trap",
+                //                           new Action(ret => SpellManager.CastSpellById(82939))),
+                //                   new SwitchArgument<string>("Ice Trap",
+                //                           new Action(ret => SpellManager.CastSpellById(82941))),
+                //                   new SwitchArgument<string>("Snake Trap",
+                //                           new Action(ret => SpellManager.CastSpellById(82948)))
+                //                  ),
+                //// new ActionSleep(200),
+                //new Action(a => SpellManager.ClickRemoteLocation(onUnit(a).Location))))
+
                         new Action(ret => Lua.DoString(string.Format("CastSpellByName(\"{0}\")", trapName))),
                                 new WaitContinue(TimeSpan.FromMilliseconds(200), ret => false, new ActionAlwaysSucceed()),
                                 new Action(ret => SpellManager.ClickRemoteLocation(onUnit(ret).Location))
@@ -979,20 +1002,21 @@ namespace CLU.Base
         {
             WoWPoint bestLocation = WoWPoint.Empty;
             return new Decorator(
-            	delegate(object a) {
-            		if (!CLUSettings.Instance.UseAoEAbilities)
-            			return false;
+                delegate(object a)
+                {
+                    if (!CLUSettings.Instance.UseAoEAbilities)
+                        return false;
 
-            		if (!cond(a))
-            			return false;
+                    if (!cond(a))
+                        return false;
 
-            		if (!CanCast(name, Me))
-            			return false;
+                    if (!CanCast(name, Me))
+                        return false;
 
-            		bestLocation = Unit.FindClusterTargets(
-            			radius, minRange, maxRange, minAffectedTargets, Battlegrounds.IsInsideBattleground);
-            		return bestLocation != WoWPoint.Empty;
-            	},
+                    bestLocation = Unit.FindClusterTargets(
+                        radius, minRange, maxRange, minAffectedTargets, Battlegrounds.IsInsideBattleground);
+                    return bestLocation != WoWPoint.Empty;
+                },
             new PrioritySelector(
                 // dont break it if already casting it
                 new Decorator(
@@ -1068,10 +1092,13 @@ namespace CLU.Base
 
             // Lets track some rune cooldowns!
             var lua = String.Format("local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_start > 0 then return math.ceil((r_start + r_duration) - GetTime()) else return 0 end", rune);
-            try {
+            try
+            {
                 var retValue = Double.Parse(Lua.GetReturnValues(lua)[0]);
                 return retValue;
-            } catch {
+            }
+            catch
+            {
                 CLU.DiagnosticLog("Lua failed in RuneCooldown: " + lua);
                 return 9999;
             }
@@ -1081,32 +1108,32 @@ namespace CLU.Base
         {
             //using (StyxWoW.Memory.AcquireFrame())
             //{
-                string runename = String.Empty;
-                if (rune == 1) runename = "Blood_1";
-                else if (rune == 2) runename = "Blood_2";
-                else if (rune == 3) runename = "Unholy_1";
-                else if (rune == 4) runename = "Unholy_2";
-                else if (rune == 5) runename = "Frost_1";
-                else if (rune == 6) runename = "Frost_2";
+            string runename = String.Empty;
+            if (rune == 1) runename = "Blood_1";
+            else if (rune == 2) runename = "Blood_2";
+            else if (rune == 3) runename = "Unholy_1";
+            else if (rune == 4) runename = "Unholy_2";
+            else if (rune == 5) runename = "Frost_1";
+            else if (rune == 6) runename = "Frost_2";
 
-                // Lets track some rune cooldowns!
+            // Lets track some rune cooldowns!
 
-                //var raw = Lua.GetReturnValues("if " + key.ToString("g") + "() then return 1 else return 0 end");
-                var lua =
-                    String.Format(
-                        "local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_ready then return 1 else return 0 end",
-                        rune);
-                try
-                {
-                    return Lua.GetReturnValues(lua)[0] == "1";
-                        //bool retValue = Convert.ToBoolean(Lua.GetReturnValues(lua)[0]);
-                    //return retValue;
-                }
-                catch
-                {
-                    CLU.DiagnosticLog("Lua failed in IsRuneCooldown: " + lua);
-                    return false;
-                }
+            //var raw = Lua.GetReturnValues("if " + key.ToString("g") + "() then return 1 else return 0 end");
+            var lua =
+                String.Format(
+                    "local r_start, r_duration, r_ready = GetRuneCooldown({0}) if r_ready then return 1 else return 0 end",
+                    rune);
+            try
+            {
+                return Lua.GetReturnValues(lua)[0] == "1";
+                //bool retValue = Convert.ToBoolean(Lua.GetReturnValues(lua)[0]);
+                //return retValue;
+            }
+            catch
+            {
+                CLU.DiagnosticLog("Lua failed in IsRuneCooldown: " + lua);
+                return false;
+            }
             //}
         }
 
@@ -1114,21 +1141,28 @@ namespace CLU.Base
         /// <returns>The target has Dispelable buff.</returns>
         public static bool TargetHasDispelableBuffLua()
         {
-            using (StyxWoW.Memory.AcquireFrame()) {
+            using (StyxWoW.Memory.AcquireFrame())
+            {
                 // should count how many buffs the target has but meh
-                for (int i = 1; i <= 40; i++) {
-                    try {
+                for (int i = 1; i <= 40; i++)
+                {
+                    try
+                    {
                         List<string> luaRet = Lua.GetReturnValues(String.Format("local buffName, _, _, _, debuffType = UnitAura(\"target\", {0}, \"CANCELABLE\") return debuffType,buffName", i));
 
-                        if (luaRet != null) {
+                        if (luaRet != null)
+                        {
                             var purgableSpell = luaRet[0] == "Magic";
-                            if (purgableSpell) {
+                            if (purgableSpell)
+                            {
                                 CLU.DiagnosticLog("Buff Name: {0} is Dispelable!", luaRet[1]);
                             }
 
                             return purgableSpell;
                         }
-                    } catch {
+                    }
+                    catch
+                    {
                         CLU.DiagnosticLog("Lua failed in TargetHasDispelableBuff");
                         return false;
                     }
@@ -1142,25 +1176,32 @@ namespace CLU.Base
         /// <returns>The target has stealable buff.</returns>
         public static bool TargetHasStealableBuff()
         {
-            using (StyxWoW.Memory.AcquireFrame()) {
+            using (StyxWoW.Memory.AcquireFrame())
+            {
                 // should count how many buffs the target has but meh
-                for (int i = 1; i <= 40; i++) {
-                    try {
+                for (int i = 1; i <= 40; i++)
+                {
+                    try
+                    {
                         List<string> luaRet =
                             Lua.GetReturnValues(
                                 String.Format(
                                     "local buffName, _, _, _, _, _, _, _, isStealable = UnitAura(\"target\", {0}, \"HELPFUL\") return isStealable,buffName",
                                     i));
 
-                        if (luaRet != null && luaRet[0] == "1") {
+                        if (luaRet != null && luaRet[0] == "1")
+                        {
                             var stealableSpell = !Buff.PlayerHasActiveBuff(luaRet[1]) && (luaRet[1] != "Arcane Brilliance" && luaRet[1] != "Dalaran Brilliance");
-                            if (stealableSpell) {
+                            if (stealableSpell)
+                            {
                                 CLU.DiagnosticLog("Buff Name: {0} isStealable", luaRet[1]);
                             }
 
                             return stealableSpell;
                         }
-                    } catch {
+                    }
+                    catch
+                    {
                         CLU.DiagnosticLog("Lua failed in TargetHasStealableBuff");
                         return false;
                     }
@@ -1179,14 +1220,14 @@ namespace CLU.Base
             return (from o in ObjectManager.ObjectList
                     where o is WoWPlayer
                     let p = o.ToPlayer()
-                            where p.IsFriendly
-                            && p.IsInMyPartyOrRaid
-                            && !p.IsMe
-                            && !p.IsDead
-                            && (p.PowerType == WoWPowerType.Mana)
-                            && p.IsPlayer && !p.IsPet
-                            orderby p.MaxPower descending
-                            select p).ToList();
+                    where p.IsFriendly
+                    && p.IsInMyPartyOrRaid
+                    && !p.IsMe
+                    && !p.IsDead
+                    && (p.PowerType == WoWPowerType.Mana)
+                    && p.IsPlayer && !p.IsPet
+                    orderby p.MaxPower descending
+                    select p).ToList();
         }
 
         /// <summary>
@@ -1195,8 +1236,10 @@ namespace CLU.Base
         /// <returns>Nothing but win</returns>
         public static Composite UseRacials()
         {
-            return new PrioritySelector(delegate {
-                foreach (WoWSpell r in CurrentRacials.Where(racial => CanCast(racial.Name, Me) && RacialUsageSatisfied(racial))) {
+            return new PrioritySelector(delegate
+            {
+                foreach (WoWSpell r in CurrentRacials.Where(racial => CanCast(racial.Name, Me) && RacialUsageSatisfied(racial)))
+                {
                     CLU.Log(" [Racial Abilitie] {0} ", r.Name);
                     CastMySpell(r.Name);
                 }
@@ -1212,37 +1255,39 @@ namespace CLU.Base
         /// <returns>true if we can use the racial</returns>
         private static bool RacialUsageSatisfied(WoWSpell racial)
         {
-            if (racial != null) {
-                switch (racial.Name) {
-                case "Stoneform":
-                    return Me.GetAllAuras().Any(a => a.Spell.Mechanic == WoWSpellMechanic.Bleeding || a.Spell.DispelType == WoWDispelType.Disease || a.Spell.DispelType == WoWDispelType.Poison);
-                case "Escape Artist":
-                    return Me.Rooted;
-                case "Every Man for Himself":
-                    return Unit.IsCrowdControlled(Me);
-                case "Shadowmeld":
-                    return false;
-                case "Gift of the Naaru":
-                    return Me.HealthPercent <= 80;
-                case "Darkflight":
-                    return false;
-                case "Blood Fury":
-                    return true;
-                case "War Stomp":
-                    return false;
-                case "Berserking":
-                    return true;
-                case "Will of the Forsaken":
-                    return Unit.IsCrowdControlled(Me);
-                case "Cannibalize":
-                    return false;
-                case "Arcane Torrent":
-                    return Me.ManaPercent < 91 && Me.Class != WoWClass.DeathKnight;
-                case "Rocket Barrage":
-                    return true;
+            if (racial != null)
+            {
+                switch (racial.Name)
+                {
+                    case "Stoneform":
+                        return Me.GetAllAuras().Any(a => a.Spell.Mechanic == WoWSpellMechanic.Bleeding || a.Spell.DispelType == WoWDispelType.Disease || a.Spell.DispelType == WoWDispelType.Poison);
+                    case "Escape Artist":
+                        return Me.Rooted;
+                    case "Every Man for Himself":
+                        return Unit.IsCrowdControlled(Me);
+                    case "Shadowmeld":
+                        return false;
+                    case "Gift of the Naaru":
+                        return Me.HealthPercent <= 80;
+                    case "Darkflight":
+                        return false;
+                    case "Blood Fury":
+                        return true;
+                    case "War Stomp":
+                        return false;
+                    case "Berserking":
+                        return true;
+                    case "Will of the Forsaken":
+                        return Unit.IsCrowdControlled(Me);
+                    case "Cannibalize":
+                        return false;
+                    case "Arcane Torrent":
+                        return Me.ManaPercent < 91 && Me.Class != WoWClass.DeathKnight;
+                    case "Rocket Barrage":
+                        return true;
 
-                default:
-                    return false;
+                    default:
+                        return false;
                 }
             }
 
@@ -1254,7 +1299,8 @@ namespace CLU.Base
         /// </summary>
         public static IEnumerable<WoWSpell> CurrentRacials
         {
-            get {
+            get
+            {
 
                 //lil bit hackish ... but HB is broken ... maybe -- edit by wulf.
                 var listPairs = SpellManager.Spells.Where(racial => Racials.Contains(racial.Value.Name)).ToList();
@@ -1303,13 +1349,13 @@ namespace CLU.Base
         {
             return new WaitContinue(TimeSpan.FromMilliseconds((StyxWoW.WoWClient.Latency * 2) + 150), ret => false, new ActionAlwaysSucceed());
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Use this to print all known spells
         /// </summary>
         public static void DumpSpells()
         {
-            CLU.TroubleshootLog( "==================SpellManager.RawSpells===============");
+            CLU.TroubleshootLog("==================SpellManager.RawSpells===============");
             foreach (var sp in SpellManager.Spells)
             {
                 WoWSpell spell;
@@ -1321,9 +1367,9 @@ namespace CLU.Base
                 {
                     CLU.TroubleshootLog(sp.Value.Name);
                 }
-               
+
             }
-            CLU.TroubleshootLog( "=======================================================");
+            CLU.TroubleshootLog("=======================================================");
         }
 
         /// <summary>Return the player to apply focus magic too (will probably go for a static list)</summary>
