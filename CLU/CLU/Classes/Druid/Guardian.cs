@@ -209,7 +209,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSpell("Rake", ret => Buff.TargetDebuffTimeLeft("Rake").TotalSeconds < 2.9 && (Buff.PlayerHasBuff("Berserk") || ((Spell.SpellCooldown("Tiger's Fury").TotalSeconds + 0.8) > Buff.TargetDebuffTimeLeft("rake").TotalSeconds)), "Rake"),
                     //Item.RunMacroText("/cast Ravage",            ret => Buff.PlayerHasBuff("Clearcasting"), "Ravage (Clearcasting)"),
                                    Spell.CastSpell("Ravage", ret => Buff.PlayerHasBuff("Clearcasting") && Common.CanRavage, "Ravage (Clearcasting)"),
-                                   Spell.CastSpell("Shred", ret => Buff.PlayerHasBuff("Clearcasting"), "Shred (Clearcasting)"),
+                                   Spell.CastSpell("Shred", ret => Buff.PlayerHasBuff("Clearcasting") && (Common.IsBehind || BossList.CanShred.Contains(Unit.CurrentTargetEntry)), "Shred (Clearcasting)"),
                                    Spell.CastSpell("Ferocious Bite", ret => Me.CurrentTarget != null && (Me.ComboPoints > 4 && Unit.TimeToDeath(Me.CurrentTarget) < 4) || Unit.TimeToDeath(Me.CurrentTarget) < 1, "Ferocious Bite (TTD)"),
                                    Spell.CastSpell("Ferocious Bite", ret => Me.ComboPoints > 4 && Buff.TargetDebuffTimeLeft("Rip").TotalSeconds >= 8 && Buff.PlayerHasBuff("Savage Roar"), "Ferocious Bite"),
                     //Item.RunMacroText("/cast Ravage",           ret =>  Buff.PlayerHasBuff("Tiger's Fury") && Buff.PlayerHasBuff("Berserk"), "Ravage"),
