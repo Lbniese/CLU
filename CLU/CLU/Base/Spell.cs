@@ -360,17 +360,17 @@ namespace CLU.Base
         }
 
         // //TODO: REMOVE THIS SHIT..WAS TESTING -- WULF.
-        //public static TimeSpan CooldownTimeLeft33878
-        //{
-        //    get
-        //    {
-        //        var Id = 770;
-        //        var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
-        //        if (luaTime <= 0)
-        //            return TimeSpan.Zero;
-        //        return TimeSpan.FromSeconds(luaTime);
-        //    }
-        //}
+        public static TimeSpan CooldownTimeLeft33878
+        {
+            get
+            {
+                var Id = 53301;
+                var luaTime = Lua.GetReturnVal<double>(string.Format("local x,y=GetSpellCooldown({0}); return x+y-GetTime()", Id), 0);
+                if (luaTime <= 0)
+                    return TimeSpan.Zero;
+                return TimeSpan.FromSeconds(luaTime);
+            }
+        }
 
         // public static TimeSpan CooldownTimeLeft6343
         // {

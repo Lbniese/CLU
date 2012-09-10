@@ -55,63 +55,63 @@ Current Rotations
 ------------------------------
 
 Three Rotation Modes - Single, PVE, PVP
-- Key: Tested[T], Untested[U], Partially checked[PC], NotImplemented[N/A]
+- Key: Tested[T], Untested[U], Partially checked[PC], NotImplemented[N/A], , Checked/Some Abilities Missing[x]
 
 * DeathKnight
-- [U] Blood				-- Patch 5.0.4 only (Change from Wulf)
-- [U] Frost				-- Patch 5.0.4 only (Change from Weischbier)
-- [T] Unholy			-- Patch 5.0.4 only (Change from Weischbier)
+- [x] Blood
+- [x] Frost
+- [ ] Unholy
 
 * Druid
-- [T] Balance			-- Patch 4.3.x only
-- [U] Feral				-- Patch 5.0.4 only (Change from Wulf)
-- [U] Guardian			-- Patch 5.0.4 only (Change from Wulf)
-- [T] Restoration		-- Patch 4.3.x only
+- [ ] Balance
+- [x] Feral
+- [x] Guardian	
+- [ ] Restoration
 
 * Hunter
-- [U] BeastMastery		-- Patch 5.0.4 only (Change from Wulf)
-- [U] Marksmanship		-- Patch 5.0.4 only (Change from Wulf)
-- [U] Survival			-- Patch 5.0.4 only (Change from Wulf)
+- [x] BeastMastery
+- [x] Marksmanship
+- [x] Survival
 
 * Mage
-- [T] Arcane			-- Patch 4.3.x only
-- [T] Fire				-- Patch 4.3.x only
-- [T] Frost				-- Patch 4.3.x only
+- [x] Arcane
+- [x] Fire
+- [ ] Frost
 
 * Monk
-- [N/A] Brewmaster		-- Patch 5.0.4 only
-- [N/A] Mistweaver		-- Patch 5.0.4 only
-- [N/A] Windwalker		-- Patch 5.0.4 only
+- [N/A] Brewmaster
+- [N/A] Mistweaver
+- [N/A] Windwalker
 
 * Paladin
-- [T] Holy				-- Patch 4.3.x only
-- [U] Protection		-- Patch 5.0.4 only (Change from Wulf)
-- [U] Retribution		-- Patch 5.0.4 only (Change from Wulf)
+- [x] Holy
+- [x] Protection
+- [x] Retribution
 
 * Priest
-- [U] Shadow			-- Patch 5.0.4 Leveling only (Change from Wulf)
-- [T] Discipline		-- Patch 4.3.x only
-- [T] Holy				-- Patch 4.3.x only
+- [x] Shadow
+- [ ] Discipline
+- [ ] Holy	
 
 * Rogue
-- [T] Assassination.	-- Patch 5.0.4 only (Change from Weischbier)
-- [T] Combat			-- Patch 5.0.4 only (Change from Weischbier)
-- [T] Subtlety			-- Patch 4.3.x only
+- [x] Assassination
+- [x] Combat
+- [ ] Subtlety	
 
 * Shaman
-- [T] Elemental			-- Patch 4.3.x only	 	
-- [T] Restoration		-- Patch 4.3.x only
-- [T] Enhancement		-- Patch 4.3.x only
+- [ ] Elemental	 	
+- [ ] Restoration
+- [ ] Enhancement
 
 * Warlock
-- [T] Affliction		-- Patch 4.3.x only
-- [T] Demonology		-- Patch 4.3.x only
-- [T] Destruction		-- Patch 4.3.x only
+- [x] Affliction
+- [ ] Demonology
+- [ ] Destruction
 
 * Warrior
-- [T] Arms				-- Patch 4.3.x only
-- [T] Protection		-- Patch 4.3.x only
-- [T] Fury				-- Patch 4.3.x only
+- [ ] Arms
+- [x] Protection
+- [x] Fury
 	
 Rotation Selector
 --------------------
