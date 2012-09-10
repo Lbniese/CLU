@@ -11,7 +11,8 @@ using Styx.CommonBot;
 
 namespace CLU.Classes.Rogue
 {
-    
+    using System;
+
     //All hail to Weischbier! If ou want to please him, sacrifice your fifth child to his honor!
     class Assassination : RotationBase
     {
@@ -117,11 +118,12 @@ namespace CLU.Classes.Rogue
                            Spell.CastSpell("Rupture",          ret => (!Buff.TargetHasDebuff("Rupture")) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Rupture"),
                            Spell.CastSpell("Vendetta",         ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
                            Spell.CastSpell("Preparation",      ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && SpellManager.Spells["Vanish"].Cooldown, "Preparation"),// with Glyph "Glyph of Vendetta" 9s longer but decrased Damagebuff by 5%
-                           Spell.CastSpell("Dispatch",         ret => Me.CurrentTarget != null && Me.ComboPoints == 4 && Buff.PlayerHasActiveBuff("Blindside"), "Dispatch"),// No longer behind the freain' target FTW
+                           Spell.CastSpell("Dispatch",         ret => Me.CurrentTarget != null && Me.ComboPoints < 5 && Buff.PlayerActiveBuffTimeLeft("Blindside") > TimeSpan.Zero, "Dispatch"),// No longer behind the freain' target FTW
+                 
                            Spell.CastSpell("Envenom",          ret => Me.ComboPoints >= 4 && !Buff.TargetHasDebuff("Envenom"), "Envenom"),
                            Spell.CastSpell("Envenom",          ret => Me.ComboPoints >= 4 && Me.CurrentEnergy > 90, "Envenom"),
                            Spell.CastSpell("Envenom",          ret => Me.ComboPoints >= 2 && Buff.TargetDebuffTimeLeft("Slice and Dice").TotalSeconds < 2, "Envenom"),
-                           Spell.CastSpell("Dispatch",         ret => Me.CurrentTarget != null && (BossList.BackstabIds.Contains(Unit.CurrentTargetEntry)) && Me.ComboPoints < 5 && Me.CurrentTarget.HealthPercent < 35, "Dispatch"),
+                           Spell.CastSpell("Dispatch",         ret => Me.CurrentTarget != null && (BossList.BackstabIds.Contains(Unit.CurrentTargetEntry)) && Me.ComboPoints < (Me.CurrentTarget.HealthPercent < 35 ? 5 : 4), "Dispatch"),
                            Spell.CastSpell("Mutilate",         ret => Me.CurrentTarget != null && Me.ComboPoints < 5 && Me.CurrentTarget.HealthPercent >= 35, "Mutilate"));
             }
         }
