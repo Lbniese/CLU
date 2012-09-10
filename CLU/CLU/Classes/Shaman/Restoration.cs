@@ -116,7 +116,7 @@ namespace CLU.Classes.Shaman
 						ret => StyxWoW.Me.Combat,
 						new PrioritySelector(
 							Spell.CastTotem("Mana Tide Totem", ret => Me.Totems.All(t => t.WoWTotem != WoWTotem.ManaTide) && Me.ManaPercent <= 65 && CLUSettings.Instance.UseCooldowns, "Mana Tide Totem"),
-							Spell.CastTotem("Flametongue Totem", ret => Me.CurrentTarget != null && Me.CurrentTarget.Distance < Totems.GetTotemRange(WoWTotem.Flametongue) - 2f && !Me.Totems.Any(t => t.Unit != null && t.WoWTotem == WoWTotem.Flametongue && t.Unit.Location.Distance(Me.CurrentTarget.Location) < Totems.GetTotemRange(WoWTotem.Flametongue)) && Me.Totems.All(t => t.WoWTotem != WoWTotem.FireElemental), "Flametongue Totem")
+                            Spell.CastTotem("Flametongue Totem", ret => Me.CurrentTarget != null && Me.CurrentTarget.Distance < Totems.GetTotemRange(WoWTotem.Searing) - 2f && !Me.Totems.Any(t => t.Unit != null && t.WoWTotem == WoWTotem.Searing && t.Unit.Location.Distance(Me.CurrentTarget.Location) < Totems.GetTotemRange(WoWTotem.Searing)) && Me.Totems.All(t => t.WoWTotem != WoWTotem.FireElemental), "Flametongue Totem")
 						)),
 
 					// Weapon Imbue
