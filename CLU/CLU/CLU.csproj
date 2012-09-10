@@ -45,8 +45,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tripper.Tools">
-      <HintPath>..\..\..\..\Applications\HB2.0.5462\Tripper.Tools.dll</HintPath>
+    <Reference Include="Tripper.Tools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c40611ce03f849a2, processorArchitecture=x86">
+      <HintPath>..\..\..\..\Applications\HB\Tripper.Tools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +77,8 @@
     <Compile Include="Classes\Priest\Discipline.cs" />
     <Compile Include="Classes\Priest\Holy.cs" />
     <Compile Include="Classes\Priest\Shadow.cs" />
-    <Compile Include="Classes\Rogue\Assassination.cs" />
     <Compile Include="Classes\Rogue\Combat.cs" />
+    <Compile Include="Classes\Rogue\Assassination.cs" />
     <Compile Include="Classes\Rogue\Subtlety.cs" />
     <Compile Include="Classes\RotationBase.cs" />
     <Compile Include="Classes\Shaman\Elemental.cs" />

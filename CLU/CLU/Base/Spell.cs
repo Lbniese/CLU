@@ -1,4 +1,6 @@
-﻿namespace CLU.Base
+﻿using System.Reflection;
+
+namespace CLU.Base
 {
     using System;
     using System.Collections.Generic;
@@ -239,12 +241,26 @@
             ////CLU.DebugLog(Color.ForestGreen, "Casting spell: " + name);
             ////CLU.DebugLog(Color.ForestGreen, "OnUnit: " + target);
             ////CLU.DebugLog(Color.ForestGreen, "CanCast: " + SpellManager.CanCast(name, target, false));
-
             var canCast = false;
             var inRange = false;
             var minReqs = target != null;
             if (minReqs)
             {
+                if ( name == "Envenom" )
+                {
+                    WoWSpell test = WoWSpell.FromId(32645);
+                    
+                    CLU.DiagnosticLog("Spell Is Null: {0}", test == null);
+                    if ( test != null )
+                    {
+                        CLU.DiagnosticLog("Has Spell: {0}", SpellManager.HasSpell(test));
+                        CLU.DiagnosticLog("Spell ID: {0}", test.Id);
+                        CLU.DiagnosticLog("Spell Name: {0}", test.Name);
+                        CLU.DiagnosticLog("Spell CanCast: {0}", test.CanCast);
+                        CLU.DiagnosticLog("Spell IsValid: {0}", test.IsValid);
+                    }
+                }
+
                 canCast = SpellManager.CanCast(name, target, false, false);
 
                 if (canCast)
@@ -271,7 +287,7 @@
                                 inRange = targetDistance < MeleeRange;
                             else
                                 inRange = targetDistance < maxRange &&
-                                          targetDistance > (minRange == 0 ? minRange : minRange + 3);
+                                          targetDistance > (Math.Abs(minRange - 0) < 0.01 ? minRange : minRange + 3);
                         }
                     }
                 }
@@ -427,18 +443,85 @@
         /// <returns>The cast spell.</returns>
         public static Composite CastSpellByID(int spellid, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!cond(a))
-        				return false;
+            return CastSpellByID(spellid, ret => Me.CurrentTarget, cond, label);
+        }
 
-                    if (!SpellManager.CanCast(spellid, Me.CurrentTarget, true))
-                        return false;
+        public static Composite CastSpellByID(int spellid, CLU.UnitSelection onUnit, CanRunDecoratorDelegate cond, string label)
+        {
+            var spell = WoWSpell.FromId(spellid);
+            return new Decorator
+                (context =>
+                    {
+                        if ( !cond(context) )
+                        {
+                            return false;
+                        }
+                        if ( spell == null )
+                        {
+                            CLU.DiagnosticLog("SpellID not found: {0}", spellid);
+                            return false;
+                        }
 
-        			return true;
-        		},
-            new Sequence(
-                new Action(a => CLU.Log(" [Casting] {0} ", label)), new Action(a => SpellManager.Cast(spellid))));
+                        var target = onUnit(context);
+
+                        if ( target == null )
+                        {
+                            CLU.DiagnosticLog("Target not found.");
+                            return false;
+                        }
+
+                        var canCast = CanCast(spell, target);
+
+                        if ( !canCast )
+                        {
+                            return false;
+                        }
+
+                        return true;
+                    },
+                 new Sequence
+                     (new Action(a => CLU.Log(" [Casting] {0} on {1}", label, CLU.SafeName(onUnit(a)))),
+                      new Action(a => SpellManager.Cast(spell, onUnit(a)))));
+        }
+
+        private static bool CanCast(WoWSpell spell, WoWUnit target)
+        {
+            if ( target == null )
+            {
+                CLU.DiagnosticLog("{0}({1},{2}): Target is null.", MethodBase.GetCurrentMethod().Name, spell.Name, target.Name);
+                return false;
+            }
+
+            if ( !spell.CanCast )
+            {
+                CLU.DiagnosticLog("{0}({1},{2}): CanCast failed.", MethodBase.GetCurrentMethod().Name, spell.Name, target.Name);
+                return false;
+            }
+
+            if ( target.IsMe )
+                return true;
+
+            float minRange = spell.ActualMinRange(target);
+            float maxRange = spell.ActualMaxRange(target);
+            var targetDistance = Unit.DistanceToTargetBoundingBox(target);
+
+            // RangeId 1 is "Self Only". This should make life easier for people to use self-buffs, or stuff like Starfall where you cast it as a pseudo-buff.
+            if ( spell.IsSelfOnlySpell )
+                return true;
+            // RangeId 2 is melee range. Huzzah :)
+            if ( spell.IsMeleeSpell )
+                return targetDistance < MeleeRange;
+
+            bool inRange = targetDistance < maxRange &&
+                           targetDistance > ( Math.Abs(minRange - 0) < 0.01 ? minRange : minRange + 3 );
+
+            if (!inRange)
+            {
+                CLU.DiagnosticLog("{0}({1},{2}): Not in range.", MethodBase.GetCurrentMethod().Name, spell.Name, target.Name);
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>Casts self spells by ID</summary>
@@ -448,18 +531,7 @@
         /// <returns>The cast spell.</returns>
         public static Composite CastSelfSpellByID(int spellid, CanRunDecoratorDelegate cond, string label)
         {
-        	return new Decorator(
-        		delegate(object a) {
-        			if (!cond(a))
-        				return false;
-
-        			if (!SpellManager.CanCast(spellid, Me, true))
-        				return false;
-
-        			return true;
-        		},
-            new Sequence(
-                new Action(a => CLU.Log(" [Casting] {0} ", label)), new Action(a => SpellManager.Cast(spellid))));
+            return CastSpellByID(spellid, x => StyxWoW.Me, cond, label);
         }
 
 
