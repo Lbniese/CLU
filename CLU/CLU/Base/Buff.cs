@@ -594,7 +594,7 @@ namespace CLU.Base
             },
             new Sequence(
                 new Action(a => CLU.Log(" [Raid Buff] {0} ", label)),
-                new Action(a => Spell.CastMySpell(name))));
+                new Action(a => Spell.CastMySpell(name,Me))));
         }
 
         /// <summary>
