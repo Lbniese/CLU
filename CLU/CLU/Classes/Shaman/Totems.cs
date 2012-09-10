@@ -282,59 +282,25 @@ namespace CLU.Classes.Shaman
 
         private static WoWTotem GetEarthTotem()
         {
-            // Earth elemental down, dont fucking place anymore totems!
-            if (StyxWoW.Me.Totems.Any(t => t.WoWTotem == WoWTotem.EarthElemental)) return WoWTotem.EarthElemental;
-
-            switch (TalentManager.CurrentSpec) {
-                case WoWSpec.ShamanElemental:
-                if (CLUSettings.Instance.Shaman.ElementalEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalEarthTotem;
-                break;
-                case WoWSpec.ShamanEnhancement:
-                if (CLUSettings.Instance.Shaman.EnhancementEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementEarthTotem;
-                break;
-                case WoWSpec.ShamanRestoration:
-                if (CLUSettings.Instance.Shaman.RestorationEarthTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationEarthTotem;
-                break;
-            }
-
-            LocalPlayer me = StyxWoW.Me;
-            bool isEnhance = TalentManager.CurrentSpec == WoWSpec.ShamanEnhancement;
-            // Solo play
-            if (!me.IsInParty && !me.IsInRaid) {
-                // Enhance, lowbie
-                if (isEnhance || TalentManager.CurrentSpec == WoWSpec.None) {
-                    if (TotemIsKnown(WoWTotem.StrengthOfEarth)) {
-                        return WoWTotem.StrengthOfEarth;
-                    }
-
-                    return WoWTotem.None;
-                }
-
-                // Ele, resto
-                if (TotemIsKnown(WoWTotem.Stoneskin)) {
-                    return WoWTotem.Stoneskin;
-                }
-
+            if (TalentManager.CurrentSpec == WoWSpec.None)
+            {
                 return WoWTotem.None;
             }
-
-            // Raids and stuff
-
-            // Enhance
-            if (isEnhance) {
-                if (TotemIsKnown(WoWTotem.StrengthOfEarth)) {
-                    return WoWTotem.StrengthOfEarth;
-                }
-
-                return WoWTotem.None;
+            if (TotemIsKnown(WoWTotem.EarthElemental))
+            {
+                return WoWTotem.EarthElemental;
             }
-
-            if (TotemIsKnown(WoWTotem.Stoneskin)) {
-                return WoWTotem.Stoneskin;
+            if (TotemIsKnown(WoWTotem.Earthbind))
+            {
+                return WoWTotem.Earthbind;
             }
-
-            if (TotemIsKnown(WoWTotem.StrengthOfEarth)) {
-                return WoWTotem.StrengthOfEarth;
+            if (TotemIsKnown(WoWTotem.Earthgrab))
+            {
+                return WoWTotem.Earthgrab;
+            }
+            if (TotemIsKnown(WoWTotem.Tremor))
+            {
+                return WoWTotem.Tremor;
             }
 
             return WoWTotem.None;
@@ -347,52 +313,22 @@ namespace CLU.Classes.Shaman
                 return WoWTotem.None;
             }
 
-            switch (TalentManager.CurrentSpec) {
-                case WoWSpec.ShamanElemental:
-                if (CLUSettings.Instance.Shaman.ElementalAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.ElementalAirTotem;
-                break;
-                case WoWSpec.ShamanEnhancement:
-                if (CLUSettings.Instance.Shaman.EnhancementAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.EnhancementAirTotem;
-                break;
-                case WoWSpec.ShamanRestoration:
-                if (CLUSettings.Instance.Shaman.RestorationAirTotem != WoWTotem.None) return CLUSettings.Instance.Shaman.RestorationAirTotem;
-                break;
+            if (TotemIsKnown(WoWTotem.Stormlash)) 
+            {
+                return WoWTotem.Stormlash;
             }
-
-            LocalPlayer me = StyxWoW.Me;
-            bool isEnhance = TalentManager.CurrentSpec == WoWSpec.ShamanEnhancement;
-
-            if (!me.IsInParty && !me.IsInRaid) {
-                if (isEnhance) {
-                    if (TotemIsKnown(WoWTotem.Windfury)) {
-                        return WoWTotem.Windfury;
-                    }
-
-                    return WoWTotem.None;
-                }
-
-                if (TotemIsKnown(WoWTotem.WrathOfAir)) {
-                    return WoWTotem.WrathOfAir;
-                }
-
-                return WoWTotem.None;
+            if (TotemIsKnown(WoWTotem.Windwalk))
+            {
+                return WoWTotem.Windwalk;
+            } 
+            if (TotemIsKnown(WoWTotem.Grounding))
+            {
+                return WoWTotem.Grounding;
             }
-
-            if (StyxWoW.Me.RaidMembers.Any(p => p.Class == WoWClass.Druid && p.Shapeshift == ShapeshiftForm.Moonkin) ||
-                    StyxWoW.Me.PartyMembers.Any(p => p.Class == WoWClass.Druid && p.Shapeshift == ShapeshiftForm.Moonkin)) {
-                if (TotemIsKnown(WoWTotem.Windfury)) {
-                    return WoWTotem.Windfury;
-                }
+            if (TotemIsKnown(WoWTotem.Capacitor))
+            {
+                return WoWTotem.Capacitor;
             }
-
-            if (!isEnhance && TotemIsKnown(WoWTotem.WrathOfAir)) {
-                return WoWTotem.WrathOfAir;
-            }
-
-            if (TotemIsKnown(WoWTotem.Windfury)) {
-                return WoWTotem.Windfury;
-            }
-
             return WoWTotem.None;
         }
 
@@ -429,9 +365,9 @@ namespace CLU.Classes.Shaman
                 return WoWTotem.None;
             }
 
-            // Really only drop this if we don't have the pally buff, and we're not resto.
-            if (!StyxWoW.Me.HasAura("Blessing of Might") && TotemIsKnown(WoWTotem.ManaSpring)) {
-                return WoWTotem.ManaSpring;
+            if (TotemIsKnown(WoWTotem.HealingTide))
+            {
+                return WoWTotem.HealingTide;
             }
 
             // ... yea
@@ -473,7 +409,7 @@ namespace CLU.Classes.Shaman
             }
 
             // Well..Flametongue seems a good choice
-            return TotemIsKnown(WoWTotem.Flametongue) ? WoWTotem.Flametongue : WoWTotem.None;
+            return TotemIsKnown(WoWTotem.Magma) ? WoWTotem.Magma : WoWTotem.FireElemental;
         }
 
         #region Helper shit
@@ -512,39 +448,31 @@ namespace CLU.Classes.Shaman
         public static float GetTotemRange(WoWTotem totem)
         {
             switch (totem) {
-            case WoWTotem.Flametongue:
-            case WoWTotem.Stoneskin:
-            case WoWTotem.StrengthOfEarth:
-            case WoWTotem.Windfury:
-            case WoWTotem.WrathOfAir:
-            case WoWTotem.ManaSpring:
+                case WoWTotem.Windwalk:
+                case WoWTotem.HealingTide:
+                case WoWTotem.HealingStream:
                 return 40f;
 
-            case WoWTotem.ElementalResistance:
-            case WoWTotem.HealingStream:
-            case WoWTotem.TranquilMind:
-            case WoWTotem.Tremor:
+                case WoWTotem.Stormlash:
+                case WoWTotem.Tremor:
                 return 30f;
 
-            case WoWTotem.Searing:
+                case WoWTotem.Searing:
                 return 20f;
 
-            case WoWTotem.Earthbind:
+                case WoWTotem.Earthbind:
                 return 10f;
 
-            case WoWTotem.Grounding:
-            case WoWTotem.Magma:
+                case WoWTotem.Grounding:
+                case WoWTotem.Capacitor:
+                case WoWTotem.Magma:
                 return 8f;
 
-            case WoWTotem.Stoneclaw:
-                // stoneclaw isn't effected by Totemic Reach (according to basically everything online)
-                return 8f;
-
-            case WoWTotem.EarthElemental:
-            case WoWTotem.FireElemental:
+                case WoWTotem.EarthElemental:
+                case WoWTotem.FireElemental:
                 // Not really sure about these 3.
                 return 20f;
-            case WoWTotem.ManaTide:
+                case WoWTotem.ManaTide:
                 // Again... not sure :S
                 return 30f;
             }

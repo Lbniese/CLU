@@ -122,7 +122,7 @@ namespace CLU.Settings
         //}
 
         [Setting]
-        [DefaultValue(WoWTotem.StrengthOfEarth)]
+        [DefaultValue(WoWTotem.None)]
         [Category("Restoration Totems")]
         [DisplayName("EarthTotem")]
         [Description("The totem to use for this slot. Select 'None' for automatic usage.")]
