@@ -94,13 +94,17 @@
         private static List<FocusedUnit> mostFocusedUnits;
 
         private static DateTime mostFocusedUnitsTimer = DateTime.MinValue;
-
-
+        
         private static LocalPlayer Me
         {
             get {
                 return StyxWoW.Me;
             }
+        }
+
+        public static bool IsInParty
+        {
+            get { return Me.RaidMemberGuids != null && Me.RaidMemberGuids.Length > 0; }
         }
 
         /// <summary>
@@ -872,21 +876,24 @@
             get {
                 if (!CLUSettings.Instance.Rogue.UseTricksOfTheTrade) return null;
 
-                if (!StyxWoW.Me.IsInParty && !StyxWoW.Me.IsInRaid)
+                //if (!IsInParty)
+                if(!StyxWoW.Me.IsInParty && !StyxWoW.Me.IsInRaid)
                     return null;
 
                 // If the player has a focus target set, use it instead.
-                if (StyxWoW.Me.FocusedUnitGuid != 0 && StyxWoW.Me.FocusedUnit.IsAlive)
+                if (StyxWoW.Me.FocusedUnitGuid != 0 && StyxWoW.Me.FocusedUnit.IsAlive && Math.Abs(StyxWoW.Me.FocusedUnit.Level - Me.Level) < 4)
                     return StyxWoW.Me.FocusedUnit;
 
-                if (StyxWoW.Me.IsInInstance) {
+                if (StyxWoW.Me.IsInInstance)
+                {
                     if (RaFHelper.Leader != null && !RaFHelper.Leader.IsMe && RaFHelper.Leader.IsAlive) {
                         // Leader first, always. Otherwise, pick a rogue/DK/War pref. Fall back to others just in case.
                         return RaFHelper.Leader;
                     }
 
-                    if (StyxWoW.Me.IsInParty) {
-                        var bestTank = Tanks.OrderBy(t => t.DistanceSqr).FirstOrDefault(t => t.IsAlive);
+                    if (StyxWoW.Me.IsInParty)
+                    {
+                        var bestTank = Tanks.OrderBy(t => t.DistanceSqr).FirstOrDefault(t => t.IsAlive && Math.Abs(t.Level - Me.Level) < 4);
 
                         if (bestTank != null)
                             return bestTank;
@@ -907,7 +914,7 @@
                                          WoWClass.Priest
                                          //TODO: WoWClass.Monk
                                      );
-                    return bestPlayer;
+                    return Math.Abs(bestPlayer.Level - Me.Level) < 4 ? bestPlayer : null;
                 }
 
                 return null;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using CLU.Base;
 using CLU.Helpers;
@@ -7,9 +6,7 @@ using CLU.Settings;
 
 using CommonBehaviors.Actions;
 
-using Styx.CommonBot;
 using Styx.TreeSharp;
-using Styx.WoWInternals.WoWObjects;
 
 using Rest = CLU.Base.Rest;
 
@@ -79,7 +76,7 @@ namespace CLU.Classes.Rogue
 
         public override string Name
         {
-            get { return "LaoArchAngel's PvE Assassination Rotation"; }
+            get { return "Assassination Rotation"; }
         }
 
         public override Composite PVERotation
@@ -133,18 +130,16 @@ namespace CLU.Classes.Rogue
                      Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
                      Cooldowns,
                      Spell.CastSelfSpell("Feint",ret =>Me.CurrentTarget != null &&(/*Me.CurrentTarget.ThreatInfo.RawPercent > 80 ||*/ EncounterSpecific.IsMorchokStomp()), "Feint"),
-                     Spell.CastSpellByID(57934, u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade,"Tricks of the Trade"), 
+                     Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade && Unit.BestTricksTarget != null,"Tricks of the Trade"), 
                      Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
                      Spell.CastSpell("Redirect", ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"), AoE,
-                     Spell.CastSelfSpell("Slice and Dice", ret => !Buff.PlayerHasBuff("Slice and Dice"), "Slice and Dice"), 
+                     Spell.CastSelfSpell("Slice and Dice", ret => !Buff.PlayerHasActiveBuff("Slice and Dice"), "Slice and Dice"), 
                      //Vanish,
                      Rupture,
-                     Spell.CastSpell("Vendetta",ret =>Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) &&Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
+                     Spell.CastSpell("Vendetta",ret =>Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6, "Vendetta"),
                      //Spell.CastSpell("Preparation",ret =>SpellManager.HasSpell(14185) && Me.CurrentTarget != null &&Unit.IsTargetWorthy(Me.CurrentTarget) && SpellManager.Spells["Vanish"].Cooldown, "Preparation"),
                      Spell.CastSpell("Dispatch", ret => Me.ComboPoints < 5 && Buff.PlayerHasBuff("Blindside"), "Dispatch @ Blindside"),
-                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),// Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
-                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),// Envenom if we have enough combo points, Rupture is safe and we're about to cap.
-                     Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2,"Envenom @ Third (WARNING!)"),// Envenom if SnD is about to fall off. This should never happen.
+                     Envenom,
                      Spell.CastSpell("Dispatch", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent < 35, "Dispatch"),
                      Spell.CastSpell("Mutilate", ret => Me.ComboPoints < ReqCmbPts && Me.CurrentTarget.HealthPercent >= 35,"Mutilate"));
             }
@@ -182,15 +177,16 @@ namespace CLU.Classes.Rogue
             }
         }
 
-        private static PrioritySelector Envenom
+        private static Composite Envenom
         {
             get
             {
-                return new PrioritySelector(
-                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),// Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
-                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),// Envenom if we have enough combo points, Rupture is safe and we're about to cap.
-                    Spell.CastSpellByID(32645,ret =>Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2,"Envenom @ Third (WARNING!)")// Envenom if SnD is about to fall off. This should never happen.
-                    );
+                return new Decorator(cond => Buff.PlayerHasActiveBuff("Slice and Dice"),
+                    new PrioritySelector(
+                        Spell.CastSpell("Envenom", ret => Me.ComboPoints >= ReqCmbPts && !Buff.TargetHasDebuff("Envenom") && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 5, "Envenom @ First"),// Envenom if we have enough combo points, Envenom debuff is down and Rupture is safe.
+                        Spell.CastSpell("Envenom", ret => Me.ComboPoints >= ReqCmbPts && Me.CurrentEnergy > 90 && Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds > 2, "Envenom @ Second"),// Envenom if we have enough combo points, Rupture is safe and we're about to cap.
+                        Spell.CastSpell("Envenom", ret => Me.ComboPoints >= 2 && Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds < 2, "Envenom @ Third (WARNING!)")// Envenom if SnD is about to fall off. This should never happen.
+                    ));
             }
         }
 

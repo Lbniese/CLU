@@ -249,21 +249,20 @@ namespace CLU.Base
             var minReqs = target != null;
             if (minReqs)
             {
-                if (name == "test")
-                {
-                    WoWSpell test = WoWSpell.FromId(53301);
+                //if (name == "Envenom")
+                //{
+                //    WoWSpell test = WoWSpell.FromId(32645);
 
-                    CLU.DiagnosticLog("Spell Is Null: {0}", test == null);
-                    if (test != null)
-                    {
-                        CLU.DiagnosticLog("Has Spell: {0}", SpellManager.HasSpell(test));
-                        CLU.DiagnosticLog("CanCast: {0}", SpellManager.CanCast(test));
-                        CLU.DiagnosticLog("Spell ID: {0}", test.Id);
-                        CLU.DiagnosticLog("Spell Name: {0}", test.Name);
-                        CLU.DiagnosticLog("Spell CanCast: {0}", test.CanCast);
-                        CLU.DiagnosticLog("Spell IsValid: {0}", test.IsValid);
-                    }
-                }
+                //    CLU.DiagnosticLog("Spell Is Null: {0}", test == null);
+                //    if (test != null)
+                //    {
+                //        CLU.DiagnosticLog("Has Spell: {0}", SpellManager.HasSpell(test));
+                //        CLU.DiagnosticLog("Spell ID: {0}", test.Id);
+                //        CLU.DiagnosticLog("Spell Name: {0}", test.Name);
+                //        CLU.DiagnosticLog("Spell CanCast: {0}", test.CanCast);
+                //        CLU.DiagnosticLog("Spell IsValid: {0}", test.IsValid);
+                //    }
+                //}
 
                 canCast = SpellManager.CanCast(name, target, false, false);
 
