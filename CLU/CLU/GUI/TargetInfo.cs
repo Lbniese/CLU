@@ -76,10 +76,10 @@ namespace CLU.GUI
         {
             textBox1.Clear();
             string dump = null;
-            var unit = StyxWoW.Me.CurrentTarget;
+            var unit = checkmybuffs.Checked ? StyxWoW.Me : StyxWoW.Me.CurrentTarget;
             if (unit != null)
             {
-                foreach (KeyValuePair<string, WoWAura> au in StyxWoW.Me.CurrentTarget.Auras)
+                foreach (KeyValuePair<string, WoWAura> au in unit.Auras)
                 {
                     WoWAura aura;
                     if (unit.Auras.TryGetValue(au.Key, out aura)) // unit.CreatedByUnitGuid 

@@ -53,6 +53,7 @@
             this.Unholy1lbl = new System.Windows.Forms.Label();
             this.Unholy2lbl = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkmybuffs = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -174,20 +175,21 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkmybuffs);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(370, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(461, 269);
+            this.groupBox1.Size = new System.Drawing.Size(628, 388);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Current Target Auras";
+            this.groupBox1.Text = "Target Auras";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(362, 232);
+            this.button1.Location = new System.Drawing.Point(530, 351);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
@@ -198,7 +200,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 236);
+            this.checkBox1.Location = new System.Drawing.Point(15, 355);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(174, 17);
             this.checkBox1.TabIndex = 17;
@@ -213,7 +215,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(440, 202);
+            this.textBox1.Size = new System.Drawing.Size(607, 324);
             this.textBox1.TabIndex = 15;
             this.textBox1.WordWrap = false;
             // 
@@ -285,18 +287,28 @@
             this.groupBox2.Controls.Add(this.Unholy1lbl);
             this.groupBox2.Controls.Add(this.blood2lbl);
             this.groupBox2.Controls.Add(this.Frost1lbl);
-            this.groupBox2.Location = new System.Drawing.Point(12, 221);
+            this.groupBox2.Location = new System.Drawing.Point(3, 340);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(347, 64);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "IsRuneCooldown (Highlighted Green when true)";
             // 
+            // checkmybuffs
+            // 
+            this.checkmybuffs.AutoSize = true;
+            this.checkmybuffs.Location = new System.Drawing.Point(224, 355);
+            this.checkmybuffs.Name = "checkmybuffs";
+            this.checkmybuffs.Size = new System.Drawing.Size(113, 17);
+            this.checkmybuffs.TabIndex = 19;
+            this.checkmybuffs.Text = "Check my buffs";
+            this.checkmybuffs.UseVisualStyleBackColor = true;
+            // 
             // TargetInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 297);
+            this.ClientSize = new System.Drawing.Size(1010, 416);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.issafelybehindtarget);
@@ -348,5 +360,6 @@
         private System.Windows.Forms.Label Unholy1lbl;
         private System.Windows.Forms.Label Unholy2lbl;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkmybuffs;
     }
 }
