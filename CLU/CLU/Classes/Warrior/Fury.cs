@@ -82,7 +82,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                     Spell.CastSelfSpell("Deadly Calm",         ret => CLUSettings.Instance.Warrior.UseDeadlyCalm && CLUSettings.Instance.UseCooldowns && Me.CurrentRage >= 40, "Deadly Calm"),
                                     Spell.CastSelfSpell("Death Wish",          ret => CLUSettings.Instance.UseCooldowns, "Death Wish"),
                                     Spell.CastAreaSpell("Cleave", 5, false, 2, 0.0, 0.0, a => true, "Cleave"),
-                                    Spell.CastAreaSpell("Whirlwind", 8, false, 2, 0.0, 0.0, a => true, "Whirlwind"),
+                                    Spell.CastAreaSpell("Whirlwind", 8, false, 4, 0.0, 0.0, a => true, "Whirlwind"),
+                                    // TODO: Add support for Glyph of Unending Rage. add support for Skull Banner
                                     Spell.CastSpell("Heroic Strike",           ret => Me.CurrentTarget != null && ((((Buff.TargetHasDebuff("Colossus Smash") && Me.CurrentRage >= 40) || (Buff.PlayerHasBuff("Deadly Calm") && Me.CurrentRage >= 30)) && Me.CurrentTarget.HealthPercent >= 20) || Me.CurrentRage >= 110), "Heroic Strike"),
                                     Spell.CastSpell("Bloodthirst",             ret => Me.CurrentTarget != null && !(Me.CurrentTarget.HealthPercent < 20 && Buff.TargetHasDebuff("Colossus Smash") & Me.CurrentRage >= 30), "Bloodthirst"),
                                     Spell.CastSpell("Wild Strike",             ret => Buff.PlayerHasBuff("Bloodsurge") && Me.CurrentTarget.HealthPercent >= 20 && Spell.SpellCooldown("Bloodthirst").TotalSeconds <= 1, "Wild Strike"),
@@ -126,7 +127,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                         new PrioritySelector(
                             Buff.CastRaidBuff("Commanding Shout",   ret => true, "Commanding Shout"),
                             Buff.CastRaidBuff("Battle Shout",       ret => true, "Battle Shout"),
-                            Spell.CastSelfSpell("Berserker Stance", ret => !Buff.PlayerHasBuff("Berserker Stance"), "Berserker Stance")));
+                            Spell.CastSelfSpell("Berserker Stance", ret => !Buff.PlayerHasBuff("Berserker Stance") && CLUSettings.Instance.EnableMovement, "Berserker Stance")));
             }
         }
 

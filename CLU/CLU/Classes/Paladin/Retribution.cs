@@ -99,15 +99,16 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Buff.CastBuff("Avenging Wrath",                 ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Inquisition") && Unit.IsTargetWorthy(Me.CurrentTarget), "Avenging Wrath"),
                                    Buff.CastBuff("Execution Sentence",             ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Inquisition") && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
                                    // Holy Avenger Rotation
-                                   Spell.CastSelfSpell("Inquisition",             ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 2) && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
+                                   Spell.CastSelfSpell("Inquisition",               ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 2) && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
                                    Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.RetributionHoRCount, 0.0, 0.0, ret => Me.CurrentHolyPower <= 5, "Hammer of the Righteous"),
-                                   Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
-                                   Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
-                                   Spell.CastSpell("Templar's Verdict",           ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"),
-                                   Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20), "Hammer of Wrath"),
-                                   Spell.CastSpell("Exorcism",                    ret => true, "Exorcism"),
-                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
-                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))),
+                                   Spell.CastSpell("Hammer of Wrath",               ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20), "Hammer of Wrath"), Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
+                                   Spell.CastSpell("Templar's Verdict",             ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower == 5), "Templar's Verdict"),
+                                   Spell.CastSpell("Exorcism",                      ret => true, "Exorcism"),
+                                   Spell.CastSpell("Crusader Strike",               ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
+                                   Spell.CastSpell("Judgment",                      ret => Me.CurrentHolyPower < 5, "Judgment"),
+                                   Spell.CastSpell("Templar's Verdict",             ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"),
+                                   Spell.CastSelfSpell("Arcane Torrent",            ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
+                                   Buff.CastBuff("Divine Plea",                     ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))),
                            new Decorator(
                                ret => !Buff.PlayerHasBuff("Holy Avenger"),
                                new PrioritySelector(
@@ -117,13 +118,14 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Spell.CastSelfSpell("Inquisition",               ret => (!Buff.PlayerHasBuff("Inquisition") || Buff.PlayerBuffTimeLeft("Inquisition") <= 2) && (Me.CurrentHolyPower >= 3 || Buff.PlayerHasBuff("Divine Purpose")), "Inquisition"),
                                    Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.RetributionHoRCount, 0.0, 0.0, ret => Me.CurrentHolyPower <= 5, "Hammer of the Righteous"),
                                    Spell.CastAreaSpell("Divine Storm", 10, false, CLUSettings.Instance.Paladin.DivineStormCount, 0.0, 0.0, ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Divine Storm"),
-                                   Spell.CastSpell("Crusader Strike",             ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
-                                   Spell.CastSpell("Judgment",                      ret => !Buff.PlayerHasBuff("Holy Avenger") && Me.CurrentHolyPower < 5, "Judgment"), //
-                                   Spell.CastSpell("Templar's Verdict",             ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"), //
-                                   Spell.CastSpell("Exorcism",                    ret => true, "Exorcism"),
-                                   Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20), "Hammer of Wrath"),
-                                   Spell.CastSelfSpell("Arcane Torrent",          ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
-                                   Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))));
+                                   Spell.CastSpell("Templar's Verdict",             ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower == 5), "Templar's Verdict"), 
+                                   Spell.CastSpell("Hammer of Wrath",               ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Avenging Wrath") || Me.CurrentTarget.HealthPercent <= 20), "Hammer of Wrath"),
+                                   Spell.CastSpell("Exorcism",                      ret => true, "Exorcism"),
+                                   Spell.CastSpell("Crusader Strike",               ret => Me.CurrentHolyPower < 5, "Crusader Strike"),
+                                   Spell.CastSpell("Judgment",                      ret => !Buff.PlayerHasBuff("Holy Avenger") && Me.CurrentHolyPower < 5, "Judgment"),
+                                   Spell.CastSpell("Templar's Verdict",             ret => (Buff.PlayerHasBuff("Divine Purpose") || Me.CurrentHolyPower >= 3), "Templar's Verdict"), 
+                                   Spell.CastSelfSpell("Arcane Torrent",            ret => Me.ManaPercent < 80 && Me.CurrentHolyPower < 3, "Arcane Torrent"),
+                                   Buff.CastBuff("Divine Plea",                     ret => Me.ManaPercent < 75 && Me.CurrentHolyPower < 3, "Divine Plea"))));
             }
         }
 
