@@ -132,10 +132,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    // End Common level 90 ability's
                                    Spell.CastSpell("Blink Strike",            ret => Me.CurrentTarget != null && Me.Pet.Location.Distance(Me.CurrentTarget.Location) > 10 && Me.GotAlivePet, "Blink Strike"), // teleports behind target mad damage.
                                    Spell.CastSpell("Lynx Rush",               ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10, "Lynx Rush"),
-                                   Spell.CastSpell("Cobra Shot",              ret => true, "Cobra Shot"),
                                    Buff.CastBuff("Rapid Fire",                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Buff.PlayerHasBuff("The Beast Within") && !Buff.UnitHasHasteBuff(Me), "Rapid Fire"),
                                    Spell.CastSpell("Kill Command",            ret => Me.CurrentTarget != null && Me.GotAlivePet && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 25 && Spell.SpellCooldown("Kill Command").TotalSeconds < 1 && Me.FocusPercent >= 40, "Kill Command"),
-                                   Spell.CastSpell("Dire Beast",              ret => Me.CurrentTarget != null && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10 && Me.FocusPercent <= 80, "Dire Beast"),
+                                   Spell.CastSpell("Dire Beast",              ret => Me.CurrentTarget != null && Me.Pet.Location.Distance(Me.CurrentTarget.Location) < 10 && Me.FocusPercent <= 90, "Dire Beast"),
                                    Spell.CastSpell("Arcane Shot",             ret => Buff.PlayerHasActiveBuff("Thrill of the Hunt"), "Arcane Shot (Thrill of the Hunt)"),
                                    Buff.CastBuff("Readiness",                 ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Buff.PlayerHasActiveBuff("Rapid Fire"), "Readiness"),
                                    Spell.CastSpell("Arcane Shot",             ret => (Me.FocusPercent >= CLUSettings.Instance.Hunter.BmArcaneShotFocusPercent || Buff.PlayerHasBuff("The Beast Within")), "Arcane Shot"),
