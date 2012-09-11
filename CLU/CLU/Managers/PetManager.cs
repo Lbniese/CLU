@@ -120,8 +120,7 @@
         public static Composite CastPetSummonSpell(int nameID, CanRunDecoratorDelegate cond, string label)
         {
             WoWSpell summonPet = WoWSpell.FromId(nameID);
-            var isWarlock = Me.Class == WoWClass.Warlock && SpellManager.Spells[summonPet.Name].Name.StartsWith("Summon ");
-            if (isWarlock)
+            if (summonPet.CastTime > 0)
             {
                 Spell.KnownChanneledSpells.Add(summonPet.Name);
             }
