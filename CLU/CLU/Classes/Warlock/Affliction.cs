@@ -79,8 +79,9 @@ namespace CLU.Classes.Warlock
                     //Cooldowns
                     new Decorator(ret=> CLUSettings.Instance.UseCooldowns,
                         new PrioritySelector(
-                            Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
-                            Spell.CastSelfSpellByID(18540, ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard"))),
+                            Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery")
+                            //Spell.CastSelfSpellByID(18540, ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard")
+                            )),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
                             Spell.CastSelfSpell("Twilight Warden", ret => Me.CurrentTarget != null && Me.CurrentTarget.IsCasting && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 80, "Twilight Warden (Protect me from magical damage)"),
                             //Basic DPSing
@@ -92,11 +93,11 @@ namespace CLU.Classes.Warlock
                                     Spell.CastSpell("Soul Swap", ret => Me.ActiveAuras.ContainsKey("Soulburn"), "Soul Swap")
                                     )),
                     //Slow Application
-                            Buff.CastDebuff("Agony", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Agony"), "Agony"), //Should never met in regular situations
-                            Buff.CastDebuff("Corruption", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Corruption"), "Corruption"), //Should never met in regular situations
-                            Buff.CastDebuff("Unstable Affliction", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Unstable Affliction"), "Unstable Affliction"),
+                            Buff.CastDebuff("Agony", ret => true, "Agony"), //Should never met in regular situations
+                            Buff.CastDebuff("Corruption", ret => true, "Corruption"), //Should never met in regular situations
+                            Buff.CastDebuff("Unstable Affliction", ret => true, "Unstable Affliction"),
                             //Basic DPSing
-                            Buff.CastDebuff("Haunt", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Haunt"), "Haunt"),
+                            Buff.CastDebuff("Haunt", ret => true, "Haunt"),
                             Spell.CastSelfSpell("Life Tap", ret => Me.ManaPercent < 20 && Me.HealthPercent > 40, "Life Tap"),
                             Spell.CastSpell("Fel Flame", ret => Me.IsMoving, "Fel flame while moving"),
                             Spell.CastSpell("Malefic Grasp", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent >= 20 || Me.CurrentSoulShards > 0) && !Me.IsMoving, "Malefic Grasp"),
