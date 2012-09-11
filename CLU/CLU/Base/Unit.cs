@@ -883,6 +883,8 @@
                 // If the player has a focus target set, use it instead.
                 if (StyxWoW.Me.FocusedUnitGuid != 0 && StyxWoW.Me.FocusedUnit.IsAlive && Math.Abs(StyxWoW.Me.FocusedUnit.Level - Me.Level) < 4)
                     return StyxWoW.Me.FocusedUnit;
+                else
+                    return null;
 
                 if (StyxWoW.Me.IsInInstance)
                 {
