@@ -38,7 +38,7 @@ namespace CLU.Classes.Hunter
             return new Decorator( ret => Me.IsMoving && CLUSettings.Instance.Hunter.HandleAspectSwitching,
                         new Sequence(
                             // Waiting for a bit just incase we are only moving outa the fire!
-                            new WaitContinue(1, ret => false, new ActionAlwaysSucceed()), // Hmm..check this...-- wulf
+                            new WaitContinue(2, ret => false, new ActionAlwaysSucceed()), // Hmm..check this...-- wulf
                             Buff.CastBuff("Aspect of the Fox", ret => Me.IsMoving, "[Aspect] of the Fox - Moving"),
                             new PrioritySelector(
                                 Buff.CastBuff("Aspect of the Hawk", ret => !Me.IsMoving, "[Aspect] of the Hawk"),

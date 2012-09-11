@@ -98,6 +98,7 @@ namespace CLU.Settings
             set;
         }
 
+        //[Browsable(false)]
         [Setting]
         [DefaultValue(DeathKnightTierOneTalent.None)]
         [Category("Common")]

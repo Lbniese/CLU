@@ -14,8 +14,11 @@ namespace CLU.Managers
     using System.Globalization;
     using System.Linq;
     using Styx;
+    using Styx.Combat.CombatRoutine;
     using Styx.WoWInternals;
-  
+
+    using global::CLU.Base;
+    using global::CLU.Settings;
 
     internal static class TalentManager
     {
@@ -112,11 +115,35 @@ namespace CLU.Managers
 
                 foreach (var talent in Talents)
                 {
+                    if (StyxWoW.Me.Class == WoWClass.DeathKnight && CurrentSpec == WoWSpec.DeathKnightBlood)
+                    {
+                        // Set the Blood DK Tier one Talent here
+                        switch (talent.Index)
+                        {
+                            case 1:
+                                CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent = DeathKnightTierOneTalent.RoilingBlood;
+                                CLU.TroubleshootLog("TalentManager - Setting DeathKnightTierOneTalent to {0}", DeathKnightTierOneTalent.RoilingBlood);
+                                break;
+                            case 2:
+                                CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent = DeathKnightTierOneTalent.PlagueLeech;
+                                CLU.TroubleshootLog("TalentManager - Setting DeathKnightTierOneTalent to {0}", DeathKnightTierOneTalent.PlagueLeech);
+                                break;
+                            case 3:
+                                CLUSettings.Instance.DeathKnight.DeathKnightTierOneTalent = DeathKnightTierOneTalent.UnholyBlight;
+                                CLU.TroubleshootLog("TalentManager - Setting DeathKnightTierOneTalent to {0}", DeathKnightTierOneTalent.UnholyBlight);
+                                break;
+                        }
+                    }
+                   
+
                     if (talent.Name != null)
                     {
                         CLU.TroubleshootLog("TalentManager - talent {0} == Name", talent.Index);
                     }
                 }
+
+                
+                
 
                 //Glyphs.Clear();
 
