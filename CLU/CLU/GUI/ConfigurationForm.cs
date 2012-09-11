@@ -501,7 +501,7 @@ namespace CLU.GUI
                 if (pgClass.SelectedObject != null) {
                     ((Styx.Helpers.Settings)pgClass.SelectedObject).Save();
                 }
-                Close();
+                this.Close();
             } catch (Exception ex) {
                 CLU.DiagnosticLog("ERROR saving settings: {0}", ex);
             }
