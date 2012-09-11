@@ -98,6 +98,12 @@
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\GUIHelpers.cs" />
+    <Compile Include="GUI\Spellchecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Spellchecker.Designer.cs">
+      <DependentUpon>Spellchecker.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\TargetInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,9 @@
   <ItemGroup>
     <EmbeddedResource Include="GUI\ConfigurationForm.resx">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Spellchecker.resx">
+      <DependentUpon>Spellchecker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\TargetInfo.resx">
       <DependentUpon>TargetInfo.cs</DependentUpon>

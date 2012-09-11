@@ -1,15 +1,9 @@
 ﻿// This file is part of Singular - A community driven Honorbuddy CC
 // $Author: raphus $
-// $Date: 2012-02-05 08:23:51 +1100 (Sun, 05 Feb 2012) $
-// $HeadURL: http://svn.apocdev.com/singular/trunk/Singular/Managers/TalentManager.cs $
-// $LastChangedBy: raphus $
-// $LastChangedDate: 2012-02-05 08:23:51 +1100 (Sun, 05 Feb 2012) $
-// $LastChangedRevision: 583 $
-// $Revision: 583 $
+// $LastChangedBy: wulf $
 
 namespace CLU.Managers
 {
-    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;

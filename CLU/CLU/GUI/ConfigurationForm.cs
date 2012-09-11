@@ -791,13 +791,13 @@ namespace CLU.GUI
         }
 		
         // Dumps the spells from the current target to the debug tab in honorbuddy
-        private void button7_Click(object sender, EventArgs e)
+        private void DumpSpells(object sender, EventArgs e)
         {
             Spell.DumpSpells();
         }
         
 		// Dumps the auras from the current target to the debug tab in honorbuddy
-        private void button5_Click(object sender, EventArgs e)
+        private void DumpAuras(object sender, EventArgs e)
         {
             Buff.DumpAuras();
         }
@@ -805,6 +805,11 @@ namespace CLU.GUI
         private void button6_Click(object sender, EventArgs e)
         {
             CLU.Instance.QueryClassTree();
+        }
+
+        private void DisplaySpellchecker(object sender, EventArgs e)
+        {
+            Spellchecker.Display();
         }
     }
 }

@@ -244,22 +244,20 @@ namespace CLU.Base
         public static bool CanCast(string name, WoWUnit target)
         {
 
-            ////CLU.DebugLog(Color.ForestGreen, "Casting spell: " + name);
-            ////CLU.DebugLog(Color.ForestGreen, "OnUnit: " + target);
-            ////CLU.DebugLog(Color.ForestGreen, "CanCast: " + SpellManager.CanCast(name, target, false));
             var canCast = false;
             var inRange = false;
             var minReqs = target != null;
             if (minReqs)
             {
-                if (name == "Envenom")
+                if (name == "test")
                 {
-                    WoWSpell test = WoWSpell.FromId(32645);
+                    WoWSpell test = WoWSpell.FromId(53301);
 
                     CLU.DiagnosticLog("Spell Is Null: {0}", test == null);
                     if (test != null)
                     {
                         CLU.DiagnosticLog("Has Spell: {0}", SpellManager.HasSpell(test));
+                        CLU.DiagnosticLog("CanCast: {0}", SpellManager.CanCast(test));
                         CLU.DiagnosticLog("Spell ID: {0}", test.Id);
                         CLU.DiagnosticLog("Spell Name: {0}", test.Name);
                         CLU.DiagnosticLog("Spell CanCast: {0}", test.CanCast);
@@ -568,7 +566,7 @@ namespace CLU.Base
                 {
                     if (!cond(a))
                         return false;
-                    CLU.DiagnosticLog("Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
+                    //CLU.TroubleshootLog("Cancast: {0} = {1}", name, CanCast(name, onUnit(a)));
                     if (!CanCast(name, onUnit(a)))
                         return false;
 

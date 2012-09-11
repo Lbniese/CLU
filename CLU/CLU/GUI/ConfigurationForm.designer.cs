@@ -33,7 +33,7 @@ namespace CLU.GUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnSaveAndClose = new System.Windows.Forms.Button();
             this.pgGeneralContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,9 +54,6 @@ namespace CLU.GUI
             this.label4 = new System.Windows.Forms.Label();
             this.HealingGrid = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -73,7 +70,6 @@ namespace CLU.GUI
             this.label6 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.debuffstatus = new System.Windows.Forms.Label();
             this.Value = new System.Windows.Forms.Label();
@@ -93,19 +89,26 @@ namespace CLU.GUI
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.HealingtrackBar = new System.Windows.Forms.TrackBar();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.footer = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
             this.pgGeneralContextMenu.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HealingGrid)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -120,6 +123,10 @@ namespace CLU.GUI
             ((System.ComponentModel.ISupportInitialize)(this.num_Barrier)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HealingtrackBar)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.footer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -302,9 +309,9 @@ namespace CLU.GUI
             // HealingGrid
             // 
             this.HealingGrid.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(205)))), ((int)(((byte)(217)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(94)))), ((int)(((byte)(114)))));
-            this.HealingGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(205)))), ((int)(((byte)(217)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(94)))), ((int)(((byte)(114)))));
+            this.HealingGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.HealingGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.HealingGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.HealingGrid.Location = new System.Drawing.Point(3, 22);
@@ -315,12 +322,10 @@ namespace CLU.GUI
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox7);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.targetinfo_grpbox);
-            this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -328,37 +333,6 @@ namespace CLU.GUI
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Debugging";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.button7);
-            this.groupBox7.Controls.Add(this.button5);
-            this.groupBox7.Location = new System.Drawing.Point(276, 238);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(122, 84);
-            this.groupBox7.TabIndex = 33;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Dump";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(17, 21);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(84, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "Spells";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(17, 48);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(84, 23);
-            this.button5.TabIndex = 34;
-            this.button5.Text = "Auras";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // groupBox3
             // 
@@ -530,16 +504,6 @@ namespace CLU.GUI
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(293, 330);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "TargetInfo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.TargetinfoButtonClick);
-            // 
             // tabPage4
             // 
             this.tabPage4.AccessibleName = "";
@@ -635,6 +599,7 @@ namespace CLU.GUI
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Multiline = true;
@@ -727,6 +692,89 @@ namespace CLU.GUI
             this.HealingtrackBar.TabIndex = 0;
             this.HealingtrackBar.Scroll += new System.EventHandler(this.HealingtrackBar_Scroll);
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.groupBox9);
+            this.tabPage7.Controls.Add(this.groupBox8);
+            this.tabPage7.Controls.Add(this.groupBox7);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(689, 380);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Spell/Aura/Target Checker";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.button8);
+            this.groupBox9.Location = new System.Drawing.Point(384, 16);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(200, 100);
+            this.groupBox9.TabIndex = 36;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Spell Checker";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(57, 36);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(84, 23);
+            this.button8.TabIndex = 0;
+            this.button8.Text = "SpellInfo";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.DisplaySpellchecker);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button7);
+            this.groupBox8.Controls.Add(this.button5);
+            this.groupBox8.Location = new System.Drawing.Point(242, 16);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(122, 100);
+            this.groupBox8.TabIndex = 35;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Dump to Log";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(17, 21);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(84, 23);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "Spells";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.DumpSpells);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(17, 61);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(84, 23);
+            this.button5.TabIndex = 34;
+            this.button5.Text = "Auras";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.DumpAuras);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.button1);
+            this.groupBox7.Location = new System.Drawing.Point(20, 16);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(200, 100);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "TargetInfo + Target Aura Info";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(55, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 23);
+            this.button1.TabIndex = 34;
+            this.button1.Text = "TargetInfo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.TargetinfoButtonClick);
+            // 
             // footer
             // 
             this.footer.BackColor = System.Drawing.SystemColors.Control;
@@ -740,6 +788,16 @@ namespace CLU.GUI
             this.footer.Name = "footer";
             this.footer.Size = new System.Drawing.Size(697, 58);
             this.footer.TabIndex = 5;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(485, 23);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(96, 23);
+            this.button6.TabIndex = 34;
+            this.button6.Text = "SwapRotation";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox1
             // 
@@ -778,16 +836,6 @@ namespace CLU.GUI
             this.lblVersion.TabIndex = 2;
             this.lblVersion.Text = "v0.1.0.0";
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(485, 23);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(96, 23);
-            this.button6.TabIndex = 34;
-            this.button6.Text = "SwapRotation";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // ConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -809,7 +857,6 @@ namespace CLU.GUI
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.HealingGrid)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -828,6 +875,10 @@ namespace CLU.GUI
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HealingtrackBar)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.footer.ResumeLayout(false);
             this.footer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -855,7 +906,6 @@ namespace CLU.GUI
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button debugbutton;
         private System.Windows.Forms.GroupBox targetinfo_grpbox;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button printhealreport;
         private System.Windows.Forms.Button clearstats_button;
@@ -899,9 +949,14 @@ namespace CLU.GUI
         private System.Windows.Forms.NumericUpDown num_Prayer;
         private System.Windows.Forms.NumericUpDown num_Hyme;
         private System.Windows.Forms.NumericUpDown num_Barrier;
-        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button button1;
     }
 }
