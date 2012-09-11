@@ -115,7 +115,7 @@ namespace CLU.Managers
 
                 foreach (var talent in Talents)
                 {
-                    if (StyxWoW.Me.Class == WoWClass.DeathKnight && CurrentSpec == WoWSpec.DeathKnightBlood)
+                    if (StyxWoW.Me.Class == WoWClass.DeathKnight)
                     {
                         // Set the Blood DK Tier one Talent here
                         switch (talent.Index)
