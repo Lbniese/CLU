@@ -83,20 +83,21 @@ namespace CLU.Classes.Warlock
                              ),
                             
                             //Grimoire of Service
-                            new Decorator(ret => TalentManager.HasTalent(11), Spell.CastSpellByID(108501, ret => Me.GotAlivePet, "Grimoire of Service")),
+                            new Decorator(ret => TalentManager.HasTalent(14), Spell.CastSpellByID(108501, ret => Me.GotAlivePet, "Grimoire of Service")),
                             //Sacrifice Pet
-                            new Decorator(ret => TalentManager.HasTalent(12), Spell.CastSelfSpellByID(108503, ret => Me.GotAlivePet, "Grimoire of Sacrifice")),
+                            new Decorator(ret => TalentManager.HasTalent(15), Spell.CastSelfSpellByID(108503, ret => Me.GotAlivePet, "Grimoire of Sacrifice")),
 
                     //Cooldowns
                     new Decorator(ret=> CLUSettings.Instance.UseCooldowns,
                         new PrioritySelector(
                             Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
-                            // TODO: Remove this when Apoc fixs Spellmanager. -- wulf 
+                            //// TODO: Remove this when Apoc fixs Spellmanager. -- wulf 
                             new Decorator(ret => !WoWSpell.FromId(112927).Cooldown && Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
                                new Sequence(
                                     new Action(a => CLU.Log(" [Casting] Summon Terrorguard ")),
                                     new Action(ret => Spell.CastfuckingSpell("Summon Terrorguard")
                                    )))
+                            
                             )),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
                             Spell.CastSelfSpell("Twilight Warden", ret => Me.CurrentTarget != null && Me.CurrentTarget.IsCasting && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 80, "Twilight Warden (Protect me from magical damage)"),
