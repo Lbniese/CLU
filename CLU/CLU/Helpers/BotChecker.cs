@@ -19,11 +19,11 @@ namespace CLU.Helpers
 
         private static readonly HashSet<string> Bots = new HashSet<string> {
             "ArchaeologyBuddy", "BGBuddy", "Combat Bot", "Gatherbuddy2", "Grind Bot", "Instancebuddy", "LazyRaider",
-             "Mixed Mode", "PartyBot", "ProfessionBuddy", "Questing", "Raid Bot"
+             "Mixed Mode", "PartyBot", "ProfessionBuddy", "Questing", "Raid Bot", "Tyrael"
         };
 
         private static readonly HashSet<string> SupportedBots = new HashSet<string> {
-            "BGBuddy", "Combat Bot", "LazyRaider", "Questing", "Raid Bot", "Grind Bot", "Gatherbuddy2","ArchaeologyBuddy"
+            "BGBuddy", "Combat Bot", "LazyRaider", "Questing", "Raid Bot", "Grind Bot", "Gatherbuddy2","ArchaeologyBuddy","Tyrael"
         };
 
         public static void Initialize()
@@ -33,6 +33,13 @@ namespace CLU.Helpers
             {
                 CLUSettings.Instance.EnableMovement = false;
                 CLU.Log(" [BotChecker] LazyRaider Detected. *MOVEMENT DISABLED*");
+            }
+
+            // Check for Raid Bot and Disable movement
+            if (BotBaseInUse("Tyrael"))
+            {
+                CLUSettings.Instance.EnableMovement = false;
+                CLU.Log(" [BotChecker] Tyrael Detected. *MOVEMENT DISABLED*");
             }
 
             // Check for Raid Bot and Disable movement
