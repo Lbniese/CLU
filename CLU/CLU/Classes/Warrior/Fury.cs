@@ -1,15 +1,14 @@
 ﻿using Styx.TreeSharp;
-using System.Linq;
 using CommonBehaviors.Actions;
 using CLU.Helpers;
 using CLU.Settings;
 using CLU.Base;
 using Styx.CommonBot;
+using Styx;
 using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Warrior
 {
-    using Styx;
 
     class Fury : RotationBase
     {
@@ -35,20 +34,23 @@ namespace CLU.Classes.Warrior
         {
             get
             {
-                return "----------------------------------------------------------------------\n" +
-                       "2pc Tier set Bonus?: " + Item.Has2PcTeirBonus(ItemSetId) + "\n" +
-                       "4pc Tier set Bonus?: " + Item.Has4PcTeirBonus(ItemSetId) + "\n" +
-                       "This Rotation will:\n" +
-                       "1. Heal using Victory Rush, Enraged Regeneration\n" +
-                       "==> Rallying Cry, Healthstone \n" +
-                       "2. AutomaticCooldowns has: \n" +
-                       "==> UseTrinkets \n" +
-                       "==> UseRacials \n" +
-                       "==> UseEngineerGloves \n" +
-                       "5. Best Suited for end game raiding\n" +
-                       "NOTE: PvP uses single target rotation - It's not designed for PvP use. \n" +
-                       "Credits to \n" +
-                       "----------------------------------------------------------------------\n";
+                var twopceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
+                var fourpceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
+                return
+                    @"
+----------------------------------------------------------------------
+Fury MoP:
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+This Rotation will:
+1. Heal using Victory Rush, Enraged Regeneration, Rallying Cry, Healthstone
+	==> Healthstone.
+2. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Avatar, Bloodbath, Death Wish
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
 
@@ -71,9 +73,8 @@ namespace CLU.Classes.Warrior
                                         Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                         Item.UseEngineerGloves())),
                                     // Interupts
-                                    Spell.CastInterupt("Pummel", ret => true, "Pummel"),
-                                    Spell.CastInterupt("Spell Reflection", ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTarget == Me, "Spell Reflection"),
-
+                                    Spell.CastInterupt("Pummel",               ret => true, "Pummel"),
+                                    Spell.CastInterupt("Spell Reflection",     ret => Me.CurrentTarget != null && Me.CurrentTarget.CurrentTarget == Me, "Spell Reflection"),
                                     Spell.CastSelfSpell("Recklessness",        ret => CLUSettings.Instance.UseCooldowns && Me.CurrentTarget != null && ((Buff.TargetDebuffTimeLeft("Colossus Smash").TotalSeconds >= 5 || Spell.SpellCooldown("Colossus Smash").TotalSeconds <= 4) && ((!SpellManager.HasSpell("Avatar") || !Item.Has4PcTeirBonus(ItemSetId))) && ((Me.CurrentTarget.HealthPercent < 20 || Unit.TimeToDeath(Me.CurrentTarget) > 315 || (Unit.TimeToDeath(Me.CurrentTarget) > 165 && Item.Has4PcTeirBonus(ItemSetId)))) || (SpellManager.HasSpell("Avatar") && Item.Has4PcTeirBonus(ItemSetId) && Buff.PlayerHasBuff("Avatar"))) || Unit.TimeToDeath(Me.CurrentTarget) <= 18, "Recklessness"),
                                     Spell.CastSelfSpell("Avatar",              ret => Me.CurrentTarget != null && (CLUSettings.Instance.UseCooldowns && SpellManager.HasSpell("Avatar") && (((Spell.SpellCooldown("Recklessness").TotalSeconds >= 180 || Buff.PlayerHasBuff("Recklessness")) || (Me.CurrentTarget.HealthPercent >= 20 && Unit.TimeToDeath(Me.CurrentTarget) > 195) || (Me.CurrentTarget.HealthPercent < 20 && Item.Has4PcTeirBonus(ItemSetId))) || Unit.TimeToDeath(Me.CurrentTarget) <= 20)), "Avatar"),
                                     Spell.CastSelfSpell("Bloodbath",           ret => Me.CurrentTarget != null && ( SpellManager.HasSpell("Bloodbath") && (((Spell.SpellCooldown("Recklessness").TotalSeconds >= 10 || Buff.PlayerHasBuff("Recklessness")) || (Me.CurrentTarget.HealthPercent >= 20 && (Unit.TimeToDeath(Me.CurrentTarget) <= 165 || (Unit.TimeToDeath(Me.CurrentTarget) <= 315 & !Item.Has4PcTeirBonus(ItemSetId))) && Unit.TimeToDeath(Me.CurrentTarget) > 75)) || Unit.TimeToDeath(Me.CurrentTarget) <= 19)), "Bloodbath"),
@@ -82,15 +83,12 @@ namespace CLU.Classes.Warrior
                                     Spell.CastSelfSpell("Death Wish",          ret => CLUSettings.Instance.UseCooldowns, "Death Wish"),
                                     Spell.CastAreaSpell("Cleave", 5, false, 2, 0.0, 0.0, a => true, "Cleave"),
                                     Spell.CastAreaSpell("Whirlwind", 8, false, 2, 0.0, 0.0, a => true, "Whirlwind"),
-                                    //Spell.CastSelfSpell("Inner Rage",          ret => Me.CurrentTarget != null && Unit.EnemyUnits.Count() > 1 && ((Me.CurrentRage >= 75 && Me.CurrentTarget.HealthPercent >= 20) || (Buff.PlayerHasBuff("Incite") || Buff.TargetHasDebuff("Colossus Smash") && ((Me.CurrentRage >= 40 && Me.CurrentTarget.HealthPercent >= 20) || (Me.CurrentRage >= 65 && Me.CurrentTarget.HealthPercent < 20)))), "Inner Rage"),
-
                                     Spell.CastSpell("Heroic Strike",           ret => Me.CurrentTarget != null && ((((Buff.TargetHasDebuff("Colossus Smash") && Me.CurrentRage >= 40) || (Buff.PlayerHasBuff("Deadly Calm") && Me.CurrentRage >= 30)) && Me.CurrentTarget.HealthPercent >= 20) || Me.CurrentRage >= 110), "Heroic Strike"),
                                     Spell.CastSpell("Bloodthirst",             ret => Me.CurrentTarget != null && !(Me.CurrentTarget.HealthPercent < 20 && Buff.TargetHasDebuff("Colossus Smash") & Me.CurrentRage >= 30), "Bloodthirst"),
                                     Spell.CastSpell("Wild Strike",             ret => Buff.PlayerHasBuff("Bloodsurge") && Me.CurrentTarget.HealthPercent >= 20 && Spell.SpellCooldown("Bloodthirst").TotalSeconds <= 1, "Wild Strike"),
                                     Spell.CastSpell("Colossus Smash",          ret => true, "Colossus Smash"),
                                     Spell.CastSpell("Execute",                 ret => true, "Execute"),
                                     Spell.CastSpell("Storm Bolt",              ret => SpellManager.HasSpell("Storm Bolt"), "Storm Bolt"),
-                                    //Item.RunMacroText("/cast Raging Blow",      ret => Buff.PlayerHasBuff("Raging Blow!"), "Raging Blow"),
                                     Spell.CastSpell("Raging Blow",             ret => Buff.PlayerHasActiveBuff("Raging Blow!"), "Raging Blow"),
                                     Spell.CastSpell("Wild Strike",             ret => Me.CurrentTarget != null && (Buff.PlayerHasBuff("Bloodsurge") && Me.CurrentTarget.HealthPercent >= 20), "Wild Strike"),
                                     Spell.CastConicSpell("Shockwave", 11f, 33f, ret => CLUSettings.Instance.Warrior.UseShockwave, "Shockwave"),
@@ -126,7 +124,7 @@ namespace CLU.Classes.Warrior
                 return new Decorator(
                         ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                         new PrioritySelector(
-                            Buff.CastRaidBuff("Commanding Shout", ret => true, "Commanding Shout"),
+                            Buff.CastRaidBuff("Commanding Shout",   ret => true, "Commanding Shout"),
                             Buff.CastRaidBuff("Battle Shout",       ret => true, "Battle Shout"),
                             Spell.CastSelfSpell("Berserker Stance", ret => !Buff.PlayerHasBuff("Berserker Stance"), "Berserker Stance")));
             }

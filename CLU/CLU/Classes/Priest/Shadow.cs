@@ -55,17 +55,19 @@ Shadow MoP:
 This Rotation will:
 1. Fade on threat, Shadowform during combat, Dispersion, Power Word: Shield,
 	==> Healthstone, Flash Heal if movement enabled.
-2. Buffs: Power Word: Fortitude, Shadow Protection, Inner Fire
+2. Buffs: Power Word: Fortitude, Inner Fire
 3. AutomaticCooldowns has:
     ==> UseTrinkets 
     ==> UseRacials 
     ==> UseEngineerGloves
-    ==> Shadowfiend & Dispersion & Archangel
+    ==> Shadowfiend & Dispersion
 3. AoE with Mind Sear and Divine Star
 NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
 ----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
+
+        private static bool CanMindFlay { get { return Buff.TargetHasBuff("Vampiric Touch") && Spell.SpellCooldown("Mind Blast").TotalSeconds > 4 && Buff.PlayerCountBuff("Shadow Orb") < 3; } }
 
         public override Composite SingleRotation
         {
@@ -128,11 +130,9 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                    Buff.CastDebuff("Vampiric Touch",          ret => !Me.IsMoving, "Vampiric Touch"), // Vampiric Touch <DND> ??
                                    Buff.CastDebuff("Shadow Word: Pain",       ret => true, "Shadow Word: Pain"),
                                    Spell.CastSpell("Mind Blast",              ret => true, "Mind Blast"),
-                                   
                                    Buff.CastDebuff("Devouring Plague",        ret => Buff.PlayerCountBuff("Shadow Orb") > 2, "Devouring Plague"),
                                    Spell.CastSpell("Shadow Word: Death",      ret => Me.CurrentTarget != null && (TalentManager.HasGlyph("Shadow Word: Death") ? Me.CurrentTarget.HealthPercent <= 100 : Me.CurrentTarget.HealthPercent <= 25), "Shadow Word: Death"),
                                    Spell.CastSpell("Mind Spike", ret => Buff.PlayerHasActiveBuff("Surge of Darkness"), "Mind Spike"),
-                                   
                                    Spell.CastSpell("Mindbender",              ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Mindbender"),
                                    Spell.CastSpell("Mind Sear",               ret => Me.CurrentTarget != null && Unit.CountEnnemiesInRange(Me.CurrentTarget.Location, 12) >= 3 && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry), "Mind Sear"),
                                    Spell.CastSpell("Shadow Word: Death",      ret => Me.ManaPercent < 10, "Shadow Word: Death - Low Mana"),
@@ -144,9 +144,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                                )) 
                        );
             }
-        }
-
-        public bool CanMindFlay { get { return Buff.TargetHasBuff("Vampiric Touch") && Spell.SpellCooldown("Mind Blast").TotalSeconds > 4 && Buff.PlayerCountBuff("Shadow Orb") < 3; } }
+        }       
 
         public override Composite Medic
         {

@@ -5,13 +5,16 @@ using CLU.Settings;
 using CLU.Base;
 using Rest = CLU.Base.Rest;
 using CLU.Managers;
+using Styx.WoWInternals;
+
 
 namespace CLU.Classes.Warrior
 {
-    using Styx.WoWInternals;
 
     class Protection : RotationBase
     {
+
+        private const int ItemSetId = -466; // Tier set ID Colossal Dragonplate Armor
 
         public override string Name
         {
@@ -33,10 +36,23 @@ namespace CLU.Classes.Warrior
         {
             get
             {
-                return "----------------------------------------------------------------------\n" +
-                      "uses impending victory and shockwave talents" +
-                       "intimidating shout glyphed" +
-                      "----------------------------------------------------------------------\n";
+                var twopceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
+                var fourpceinfo = Item.Has2PcTeirBonus(ItemSetId) ? "2Pc Teir Bonus Detected" : "User does not have 2Pc Teir Bonus";
+                return
+                    @"
+----------------------------------------------------------------------
+Fury MoP:
+[*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+This Rotation will:
+1. Heal using Last Stand, Shield Block, Rallying Cry, Shield Barrier
+	==> Healthstone, Impending Victory
+2. AutomaticCooldowns has:
+    ==> UseTrinkets 
+    ==> UseRacials 
+    ==> UseEngineerGloves
+    ==> Avatar, Bloodbath, Death Wish
+NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
+----------------------------------------------------------------------" + twopceinfo + "\n" + fourpceinfo + "\n";
             }
         }
 
@@ -76,9 +92,7 @@ namespace CLU.Classes.Warrior
                              Spell.CastAreaSpell("Thunder Clap", 10, false, CLUSettings.Instance.Warrior.ProtAoECount, 0.0, 0.0, ret => !WoWSpell.FromId(6343).Cooldown, "Thunder Clap"),
                              Spell.CastSpell("Intimidating Shout", ret => TalentManager.HasGlyph("Intimidating Shout"), "Intimidating Shout") //only use if glyphed
                              )),
-                    //Spell.CastAreaSpell("Thunder Clap", 10, false, CLUSettings.Instance.Warrior.ProtAoECount, 0.0, 0.0, ret => !WoWSpell.FromId(6343).Cooldown, "Thunder Clap"), TODO: This - for some stupid reason is halting the rotation.
                     // START Main Rotation
-
                      Spell.CastSpell("Heroic Strike",       ret => Buff.PlayerHasActiveBuff("Ultimatum") || Me.RagePercent >= CLUSettings.Instance.Warrior.ProtHeroicStrikeRagePercent, "Heroic Strike"),
                      Spell.CastSpell("Shield Slam",         ret => true, "Shield Slam on CD"),
                      Spell.CastSpell("Revenge",             ret => true, "Revenge on CD"),
