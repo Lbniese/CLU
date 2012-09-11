@@ -25,7 +25,7 @@ namespace CLU.Settings
         #region Common
 
         [Setting]
-        [DefaultValue(MHPoisonType.Wound)]
+        [DefaultValue(MHPoisonType.Deadly)]
         [Category("Common")]
         [DisplayName("Main Hand Poison")]
         [Description("Main Hand Poison")]
@@ -36,7 +36,7 @@ namespace CLU.Settings
         }
 
         [Setting]
-        [DefaultValue(OHPoisonType.MindNumbing)]
+        [DefaultValue(OHPoisonType.Leeching)]
         [Category("Common")]
         [DisplayName("Off Hand Poison")]
         [Description("Off Hand Poison")]
@@ -57,9 +57,6 @@ namespace CLU.Settings
             get;
             set;
         }
-        
-
-
 
         //[Setting]
         //[DefaultValue(true)]
@@ -74,6 +71,17 @@ namespace CLU.Settings
         [DisplayName("Use Tricks Of The Trade")]
         [Description("Use Tricks Of The Trade")]
         public bool UseTricksOfTheTrade
+        {
+            get;
+            set;
+        }
+
+        [Setting]
+        [DefaultValue(true)]
+        [Category("Common")]
+        [DisplayName("Force use Tricks Of The Trade")]
+        [Description("Forces use Tricks Of The Trade in a questing or RaF environment")]
+        public bool UseTricksOfTheTradeForce
         {
             get;
             set;
@@ -98,7 +106,6 @@ namespace CLU.Settings
         //public bool UseExposeArmor { get; set; }
 
         #endregion
-
 
         #region Subtlety
 

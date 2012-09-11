@@ -79,7 +79,9 @@ namespace CLU.Classes.DeathKnight
                                    // Buff.CastBuff("Unholy Frenzy",                       ret => Me.CurrentRunicPower >= 60 && !Buffs.UnitHasHasteBuff(Me), "Unholy Frenzy"),
                                    Buff.CastBuff("Summon Gargoyle",                    ret => Me.CurrentRunicPower >= 60 && Buff.UnitHasHasteBuff(Me), "Gargoyle"),
                                    Spell.UseRacials(),
-                                   Spell.CastSelfSpell("Empower Rune Weapon", ret => CLUSettings.Instance.DeathKnight.UseEmpowerRuneWeapon && (Me.BloodRuneCount + Me.FrostRuneCount + Me.UnholyRuneCount + Me.DeathRuneCount == 0) && !Buff.UnitHasHasteBuff(Me), "Empower Rune Weapon"))),
+                                   Spell.CastSelfSpell("Empower Rune Weapon", ret => Me.CurrentTarget != null && CLUSettings.Instance.DeathKnight.UseEmpowerRuneWeapon && StyxWoW.Me.FrostRuneCount < 1 && StyxWoW.Me.UnholyRuneCount < 2 && StyxWoW.Me.DeathRuneCount < 1 && Common.RuneCalculus > 8 && !Buff.UnitHasHasteBuff(Me), "Empower Rune Weapon")
+                                )
+                           ),
                            // Interupts
                            Spell.CastInterupt("Mind Freeze",                  ret => true, "Mind Freeze"),
                            Spell.CastInterupt("Strangulate",                  ret => true, "Strangulate"),

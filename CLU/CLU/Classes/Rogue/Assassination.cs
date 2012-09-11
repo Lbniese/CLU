@@ -1,19 +1,15 @@
 ﻿using System.Linq;
-
 using CLU.Base;
 using CLU.Helpers;
 using CLU.Settings;
-
 using CommonBehaviors.Actions;
-
+using JetBrains.Annotations;
 using Styx.TreeSharp;
-
 using Rest = CLU.Base.Rest;
-
-//using Styx.Logic.Combat;
 
 namespace CLU.Classes.Rogue
 {
+    [UsedImplicitly]
     public class Assassination : RotationBase
     {
         #region Public Properties
@@ -52,25 +48,10 @@ namespace CLU.Classes.Rogue
                     (ret => Me.HealthPercent < 100 && CLUSettings.Instance.EnableSelfHealing,
                      new PrioritySelector
                          (Item.UseBagItem("Healthstone", ret => Me.HealthPercent < 40, "Healthstone"),
-                          Spell.CastSelfSpell
-                              ("Smoke Bomb",
-                               ret =>
-                               Me.CurrentTarget != null && Me.HealthPercent < 30 && Me.CurrentTarget.IsTargetingMeOrPet,
-                               "Smoke Bomb"),
-                          Spell.CastSelfSpell
-                              ("Combat Readiness",
-                               ret =>
-                               Me.CurrentTarget != null && Me.HealthPercent < 40 && Me.CurrentTarget.IsTargetingMeOrPet,
-                               "Combat Readiness"),
-                          Spell.CastSelfSpell
-                              ("Evasion",
-                               ret =>
-                               Me.HealthPercent < 35 &&
-                               Unit.EnemyUnits.Count(u => u.DistanceSqr < 6 * 6 && u.IsTargetingMeOrPet) >= 1, "Evasion"),
-                          Spell.CastSelfSpell
-                              ("Cloak of Shadows",
-                               ret => Unit.EnemyUnits.Count(u => u.IsTargetingMeOrPet && u.IsCasting) >= 1,
-                               "Cloak of Shadows"), Poisons.CreateApplyPoisons()));
+                          Spell.CastSelfSpell("Smoke Bomb",ret =>Me.CurrentTarget != null && Me.HealthPercent < 30 && Me.CurrentTarget.IsTargetingMeOrPet,"Smoke Bomb"),
+                          Spell.CastSelfSpell("Combat Readiness",ret =>Me.CurrentTarget != null && Me.HealthPercent < 40 && Me.CurrentTarget.IsTargetingMeOrPet,"Combat Readiness"),
+                          Spell.CastSelfSpell("Evasion",ret =>Me.HealthPercent < 35 &&Unit.EnemyUnits.Count(u => u.DistanceSqr < 6 * 6 && u.IsTargetingMeOrPet) >= 1, "Evasion"),
+                          Spell.CastSelfSpell("Cloak of Shadows",ret => Unit.EnemyUnits.Count(u => u.IsTargetingMeOrPet && u.IsCasting) >= 1,"Cloak of Shadows"), Poisons.CreateApplyPoisons()));
             }
         }
 
@@ -81,12 +62,12 @@ namespace CLU.Classes.Rogue
 
         public override Composite PVERotation
         {
-            get { return this.SingleRotation; }
+            get { return SingleRotation; }
         }
 
         public override Composite PVPRotation
         {
-            get { return this.SingleRotation; }
+            get { return SingleRotation; }
         }
 
         /// <summary>
@@ -102,11 +83,7 @@ namespace CLU.Classes.Rogue
                      !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") &&
                      !Me.HasAura("Drink"), new PrioritySelector
                                                ( // Stealth
-                                               Spell.CastSelfSpell
-                                                   ("Stealth",
-                                                    ret =>
-                                                    !Buff.PlayerHasBuff("Stealth") &&
-                                                    CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
+                                               Spell.CastSelfSpell("Stealth",ret =>!Buff.PlayerHasBuff("Stealth") && CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"), 
                                                Poisons.CreateApplyPoisons()));
             }
         }
@@ -130,7 +107,7 @@ namespace CLU.Classes.Rogue
                      Buff.CastBuff("Stealth", ret => CLUSettings.Instance.Rogue.EnableAlwaysStealth, "Stealth"),
                      Cooldowns,
                      Spell.CastSelfSpell("Feint",ret =>Me.CurrentTarget != null &&(/*Me.CurrentTarget.ThreatInfo.RawPercent > 80 ||*/ EncounterSpecific.IsMorchokStomp()), "Feint"),
-                     Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => CLUSettings.Instance.Rogue.UseTricksOfTheTrade && Unit.BestTricksTarget != null,"Tricks of the Trade"), 
+                     Spell.CastSpell("Tricks of the Trade", u => Unit.BestTricksTarget, ret => Unit.BestTricksTarget != null,"Tricks of the Trade"), 
                      Spell.CastInterupt("Kick", ret => Me.IsWithinMeleeRange, "Kick"),
                      Spell.CastSpell("Redirect", ret => Me.RawComboPoints > 0 && Me.ComboPoints < 1, "Redirect"), AoE,
                      Spell.CastSelfSpell("Slice and Dice", ret => !Buff.PlayerHasActiveBuff("Slice and Dice"), "Slice and Dice"), 
@@ -171,8 +148,9 @@ namespace CLU.Classes.Rogue
                     (ret =>
                      Me.CurrentTarget != null &&
                      ((Unit.IsTargetWorthy(Me.CurrentTarget) || Buff.TargetHasDebuff("Vendetta"))),//Switched to || instead of &&, we want to use trinkets on Cd and not every 2min
-                     new PrioritySelector
-                         (Item.UseTrinkets(), Spell.UseRacials(), Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),// Thanks Kink
+                     new PrioritySelector(
+                         Item.UseTrinkets(), Spell.UseRacials(), 
+                         Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),// Thanks Kink
                           Item.UseEngineerGloves()));
             }
         }
@@ -204,8 +182,8 @@ namespace CLU.Classes.Rogue
                      Buff.PlayerActiveBuffTimeLeft("Slice and Dice").TotalSeconds > 6 &&
                      Buff.TargetDebuffTimeLeft("Rupture").TotalSeconds <= 2,
                     // Do not rupture if SnD is about to come down.
-                     new PrioritySelector
-                         (Spell.CastSpell("Rupture", ret => !Buff.TargetHasDebuff("Rupture"), "Rupture @ Down"),// Rupture if it's down.
+                     new PrioritySelector(
+                         Spell.CastSpell("Rupture", ret => !Buff.TargetHasDebuff("Rupture"), "Rupture @ Down"),// Rupture if it's down.
                           Spell.CastSpell("Rupture", ret => Me.ComboPoints >= ReqCmbPts, "Rupture @ Low")));// Rupture if it's about to fall off and we have 4 or 5 combo points.
             }
         }

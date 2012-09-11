@@ -77,9 +77,9 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                    Item.UseEngineerGloves())),
                            
                            //Interrupts
-                           //Spell.CastInterupt("Mind Freeze", 		ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), //Why does nobody check for the range of melee kicks? // CurrentTarget Null check, we are accessing the objects property ;) --wulf
-                           //Spell.CastInterupt("Strangulate", 		ret => true, "Strangulate"),
-                           //Spell.CastInterupt("Asphyxiate", 		ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
+                           Spell.CastInterupt("Mind Freeze", 		ret => Me.CurrentTarget != null && Me.CurrentTarget.IsWithinMeleeRange, "Mind Freeze"), //Why does nobody check for the range of melee kicks? // CurrentTarget Null check, we are accessing the objects property ;) --wulf
+                           Spell.CastInterupt("Strangulate", 		ret => true, "Strangulate"),
+                           Spell.CastInterupt("Asphyxiate", 		ret => true, "Asphyxiate"),// Replaces Strangulate -- Darth Vader like ability
                            //Diseases
                            Common.ApplyDiseases(ret => Me.CurrentTarget),
                            //Cooldowns
@@ -87,7 +87,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                          new PrioritySelector(
                                              Buff.CastBuff("Raise Dead", 				ret => Me.CurrentTarget != null && Buff.PlayerHasBuff("Pillar of Frost") && Buff.PlayerBuffTimeLeft("Pillar of Frost") <= 10 && Buff.PlayerHasBuff("Unholy Strength"), "Raise Dead"),
                                              Buff.CastBuff("Pillar of Frost", 			ret => Me.CurrentTarget != null, "Pillar of Frost"),
-                                             Spell.CastSelfSpell("Empower Rune Weapon", ret => Me.CurrentTarget != null && CLUSettings.Instance.DeathKnight.UseEmpowerRuneWeapon && Common.RuneCalculus > 8 && !Buff.UnitHasHasteBuff(Me), "Empower Rune Weapon")
+                                             Spell.CastSelfSpell("Empower Rune Weapon", ret => Me.CurrentTarget != null && CLUSettings.Instance.DeathKnight.UseEmpowerRuneWeapon && StyxWoW.Me.FrostRuneCount < 1 && StyxWoW.Me.UnholyRuneCount < 2 && StyxWoW.Me.DeathRuneCount < 1 && Common.RuneCalculus > 8 && !Buff.UnitHasHasteBuff(Me), "Empower Rune Weapon")
                                          )
                                         ),
                            //Aoe

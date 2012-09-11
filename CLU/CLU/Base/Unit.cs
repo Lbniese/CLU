@@ -873,52 +873,56 @@
         /// </summary>
         public static WoWUnit BestTricksTarget
         {
-            get {
-                if (!CLUSettings.Instance.Rogue.UseTricksOfTheTrade) return null;
-
-                //if (!IsInParty)
-                if(!StyxWoW.Me.IsInParty && !StyxWoW.Me.IsInRaid)
-                    return null;
-
-                // If the player has a focus target set, use it instead.
-                if (StyxWoW.Me.FocusedUnitGuid != 0 && StyxWoW.Me.FocusedUnit.IsAlive && Math.Abs(StyxWoW.Me.FocusedUnit.Level - Me.Level) < 4)
-                    return StyxWoW.Me.FocusedUnit;
-                else
-                    return null;
-
-                if (StyxWoW.Me.IsInInstance)
+            get 
+            {
+                if (!StyxWoW.Me.IsInParty && !StyxWoW.Me.IsInRaid) return null;
+                if (!CLUSettings.Instance.Rogue.UseTricksOfTheTrade && !CLUSettings.Instance.Rogue.UseTricksOfTheTradeForce) return null;
+                if (!CLUSettings.Instance.Rogue.UseTricksOfTheTrade && BotChecker.BotBaseInUse("Questing") && BotChecker.BotBaseInUse("PartyBot")) return null;
+                if (StyxWoW.Me.IsInParty)
                 {
-                    if (RaFHelper.Leader != null && !RaFHelper.Leader.IsMe && RaFHelper.Leader.IsAlive) {
-                        // Leader first, always. Otherwise, pick a rogue/DK/War pref. Fall back to others just in case.
-                        return RaFHelper.Leader;
-                    }
 
-                    if (StyxWoW.Me.IsInParty)
+                    // If the player has a focus target set, use it instead.
+                    if (StyxWoW.Me.FocusedUnitGuid != 0 && StyxWoW.Me.FocusedUnit.IsAlive)
                     {
-                        var bestTank = Tanks.OrderBy(t => t.DistanceSqr).FirstOrDefault(t => t.IsAlive && Math.Abs(t.Level - Me.Level) < 4);
-
-                        if (bestTank != null)
-                            return bestTank;
+                        CLU.TroubleshootLog("StyxWoW.Me.FocusedUnit is {0} - {1}", StyxWoW.Me.FocusedUnit.Name, StyxWoW.Me.FocusedUnit.Class);
+                        return StyxWoW.Me.FocusedUnit;
                     }
 
-                    var bestPlayer = GetPlayerByClassPrio(
-                                         100f,
-                                         false,
-                                         WoWClass.Rogue,
-                                         WoWClass.DeathKnight,
-                                         WoWClass.Warrior,
-                                         WoWClass.Hunter,
-                                         WoWClass.Mage,
-                                         WoWClass.Warlock,
-                                         WoWClass.Shaman,
-                                         WoWClass.Druid,
-                                         WoWClass.Paladin,
-                                         WoWClass.Priest
-                                         //TODO: WoWClass.Monk
-                                     );
-                    return Math.Abs(bestPlayer.Level - Me.Level) < 4 ? bestPlayer : null;
-                }
+                    //// Leader first, always. Otherwise, pick a rogue/DK/War pref. Fall back to others just in case.
+                    //if (RaFHelper.Leader != null && !RaFHelper.Leader.IsMe && RaFHelper.Leader.IsAlive)
+                    //{
+                    //    CLU.TroubleshootLog("RaFHelper.Leader is {0} - {1}", RaFHelper.Leader.Name, RaFHelper.Leader.Class);
+                    //    return RaFHelper.Leader;
+                    //}
 
+                    //// Gets the Tank if RaF fails
+                    //var bestTank = Tanks.OrderBy(t => t.DistanceSqr).FirstOrDefault(t => t.IsAlive);
+                    //if (bestTank != null)
+                    //{
+                    //    CLU.TroubleshootLog("bestTank is {0} - {1}", bestTank.Name, bestTank.Class);
+                    //    return bestTank;
+                    //}
+
+                    //var bestPlayer = GetPlayerByClassPrio(100f, false,
+                    //                                      WoWClass.Rogue,
+                    //                                      WoWClass.DeathKnight,
+                    //                                      WoWClass.Warrior,
+                    //                                      WoWClass.Hunter,
+                    //                                      WoWClass.Mage,
+                    //                                      WoWClass.Warlock,
+                    //                                      WoWClass.Shaman,
+                    //                                      WoWClass.Druid,
+                    //                                      WoWClass.Paladin,
+                    //                                      WoWClass.Priest,
+                    //                                      WoWClass.Monk
+                    //    );
+                    //if (bestPlayer != null)
+                    //{
+                    //    CLU.TroubleshootLog("bestPlayer is {0} - {1}", bestPlayer.Name, bestPlayer.Class);
+                    //    return bestPlayer;
+                    //}
+                }
+                CLU.TroubleshootLog("returned null; IsInParty {0}; ForceTotT {1}", StyxWoW.Me.IsInParty, CLUSettings.Instance.Rogue.UseTricksOfTheTradeForce);
                 return null;
             }
         }

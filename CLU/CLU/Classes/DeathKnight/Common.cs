@@ -89,7 +89,7 @@ namespace CLU.Classes.DeathKnight
         /// Of course we are checking we have a rune to refresh!
         /// </summary>
         /// <returns>true if we have Blood Plague and Frost Fever up and Outbreak is about to come off cooldown.</returns>
-        public static bool CanPlagueLeech()
+        private static bool CanPlagueLeech()
         {
             try
             {
@@ -149,7 +149,7 @@ namespace CLU.Classes.DeathKnight
                     Spell.CastSpell("Outbreak"     , ret => Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 0.5 ||Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 0.5, "Outbreak"),
                     Buff.CastDebuff("Icy Touch",    ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 1, "Icy Touch for Frost Fever"),
                     Spell.CastSpell("Howling Blast", ret => TalentManager.CurrentSpec == WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Frost Fever").TotalSeconds < 1,"Howling Blast (Frost Fever)"),
-                    Spell.CastSpell("Plague Strike", ret => TalentManager.CurrentSpec != WoWSpec.DeathKnightFrost && Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 1, "Plague Strike"))
+                    Spell.CastSpell("Plague Strike", ret => Spell.SpellOnCooldown("Outbreak") && Buff.TargetDebuffTimeLeft("Blood Plague").TotalSeconds < 1, "Plague Strike"))
                     );
         }
     }
