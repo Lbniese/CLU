@@ -164,7 +164,14 @@ namespace CLU.Base
                 return RunStatus.Running;
             });
         }
-
+        public static int CurrentDemonicFury()
+        {
+            return Lua.GetReturnVal<int>("UnitPower(\"player\", SPELL_POWER_DEMONIC_FURY)", 0);
+        }
+        public static int CurrentBurningEmber()
+        {
+            return Lua.GetReturnVal<int>("UnitPower(\"player\", SPELL_POWER_BURNING_EMBERS, true)",0);
+        }
         /// <summary>
         /// The Primary spell cast method (Currently converts the spell to its spellID, then casts it)
         /// </summary>
