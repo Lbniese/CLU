@@ -35,7 +35,8 @@ namespace CLU.Classes.Hunter
         /// </summary>
         public static Composite HandleAspectSwitching()
         {
-            return new Decorator( ret => Me.IsMoving && CLUSettings.Instance.Hunter.HandleAspectSwitching,
+            return new PrioritySelector(
+                    new Decorator( ret => Me.IsMoving && CLUSettings.Instance.Hunter.HandleAspectSwitching,
                         new Sequence(
                             // Waiting for a bit just incase we are only moving outa the fire!
                             new WaitContinue(2, ret => false, new ActionAlwaysSucceed()), // Hmm..check this...-- wulf
@@ -44,7 +45,12 @@ namespace CLU.Classes.Hunter
                                 Buff.CastBuff("Aspect of the Hawk", ret => !Me.IsMoving, "[Aspect] of the Hawk"),
                                 Buff.CastBuff("Aspect of the Iron Hawk", ret => !Me.IsMoving, "[Aspect] of the Iron Hawk")
                                 )
-            ));
+                                )),
+                    new Decorator( ret => !Me.IsMoving && CLUSettings.Instance.Hunter.HandleAspectSwitching,
+                        new PrioritySelector(
+                                Buff.CastBuff("Aspect of the Hawk", ret => !Me.IsMoving, "[Aspect] of the Hawk"),
+                                Buff.CastBuff("Aspect of the Iron Hawk", ret => !Me.IsMoving, "[Aspect] of the Iron Hawk")
+                                )));
         }
 
         /// <summary>
