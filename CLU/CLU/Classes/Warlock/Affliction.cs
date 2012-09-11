@@ -79,7 +79,7 @@ namespace CLU.Classes.Warlock
                             //Call Pet
                             new PrioritySelector(
                               Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
-                              PetManager.CastPetSummonSpell(691, ret => !Me.IsMoving && !Me.GotAlivePet && !Me.HasMyAura(""), "Summon Observer")
+                              PetManager.CastPetSummonSpell(691, ret => !Me.IsMoving && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Summon Observer")
                              ),
                             
                             //Grimoire of Service
