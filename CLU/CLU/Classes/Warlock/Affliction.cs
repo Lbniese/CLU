@@ -78,8 +78,8 @@ namespace CLU.Classes.Warlock
                             Buff.CastBuff("Soulshatter", ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),                            
                             //Call Pet
                             new PrioritySelector(
-                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn") && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Soulburn"),
-                              PetManager.CastPetSummonSpell(691, ret => (!Me.IsMoving || Me.ActiveAuras.ContainsKey("Soulburn")) && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Summon Observer")
+                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn") && !Me.GotAlivePet && !Me.ActiveAuras.ContainsKey(WoWSpell.FromId(108503).Name), "Soulburn"),
+                              PetManager.CastPetSummonSpell(691, ret => (!Me.IsMoving || Me.ActiveAuras.ContainsKey("Soulburn")) && !Me.GotAlivePet && !Me.ActiveAuras.ContainsKey(WoWSpell.FromId(108503).Name), "Summon Pet")
                              ),
                             
                             //Grimoire of Service
