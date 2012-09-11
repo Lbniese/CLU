@@ -112,7 +112,41 @@
                                             new Decorator(a => StyxWoW.Me.IsCasting, new Action(ret => SpellManager.StopCasting())),
                                             new ActionAlwaysSucceed())))));
         }
+        /// <summary>Returns a summoned pet</summary>
+        /// <param name="nameID">the id of the spell</param>
+        /// <param name="cond">The conditions that must be true</param>
+        /// <param name="label">A descriptive label for the clients GUI logging output</param>
+        /// <returns>The cast pet summon spell.</returns>
+        public static Composite CastPetSummonSpell(int nameID, CanRunDecoratorDelegate cond, string label)
+        {
+            WoWSpell summonPet = WoWSpell.FromId(nameID);
+            var isWarlock = Me.Class == WoWClass.Warlock && SpellManager.Spells[summonPet.Name].Name.StartsWith("Summon ");
+            if (isWarlock)
+            {
+                Spell.KnownChanneledSpells.Add(summonPet.Name);
+            }
 
+            return new Decorator(
+                delegate(object a)
+                {
+                    if (!cond(a))
+                        return false;
+
+                    if (!SpellManager.CanCast(summonPet))
+                        return false;
+
+                    return true;
+                },
+            new Decorator(ret => !Me.GotAlivePet && PetTimer.IsFinished,
+                           new Sequence(
+                               new Action(a => CLU.Log(" {0}", label)),
+                               new Action(a => SpellManager.Cast(summonPet)),
+                               Spell.CreateWaitForLagDuration(),
+                               new Wait(5, a => Me.GotAlivePet || !Me.IsCasting,
+                                        new PrioritySelector(
+                                            new Decorator(a => StyxWoW.Me.IsCasting, new Action(ret => SpellManager.StopCasting())),
+                                            new ActionAlwaysSucceed())))));
+        }
 
         /// <summary>
         ///   Calls a pet by name, if applicable.

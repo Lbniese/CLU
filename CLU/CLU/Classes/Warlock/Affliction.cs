@@ -75,10 +75,18 @@ namespace CLU.Classes.Warlock
                             //Buffs
                             Buff.CastBuff("Dark Intent", ret => !Me.ActiveAuras.ContainsKey("Dark Intent"), "Dark Intent"),
                             // Threat
-                            Buff.CastBuff("Soulshatter", ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),
+                            Buff.CastBuff("Soulshatter", ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),                            
                             //Call Pet
-                            //PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Felhunter"),
+                            new PrioritySelector(
+                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
+                              PetManager.CastPetSummonSpell(691, ret => !Me.IsMoving && !Me.GotAlivePet && !Me.HasMyAura(""), "Summon Observer")
+                             ),
+                            
+                            //Grimoire of Service
+                            new Decorator(ret => TalentManager.HasTalent(11), Spell.CastSpellByID(108501, ret => Me.GotAlivePet, "Grimoire of Service")),
                             //Sacrifice Pet
+                            new Decorator(ret => TalentManager.HasTalent(12), Spell.CastSelfSpellByID(108503, ret => Me.GotAlivePet, "Grimoire of Sacrifice")),
+
                     //Cooldowns
                     new Decorator(ret=> CLUSettings.Instance.UseCooldowns,
                         new PrioritySelector(
@@ -89,8 +97,6 @@ namespace CLU.Classes.Warlock
                                     new Action(a => CLU.Log(" [Casting] Summon Terrorguard ")),
                                     new Action(ret => Spell.CastfuckingSpell("Summon Terrorguard")
                                    )))
-                            //Spell.CastSelfSpell("Summon Terrorguard", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard")
-                            //Spell.CastSelfSpellByID(18540, ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard")
                             )),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
                             Spell.CastSelfSpell("Twilight Warden", ret => Me.CurrentTarget != null && Me.CurrentTarget.IsCasting && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 80, "Twilight Warden (Protect me from magical damage)"),
@@ -131,9 +137,8 @@ namespace CLU.Classes.Warlock
                            new Decorator(
                                ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
-                                   Buff.CastBuff("Dark Intent", ret => !Me.ActiveAuras.ContainsKey("Dark Intent"), "Dark Intent"),
-                                   Spell.CastSelfSpellByID(691, ret => !Me.IsMoving && !Me.GotAlivePet, "Summon Observer"),
-                                   Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link")
+                                   Buff.CastBuff("Dark Intent", ret => true, "Dark Intent"),
+                                   PetManager.CastPetSummonSpell(691, ret => !Me.IsMoving && !Me.GotAlivePet, "Summon Observer")
                                   )));
             }
         }
