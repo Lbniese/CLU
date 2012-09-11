@@ -37,9 +37,17 @@ namespace CLU.GUI
 
         private void update()
         {
-                var spellname = spellname_txt.Text;
-                var spellId = spellid_input.Value;
+            var spellId = spellid_input.Value;
+            var spellname = spellname_txt.Text;
 
+            WoWSpell spell;
+            SpellManager.Spells.TryGetValue(spellname, out spell);
+            // Fishing for KeyNotFoundException's yay!
+            if (spell != null)
+            {
+                spellId = spell.Id;
+            }
+                
                 WoWSpell test = WoWSpell.FromId((int)spellId);
                 
                 // populate values
