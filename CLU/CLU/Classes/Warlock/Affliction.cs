@@ -77,16 +77,18 @@ namespace CLU.Classes.Warlock
                     //PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Felhunter"),
                     //Sacrifice Pet
                     //Cooldowns
-                            Spell.CastSelfSpell("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
+                    new Decorator(ret=> CLUSettings.Instance.UseCooldowns,
+                        new PrioritySelector(
+                            Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
+                            Spell.CastSelfSpellByID(18540, ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard"))),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
                             Spell.CastSelfSpell("Twilight Warden", ret => Me.CurrentTarget != null && Me.CurrentTarget.IsCasting && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 80, "Twilight Warden (Protect me from magical damage)"),
-                            Spell.CastSelfSpell("Summon Terrorgard", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard"),
-                    //Basic DPSing
+                            //Basic DPSing
                             Buff.CastDebuff("Curse of the Elements", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.CurrentTarget.HealthPercent > 70 && !Buff.UnitHasMagicVulnerabilityDeBuffs(Me.CurrentTarget), "Curse of the Elements"),
                     //fast application of debuffs
                             new Decorator(ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.CurrentTarget.HasAnyAura("Agony", "Corruption", "Unstable Affliction"),
-                                new Sequence(
-                                    Spell.CastSelfSpell("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
+                                new PrioritySelector(
+                                    Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
                                     Spell.CastSpell("Soul Swap", ret => Me.ActiveAuras.ContainsKey("Soulburn"), "Soul Swap")
                                     )),
                     //Slow Application
@@ -94,7 +96,7 @@ namespace CLU.Classes.Warlock
                             Buff.CastDebuff("Corruption", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Corruption"), "Corruption"), //Should never met in regular situations
                             Buff.CastDebuff("Unstable Affliction", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Unstable Affliction"), "Unstable Affliction"),
                             //Basic DPSing
-                            Spell.CastSpell("Haunt", ret => Me.CurrentTarget != null && (Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Haunt") || Me.CurrentTarget.ActiveAuras["Haunt"].TimeLeft.TotalMilliseconds < 1250), "Haunt"),
+                            Buff.CastDebuff("Haunt", ret => Me.CurrentTarget != null && !Me.CurrentTarget.HasMyAura("Haunt"), "Haunt"),
                             Spell.CastSelfSpell("Life Tap", ret => Me.ManaPercent < 20 && Me.HealthPercent > 40, "Life Tap"),
                             Spell.CastSpell("Fel Flame", ret => Me.IsMoving, "Fel flame while moving"),
                             Spell.CastSpell("Malefic Grasp", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent >= 20 || Me.CurrentSoulShards > 0) && !Me.IsMoving, "Malefic Grasp"),
@@ -119,7 +121,7 @@ namespace CLU.Classes.Warlock
                                ret => !Me.Mounted && !Me.IsDead && !Me.Combat && !Me.IsFlying && !Me.IsOnTransport && !Me.HasAura("Food") && !Me.HasAura("Drink"),
                                new PrioritySelector(
                                    Buff.CastBuff("Dark Intent", ret => !Me.ActiveAuras.ContainsKey("Dark Intent"), "Dark Intent"),
-                                   PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.IsMoving && !Me.GotAlivePet, "Summoning Pet Felhunter"),
+                                   Spell.CastSelfSpellByID(691, ret => !Me.IsMoving && !Me.GotAlivePet, "Summon Observer"),
                                    Buff.CastBuff("Soul Link", ret => Pet != null && Pet.IsAlive, "Soul Link")
                                   )));
             }
