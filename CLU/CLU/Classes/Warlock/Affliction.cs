@@ -9,6 +9,9 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Warlock
 {
+    using System.Linq;
+
+    using Styx.WoWInternals;
 
     class Affliction : RotationBase
     {
@@ -57,11 +60,11 @@ namespace CLU.Classes.Warlock
         {
             get {
                 return new PrioritySelector(
-                    // Pause Rotation
+                            // Pause Rotation
                            new Decorator(ret => CLUSettings.Instance.PauseRotation, new ActionAlwaysSucceed()),
-                    // For DS Encounters.
+                            // For DS Encounters.
                            EncounterSpecific.ExtraActionButton(),
-                    // START Interupts & Spell casts
+                            // START Interupts & Spell casts
                            new Decorator(
                                ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
                                new PrioritySelector(
@@ -69,17 +72,24 @@ namespace CLU.Classes.Warlock
                                    Spell.UseRacials(),
                                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"), // Thanks Kink
                                    Item.UseEngineerGloves())),
-                    //Buffs
+                            //Buffs
                             Buff.CastBuff("Dark Intent", ret => !Me.ActiveAuras.ContainsKey("Dark Intent"), "Dark Intent"),
-                    // Threat
+                            // Threat
                             Buff.CastBuff("Soulshatter", ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),
-                    //Call Pet
-                    //PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Felhunter"),
-                    //Sacrifice Pet
+                            //Call Pet
+                            //PetManager.CastPetSummonSpell("Summon Felhunter", ret => !Me.GotAlivePet && (Buff.PlayerHasBuff("Demonic Rebirth") || Buff.PlayerHasBuff("Soulburn")), "Summoning Pet Felhunter"),
+                            //Sacrifice Pet
                     //Cooldowns
                     new Decorator(ret=> CLUSettings.Instance.UseCooldowns,
                         new PrioritySelector(
-                            Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery")
+                            Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
+                            // TODO: Remove this when Apoc fixs Spellmanager. -- wulf 
+                            new Decorator(ret => !WoWSpell.FromId(112927).Cooldown && Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
+                               new Sequence(
+                                    new Action(a => CLU.Log(" [Casting] Summon Terrorguard ")),
+                                    new Action(ret => Spell.CastfuckingSpell("Summon Terrorguard")
+                                   )))
+                            //Spell.CastSelfSpell("Summon Terrorguard", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard")
                             //Spell.CastSelfSpellByID(18540, ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Summon Terrorguard")
                             )),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
@@ -87,21 +97,21 @@ namespace CLU.Classes.Warlock
                             //Basic DPSing
                             Buff.CastDebuff("Curse of the Elements", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.CurrentTarget.HealthPercent > 70 && !Buff.UnitHasMagicVulnerabilityDeBuffs(Me.CurrentTarget), "Curse of the Elements"),
                     //fast application of debuffs
-                            new Decorator(ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.CurrentTarget.HasAnyAura("Agony", "Corruption", "Unstable Affliction"),
-                                new PrioritySelector(
-                                    Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
-                                    Spell.CastSpell("Soul Swap", ret => Me.ActiveAuras.ContainsKey("Soulburn"), "Soul Swap")
-                                    )),
+                    new Decorator(ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.CurrentTarget.HasAnyAura("Agony", "Corruption", "Unstable Affliction"),
+                          new PrioritySelector(
+                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
+                              Spell.CastSpell("Soul Swap", ret => Me.ActiveAuras.ContainsKey("Soulburn"), "Soul Swap")
+                             )),
                     //Slow Application
-                            Buff.CastDebuff("Agony", ret => true, "Agony"), //Should never met in regular situations
-                            Buff.CastDebuff("Corruption", ret => true, "Corruption"), //Should never met in regular situations
-                            Buff.CastDebuff("Unstable Affliction", ret => true, "Unstable Affliction"),
-                            //Basic DPSing
-                            Buff.CastDebuff("Haunt", ret => true, "Haunt"),
-                            Spell.CastSelfSpell("Life Tap", ret => Me.ManaPercent < 20 && Me.HealthPercent > 40, "Life Tap"),
-                            Spell.CastSpell("Fel Flame", ret => Me.IsMoving, "Fel flame while moving"),
-                            Spell.CastSpell("Malefic Grasp", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent >= 20 || Me.CurrentSoulShards > 0) && !Me.IsMoving, "Malefic Grasp"),
-                            Spell.CastSpell("Drain Soul", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent < 20 || Me.CurrentSoulShards == 0) && !Me.IsMoving, "Drain Soul"));
+                     Buff.CastDebuff("Agony", ret => true, "Agony"), //Should never met in regular situations
+                     Buff.CastDebuff("Corruption", ret => true, "Corruption"), //Should never met in regular situations
+                     Buff.CastDebuff("Unstable Affliction", ret => true, "Unstable Affliction"),
+                    //Basic DPSing
+                    Buff.CastDebuff("Haunt", ret => true, "Haunt"),
+                    Spell.CastSelfSpell("Life Tap", ret => Me.ManaPercent < 20 && Me.HealthPercent > 40, "Life Tap"),
+                    Spell.CastSpell("Fel Flame", ret => Me.IsMoving, "Fel flame while moving"),
+                    Spell.CastSpell("Malefic Grasp", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent >= 20 || Me.CurrentSoulShards > 0) && !Me.IsMoving, "Malefic Grasp"),
+                    Spell.CastSpell("Drain Soul", ret => Me.CurrentTarget != null && (Me.CurrentTarget.HealthPercent < 20 || Me.CurrentSoulShards == 0) && !Me.IsMoving, "Drain Soul"));
             }
         }
 
