@@ -83,7 +83,7 @@ namespace CLU.Classes.Warlock
                              ),
                             
                             //Grimoire of Service
-                            new Decorator(ret => TalentManager.HasTalent(14), Spell.CastSpellByID(108501, ret => Me.GotAlivePet, "Grimoire of Service")),
+                            Spell.CastSpellByID(111897, ret => Me.GotAlivePet && WoWSpell.FromId(111897).Cooldown && TalentManager.HasTalent(14), "Grimoire of Service"),
                             //Sacrifice Pet
                             new Decorator(ret => TalentManager.HasTalent(15), Spell.CastSelfSpellByID(108503, ret => Me.GotAlivePet, "Grimoire of Sacrifice")),
 
@@ -109,8 +109,10 @@ namespace CLU.Classes.Warlock
                             Buff.CastDebuff("Curse of the Elements", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.CurrentTarget.HealthPercent > 70 && !Buff.UnitHasMagicVulnerabilityDeBuffs(Me.CurrentTarget), "Curse of the Elements"),
                     //fast application of debuffs
                     new Decorator(ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.CurrentTarget.HasAnyAura("Agony", "Corruption", "Unstable Affliction"),
-                          new PrioritySelector(
+                          new Sequence(
                               Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
+                              new WaitContinue(new System.TimeSpan(0,0,0,0,50), ret => false, new ActionAlwaysSucceed()),
+                              Spell.CreateWaitForLagDuration(),
                               Spell.CastSpell("Soul Swap", ret => Me.ActiveAuras.ContainsKey("Soulburn"), "Soul Swap")
                              )),
                     //Slow Application

@@ -100,7 +100,7 @@ namespace CLU.Managers
                     {
                         case 1:
                             {
-                                var t = new Talent { Index = index }; //Name = talentName
+                                var t = new Talent { Index = index, Count=1 }; //Name = talentName
                                 Talents.Add(t);
                             }
                             break;
@@ -128,8 +128,6 @@ namespace CLU.Managers
                                 break;
                         }
                     }
-                   
-
                     if (talent.Name != null)
                     {
                         CLU.TroubleshootLog("TalentManager - talent {0} == Name", talent.Index);
