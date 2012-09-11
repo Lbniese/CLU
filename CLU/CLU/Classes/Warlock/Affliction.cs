@@ -78,8 +78,8 @@ namespace CLU.Classes.Warlock
                             Buff.CastBuff("Soulshatter", ret => Me.CurrentTarget != null && Me.GotTarget && Me.CurrentTarget.ThreatInfo.RawPercent > 90 && !Spell.PlayerIsChanneling, "Soulshatter"),                            
                             //Call Pet
                             new PrioritySelector(
-                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn"), "Soulburn"),
-                              PetManager.CastPetSummonSpell(691, ret => !Me.IsMoving && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Summon Observer")
+                              Buff.CastBuff("Soulburn", ret => !Me.ActiveAuras.ContainsKey("Soulburn") && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Soulburn"),
+                              PetManager.CastPetSummonSpell(691, ret => (!Me.IsMoving || Me.ActiveAuras.ContainsKey("Soulburn")) && !Me.GotAlivePet && !Me.HasMyAura("Grimoire of Sacrifice"), "Summon Observer")
                              ),
                             
                             //Grimoire of Service
@@ -93,11 +93,15 @@ namespace CLU.Classes.Warlock
                             Buff.CastBuff("Dark Soul: Misery", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && !Me.IsMoving, "Dark Soul: Misery"),
                             //// TODO: Remove this when Apoc fixs Spellmanager. -- wulf 
                             new Decorator(ret => !WoWSpell.FromId(112927).Cooldown && Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget),
-                               new Sequence(
-                                    new Action(a => CLU.Log(" [Casting] Summon Terrorguard ")),
-                                    new Action(ret => Spell.CastfuckingSpell("Summon Terrorguard")
-                                   )))
-                            
+                                new PrioritySelector(
+                                    new Decorator(ret=>TalentManager.HasTalent(13),
+                                        new Sequence(
+                                            new Action(a => CLU.Log(" [Casting] Summon Terrorguard ")),
+                                            new Action(ret => Spell.CastfuckingSpell("Summon Terrorguard")))),
+                                    new Decorator(ret=>!TalentManager.HasTalent(13),
+                                        new Sequence(
+                                            new Action(a => CLU.Log(" [Casting] Summon Doomguard ")),
+                                            new Action(ret => Spell.CastfuckingSpell("Summon Doomguard"))))))
                             )),
                             Spell.CastSelfSpell("Unending Resolve", ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 40, "Unending Resolve (Save my life)"),
                             Spell.CastSelfSpell("Twilight Warden", ret => Me.CurrentTarget != null && Me.CurrentTarget.IsCasting && Unit.IsTargetWorthy(Me.CurrentTarget) && Me.HealthPercent < 80, "Twilight Warden (Protect me from magical damage)"),
