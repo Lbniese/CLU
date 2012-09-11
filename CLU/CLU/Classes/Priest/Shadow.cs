@@ -49,12 +49,13 @@ namespace CLU.Classes.Priest
                     @"
 ----------------------------------------------------------------------
 Shadow MoP:
-[*] Default Rotation is ""Leveling"" and is recommended until ""Default and MindSpike"" are updated.
+[*] Default Rotation is MoP Compliant: Leveling Rotaion is for just that..fast kills.
 [*] AutomaticCooldowns now works with Boss's or Mob's (See: General Settings)
+[*] Talents should be: From Darkness Comes Light, Divine Insight
 This Rotation will:
 1. Fade on threat, Shadowform during combat, Dispersion, Power Word: Shield,
 	==> Healthstone, Flash Heal if movement enabled.
-2. Buffs: Power Word: Fortitude, Shadow Protection, Inner Fire, Vampiric Embrace
+2. Buffs: Power Word: Fortitude, Shadow Protection, Inner Fire
 3. AutomaticCooldowns has:
     ==> UseTrinkets 
     ==> UseRacials 
