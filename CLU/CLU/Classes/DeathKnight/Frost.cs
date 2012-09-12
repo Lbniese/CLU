@@ -109,7 +109,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                     Spell.CastSpell("Obliterate", ret => Me.CurrentTarget, ret => Me.CurrentRunicPower < 85, "Obliterate (Utilize Runes)"),
                                     Spell.CastSpell("Frost Strike", ret => Me.CurrentTarget, ret => Me.RunicPowerPercent >= 90, "Frost Strike (Dumping Runic Power)"),
                                     Spell.CastSpell("Frost Strike", ret => Me.CurrentTarget, ret => true, "Frost Strike (Because we can)"),
-                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Charge") <= 12 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"), //Don't waste it on Unholy Runes
+                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret =>  Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap (Refreshed a depleted Rune)"), //Don't waste it on Unholy Runes
                                     Buff.CastBuff("Horn of Winter", ret => true, "Horn of Winter (Because we can)")
                                    )
                                ),
@@ -120,11 +120,11 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                     Spell.CastSpell("Howling Blast", ret => Buff.PlayerHasBuff("Freezing Fog"), "Howling Blast (Rime)"),
                                     Spell.CastSpell("Frost Strike", ret => Me.CurrentTarget, ret => Buff.PlayerHasBuff("Killing Machine"), "Frost Strike (Dual Wield Killing Machine)"),
                                     Spell.CastSpell("Frost Strike", ret => Me.CurrentTarget, ret => Me.RunicPowerPercent > 84, "Frost Strike (Dumping Runic Power)"),
-                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Charge") > 10 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"), //Don't waste it on Unholy Runes
+                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret =>  Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap (Refreshed a depleted Rune)"), //Don't waste it on Unholy Runes
                                     Spell.CastSpell("Obliterate", ret => (Me.FrostRuneCount == 2 && Me.UnholyRuneCount == 2) || Me.DeathRuneCount == 2, "Obliterate (Utilizing Killing Machine)"),
                                     Spell.CastSpell("Obliterate", ret => Buff.PlayerHasBuff("Killing Machine") && Me.CurrentRunicPower <= 10, "Obliterate (Utilizing Killing Machine)"),
                                     Spell.CastSpell("Howling Blast", ret => true, "Howling Blast (Because we can)"),
-                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret => Buff.PlayerCountBuff("Blood Charge") < 12 && (Spell.RuneCooldown(1) > 1 && Spell.RuneCooldown(2) > 1 && Spell.RuneCooldown(5) > 1 && Spell.RuneCooldown(6) > 1 && (Spell.RuneCooldown(3) > 1 && Spell.RuneCooldown(4) == 0 || Spell.RuneCooldown(3) == 0 && Spell.RuneCooldown(4) > 1)), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes
+                                    Spell.CastSpell("Blood Tap", ret => Me.CurrentTarget, ret =>  Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap (Refreshed a depleted Rune)"),  //Don't waste it on Unholy Runes
                                     Spell.CastSpell("Frost Strike", ret => true, "Frost Strike (Because we can)"),
                                     Buff.CastBuff("Horn of Winter", ret => true, "Horn of Winter (Because we can)")
                                    )
@@ -188,7 +188,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                 Spell.CastSpell("Obliterate", ret => !Macro.rotationSwap && Buff.PlayerHasBuff("Killing Machine") && StyxWoW.Me.FrostRuneCount >= 1 && StyxWoW.Me.UnholyRuneCount >= 1,
                                     "Obliterate"),
                                 //blood_tap,if=talent.blood_tap.enabled
-                                Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") && Buff.PlayerCountBuff("Blood Charge") >= 5, "Blood Tap"),
+                                Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") &&  Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap"),
                                 //frost_strike
                                 Spell.CastSpell("Frost Strike", ret => true, "Frost Strike"),
                                 //horn_of_winter
@@ -228,7 +228,7 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
                                 //plague_strike
                                 Spell.CastSpell("Plague Strike", ret => true, "Plague Strike"),
                                 //blood_tap,if=talent.blood_tap.enabled
-                                Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") && Buff.PlayerCountBuff("Blood Charge") >= 5, "Blood Tap"),
+                                Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") &&  Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap"),
                                 //horn_of_winter
                                 Buff.CastBuff("Horn of Winter", ret => true, "Horn of Winter"),
                                 //empower_rune_weapon

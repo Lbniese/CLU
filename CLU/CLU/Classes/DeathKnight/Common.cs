@@ -36,6 +36,35 @@ namespace CLU.Classes.DeathKnight
             }
         }
 
+
+        // Credit to Singular
+        internal static int BloodRuneSlotsActive
+        {
+            get { return StyxWoW.Me.GetRuneCount(0) + StyxWoW.Me.GetRuneCount(1); }
+        }
+
+        // Credit to Singular
+        internal static int FrostRuneSlotsActive
+        {
+            get { return StyxWoW.Me.GetRuneCount(2) + StyxWoW.Me.GetRuneCount(3); }
+        }
+        
+        // Credit to Singular
+        internal static int UnholyRuneSlotsActive
+        {
+            get { return StyxWoW.Me.GetRuneCount(4) + StyxWoW.Me.GetRuneCount(5); }
+        }
+
+        // Credit to Singular
+        internal static int ActiveRuneCount
+        {
+            get
+            {
+                return StyxWoW.Me.BloodRuneCount + StyxWoW.Me.FrostRuneCount + StyxWoW.Me.UnholyRuneCount +
+                       StyxWoW.Me.DeathRuneCount;
+            }
+        }
+
         /// <summary>
         /// Checks if the player is weilding a TwoHanded Weapon
         /// </summary>

@@ -86,8 +86,7 @@ namespace CLU.Classes.DeathKnight
                            Spell.CastInterupt("Mind Freeze",                  ret => true, "Mind Freeze"),
                            Spell.CastInterupt("Strangulate",                  ret => true, "Strangulate"),
                            Buff.CastBuff("Anti-Magic Shell", ret => Me.CurrentTarget != null && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.DeathKnight.UseAntiMagicShell && (Me.CurrentTarget.IsCasting || Me.CurrentTarget.ChanneledCastingSpellId != 0), "AMS"), // TODO: Put this back in when its fixed. && Me.CurrentTarget.IsTargetingMeOrPet
-                           Spell.CastSelfSpell("Blood Tap",                   ret => PetManager.PetCountBuff("Shadow Infusion") == 5 && (Me.BloodRuneCount + Me.UnholyRuneCount + Me.DeathRuneCount == 0), "Blood Tap for Dark Transformation"),
-                           Spell.CastSelfSpell("Blood Tap",                   ret => Me.FrostRuneCount == 1 && (Me.UnholyRuneCount == 0 || Me.BloodRuneCount == 0), "Blood Tap"),
+                           Spell.CastSpell("Blood Tap", ret => Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap (Refreshed a depleted Rune)"),
                            // Start Disease ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                            Common.ApplyDiseases(ret => Me.CurrentTarget),
                            // End Disease --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,7 +168,7 @@ namespace CLU.Classes.DeathKnight
                         //death_coil,if=buff.sudden_doom.react
                         Spell.CastSpell("Death Coil", ret => Buff.PlayerHasBuff("Sudden Doom"), "Death Coil"),
                         //blood_tap,if=talent.blood_tap.enabled
-                        Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") && Buff.PlayerCountBuff("Blood Charge") >= 5, "Blood Tap"),
+                        Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") && Buff.PlayerCountBuff("Blood Charge") >= 5 && (Common.FrostRuneSlotsActive == 0 || Common.UnholyRuneSlotsActive == 0 || Common.BloodRuneSlotsActive == 0), "Blood Tap"),
                         //necrotic_strike,if=base_rotation.disabled
                         Spell.CastSpell("Necrotic Strike", ret => !Macro.rotationSwap, "Necrotic Strike"),
                         //scourge_strike
