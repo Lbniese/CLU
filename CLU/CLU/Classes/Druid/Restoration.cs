@@ -83,7 +83,7 @@ namespace CLU.Classes.Druid
 
                            // emergency heals on me
                            Spell.CastSelfSpell("Barkskin", a => !Buff.PlayerHasActiveBuff("Barkskin") && Me.HealthPercent < 40, "Barkskin on me, emergency"),
-                           Spell.HealMe("Regrowth", a => Me.HealthPercent < 40, "Regrowth on me, emergency"),
+                           Spell.CastSpell("Regrowth", ret => Me, a => Me.HealthPercent < 40, "Regrowth on me, emergency"),
 
                            // Remove Corruption (Urgent)
                            Healer.FindRaidMember(a => CLUSettings.Instance.EnableDispel, x => x.ToUnit().InLineOfSight && !x.ToUnit().IsDead && x.ToUnit().HasAuraToDispel(true), (a, b) => (int)(a.CurrentHealth - b.CurrentHealth), "Remove Corruption (Urgent)",
@@ -109,7 +109,7 @@ namespace CLU.Classes.Druid
                                             ),
 
                            // Mana
-                           Spell.HealMe("Innervate", ret => Me.ManaPercent <= 80 && StyxWoW.Me.Combat, "Innervate Me!"),
+                           Spell.CastSpell("Innervate", ret => Me, ret => Me.ManaPercent <= 80 && StyxWoW.Me.Combat, "Innervate Me!"),
 
 
                            // Cooldowns

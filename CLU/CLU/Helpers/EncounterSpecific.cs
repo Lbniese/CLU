@@ -15,6 +15,38 @@ namespace CLU.Helpers
     {
         /* putting all the EncounterSpecific logic here */
 
+        //TODO: This all needs removed or fixed its throwing a bunch of errors and filling the logs
+
+        /*
+         * 
+         * 
+        [06:36:21.851 D] System.NullReferenceException: Object reference not set to an instance of an object.
+   at CLU.Helpers.EncounterSpecific.<IsHourofTwilight>b__2(WoWUnit u)
+   at System.Linq.Enumerable.Any[TSource](IEnumerable`1 source, Func`2 predicate)
+   at CLU.Helpers.EncounterSpecific.IsHourofTwilight()
+   at CLU.Helpers.EncounterSpecific.<ExtraActionButton>b__9(Object x)
+   at Styx.TreeSharp.Decorator.CanRun(Object context)
+   at Styx.TreeSharp.Decorator..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.PrioritySelector..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.DecoratorContinue..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.Sequence..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.Decorator..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.PrioritySelector..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Weischbier.LookIntoMe.Bots.Tyrael.Tyrael.LockSelector.Tick(Object context)
+   at Styx.TreeSharp.Decorator..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.TreeSharp.PrioritySelector..()
+   at Styx.TreeSharp.Composite.Tick(Object context)
+   at Styx.CommonBot.TreeRoot.()
+         * 
+         * */
+
         private static readonly EncounterSpecific EncounterSpecificInstance = new EncounterSpecific();
 
         /// <summary>

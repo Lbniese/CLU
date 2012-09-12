@@ -91,7 +91,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Shield of the Righteous",     ret => (Me.CurrentHolyPower >= 3 && Buff.PlayerHasBuff("Sacred Duty")) || Buff.PlayerHasBuff("Divine Purpose"), "Shield of the Righteous Proc"),
                            Spell.CastSpell("Shield of the Righteous",     ret => Me.HealthPercent < CLUSettings.Instance.Paladin.ShoRPercent || (Me.CurrentHolyPower == 5), "Shield of the Righteous"),
                            // TODO: Shield of the Righteous damage reduction buff is all and well but we need to prioritise if we are getting hit with a shit load of magic damage, in this instance we can forsake ShoR and simply poor our holy power into Word of Glory.
-                           Spell.HealMe("Word of Glory",                  ret => Me.HealthPercent < CLUSettings.Instance.Paladin.WordofGloryPercent && (Me.CurrentHolyPower > 1 || Buff.PlayerHasBuff("Divine Purpose")), "Word of Glory"),
+                           Spell.CastSpell("Word of Glory",               ret=> Me,   ret => Me.HealthPercent < CLUSettings.Instance.Paladin.WordofGloryPercent && (Me.CurrentHolyPower > 1 || Buff.PlayerHasBuff("Divine Purpose")), "Word of Glory"),
                             // AOE
                            Spell.CastAreaSpell("Hammer of the Righteous", 8, false, CLUSettings.Instance.Paladin.ProtectionHoRCount, 0.0, 0.0, ret => true, "Hammer of the Righteous"),
                            Spell.CastSpell("Holy Prism", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.HolyPrismPercent && Me.CurrentTarget != null && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.HolyPrismCount, "Holy Prism"),
@@ -149,7 +149,7 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
             get {
                 return
                     new PrioritySelector(
-                        Spell.HealMe("Flash Heal", ret => Me.HealthPercent < CLUSettings.Instance.Paladin.FlashHealRestingPercent && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.EnableMovement, "flash heal on me"),
+                        Spell.CastSpell("Flash Heal", ret => Me, ret => Me.HealthPercent < CLUSettings.Instance.Paladin.FlashHealRestingPercent && CLUSettings.Instance.EnableSelfHealing && CLUSettings.Instance.EnableMovement, "flash heal on me"),
                         Rest.CreateDefaultRestBehaviour());
             }
         }

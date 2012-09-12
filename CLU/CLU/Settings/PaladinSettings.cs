@@ -146,7 +146,7 @@ namespace CLU.Settings
         }
 
         [Setting]
-        [DefaultValue(65)]
+        [DefaultValue(55)]
         [Category("Protection")]
         [DisplayName("Word of Glory Health")]
         [Description("Word of Glory will be used at this value")]

@@ -85,9 +85,9 @@ namespace CLU.Classes.Paladin
                     EncounterSpecific.ExtraActionButton(),
 
                     // emergency heals on me
-                    Spell.HealMe("Divine Protection", ret => Me.HealthPercent < 40 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Divine Protection"),
-                    Spell.HealMe("Divine Shield", ret => Me.HealthPercent < 40 && !Buff.PlayerHasBuff("Forbearance") && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Divine Shield"),
-                    Spell.HealMe("Flash Heal", ret => Me.HealthPercent < 40, "flash heal on me, emergency"),
+                    Spell.CastSpell("Divine Protection", ret => Me, ret => Me.HealthPercent < 40 && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Divine Protection"),
+                    Spell.CastSpell("Divine Shield", rest => Me, ret => Me.HealthPercent < 40 && !Buff.PlayerHasBuff("Forbearance") && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Divine Shield"),
+                    Spell.CastSpell("Flash Heal", ret => Me, ret => Me.HealthPercent < 40, "flash heal on me, emergency"),
 
                     // don't break PlayerIsChanneling
                     new Decorator(x => Spell.PlayerIsChanneling, new Action()),
@@ -201,7 +201,7 @@ namespace CLU.Classes.Paladin
                                          ),
 
                     // If no one to heal make sure we use the free Holy Shock with Daybreak for Holy power generation.
-                    Spell.HealMe("Holy Shock", a => Buff.PlayerHasActiveBuff("Daybreak") && Buff.PlayerActiveBuffTimeLeft("Daybreak").TotalSeconds < 2 && HolyPower < 3, "Holy Shock (Holy power generation)")
+                    Spell.CastSpell("Holy Shock", ret => Me, a => Buff.PlayerHasActiveBuff("Daybreak") && Buff.PlayerActiveBuffTimeLeft("Daybreak").TotalSeconds < 2 && HolyPower < 3, "Holy Shock (Holy power generation)")
 
                 );
             }

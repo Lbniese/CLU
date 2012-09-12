@@ -1312,22 +1312,6 @@ namespace CLU.Base
             }
         }
 
-        /// <summary>
-        /// Applys a heal to you.
-        /// </summary>
-        /// <param name="name">The name of the heal spell</param>
-        /// <param name="cond">the conditions that must be true</param>
-        /// <param name="label">a descriptive label for the client</param>
-        public static Composite HealMe(string name, CanRunDecoratorDelegate cond, string label)
-        {
-            return new Decorator(
-                       x => { return cond(x) && CanCast(name, Me); },
-                       new Sequence(
-                           new Action(a => Me.Target()),
-                           new Action(a => CLU.Log(" [Casting Self Heal] {0} ", label)),
-                           new Action(a => StyxWoW.SleepForLagDuration()),
-                           new Action(a => CastMySpell(name))));
-        }
 
         // public bool NeedToTranqShot
         // {

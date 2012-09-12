@@ -82,8 +82,8 @@ namespace CLU.Classes.Priest
                            Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && !Spell.PlayerIsChanneling && CLUSettings.Instance.UseCooldowns && Buff.PlayerCountBuff("Evangelism") > 3 && Buff.PlayerBuffTimeLeft("Evangelism") < (2 + CombatLogEvents.ClientLag), "Archangel...use it or lose it!"),
 
                            // emergency heals on me
-                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < CLUSettings.Instance.Priest.DesperatePrayerEHOM && TalentManager.HasTalent(4), "Desperate Prayer"),
-                           Spell.HealMe("Flash Heal", a => Me.HealthPercent < CLUSettings.Instance.Priest.FlashHealEHOM, "flash heal on me, emergency"),
+                           Spell.CastSpell("Desperate Prayer", ret => Me, a => Me.HealthPercent < CLUSettings.Instance.Priest.DesperatePrayerEHOM && TalentManager.HasTalent(4), "Desperate Prayer"),
+                           Spell.CastSpell("Flash Heal", ret => Me, a => Me.HealthPercent < CLUSettings.Instance.Priest.FlashHealEHOM, "flash heal on me, emergency"),
 
                            // Threat
                            Buff.CastBuff("Fade", ret => (CLUSettings.Instance.UseCooldowns || CLUSettings.Instance.Priest.UseFade) && Me.CurrentTarget != null && Me.CurrentTarget.ThreatInfo.RawPercent > 90, "Fade (Threat)"),
@@ -102,14 +102,14 @@ namespace CLU.Classes.Priest
 
                            // Cooldowns
                            Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && Buff.PlayerCountBuff("Evangelism") > CLUSettings.Instance.Priest.EvangelismStackCount && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Archangel"),
-                           //Spell.HealMe("Power Infusion", a => !Buff.UnitHasHasteBuff(Me) && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Power Infusion"),
+                    //Spell.CastSpell("Power Infusion", ret => Me, a => !Buff.UnitHasHasteBuff(Me) && CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, "Power Infusion"),
 
                            //// Cooldowns // currently slowing the CC down
                            //Healer.FindAreaHeal(a => CLUSettings.Instance.UseCooldowns && StyxWoW.Me.Combat, 10, 65, 40f, (Me.IsInRaid ? 6 : 3), "Cooldowns: Avg: 10-65, 40yrds, count: 6 or 3",
                            //                    Item.UseTrinkets(),
                            //                    Spell.UseRacials(),
                            //                    Spell.CastSelfSpell("Archangel", ret => IsAtonementSpec && Buff.PlayerCountBuff("Evangelism") > 4, "Archangel"),
-                           //                    Spell.HealMe("Power Infusion", a => !Buff.UnitHasHasteBuff(Me), "Power Infusion"),
+                    //                    Spell.CastSpell("Power Infusion", ret => Me, a => !Buff.UnitHasHasteBuff(Me), "Power Infusion"),
                            //                    Buff.CastBuff("Lifeblood", ret => true, "Lifeblood"),
                            //                    Item.UseEngineerGloves()
                            //),

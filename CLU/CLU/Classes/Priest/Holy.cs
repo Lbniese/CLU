@@ -84,8 +84,8 @@ namespace CLU.Classes.Priest
                            EncounterSpecific.ExtraActionButton(),
 
                            // emergency heals on me
-                           Spell.HealMe("Desperate Prayer", a => Me.HealthPercent < 40 && TalentManager.HasTalent(4) && !IsSpiritofRedemption, "Desperate Prayer"),
-                           Spell.HealMe("Flash Heal", a => Me.HealthPercent < 40 && !IsSpiritofRedemption, "flash heal on me, emergency"),
+                           Spell.CastSpell("Desperate Prayer", ret => Me, a => Me.HealthPercent < 40 && TalentManager.HasTalent(4) && !IsSpiritofRedemption, "Desperate Prayer"),
+                           Spell.CastSpell("Flash Heal", ret => Me, a => Me.HealthPercent < 40 && !IsSpiritofRedemption, "flash heal on me, emergency"),
 
 
                            // Threat
@@ -108,14 +108,14 @@ namespace CLU.Classes.Priest
                                ret => CLUSettings.Instance.Priest.ChakraStanceSelection == ChakraStance.Serenity && !Buff.PlayerHasBuff("Chakra: Serenity") && Spell.SpellCooldown("Chakra").TotalSeconds < 0.1 && !IsSpiritofRedemption && Spell.SpellCooldown("Flash Heal").TotalSeconds < 0.1,
                                new Sequence(
                                    Spell.CastSelfSpell("Chakra", a => true, "Chakra (Ensure Serenity)"),
-                                   Spell.HealMe("Flash Heal", a => true, "flash heal on me, activating Chakra: Serenity") // Singlet target healing
+                                   Spell.CastSpell("Flash Heal", ret => Me, a => true, "flash heal on me, activating Chakra: Serenity") // Singlet target healing
                                )),
 
                            new Decorator(
                                ret => CLUSettings.Instance.Priest.ChakraStanceSelection == ChakraStance.Sanctuary && !Buff.PlayerHasBuff("Chakra: Sanctuary") && Spell.SpellCooldown("Chakra").TotalSeconds < 0.1 && !IsSpiritofRedemption && Spell.SpellCooldown("Prayer of Healing").TotalSeconds < 0.1,
                                new Sequence(
                                    Spell.CastSelfSpell("Chakra", a => true, "Chakra for Sanctuary AoE target healing"),
-                                   Spell.HealMe("Prayer of Healing", a => true, "Prayer of Healing on me, activating Chakra: Sanctuary") // AoE target healing
+                                   Spell.CastSpell("Prayer of Healing", ret => Me, a => true, "Prayer of Healing on me, activating Chakra: Sanctuary") // AoE target healing
                                )),
 
 

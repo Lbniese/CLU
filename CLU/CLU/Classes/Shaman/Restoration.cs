@@ -83,8 +83,8 @@ namespace CLU.Classes.Shaman
 					//Spell.WaitForCast(true),
 
 					// emergency heals on me
-					Spell.HealMe("Riptide", a => !Buff.PlayerHasActiveBuff("Riptide") && Me.HealthPercent < 40, "Riptide on me, emergency"),
-					Spell.HealMe("Healing Surge", a => Me.HealthPercent < 40, "Healing Surge on me, emergency"),
+                    Spell.CastSpell("Riptide", ret => Me, a => !Buff.PlayerHasActiveBuff("Riptide") && Me.HealthPercent < 40, "Riptide on me, emergency"),
+                    Spell.CastSpell("Healing Surge", ret => Me, a => Me.HealthPercent < 40, "Healing Surge on me, emergency"),
 
 					Buff.CastBuff("Water Shield", ret => true, "Water Shield"),
 
