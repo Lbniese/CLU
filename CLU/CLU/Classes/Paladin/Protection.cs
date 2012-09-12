@@ -1,3 +1,9 @@
+//$Author$
+//$Date$
+//$Id$
+//$HeadURL$
+//$Revision$
+
 using System.Linq;
 using Styx.TreeSharp;
 using CommonBehaviors.Actions;
@@ -9,6 +15,9 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Paladin
 {
+    using Styx;
+
+    using global::CLU.Managers;
 
     class Protection : RotationBase
     {
@@ -23,7 +32,7 @@ namespace CLU.Classes.Paladin
         {
             get
             {
-                return "1";
+                return "$Rev$";
             }
         }
 
@@ -65,7 +74,7 @@ This Rotation will:
     ==> Avenging Wrath & Lifeblood
 3. Seal of Truth & Seal of Truth swapping for low mana 
 NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagradt changes that.
-----------------------------------------------------------------------";
+----------------------------------------------------------------------" + TalentManager.HasGlyph("Consecration");
             }
         }
 
@@ -112,7 +121,8 @@ NOTE: PvP uses single target rotation - It's not designed for PvP use until Dagr
                            Spell.CastSpell("Avenger's Shield",            ret => true, "Avengers Shield"),
                            Spell.CastSpell("Hammer of Wrath",             ret => Me.CurrentTarget != null && Me.CurrentTarget.HealthPercent < 20, "Hammer of Wrath"),
                            Spell.CastSpell("Execution Sentence",          ret => Me.CurrentTarget != null && Unit.IsTargetWorthy(Me.CurrentTarget), "Execution Sentence"),
-                           Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > CLUSettings.Instance.Paladin.ConsecrationManaPercent && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.ConsecrationCount, "Consecration"),
+                           Spell.CastAreaSpell("Consecration", 10, true, CLUSettings.Instance.Paladin.ConsecrationCount, 0.0, 0.0, ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > CLUSettings.Instance.Paladin.ConsecrationManaPercent && TalentManager.HasGlyph("Consecration"), "Consecration (Targeted)"),
+                           Spell.CastSpell("Consecration",                ret => Me.CurrentTarget != null && !BossList.IgnoreAoE.Contains(Unit.CurrentTargetEntry) && Me.ManaPercent > CLUSettings.Instance.Paladin.ConsecrationManaPercent && !Me.IsMoving && !Me.CurrentTarget.IsMoving && Me.IsWithinMeleeRange && Unit.EnemyUnits.Count() >= CLUSettings.Instance.Paladin.ConsecrationCount && !TalentManager.HasGlyph("Consecration"), "Consecration"),
                            Spell.CastSpell("Holy Wrath",                  ret => true, "Holy Wrath"),
                            Buff.CastBuff("Divine Plea",                   ret => Me.ManaPercent < 20 || Me.CurrentHolyPower < 3, "Divine Plea"));
             }

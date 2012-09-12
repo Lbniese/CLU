@@ -4,6 +4,7 @@
 
 namespace CLU.Managers
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -134,25 +135,25 @@ namespace CLU.Managers
                     }
                 }
 
-                
-                
 
-                //Glyphs.Clear();
 
-                //var glyphCount = Lua.GetReturnVal<int>("return GetNumGlyphSockets()", 0);
 
-                //if (glyphCount != 0)
-                //{
-                //    for (int i = 1; i <= glyphCount; i++)
-                //    {
-                //        List<string> glyphInfo = Lua.GetReturnValues(String.Format("return GetGlyphSocketInfo({0})", i));
+                Glyphs.Clear();
 
-                //        if (glyphInfo != null && glyphInfo[3] != "nil" && !string.IsNullOrEmpty(glyphInfo[3]))
-                //        {
-                //            Glyphs.Add(WoWSpell.FromId(int.Parse(glyphInfo[3])).Name.Replace("Glyph of ", ""));
-                //        }
-                //    }
-                //}
+                var glyphCount = Lua.GetReturnVal<int>("return GetNumGlyphSockets()", 0);
+
+                if (glyphCount != 0)
+                {
+                    for (int i = 1; i <= glyphCount; i++)
+                    {
+                        List<string> glyphInfo = Lua.GetReturnValues(String.Format("return GetGlyphSocketInfo({0})", i));
+
+                        if (glyphInfo != null && glyphInfo[3] != "nil" && !string.IsNullOrEmpty(glyphInfo[3]))
+                        {
+                            Glyphs.Add(WoWSpell.FromId(int.Parse(glyphInfo[3])).Name.Replace("Glyph of ", ""));
+                        }
+                    }
+                }
             }
 
         }
