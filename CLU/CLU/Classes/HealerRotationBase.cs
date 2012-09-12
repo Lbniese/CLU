@@ -125,5 +125,13 @@ namespace CLU.Classes
                 return Me.CurrentTarget != null && Spell.SpellCooldown("Divine Favor").TotalSeconds < 0.5 || Spell.SpellCooldown("Guardian of Ancient Kings").TotalSeconds < 0.5 || Spell.SpellCooldown("Avenging Wrath").TotalSeconds < 0.5;
             }
         }
+
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
     }
 }

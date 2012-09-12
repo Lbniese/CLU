@@ -24,6 +24,14 @@ namespace CLU.Classes.Deathknight
             }
         }
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get {

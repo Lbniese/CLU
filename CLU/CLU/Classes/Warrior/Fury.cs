@@ -20,6 +20,14 @@ namespace CLU.Classes.Warrior
             get { return "Fury Warrior"; }
         }
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get { return "Bloodthirst"; }

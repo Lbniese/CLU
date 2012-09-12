@@ -400,7 +400,7 @@ namespace CLU
             Log(" Greetings, level {0} user!", Me.Level);
             Log(" I am CLU.");
             Log(" I will create the perfect system for you.");
-            Log(" I suggest we use the " + rb.Name + " rotation.");
+            Log(" I suggest we use the " + rb.Name + " rotation. Revision: " + rb.Revision);
             Log(" as I know you have " + rb.KeySpell);
             Log(" BotBase: {0}  ({1})", BotManager.Current.Name, BotChecker.SupportedBotBase() ? "Supported" : "Currently Not Supported");
             Log(rb.Help);

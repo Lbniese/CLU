@@ -16,7 +16,9 @@ namespace CLU.Classes
 			get { return StyxWoW.Me.Pet; }
 		}
 
-		public abstract string KeySpell { get; }
+	    public abstract string Revision { get; }
+
+	    public abstract string KeySpell { get; }
 
 		public abstract Composite SingleRotation { get; }
 

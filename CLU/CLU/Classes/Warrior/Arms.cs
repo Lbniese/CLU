@@ -18,6 +18,14 @@ namespace CLU.Classes.Warrior
             get { return "Arms Warrior"; }
         }
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get { return "Mortal Strike"; }

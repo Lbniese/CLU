@@ -23,6 +23,14 @@ namespace CLU.Classes.Rogue
 
         // public static readonly HealerBase Healer = HealerBase.Instance;
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get {

@@ -52,6 +52,14 @@ Credits to Weischbier, because he owns the buisness and I want him to have my ba
             }
         }
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get {

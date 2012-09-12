@@ -31,6 +31,14 @@ namespace CLU.Classes.Rogue
             }
         }
 
+        public override string Revision
+        {
+            get
+            {
+                return "1";
+            }
+        }
+
         public override string KeySpell
         {
             get { return "Mutilate"; }

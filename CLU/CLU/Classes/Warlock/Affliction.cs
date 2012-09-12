@@ -1,7 +1,7 @@
 ﻿using CLU.Helpers;
 using CommonBehaviors.Actions;
 using Styx.TreeSharp;
-using CLU.Lists;
+using Styx.WoWInternals;
 using CLU.Settings;
 using CLU.Base;
 using CLU.Managers;
@@ -9,9 +9,7 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Warlock
 {
-    using System.Linq;
 
-    using Styx.WoWInternals;
 
     class Affliction : RotationBase
     {
@@ -19,6 +17,14 @@ namespace CLU.Classes.Warlock
         {
             get {
                 return "Affliction Warlock";
+            }
+        }
+
+        public override string Revision
+        {
+            get
+            {
+                return "1";
             }
         }
 
