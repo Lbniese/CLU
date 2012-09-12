@@ -158,10 +158,10 @@ namespace CLU.Classes.DeathKnight
                         Spell.CastSpell("Dark Transformation", ret => true, "Dark Transformation"),
                         //L	0.09	empower_rune_weapon,if=target.time_to_die<=60&buff.mogu_power_potion.up
 
-                        //necrotic_strike,if=base_rotation.disabled&unholy=2&runic_power<90
-                        Spell.CastSpell("Necrotic Strike", ret => !Macro.rotationSwap && StyxWoW.Me.UnholyRuneCount == 2 && StyxWoW.Me.CurrentRunicPower < 90, "Necrotic Strike"),
+                        //necrotic_strike,if=base_rotation.disabled
+                        Spell.CastSpell("Necrotic Strike", ret => !Macro.rotationSwap, "Necrotic Strike"),
                         //scourge_strike,if=base_rotation.enabled&unholy=2&runic_power<90
-                        Spell.CastSpell("Scourge Strike", ret => Macro.rotationSwap && StyxWoW.Me.UnholyRuneCount == 2 && StyxWoW.Me.CurrentRunicPower < 90, "Scourge Strike"),
+                        Spell.CastSpell("Scourge Strike", ret => StyxWoW.Me.UnholyRuneCount == 2 && StyxWoW.Me.CurrentRunicPower < 90, "Scourge Strike"),
                         //festering_strike,if=blood=2&frost=2&runic_power<90
                         Spell.CastSpell("Festering Strike", ret => StyxWoW.Me.BloodRuneCount == 2 && StyxWoW.Me.FrostRuneCount == 2 && StyxWoW.Me.CurrentRunicPower < 90, "Festering Strike"),
                         //death_coil,if=runic_power>90
@@ -172,8 +172,8 @@ namespace CLU.Classes.DeathKnight
                         Spell.CastSpell("Blood Tap", ret => SpellManager.HasSpell("Blood Tap") && Buff.PlayerCountBuff("Blood Charge") >= 5, "Blood Tap"),
                         //necrotic_strike,if=base_rotation.disabled
                         Spell.CastSpell("Necrotic Strike", ret => !Macro.rotationSwap, "Necrotic Strike"),
-                        //scourge_strike,if=base_rotation.enabled
-                        Spell.CastSpell("Scourge Strike", ret => Macro.rotationSwap, "Scourge Strike"),
+                        //scourge_strike
+                        Spell.CastSpell("Scourge Strike", ret => true, "Scourge Strike"),
                         //festering_strike
                         Spell.CastSpell("Festering Strike", ret => true, "Festering Strike"),
                         //death_coil,if=cooldown.summon_gargoyle.remains>8
