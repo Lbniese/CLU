@@ -1,8 +1,8 @@
-//$Author$
-//$Date$
-//$Id$
-//$HeadURL$
-//$Revision$
+// $Author$
+// $Date$
+// $Id$
+// $HeadURL$
+// $Revision$
 
 using System.Linq;
 using Styx.TreeSharp;
@@ -15,8 +15,6 @@ using Rest = CLU.Base.Rest;
 
 namespace CLU.Classes.Paladin
 {
-    using Styx;
-
     using global::CLU.Managers;
 
     class Protection : RotationBase
