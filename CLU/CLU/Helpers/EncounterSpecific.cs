@@ -40,14 +40,14 @@ namespace CLU.Helpers
         /// <returns>true or false</returns>
         public static bool IsMorchokStomp()
         {
-            return
-                ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
-                    u => u != null && u.IsAlive &&
-                    u.Guid != Me.Guid &&
-                    u.IsHostile &&
-                    u.IsCasting &&
-                    u.CastingSpell.Name == "Stomp" &&
-                    u.Name == "Morchok");
+            return false;
+            //ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
+            //    u => u != null && u.IsAlive &&
+            //    u.Guid != Me.Guid &&
+            //    u.IsHostile &&
+            //    u.IsCasting &&
+            //    u.CastingSpell.Name == "Stomp" &&
+            //    u.Name == "Morchok");
         }
 
         /// <summary>
@@ -56,14 +56,14 @@ namespace CLU.Helpers
         /// <returns>true or false</returns>
         private static bool IsHourofTwilight()
         {
-            return
-                ObjectManager.GetObjectsOfType<WoWUnit>(true, true).Any(
-                    u => u != null && u.IsAlive &&
-                    u.Guid != Me.Guid &&
-                    u.IsHostile &&
-                    u.IsCasting &&
-                    u.CastingSpell.Name == "Hour of Twilight" &&
-                    u.CurrentCastTimeLeft.TotalSeconds <= 2);
+            return false;
+            //ObjectManager.GetObjectsOfType<WoWUnit>(true, true).Any(
+            //    u => u != null && u.IsAlive &&
+            //    u.Guid != Me.Guid &&
+            //    u.IsHostile &&
+            //    u.IsCasting &&
+            //    u.CastingSpell.Name == "Hour of Twilight" &&
+            //    u.CurrentCastTimeLeft.TotalSeconds <= 2);
         }
 
         /// <summary>
@@ -72,12 +72,12 @@ namespace CLU.Helpers
         /// <returns>true or false</returns>
         public static bool IsUltraxion()
         {
-            return
-                ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
-                    u => u != null && u.IsAlive &&
-                    u.Guid != Me.Guid &&
-                    u.IsHostile &&
-                    u.Name == "Ultraxion");
+            return false;
+            //ObjectManager.GetObjectsOfType<WoWUnit>(true, false).Any(
+            //    u => u != null && u.IsAlive &&
+            //    u.Guid != Me.Guid &&
+            //    u.IsHostile &&
+            //    u.Name == "Ultraxion");
         }
 
         /// <summary>
